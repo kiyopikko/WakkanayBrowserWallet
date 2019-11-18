@@ -25,7 +25,7 @@ const Layout = (props) => {
         *:before {
           margin: 0;
           padding: 0;
-          box-sizing: inherit;
+          box-sizing: border-box;
         }
         body {
           box-sizing: border-box;
@@ -35,13 +35,14 @@ const Layout = (props) => {
       <style jsx>{`
         .back-ground {
           display: flex;
-          height: 720px;
-          border: solid 2px lightgray;
+          height: 592px;
+          width: 1058px
           border-right: none;
-          margin: 0px 24px;
+          margin: 0px 32px;
+          border: solid 2px lightgray;
         }
         .main-display-background {
-          width: calc(100% - 320px);
+          width: calc(100% - 240px);
           display: flex;
           flex-direction: column;
           border-left: solid 2px lightgray;

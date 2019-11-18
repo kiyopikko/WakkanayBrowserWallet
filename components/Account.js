@@ -1,4 +1,9 @@
+//Font Awesome Import
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEdit, faAlignJustify } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+library.add(faEdit, faAlignJustify)
+
 
 const AccountInfo = () => {
   return (
@@ -23,18 +28,18 @@ const AccountInfo = () => {
       </div>
       <style jsx>{`
       .account-info {
-        width: 320px;
+        width: 280px;
         display: flex;
         justify-content:center;
         align-items: center;
       }
       .account-info-box {
-        width: 240px;
-        height:620px;
-        border: solid 2px lightgray;
+        width: 280px;
+        height:100%;
         display: flex;
         flex-direction: column;
         align-items:center;
+        background-color: #c0d3ff;
       }
       .user-info-bar {
         display: flex;
@@ -66,7 +71,8 @@ const AccountInfo = () => {
         font-weight: 500;
       }
       .account-qr-code {
-        border: solid 1px lightgray;
+        background-color: white;
+        border: solid 1px gray;
         width: 180px;
         height: 180px;
         margin: 24px 0px;
@@ -95,9 +101,10 @@ const AccountInfo = () => {
       }
       .deposit-button, .withdraw-button {
         padding: 8px;
-        border: solid lightgray 2px;
+        border: solid gray 2px;
         width: 96px;
         text-align: center;
+        background-color: white;
       }
       .deposit, .withdraw {
         font-size: smaller;

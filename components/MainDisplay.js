@@ -14,11 +14,8 @@ const MainDisplay = (props) => {
           border-right: solid 2px lightgray;
         }
         .pages {
-          flex: 3;
+          width: 600px;
           border-right: solid 2px lightgray;
-        }
-        .block-explorer-display {
-          flex: 1;
         }
       `}</style>
     </div>

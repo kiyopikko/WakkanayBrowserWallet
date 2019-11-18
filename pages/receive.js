@@ -1,9 +1,9 @@
 import Layout from '../components/Layout'
 
-export default function Payment() {
+export default function Receive() {
   return (
     <Layout>
-      <p>This is the payment page</p>
+      <p>This is the receive page</p>
     </Layout>
   )
 }
