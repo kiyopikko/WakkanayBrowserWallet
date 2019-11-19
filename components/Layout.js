@@ -36,7 +36,7 @@ const Layout = (props) => {
         .back-ground {
           display: flex;
           height: 592px;
-          width: 1058px
+          width: 1232px;
           border-right: none;
           margin: 0px 32px;
           border: solid 2px lightgray;

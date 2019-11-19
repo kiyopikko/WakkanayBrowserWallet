@@ -6,17 +6,20 @@ const Tabs = () => {
     <div>
       <div className="tabs">
         <div className="tab">
+          <Link href="./home"><a className="tab-item">Home</a></Link>
+        </div>
+        <div className="tab">
           <Dropdown buttonName="Payment" items={[
           {name: "Send", href: "/send"},
-          {name: "ReceiveRequest", href: "/receive"}]} />
+          {name: "Receive Request", href: "/receive"}]} />
         </div>
         <div className="tab">
           <Dropdown buttonName="Exchange" items={[
           {name:"Order Request", href:"/order_request"},
-          {name: "Order Take", href:"order_take"}]} />
+          {name: "Order Book", href:"order_book"}]} />
         </div>
         <div className="tab">
-          <Dropdown buttonName="Payment" items={[
+          <Dropdown buttonName="NFT Collectibles" items={[
             {name: "Collection", href: "/nft_collection"},
             {name: "Trade", href: "/nft_trade"}]} />
         </div>
@@ -34,6 +37,7 @@ const Tabs = () => {
         align-items: center;
         border-right: solid 2px lightgray;
         background-color: #c0d3ff;
+        width: 150px;
       }
 
       .tab.block-explorer {
@@ -41,9 +45,11 @@ const Tabs = () => {
       }
 
       .tab-item {
-        font-size: large;
+        font-size: 15px;
         font-weight: 680;
         text-align: center;
+        text-decoration: none;
+        color: #693997;
       }
       `}</style>
     </div>

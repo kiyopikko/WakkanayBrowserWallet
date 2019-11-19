@@ -15,12 +15,12 @@ const Dropdown = ({ buttonName, items }) => {
         <style jsx>{`
           .dropdown {
             position: relative;
-            width: 198px;
+            width: 150px;
             height: 100%;
           }
 
           .dropdown-button {
-            font-size: large;
+            font-size: 15px;
             font-weight: 680;
             display: flex;
             justify-content:center;
@@ -28,6 +28,7 @@ const Dropdown = ({ buttonName, items }) => {
             width: 100%;
             height: 100%;
             cursor: pointer;
+            color: #693997;
           }
 
           .dropdown:hover .dropdown-content {
@@ -60,8 +61,9 @@ const Dropdown = ({ buttonName, items }) => {
 
           .dropdown-item a {
             padding: 12px;
-            font-size: large;
+            font-size: 15px;
             font-weight: 680;
+            text-decoration: none;
           }
         `}</style>
       </div>
