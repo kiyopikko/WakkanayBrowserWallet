@@ -38,7 +38,7 @@ const Layout = (props) => {
           height: 592px;
           width: 1232px;
           border-right: none;
-          margin: 0px 32px;
+          margin: 0px 36px;
           border: solid 2px lightgray;
         }
         .main-display-background {
@@ -49,6 +49,7 @@ const Layout = (props) => {
         }
         footer {
           padding: 20px;
+          width: 1252px;
         }
         footer > h4 {
           text-align: center;

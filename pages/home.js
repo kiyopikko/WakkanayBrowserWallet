@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import Link from 'next/link'
 
 //Font Awesome Import
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -19,8 +20,8 @@ export default function Home() {
             </div>
           </div>
         <div className="send-receive-buttons">
-          <div className="send-button"><a className="send">Send</a></div>
-          <div className="receive-button"><a className="receive">Receive</a></div>
+          <div className="send-button"><Link href="./send"><a className="send">Send</a></Link></div>
+          <div className="receive-button"><Link href="./receive"><a className="receive">Receive</a></Link></div>
         </div>
       </div>
       <div className="transaction-history">
@@ -41,92 +42,94 @@ export default function Home() {
           </li>
         </div>
       </div>
-        <style jsx>{`
-        .balance-box {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        .your-balance-title {
-          font-weight: 680;
-          font-size: x-large;
-          margin-top: 24px;
-        }
-        .ethereum-logo {
-          width:48px;
-          margin-right: 16px;
-        }
-        .balance-board {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .total-balance-number {
-          font-size: 52px;
-          font-weight: 650;
-        }
-        .total-balance-unit {
-          font-size: 30px;
-          font-weight: 650;
-          margin-left: 8px;
-        }
-        .balance-in-usd {
-          color: darkgray;
-          font-size:18px;
-          font-weight: 650;
-        }
+      <style jsx>{`
+      .balance-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .your-balance-title {
+        font-weight: 680;
+        font-size: x-large;
+        margin-top: 24px;
+      }
+      .ethereum-logo {
+        width:48px;
+        margin-right: 16px;
+      }
+      .balance-board {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .total-balance-number {
+        font-size: 52px;
+        font-weight: 650;
+      }
+      .total-balance-unit {
+        font-size: 30px;
+        font-weight: 650;
+        margin-left: 8px;
+      }
+      .balance-in-usd {
+        color: darkgray;
+        font-size:18px;
+        font-weight: 650;
+      }
 
-        .send-receive-buttons {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          height: 40px;
-          width: 200px;
-          margin-top: 12px;
-        }
-        .send-button, .receive-button {
-          padding: 6px 4px;
-          border: solid gray 2px;
-          width: 96px;
-          text-align: center;
-          background-color: white;
-        }
-        .send, .receive {
-          font-size: smaller;
-          font-weight: 680;
-        }
+      .send-receive-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 40px;
+        width: 200px;
+        margin-top: 12px;
+        text
+      }
+      .send-button, .receive-button {
+        padding: 6px 4px;
+        border: solid gray 2px;
+        width: 96px;
+        text-align: center;
+        background-color: #FCF7F5;
+      }
+      .send, .receive {
+        font-size: smaller;
+        font-weight: 680;
+        text-decoration: none;
+      }
 
-        .transaction-history {
-          margin: 20px 20px;
-        }
+      .transaction-history {
+        margin: 20px 20px;
+      }
 
-        .transaction-hisotry-title {
-          font-weight: 680;
-        }
-        .transaction-date {
-          margin-top: 8px;
-        }
+      .transaction-hisotry-title {
+        font-weight: 680;
+      }
+      .transaction-date {
+        margin-top: 8px;
+      }
 
-        .transaction {
-          list-style-type: none;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .amount, .time {
-          margin-right: 8px;
-        }
-        .amount-unit {
-          margin-right: 40px;
-        }
-        .ampm {
-          margin-right: 16px;
-        }
-        .caret-down {
-          font-size:16px;
-        }
-        `}</style>
+      .transaction {
+        list-style-type: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .amount, .time {
+        margin-right: 8px;
+      }
+      .amount-unit {
+        margin-right: 40px;
+      }
+      .ampm {
+        margin-right: 16px;
+      }
+      .caret-down {
+        font-size:16px;
+      }
+      `}</style>
     </Layout>
   )
 }
