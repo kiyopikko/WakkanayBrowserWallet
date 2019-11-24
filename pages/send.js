@@ -82,6 +82,7 @@ export default function Send() {
           margin: 24px;
           background-color: #FCF7F5;
           border: solid lightgray 2px;
+          border-radius: 6px;
         }
         .send-eth-title-box {
           display: flex;
@@ -107,6 +108,7 @@ export default function Send() {
           padding: 4px;
           border: solid 1px lightgray;
           font-size: 16px;
+          border-radius: 6px;
         }
         .address-input {
           width: 400px;
@@ -130,6 +132,7 @@ export default function Send() {
           width: 104px;
           text-align: center;
           background-color: white;
+          border-radius: 6px;
         }
         .cancel-button {
           margin-right: 8px;

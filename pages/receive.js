@@ -19,22 +19,15 @@ export default function Receive() {
           </div>
         </div>
       </div>
-      <div className="send-section">
-        <div className="send-eth-title-box">
-          <div className="send-eth">Request to receive ETH</div>
-          <div className="send-icon"><FontAwesomeIcon icon="sign-in-alt" /></div>
+      <div className="receive-section">
+        <div className="receive-eth-title-box">
+          <div className="receive-eth">Request to receive ETH</div>
+          <div className="receive-icon"><FontAwesomeIcon icon="sign-in-alt" /></div>
         </div>
         <div className="address-box">
-          <div className="address-tag"><a className="address">Address:</a></div>
-          <input className="address-input"/>
-        </div>
-        <div className="amount-box">
-          <div className="amount-tag"><a className="amount">Amount:</a></div>
-          <input className="amount-input" type="number"/><span className="sent-amount-unit">ETH</span><span className="sent-amount-in-usd">(9.33USD)</span>
-        </div>
-        <div className="cancel-confirm-buttons">
-          <div className="cancel-button"><a className="cancel">Cancel</a></div>
-          <div className="confirm-button"><a className="confirm">Confirm</a></div>
+          <div className="address-title">Your Plasma Wallet Address:</div>
+          <div className="address">0x51535cA2E01985a7b4D6412958B438aa23111BaC</div>
+          <div className="qr-code-box"><img className="qr-code" src="qr-code.png" alt="Your QR Code" /></div>
         </div>
       </div>
 
@@ -74,72 +67,54 @@ export default function Receive() {
           font-size:18px;
           font-weight: 650;
         }
-        .send-section {
+        .receive-section {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          padding: 24px;
+          padding: 16px 24px;
           margin: 24px;
           background-color: #FCF7F5;
           border: solid lightgray 2px;
+          border-radius: 6px;
         }
-        .send-eth-title-box {
+        .receive-eth-title-box {
           display: flex;
           justify-content: flex-start;
           align-items: center;
         }
-        .send-eth {
+        .receive-eth {
           font-size: 22px;
           font-weight: 680;
         }
-        .send-icon {
+        .receive-icon {
           font-size: 18px;
           margin-left: 8px;
         }
-        .address-box, .amount-box {
-          margin: 8px 0px;
-        }
-        .address, .amount {
-          font-size: 18px;
-          font-weight: 650;
-        }
-        .address-input, .amount-input {
-          padding: 4px;
-          border: solid 1px lightgray;
-          font-size: 16px;
-        }
-        .address-input {
-          width: 400px;
-        }
-        .sent-amount-unit {
-          font-size: 18px;
-          font-weight: 650;
-          margin: 0px 6px;
-        }
-        .cancel-confirm-buttons {
+        .address-box {
           display: flex;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
-          height: 40px;
-          margin-top: 12px;
-          width: inherit;
         }
-        .cancel-button, .confirm-button {
-          padding: 3px 4px;
-          border: solid gray 2px;
-          width: 104px;
+        .address-title {
+          font-size: 18px;
+          font-weight: 500;
           text-align: center;
-          background-color: white;
+          margin-top: 8px;
+          margin-bottom: 2px;
         }
-        .cancel-button {
-          margin-right: 8px;
+        .address {
+          font-size: 18px;
+          font-weight: 600;
+          text-align: center;
+          color: #0091FF;
         }
-        .confirm-buttom {
-          margin-left: 8px;
+        .qr-code-box {
+          width: 180px;
+          margin-top: 16px
         }
-        .cancel, .confirm {
-          font-size: smaller;
-          font-weight: 680;
+        .qr-code {
+          width: 180px;
         }
       `}</style>
     </Layout>

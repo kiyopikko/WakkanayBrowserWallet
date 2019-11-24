@@ -10,8 +10,7 @@ const MainDisplay = (props) => {
       <style jsx>{`
         .main-display {
           display: flex;
-          height: 100%;
-          border-right: solid 2px lightgray;
+          height: 100%;s
         }
         .pages {
           width: 600px;

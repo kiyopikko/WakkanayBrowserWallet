@@ -27,7 +27,7 @@ const Tabs = () => {
             {name: "Collection", href: "/nft_collection"},
             {name: "Trade", href: "/nft_trade"}]} />
         </div>
-        <div className="tab block-explorer"><a className="tab-item">L2 Block Explorer</a></div>
+        <div className="block-explorer-tab"><a className="tab-item">L2 Block Explorer</a></div>
       </div>
       <style jsx>{`
       .tabs {
@@ -47,9 +47,12 @@ const Tabs = () => {
         cursor: pointer;
       }
 
-      .tab.block-explorer {
+      .block-explorer-tab {
         width: calc(100% - 600px);
         background-color: #FCF7F5;
+        display: flex;
+        justify-content:center;
+        align-items: center;
       }
 
       .tab-item {
