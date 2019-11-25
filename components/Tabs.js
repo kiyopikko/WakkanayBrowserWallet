@@ -5,7 +5,6 @@ import classNames from 'classnames'
 
 const Tabs = () => {
   const router = useRouter()
-  console.log(router.route === '/home')
   return (
     <div>
       <div className="tabs">

@@ -7,7 +7,20 @@ library.add(faClipboard)
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ReactTooltip from 'react-tooltip'
 
-const AccountInfo = () => {
+// import mock light client
+// import LightClient from 'wakkanay-plasma-light-client'
+// const client = new LightClient()
+// client.init()
+
+// Redux
+import { connect } from 'react-redux'
+
+const shortenAddress = address => {
+  const former = address.slice(0, 7)
+  const latter = address.slice(address.length - 5, address.length)
+  return `${former}...${latter}`
+}
+const AccountInfo = props => {
   return (
     <div className="account-info">
       <div className="account-info-box">
@@ -19,9 +32,11 @@ const AccountInfo = () => {
         <div className="user-info-bar">
           <span className="account-name">yuriko.eth</span>
         </div>
-        <CopyToClipboard text="0x5153…1BaC" onCopy={console.log}>
+        <CopyToClipboard text={props.address}>
           <div className="account-address-set" data-tip="React-tooltip">
-            <div className="account-address">0x5153…1BaC</div>
+            <div className="account-address">
+              {shortenAddress(props.address)}
+            </div>
             <div className="copy-button">
               <FontAwesomeIcon icon="clipboard" />
             </div>
@@ -241,4 +256,10 @@ const AccountInfo = () => {
   )
 }
 
-export default AccountInfo
+const mapStateToProps = state => {
+  return {
+    address: state.address
+  }
+}
+
+export default connect(mapStateToProps)(AccountInfo)

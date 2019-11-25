@@ -22,7 +22,8 @@
     "react-dom": "16.11.0",
     "react-redux": "^7.1.3",
     "react-tooltip": "^3.11.1",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "wakkanay-plasma-light-client": "github:cryptoeconomicslab/wakkanay-plasma-light-client"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
