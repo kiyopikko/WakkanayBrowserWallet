@@ -3,7 +3,7 @@ import AccountInfo from './Account'
 import MainDisplay from './MainDisplay'
 import Tabs from './Tabs'
 
-const Layout = (props) => {
+const Layout = props => {
   return (
     <div>
       <Header />
@@ -11,13 +11,11 @@ const Layout = (props) => {
         <AccountInfo />
         <div className="main-display-background">
           <Tabs />
-          <MainDisplay>
-            {props.children}
-          </MainDisplay>
+          <MainDisplay>{props.children}</MainDisplay>
         </div>
       </div>
       <footer>
-        <h4 >Cryptoeconomics Lab Inc.</h4>
+        <h4>Cryptoeconomics Lab Inc.</h4>
       </footer>
       <style>{`
         *,

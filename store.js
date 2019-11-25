@@ -1,4 +1,4 @@
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore } from 'redux'
 
 //Action Creator
 /**
@@ -14,29 +14,26 @@ import { combineReducers, createStore } from "redux";
  */
 
 export const handleDropdown = bool => ({
-  type: "OPEN_DROPDOWN",
+  type: 'OPEN_DROPDOWN',
   payload: {
-    isOpen:bool
+    isOpen: bool
   }
-});
+})
 
 // Reducer
-export function dropdownReducer(state = {isOpen:false}, action) {
+export function dropdownReducer(state = { isOpen: false }, action) {
   switch (action.type) {
-    case "OPEN_DROPDOWN":
-      return {isOpen: action.payload.isOpen};
+    case 'OPEN_DROPDOWN':
+      return { isOpen: action.payload.isOpen }
     default:
-      return state;
+      return state
   }
 }
 
 const reducer = combineReducers({
   dropdown: dropdownReducer
-});
+})
 
-export const initStore = (initialState) => {
-  return createStore(
-    reducer,
-    initialState,
-  )
+export const initStore = initialState => {
+  return createStore(reducer, initialState)
 }

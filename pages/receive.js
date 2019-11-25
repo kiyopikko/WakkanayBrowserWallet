@@ -12,9 +12,14 @@ export default function Receive() {
       <div className="balance-box">
         <div className="your-balance-title">Your Ethereum balance</div>
         <div className="balance-board">
-          <img className="ethereum-logo" src="../ethereum-icon.png" alt="Ethereum Logo"></img>
+          <img
+            className="ethereum-logo"
+            src="../ethereum-icon.png"
+            alt="Ethereum Logo"
+          ></img>
           <div className="total-balance-box">
-            <span className="total-balance-number">2</span><span className="total-balance-unit">ETH</span>
+            <span className="total-balance-number">2</span>
+            <span className="total-balance-unit">ETH</span>
             <div className="balance-in-usd">$370.34 USD</div>
           </div>
         </div>
@@ -22,12 +27,18 @@ export default function Receive() {
       <div className="receive-section">
         <div className="receive-eth-title-box">
           <div className="receive-eth">Request to receive ETH</div>
-          <div className="receive-icon"><FontAwesomeIcon icon="sign-in-alt" /></div>
+          <div className="receive-icon">
+            <FontAwesomeIcon icon="sign-in-alt" />
+          </div>
         </div>
         <div className="address-box">
           <div className="address-title">Your Plasma Wallet Address:</div>
-          <div className="address">0x51535cA2E01985a7b4D6412958B438aa23111BaC</div>
-          <div className="qr-code-box"><img className="qr-code" src="qr-code.png" alt="Your QR Code" /></div>
+          <div className="address">
+            0x51535cA2E01985a7b4D6412958B438aa23111BaC
+          </div>
+          <div className="qr-code-box">
+            <img className="qr-code" src="qr-code.png" alt="Your QR Code" />
+          </div>
         </div>
       </div>
 
@@ -44,7 +55,7 @@ export default function Receive() {
           margin-top: 24px;
         }
         .ethereum-logo {
-          width:48px;
+          width: 48px;
           margin-right: 16px;
         }
         .balance-board {
@@ -64,7 +75,7 @@ export default function Receive() {
         }
         .balance-in-usd {
           color: darkgray;
-          font-size:18px;
+          font-size: 18px;
           font-weight: 650;
         }
         .receive-section {
@@ -73,7 +84,7 @@ export default function Receive() {
           justify-content: center;
           padding: 16px 24px;
           margin: 24px;
-          background-color: #FCF7F5;
+          background-color: #fcf7f5;
           border: solid lightgray 2px;
           border-radius: 6px;
         }
@@ -107,11 +118,11 @@ export default function Receive() {
           font-size: 18px;
           font-weight: 600;
           text-align: center;
-          color: #0091FF;
+          color: #0091ff;
         }
         .qr-code-box {
           width: 180px;
-          margin-top: 16px
+          margin-top: 16px;
         }
         .qr-code {
           width: 180px;

@@ -12,32 +12,49 @@ export default function Home() {
     <Layout>
       <div className="balance-box">
         <div className="your-balance-title">Your Ethereum balance</div>
-          <div className="balance-board">
-            <img className="ethereum-logo" src="../ethereum-icon.png" alt="Ethereum Logo"></img>
-            <div className="total-balance-box">
-              <span className="total-balance-number">2</span><span className="total-balance-unit">ETH</span>
-              <div className="balance-in-usd">$370.34 USD</div>
-            </div>
+        <div className="balance-board">
+          <img
+            className="ethereum-logo"
+            src="../ethereum-icon.png"
+            alt="Ethereum Logo"
+          ></img>
+          <div className="total-balance-box">
+            <span className="total-balance-number">2</span>
+            <span className="total-balance-unit">ETH</span>
+            <div className="balance-in-usd">$370.34 USD</div>
           </div>
+        </div>
         <div className="send-receive-buttons">
-          <div className="send-button"><Link href="./send"><a className="send">Send</a></Link></div>
-          <div className="receive-button"><Link href="./receive"><a className="receive">Receive</a></Link></div>
+          <div className="send-button">
+            <Link href="./send">
+              <a className="send">Send</a>
+            </Link>
+          </div>
+          <div className="receive-button">
+            <Link href="./receive">
+              <a className="receive">Receive</a>
+            </Link>
+          </div>
         </div>
       </div>
       <div className="transaction-history">
         <div className="transaction-hisotry-title">Transaction History</div>
         <div className="transaction-date">Nov 13, 2019</div>
-        <hr></hr>
+        <hr />
         <div className="history-container">
           <li className="transaction">
             <div className="transation-right-content">
-            <img className="transaction-type-icon"></img>
-            <a className="amount">0.05</a><a className="amount-unit">ETH</a>
-            <a className="transaction-type">Sent</a>
+              <img className="transaction-type-icon"></img>
+              <a className="amount">0.05</a>
+              <a className="amount-unit">ETH</a>
+              <a className="transaction-type">Sent</a>
             </div>
             <div className="transaction-left-content">
-            <a className="time">5:06</a><a className="ampm">AM</a>
-            <a className="caret-down"><FontAwesomeIcon icon="caret-down" /></a>
+              <a className="time">5:06</a>
+              <a className="ampm">AM</a>
+              <a className="caret-down">
+                <FontAwesomeIcon icon="caret-down" />
+              </a>
             </div>
           </li>
         </div>
