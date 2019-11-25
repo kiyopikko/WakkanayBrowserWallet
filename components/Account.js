@@ -20,6 +20,7 @@ const shortenAddress = address => {
   const latter = address.slice(address.length - 5, address.length)
   return `${former}...${latter}`
 }
+
 const AccountInfo = props => {
   return (
     <div className="account-info">
@@ -55,48 +56,25 @@ const AccountInfo = props => {
             <a className="withdraw">Withdraw</a>
           </div>
         </div>
-        <div className="token-box">
-          <img
-            className="eth-logo"
-            src="../ethereum-icon.png"
-            art="ETH Token Logo"
-          />
-          <div className="token-amount-box">
-            <div className="token-amount-in-crypto-box">
-              <div className="token-amount">2.4797</div>
-              <div className="token-type">ETH</div>
+        {props.balance.map(item => (
+          <div className="token-box" key={item.tokenAddress}>
+            {/* TODO: dynamically get logo image */}
+            <img
+              className="eth-logo"
+              src="../ethereum-icon.png"
+              art="ETH Token Logo"
+            />
+            <div className="token-amount-box">
+              <div className="token-amount-in-crypto-box">
+                <div className="token-amount">{item.amount}</div>
+                <div className="token-type">{item.tokenName.toUpperCase()}</div>
+              </div>
+              {/* TODO: Use API to get usd-amount */}
+              <div className="usd-amount">$432.122USD</div>{' '}
             </div>
-            <div className="usd-amount">$432.122USD</div>
           </div>
-        </div>
-        <div className="token-box">
-          <img
-            className="eth-logo"
-            src="../ethereum-icon.png"
-            art="ETH Token Logo"
-          />
-          <div className="token-amount-box">
-            <div className="token-amount-in-crypto-box">
-              <div className="token-amount">2.4797</div>
-              <div className="token-type">ETH</div>
-            </div>
-            <div className="usd-amount">$432.122USD</div>
-          </div>
-        </div>
-        <div className="token-box">
-          <img
-            className="eth-logo"
-            src="../ethereum-icon.png"
-            art="ETH Token Logo"
-          />
-          <div className="token-amount-box">
-            <div className="token-amount-in-crypto-box">
-              <div className="token-amount">2.4797</div>
-              <div className="token-type">ETH</div>
-            </div>
-            <div className="usd-amount">$432.122USD</div>
-          </div>
-        </div>
+        ))}
+
         <div className="token-box">
           <div className="add-new-token-text">+ New Token</div>
         </div>
@@ -256,10 +234,9 @@ const AccountInfo = props => {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    address: state.address
-  }
-}
+const mapStateToProps = state => ({
+  address: state.address,
+  balance: state.balance
+})
 
 export default connect(mapStateToProps)(AccountInfo)

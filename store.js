@@ -20,13 +20,9 @@ export const setAddress = address => ({
   }
 })
 
-export const setBalance = (tokenAddress, tokenName, amount) => ({
+export const setBalance = balance => ({
   type: 'SET_BALANCE',
-  payload: {
-    tokenAddress: tokenAddress,
-    tokenName: tokenName,
-    amount: amount
-  }
+  payload: balance
 })
 
 // Reducer
@@ -43,10 +39,24 @@ export function addressReducer(
   }
 }
 
-export function balanceReducer(state = [], action) {
+export function balanceReducer(
+  state = [
+    {
+      tokenAddress: '0x0000000000000000000000000000000000000000',
+      tokenName: 'eth',
+      amount: 1.2
+    },
+    {
+      tokenAddress: '0x0000000000000000000000000000000000000001',
+      tokenName: 'dai',
+      amount: 204
+    }
+  ],
+  action
+) {
   switch (action.type) {
     case 'SET_BALANCE':
-      return { amount: amount }
+      return action.payload
     default:
       return state
   }
