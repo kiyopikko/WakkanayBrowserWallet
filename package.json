@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint --ext js,jsx pages components",
-    "lint:fix": "eslint --fix --ext js,jsx pages components"
+    "dev": "next dev src",
+    "build": "next build src",
+    "start": "next start src",
+    "lint": "eslint --ext js,jsx src",
+    "lint:fix": "eslint --fix --ext js,jsx src"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
