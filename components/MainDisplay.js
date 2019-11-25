@@ -1,6 +1,6 @@
 import BlockExploer from './BlockExplorer'
 
-const MainDisplay = (props) => {
+const MainDisplay = props => {
   return (
     <div className="main-display">
       <div className="pages">{props.children}</div>
@@ -10,7 +10,7 @@ const MainDisplay = (props) => {
       <style jsx>{`
         .main-display {
           display: flex;
-          height: 100%;s
+          height: 100%;
         }
         .pages {
           width: 600px;

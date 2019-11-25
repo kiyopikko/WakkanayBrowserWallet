@@ -12,9 +12,14 @@ export default function Send() {
       <div className="balance-box">
         <div className="your-balance-title">Your Ethereum balance</div>
         <div className="balance-board">
-          <img className="ethereum-logo" src="../ethereum-icon.png" alt="Ethereum Logo"></img>
+          <img
+            className="ethereum-logo"
+            src="../ethereum-icon.png"
+            alt="Ethereum Logo"
+          ></img>
           <div className="total-balance-box">
-            <span className="total-balance-number">2</span><span className="total-balance-unit">ETH</span>
+            <span className="total-balance-number">2</span>
+            <span className="total-balance-unit">ETH</span>
             <div className="balance-in-usd">$370.34 USD</div>
           </div>
         </div>
@@ -22,19 +27,31 @@ export default function Send() {
       <div className="send-section">
         <div className="send-eth-title-box">
           <div className="send-eth">Send ETH</div>
-          <div className="send-icon"><FontAwesomeIcon icon="sign-out-alt" /></div>
+          <div className="send-icon">
+            <FontAwesomeIcon icon="sign-out-alt" />
+          </div>
         </div>
         <div className="address-box">
-          <div className="address-tag"><a className="address">Address:</a></div>
-          <input className="address-input"/>
+          <div className="address-tag">
+            <a className="address">Address:</a>
+          </div>
+          <input className="address-input" />
         </div>
         <div className="amount-box">
-          <div className="amount-tag"><a className="amount">Amount:</a></div>
-          <input className="amount-input" type="number"/><span className="sent-amount-unit">ETH</span><span className="sent-amount-in-usd">(9.33USD)</span>
+          <div className="amount-tag">
+            <a className="amount">Amount:</a>
+          </div>
+          <input className="amount-input" type="number" />
+          <span className="sent-amount-unit">ETH</span>
+          <span className="sent-amount-in-usd">(9.33USD)</span>
         </div>
         <div className="cancel-confirm-buttons">
-          <div className="cancel-button"><a className="cancel">Cancel</a></div>
-          <div className="confirm-button"><a className="confirm">Confirm</a></div>
+          <div className="cancel-button">
+            <a className="cancel">Cancel</a>
+          </div>
+          <div className="confirm-button">
+            <a className="confirm">Confirm</a>
+          </div>
         </div>
       </div>
 
@@ -51,7 +68,7 @@ export default function Send() {
           margin-top: 24px;
         }
         .ethereum-logo {
-          width:48px;
+          width: 48px;
           margin-right: 16px;
         }
         .balance-board {
@@ -71,7 +88,7 @@ export default function Send() {
         }
         .balance-in-usd {
           color: darkgray;
-          font-size:18px;
+          font-size: 18px;
           font-weight: 650;
         }
         .send-section {
@@ -80,7 +97,7 @@ export default function Send() {
           justify-content: center;
           padding: 24px;
           margin: 24px;
-          background-color: #FCF7F5;
+          background-color: #fcf7f5;
           border: solid lightgray 2px;
           border-radius: 6px;
         }
@@ -97,14 +114,17 @@ export default function Send() {
           font-size: 18px;
           margin-left: 8px;
         }
-        .address-box, .amount-box {
+        .address-box,
+        .amount-box {
           margin: 8px 0px;
         }
-        .address, .amount {
+        .address,
+        .amount {
           font-size: 18px;
           font-weight: 650;
         }
-        .address-input, .amount-input {
+        .address-input,
+        .amount-input {
           padding: 4px;
           border: solid 1px lightgray;
           font-size: 16px;
@@ -126,7 +146,8 @@ export default function Send() {
           margin-top: 12px;
           width: inherit;
         }
-        .cancel-button, .confirm-button {
+        .cancel-button,
+        .confirm-button {
           padding: 3px 4px;
           border: solid gray 2px;
           width: 104px;
@@ -140,7 +161,8 @@ export default function Send() {
         .confirm-buttom {
           margin-left: 8px;
         }
-        .cancel, .confirm {
+        .cancel,
+        .confirm {
           font-size: smaller;
           font-weight: 680;
         }
