@@ -1,13 +1,17 @@
+import Layout from '../components/Layout'
+
 import React from 'react'
 import Head from 'next/head'
 
-const Home = () => (
-  <div>
+const Wallet = () => (
+  <Layout>
     <Head>
-      <title>Home</title>
+      <title>L2 Browser Wallet</title>
     </Head>
-    <style jsx>{``}</style>
-  </div>
+  </Layout>
 )
 
-export default Home
+export default Wallet
+
+
+
