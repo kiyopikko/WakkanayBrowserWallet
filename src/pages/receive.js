@@ -6,7 +6,13 @@ import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faSignInAlt)
 
-export default function Receive() {
+// Redux
+import { connect } from 'react-redux'
+
+// QR code
+import QRCode from 'qrcode.react'
+
+const Receive = props => {
   return (
     <Layout>
       <div className="balance-box">
@@ -33,11 +39,15 @@ export default function Receive() {
         </div>
         <div className="address-box">
           <div className="address-title">Your Plasma Wallet Address:</div>
-          <div className="address">
-            0x51535cA2E01985a7b4D6412958B438aa23111BaC
-          </div>
+          <div className="address">{props.address}</div>
           <div className="qr-code-box">
-            <img className="qr-code" src="qr-code.png" alt="Your QR Code" />
+            <QRCode
+              className="qr-code"
+              value={props.address}
+              alt="Your QR Code"
+              size={140}
+              includeMargin={true}
+            />
           </div>
         </div>
       </div>
@@ -122,12 +132,21 @@ export default function Receive() {
         }
         .qr-code-box {
           width: 180px;
-          margin-top: 16px;
+          margin-top: 12px;
         }
-        .qr-code {
-          width: 180px;
-        }
+        // .qr-code {
+        //   size: 136;
+        //   bgcolor: white;
+        //   includemargin: true;
+        // }
       `}</style>
     </Layout>
   )
 }
+
+const mapStateToProps = state => ({
+  address: state.address,
+  balance: state.balance
+})
+
+export default connect(mapStateToProps)(Receive)
