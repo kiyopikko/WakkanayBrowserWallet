@@ -1,15 +1,11 @@
 import Layout from '../components/Layout'
+import { connect } from 'react-redux'
 
-//react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faSignInAlt)
 
-// Redux
-import { connect } from 'react-redux'
-
-// QR code
 import QRCode from 'qrcode.react'
 
 const Receive = props => {
@@ -134,11 +130,6 @@ const Receive = props => {
           width: 180px;
           margin-top: 12px;
         }
-        // .qr-code {
-        //   size: 136;
-        //   bgcolor: white;
-        //   includemargin: true;
-        // }
       `}</style>
     </Layout>
   )
