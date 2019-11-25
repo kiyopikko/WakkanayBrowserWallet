@@ -1,18 +1,10 @@
-export const setAddress = address => ({
-  type: 'SET_ADDRESS',
-  payload: {
-    address: address
-  }
-})
+import { createAction, createReducer } from '@reduxjs/toolkit'
 
-export function addressReducer(
-  state = '0x0000000000000000000000000000000000000000',
-  action
-) {
-  switch (action.type) {
-    case 'SET_ADDRESS':
-      return { address: action.payload.address }
-    default:
-      return state
+export const setAddress = createAction('SET_ADDRESS')
+
+export const addressReducer = createReducer(
+  '0x0000000000000000000000000000000000000000',
+  {
+    [setAddress]: (state, action) => action.payload
   }
-}
+)

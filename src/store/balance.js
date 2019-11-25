@@ -1,12 +1,9 @@
-export const setBalance = balance => ({
-  type: 'SET_BALANCE',
-  payload: balance
-})
+import { createAction, createReducer } from '@reduxjs/toolkit'
 
-// Reducer
+export const setBalance = createAction('SET_BALANCE')
 
-export function balanceReducer(
-  state = [
+export const balanceReducer = createReducer(
+  [
     {
       tokenAddress: '0x0000000000000000000000000000000000000000',
       tokenName: 'eth',
@@ -18,12 +15,7 @@ export function balanceReducer(
       amount: 204
     }
   ],
-  action
-) {
-  switch (action.type) {
-    case 'SET_BALANCE':
-      return action.payload
-    default:
-      return state
+  {
+    [setBalance]: (state, action) => action.payload
   }
-}
+)
