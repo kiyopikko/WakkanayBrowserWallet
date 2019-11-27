@@ -2,9 +2,9 @@ import Layout from '../components/Layout'
 
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUserPlus, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-library.add(faSignOutAlt)
+library.add(faUserPlus, faPen, faTrash)
 
 import { connect } from 'react-redux'
 import React, { useRef } from 'react'
@@ -14,108 +14,56 @@ import {
   removeAddressList
 } from '../store/address_book_register'
 import { setEditedAddress, setEditedName } from '../store/address_book_edit'
+import AddressListItem from '../components/AddressBook/AddressListItem'
 
 const addressBook = props => {
   const nameInput = useRef('')
   const addressInput = useRef('')
-  const editedName = useRef('')
-  const editedAddress = useRef('')
+  const editedNameRef = useRef('')
+  const editedAddressRef = useRef('')
   return (
     <Layout>
       <div className="address-book-page">
         <div className="address-book-title">Address Book</div>
         <table className="address-book-table">
           <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th> </th>
+            <th className="name-column">Name</th>
+            <th className="address-column">Address</th>
+            <th className="remove-button-column"> </th>
           </tr>
-          {props.addressLists.map(addressList => (
-            <tr key={addressList.address} className="address-list">
-              <td className="name-section">
-                <div className="name">
-                  {addressList.name === props.editedName ? (
-                    <input
-                      placeholder={'name'}
-                      defaultValue={addressList.name}
-                      className="edit-name-input"
-                      type="text"
-                      ref={editedName}
-                    />
-                  ) : (
-                    addressList.name
-                  )}
-                </div>
-                <button
-                  className="edit-name-button"
-                  onClick={() => {
-                    if (props.editedName === addressList.name) {
-                      props.editAddressList({
-                        id: addressList.id,
-                        name: editedName.current.value,
-                        address: addressList.address
-                      })
-                      props.setEditedName(null)
-                    } else {
-                      props.setEditedName(addressList.name)
-                    }
-                  }}
-                >
-                  Edit Name
-                </button>
+          {props.addressLists.length === 0 ? (
+            <tr>
+              <td className="default-name">e.g. Alice</td>
+              <td className="default-address">
+                e.g. 0x0000000000000000000000000000000000000000
               </td>
-              <td className="address-section">
-                <div className="address">
-                  {addressList.address === props.editedAddress ? (
-                    <input
-                      placeholder={'address'}
-                      defaultValue={addressList.address}
-                      className="edit-address-input"
-                      type="text"
-                      ref={editedAddress}
-                    />
-                  ) : (
-                    addressList.address
-                  )}
-                </div>
-                <button
-                  className="edit-address-button"
-                  onClick={() => {
-                    if (props.editedAddress === addressList.address) {
-                      props.editAddressList({
-                        id: addressList.id,
-                        name: addressList.name,
-                        address: editedAddress.current.value
-                      })
-                      props.setEditedAddress(null)
-                    } else {
-                      props.setEditedAddress(addressList.address)
-                    }
-                  }}
-                >
-                  Edit Address
-                </button>
-              </td>
-              <td>
-                <button
-                  className="remove-button"
-                  onClick={() => {
-                    props.removeAddressList(addressList.id)
-                  }}
-                >
-                  Remove
-                </button>
+              <td className="default-remove-button">
+                <FontAwesomeIcon icon="trash" />
               </td>
             </tr>
-          ))}
+          ) : (
+            props.addressLists.map(addressList => (
+              <AddressListItem
+                addressList={addressList}
+                editAddressList={props.editAddressList}
+                setEditedName={props.setEditedName}
+                setEditedAddress={props.setEditedAddress}
+                removeAddressList={props.removeAddressList}
+                editedNameRef={editedNameRef}
+                editedAddressRef={editedAddressRef}
+                editedName={props.editedName}
+                editedAddress={props.editedAddress}
+              />
+            ))
+          )}
         </table>
         <div className="register-section">
           <div className="register-address-title-box">
             <div className="register-new-address">
               Register Frequent Recepitent
             </div>
-            <div className="send-icon">
-              <FontAwesomeIcon icon="sign-out-alt" />
+            <div className="register-icon">
+              <FontAwesomeIcon icon="user-plus" />
             </div>
           </div>
           <div className="name-address-list-box">
@@ -133,18 +81,31 @@ const addressBook = props => {
             </div>
           </div>
           <div className="cancel-register-buttons">
-            <div className="cancel-button">
+            <div
+              className="cancel-button"
+              onClick={() => {
+                return (
+                  (nameInput.current.value = ''),
+                  (addressInput.current.value = '')
+                )
+              }}
+            >
               <a className="cancel">Cancel</a>
             </div>
             <div className="register-button">
               <a
                 className="register"
                 onClick={() => {
-                  props.registerAddressList({
-                    id: `${Date.now()}`,
-                    name: nameInput.current.value,
-                    address: addressInput.current.value
-                  })
+                  if (
+                    nameInput.current.value !== '' &&
+                    addressInput.current.value !== ''
+                  ) {
+                    props.registerAddressList({
+                      id: `${Date.now()}`,
+                      name: nameInput.current.value,
+                      address: addressInput.current.value
+                    })
+                  }
                   return (
                     (nameInput.current.value = ''),
                     (addressInput.current.value = '')
@@ -178,73 +139,37 @@ const addressBook = props => {
           padding: 4px;
           border-spacing: 0px;
         }
-        .address-list {
+        .name-column {
+          min-width: 116px;
+        }
+        .address-column {
+          min-width: 400px;
+        }
+        .remove-button-column {
+          min-width: 30px;
         }
         .address-book-table {
           width: 560px;
           text-align: center;
           margin-top: 12px;
         }
-        .name-section {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
+        .default-name,
+        .default-address {
+          text-align: initial;
+          color: darkgray;
         }
-        .name,
-        .address {
-          font-size: 14px;
-          font-weight: 500;
-        }
-        .edit-name-input {
-          width: 72px;
+        .default-remove-button {
+          width: 20px;
           height: 20px;
-          font-size: 14px;
-          font-weight: 300;
-          padding: 2px;
-        }
-        .edit-address-input {
-          width: 370px;
-          height: 20px;
-          font-size: 14px;
-          font-weight: 300;
-          padding: 2px;
-        }
-        .edit-name-button {
-          width: 72px;
-          margin: 4px;
-          height: 20px;
-          font-size: 12px;
-          font-weight: 500;
-          border-radius: 6px;
-          padding: 2px;
-          cursor: pointer;
-        }
-        .edit-address-button {
-          width: 84px;
-          margin: 4px;
-          height: 20px;
-          font-size: 12px;
-          font-weight: 500;
-          border-radius: 6px;
-          padding: 2px;
-          cursor: pointer;
-        }
-        .remove-button {
-          width: 56px;
-          margin: 4px;
-          height: 20px;
-          font-size: 12px;
-          font-weight: 500;
-          border-radius: 6px;
-          padding: 2px;
-          cursor: pointer;
+          font-size: 11px;
+          color: darkgray;
         }
         .register-section {
+          width: 568px;
           display: flex;
           flex-direction: column;
           justify-content: center;
-          padding: 12px 20px;
+          padding: 16px;
           margin: 24px;
           background-color: #fcf7f5;
           border: solid lightgray 2px;
@@ -259,7 +184,7 @@ const addressBook = props => {
           font-size: 18px;
           font-weight: 680;
         }
-        .send-icon {
+        .register-icon {
           font-size: 18px;
           margin-left: 8px;
         }
@@ -273,7 +198,7 @@ const addressBook = props => {
           margin: 8px 0px;
         }
         .address-box {
-          margin-left: 20px;
+          margin-left: 12px;
         }
         .name-title,
         .address-title {
@@ -288,10 +213,11 @@ const addressBook = props => {
           border-radius: 6px;
         }
         .name-input {
-          width: 160px;
+          width: 148px;
         }
         .address-input {
-          width: 280px;
+          width: 372px;
+          font-size: 14px;
         }
         .cancel-register-buttons {
           display: flex;
@@ -310,6 +236,7 @@ const addressBook = props => {
           background-color: white;
           border-radius: 6px;
           margin-right: 8px;
+          cursor: pointer;
         }
         .cancel,
         .register {

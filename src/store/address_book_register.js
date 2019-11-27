@@ -17,6 +17,7 @@ export const addressBookReducer = createReducer([], {
   },
   [removeAddressList]: (state, action) => {
     const isRemoved = element => element.id === action.payload
+    console.log(isRemoved)
     const removedAddressListIndex = state.findIndex(isRemoved)
     console.log(removedAddressListIndex)
     state.splice(removedAddressListIndex, 1)
