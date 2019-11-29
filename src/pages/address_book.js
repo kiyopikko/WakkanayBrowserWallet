@@ -9,14 +9,17 @@ library.add(faUserPlus, faPen, faTrash)
 import { connect } from 'react-redux'
 import React, { useRef } from 'react'
 import {
-  registerAddressList,
-  editAddressList,
-  removeAddressList
-} from '../store/address_book_register'
-import { setEditedAddress, setEditedName } from '../store/address_book_edit'
-import AddressListItem from '../components/AddressBook/AddressListItem'
+  registerAddressListItem,
+  editAddressListItem,
+  removeAddressListItem
+} from '../store/address_list_item_register'
+import {
+  setEditedAddress,
+  setEditedName
+} from '../store/address_list_item_edit'
+import AddressListItem from '../components/AddressList/AddressListItem'
 
-const addressBook = props => {
+const addressList = props => {
   const nameInput = useRef('')
   const addressInput = useRef('')
   const editedNameRef = useRef('')
@@ -31,7 +34,7 @@ const addressBook = props => {
             <th className="address-column">Address</th>
             <th className="remove-button-column"> </th>
           </tr>
-          {props.addressLists.length === 0 ? (
+          {props.addressList.length === 0 ? (
             <tr>
               <td className="default-name">e.g. Alice</td>
               <td className="default-address">
@@ -42,13 +45,13 @@ const addressBook = props => {
               </td>
             </tr>
           ) : (
-            props.addressLists.map(addressList => (
+            props.addressList.map(addressListItem => (
               <AddressListItem
-                addressList={addressList}
-                editAddressList={props.editAddressList}
+                addressListItem={addressListItem}
+                editAddressListItem={props.editAddressListItem}
                 setEditedName={props.setEditedName}
                 setEditedAddress={props.setEditedAddress}
-                removeAddressList={props.removeAddressList}
+                removeAddressListItem={props.removeAddressListItem}
                 editedNameRef={editedNameRef}
                 editedAddressRef={editedAddressRef}
                 editedName={props.editedName}
@@ -100,7 +103,7 @@ const addressBook = props => {
                     nameInput.current.value !== '' &&
                     addressInput.current.value !== ''
                   ) {
-                    props.registerAddressList({
+                    props.registerAddressListItem({
                       id: `${Date.now()}`,
                       name: nameInput.current.value,
                       address: addressInput.current.value
@@ -249,17 +252,17 @@ const addressBook = props => {
 }
 
 const mapStateToProps = state => ({
-  addressLists: state.addressLists,
+  addressList: state.addressList,
   editedAddress: state.editedAddress,
   editedName: state.editedName
 })
 
 const mapDispatchToProps = {
-  registerAddressList,
-  editAddressList,
-  removeAddressList,
+  registerAddressListItem,
+  editAddressListItem,
+  removeAddressListItem,
   setEditedAddress,
   setEditedName
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(addressBook)
+export default connect(mapStateToProps, mapDispatchToProps)(addressList)

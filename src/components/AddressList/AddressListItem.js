@@ -1,43 +1,43 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default ({
-  addressList,
-  editAddressList,
+  addressListItem,
+  editAddressListItem,
   setEditedName,
   setEditedAddress,
-  removeAddressList,
+  removeAddressListItem,
   editedNameRef,
   editedAddressRef,
   editedName,
   editedAddress
 }) => (
-  <tr key={addressList.id} className="address-list">
+  <tr key={addressListItem.id} className="address-list">
     <td className="name-section">
       <span className="name">
-        {addressList.name === editedName ? (
+        {addressListItem.name === editedName ? (
           <input
             placeholder={'name'}
-            defaultValue={addressList.name}
+            defaultValue={addressListItem.name}
             className="edit-name-input"
             type="text"
             ref={editedNameRef}
           />
         ) : (
-          addressList.name
+          addressListItem.name
         )}
       </span>
       <button
         className="edit-button"
         onClick={() => {
-          if (editedName === addressList.name) {
-            editAddressList({
-              id: addressList.id,
+          if (editedName === addressListItem.name) {
+            editAddressListItem({
+              id: addressListItem.id,
               name: editedNameRef.current.value,
-              address: addressList.address
+              address: addressListItem.address
             })
             setEditedName(null)
           } else {
-            setEditedName(addressList.name)
+            setEditedName(addressListItem.name)
           }
         }}
       >
@@ -46,30 +46,30 @@ export default ({
     </td>
     <td className="address-section">
       <span className="address">
-        {addressList.address === editedAddress ? (
+        {addressListItem.address === editedAddress ? (
           <input
             placeholder={'address'}
-            defaultValue={addressList.address}
+            defaultValue={addressListItem.address}
             className="edit-address-input"
             type="text"
             ref={editedAddressRef}
           />
         ) : (
-          addressList.address
+          addressListItem.address
         )}
       </span>
       <button
         className="edit-button"
         onClick={() => {
-          if (editedAddress === addressList.address) {
-            editAddressList({
-              id: addressList.id,
-              name: addressList.name,
+          if (editedAddress === addressListItem.address) {
+            editAddressListItem({
+              id: addressListItem.id,
+              name: addressListItem.name,
               address: editedAddressRef.current.value
             })
             setEditedAddress(null)
           } else {
-            setEditedAddress(addressList.address)
+            setEditedAddress(addressListItem.address)
           }
         }}
       >
@@ -80,7 +80,7 @@ export default ({
       <button
         className="remove-button"
         onClick={() => {
-          removeAddressList(addressList.id)
+          removeAddressListItem(addressListItem.id)
         }}
       >
         <FontAwesomeIcon icon="trash" />
