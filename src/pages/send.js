@@ -54,7 +54,6 @@ export default function Send() {
           </div>
         </div>
       </div>
-
       <style jsx>{`
         .balance-box {
           display: flex;

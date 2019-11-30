@@ -28,7 +28,8 @@ const Tabs = () => {
             buttonName="Payment"
             items={[
               { name: 'Send', href: '/send' },
-              { name: 'Receive Request', href: '/receive' }
+              { name: 'Receive Request', href: '/receive' },
+              { name: 'Address Book', href: '/address_book' }
             ]}
           />
         </div>
