@@ -4,9 +4,7 @@ const MainDisplay = props => {
   return (
     <div className="main-display">
       <div className="pages">{props.children}</div>
-      <div className="block-explorer-display">
-        <BlockExploer />
-      </div>
+      <BlockExploer />
       <style jsx>{`
         .main-display {
           display: flex;

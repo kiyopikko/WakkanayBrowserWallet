@@ -80,7 +80,7 @@ const AccountInfo = props => {
         </div>
         <div className="bottom-box">
           <span className="setting">Setting</span>
-          <span className="help">Help</span>
+          <span className="info">Info</span>
         </div>
       </div>
       <style jsx>{`
@@ -158,7 +158,7 @@ const AccountInfo = props => {
         .deposit-button,
         .withdraw-button {
           padding: 12px;
-          border: solid lightgray 1px;
+          border: solid lightgray 2px;
           border-right: none;
           width: 100%;
           text-align: center;
@@ -175,7 +175,7 @@ const AccountInfo = props => {
         }
         .token-box {
           padding: 10px;
-          border-top: solid lightgray 1px;
+          border-top: solid lightgray 2px;
           width: 100%;
           background-color: white;
           display: flex;
@@ -217,15 +217,17 @@ const AccountInfo = props => {
           font-weight: 600;
         }
         .bottom-box {
-          width: 100%;
-          padding: 40px 80px;
+          padding: 40px 0px;
+          border-top: solid lightgray 2px;
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          border-top: solid lightgray 1px;
+          justify-content: center;
+          width: 244px;
+      }
         }
         .setting,
-        .help {
+        .info {
+          margin-right: 12px;
           color: #0091ff;
           font-size: 16px;
         }

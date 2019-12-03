@@ -4,6 +4,7 @@ import { addressReducer } from './address'
 import { balanceReducer } from './balance'
 import { addressListReducer } from './address_list_item_register'
 import { editedAddressListItemReducer } from './address_list_item_edit'
+import { filterReducer } from './block_expolorer'
 
 /**
  * state = {
@@ -20,7 +21,8 @@ const reducer = combineReducers({
   balance: balanceReducer,
   addressList: addressListReducer,
   editedAddress: editedAddressListItemReducer,
-  editedName: editedAddressListItemReducer
+  editedName: editedAddressListItemReducer,
+  currentFilter: filterReducer
 })
 
 export const initStore = initialState => {
