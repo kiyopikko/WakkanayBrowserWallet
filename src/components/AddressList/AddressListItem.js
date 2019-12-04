@@ -96,26 +96,36 @@ export default ({
         border-spacing: 0px;
       }
       .name {
-        font-size: 16px;
-        font-weight: 500;
+        font-size: 14px;
+        font-weight: 300;
       }
       .address {
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 300;
       }
       .edit-name-input {
         width: 72px;
-        height: 20px;
+        height: 24px;
         font-size: 14px;
         font-weight: 300;
-        padding: 2px;
+        padding: 4px;
+      }
+      .edit-name-input::placeholder {
+        font-family: 'Avenir Next';
+        font-size: 14px;
+        font-weight: 300;
       }
       .edit-address-input {
         width: 370px;
-        height: 20px;
+        height: 24px;
         font-size: 14px;
         font-weight: 300;
-        padding: 2px;
+        padding: 4px;
+      }
+      .edit-address-input::placeholder {
+        font-family: 'Avenir Next';
+        font-size: 14px;
+        font-weight: 300;
       }
       .edit-button,
       .remove-button {

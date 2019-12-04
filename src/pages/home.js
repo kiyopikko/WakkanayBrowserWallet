@@ -25,16 +25,16 @@ export default function Home() {
           </div>
         </div>
         <div className="send-receive-buttons">
-          <div className="send-button">
-            <Link href="./send">
+          <Link href="./send">
+            <div className="send-button">
               <a className="send">Send</a>
-            </Link>
-          </div>
-          <div className="receive-button">
-            <Link href="./receive">
+            </div>
+          </Link>
+          <Link href="./receive">
+            <div className="receive-button">
               <a className="receive">Receive</a>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
       </div>
       <div className="transaction-history">
@@ -110,6 +110,9 @@ export default function Home() {
         width: 96px;
         text-align: center;
         background-color: #FCF7F5;
+      }
+      .send-button:hover, .receive-button:hover {
+        color: #007bff;
       }
       .send, .receive {
         font-size: smaller;
