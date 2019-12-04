@@ -33,10 +33,10 @@ const Layout = props => {
       <style jsx>{`
         .back-ground {
           display: flex;
-          height: 592px;
-          width: 1232px;
+          height: 600px;
+          width: 1268px;
           border-right: none;
-          margin: 0px 36px;
+          margin: 0px 24px;
           border: solid 2px lightgray;
         }
         .main-display-background {
@@ -46,7 +46,7 @@ const Layout = props => {
           border-left: solid 2px lightgray;
         }
         footer {
-          padding: 20px;
+          padding: 16px;
           width: 1252px;
         }
         footer > h4 {
