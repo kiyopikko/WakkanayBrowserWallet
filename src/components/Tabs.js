@@ -8,17 +8,17 @@ const Tabs = () => {
   return (
     <div>
       <div className="tabs">
-        <div
-          className={classNames(
-            'tab',
-            { selected: router.route === '/home' },
-            'home-tab'
-          )}
-        >
-          <Link href="./home">
+        <Link href="./home">
+          <div
+            className={classNames(
+              'tab',
+              { selected: router.route === '/home' },
+              'home-tab'
+            )}
+          >
             <a className="tab-item">Home</a>
-          </Link>
-        </div>
+          </div>
+        </Link>
         <div
           className={classNames('tab', {
             selected: router.route === '/send' || router.route === '/receive'
@@ -83,6 +83,12 @@ const Tabs = () => {
         }
         .home-tab {
           cursor: pointer;
+        }
+        .home-tab:hover .tab-item {
+          color: #007bff;
+        }
+        .home-tab:hover {
+          background-color: #b1c6f7;
         }
 
         .block-explorer-tab {

@@ -6,11 +6,11 @@ const Dropdown = ({ buttonName, items }) => {
       <div className="dropdown-button">{buttonName} ▽</div>
       <div className="dropdown-content">
         {items.map(item => (
-          <div key={item.name} className="dropdown-item">
-            <Link href={item.href}>
+          <Link href={item.href}>
+            <div key={item.name} className="dropdown-item">
               <a>{item.name}</a>
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
       </div>
       <style jsx>{`
@@ -49,6 +49,7 @@ const Dropdown = ({ buttonName, items }) => {
         }
         .dropdown-item:hover {
           background-color: #b1c6f7;
+          color: #007bff;
         }
 
         .dropdown-item {
@@ -58,6 +59,7 @@ const Dropdown = ({ buttonName, items }) => {
           width: 100%;
           height: 100%;
           cursor: pointer;
+          color: #693997;
         }
 
         .dropdown-item a {
