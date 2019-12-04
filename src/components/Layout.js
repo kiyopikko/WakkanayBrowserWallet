@@ -29,6 +29,9 @@ const Layout = props => {
           box-sizing: border-box;
           font-family: 'Avenir Next';
         }
+        input {
+          font-family: 'Avenir Next';
+        }
       `}</style>
       <style jsx>{`
         .back-ground {
