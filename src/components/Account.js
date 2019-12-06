@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faClipboard } from '@fortawesome/free-solid-svg-icons'
@@ -22,6 +24,7 @@ const shortenAddress = address => {
 }
 
 const AccountInfo = props => {
+  const router = useRouter()
   return (
     <div className="account-info">
       <div className="account-info-box">
@@ -49,9 +52,17 @@ const AccountInfo = props => {
         <div className="total-balance-title">Total </div>
         <div className="total-balance">$450.34 USD</div>
         <div className="deposit-withdraw-buttons">
-          <div className="deposit-button">
+          <div
+            className="deposit-button"
+            onClick={e => {
+              e.preventDefault()
+              const href = `${router.route}?deposit`
+              router.push(href, href, { shallow: true })
+            }}
+          >
             <a className="deposit">Deposit</a>
           </div>
+
           <div className="withdraw-button">
             <a className="withdraw">Withdraw</a>
           </div>
@@ -163,6 +174,7 @@ const AccountInfo = props => {
           width: 100%;
           text-align: center;
           background-color: white;
+          cursor: pointer;
         }
         .deposit-button {
           border-left: none;

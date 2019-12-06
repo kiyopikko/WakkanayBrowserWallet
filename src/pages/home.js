@@ -110,6 +110,7 @@ export default function Home() {
         width: 96px;
         text-align: center;
         background-color: #FCF7F5;
+        cursor: pointer;
       }
       .send-button:hover, .receive-button:hover {
         color: #007bff;

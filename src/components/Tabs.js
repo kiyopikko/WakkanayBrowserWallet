@@ -21,7 +21,10 @@ const Tabs = () => {
         </Link>
         <div
           className={classNames('tab', {
-            selected: router.route === '/send' || router.route === '/receive'
+            selected:
+              router.route === '/send' ||
+              router.route === '/receive' ||
+              router.route === '/address_book'
           })}
         >
           <Dropdown
