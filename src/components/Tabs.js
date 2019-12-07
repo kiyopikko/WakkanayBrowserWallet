@@ -5,6 +5,9 @@ import classNames from 'classnames'
 
 const Tabs = () => {
   const router = useRouter()
+  const changePage = newLink => {
+    router.push(newLink)
+  }
   return (
     <div>
       <div className="tabs">
@@ -28,11 +31,12 @@ const Tabs = () => {
           })}
         >
           <Dropdown
+            onSelected={changePage}
             buttonName="Payment"
             items={[
-              { name: 'Send', href: '/send' },
-              { name: 'Receive Request', href: '/receive' },
-              { name: 'Address Book', href: '/address_book' }
+              { name: 'Send', value: '/send' },
+              { name: 'Receive', value: '/receive' },
+              { name: 'Address Book', value: '/receive' }
             ]}
           />
         </div>
@@ -44,10 +48,11 @@ const Tabs = () => {
           })}
         >
           <Dropdown
+            onSelected={changePage}
             buttonName="Exchange"
             items={[
-              { name: 'Order Request', href: '/order_request' },
-              { name: 'Order Book', href: 'order_book' }
+              { name: 'Order Request', value: '/order_request' },
+              { name: 'Order Book', value: 'order_book' }
             ]}
           />
         </div>
@@ -59,10 +64,11 @@ const Tabs = () => {
           })}
         >
           <Dropdown
+            onSelected={changePage}
             buttonName="NFT Collectibles"
             items={[
-              { name: 'Collection', href: '/nft_collection' },
-              { name: 'Trade', href: '/nft_trade' }
+              { name: 'Collection', value: '/nft_collection' },
+              { name: 'Trade', value: '/nft_trade' }
             ]}
           />
         </div>

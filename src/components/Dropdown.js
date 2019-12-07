@@ -1,16 +1,19 @@
-import Link from 'next/link'
-
-const Dropdown = ({ buttonName, items }) => {
+const Dropdown = ({ buttonName, items, onSelected }) => {
   return (
     <div className="dropdown">
       <div className="dropdown-button">{buttonName} ▽</div>
       <div className="dropdown-content">
         {items.map(item => (
-          <Link href={item.href}>
-            <div key={item.name} className="dropdown-item">
-              <a>{item.name}</a>
-            </div>
-          </Link>
+          <div
+            key={item.name}
+            className="dropdown-item"
+            onClick={e => {
+              e.preventDefault()
+              onSelected(item.value)
+            }}
+          >
+            <a>{item.name}</a>
+          </div>
         ))}
       </div>
       <style jsx>{`

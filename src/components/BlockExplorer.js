@@ -145,11 +145,11 @@ const BlockExplorer = props => {
           border-right: solid 2px lightgray;
           padding: 4px 8px;
           cursor: pointer;
+          text-align: center;
         }
         .filter-dropdown-button {
           background-color: black;
           width: 60px;
-          text-align: center;
         }
         .filter:hover .dropdown-content {
           display: block;

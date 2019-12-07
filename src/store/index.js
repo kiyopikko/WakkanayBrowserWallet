@@ -5,6 +5,8 @@ import { balanceReducer } from './balance'
 import { addressListReducer } from './address_list_item_register'
 import { editedAddressListItemReducer } from './address_list_item_edit'
 import { filterReducer } from './block_expolorer'
+import { tokenSelectReducer } from './deposit_modal'
+import { unitSelectReducer } from './deposit_modal'
 
 /**
  * state = {
@@ -13,7 +15,9 @@ import { filterReducer } from './block_expolorer'
  *  addressList: [{id: number, name: string, address: string}]
  *  editedAddress: string
  *  editedName: string
- * }
+ *  currentFilter: string
+ *  currentToken: string
+ *  currentUnit: string
  */
 
 const reducer = combineReducers({
@@ -22,7 +26,9 @@ const reducer = combineReducers({
   addressList: addressListReducer,
   editedAddress: editedAddressListItemReducer,
   editedName: editedAddressListItemReducer,
-  currentFilter: filterReducer
+  currentFilter: filterReducer,
+  currentToken: tokenSelectReducer,
+  currentUnit: unitSelectReducer
 })
 
 export const initStore = initialState => {
