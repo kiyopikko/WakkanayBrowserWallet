@@ -1,19 +1,29 @@
 import { useRouter } from 'next/router'
 import ClickOutside from 'react-click-outside'
-//react-font-awesome import
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-library.add(faTimes)
+import React, { useState } from 'react'
 
+//react-font-awesome import
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTimes, faEthernet } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+library.add(fab, faTimes, faEthernet)
+
+import Dropdown from './Dropdown'
 import { connect } from 'react-redux'
 import { setToken } from '../store/deposit_modal'
 import { setUnit } from '../store/deposit_modal'
+
+const TOKEN_CURRENCY_MAP = {
+  Ethereum: 'ETH',
+  Dai: 'DAI'
+}
 
 const DepositModal = props => {
   const router = useRouter()
   const currentToken = props.currentToken
   const currentUnit = props.currentUnit
+  const [tokenAmount, setTokenAmount] = useState(0)
   return (
     <div className="modal-bg">
       <ClickOutside
@@ -39,27 +49,68 @@ const DepositModal = props => {
           <div className="token-box-wrapper">
             <div className="token-box-title">Token</div>
             <div className="token-select-box-wrapper">
-              <a className="selected-token">{currentToken}</a>
-              <div className="token-dropdown-button">
-                <FontAwesomeIcon icon="caret-down" />
-              </div>
-              <div className="dropdown-content"></div>
+              <Dropdown
+                onSelected={props.setToken}
+                renderItem={item => {
+                  return (
+                    <div className="button-name-inner">
+                      <div className="token-icon">
+                        <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                      </div>
+                      <div className="token-name">{item.name}</div>
+                    </div>
+                  )
+                }}
+                buttonName={
+                  <div className="button-name-inner">
+                    <div className="token-icon">
+                      <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                    </div>
+                    <div className="token-name">
+                      {currentToken} ({TOKEN_CURRENCY_MAP[currentToken]})
+                    </div>
+                  </div>
+                }
+                items={[
+                  {
+                    name: 'Ethereum (ETH)',
+                    value: 'Ethereum'
+                  },
+                  { name: 'Dai (DAI)', value: 'Dai' }
+                ]}
+              />
             </div>
           </div>
           <div className="amount-box-wrapper">
             <div className="amount-box-title">Amount</div>
             <div className="amount-box">
-              <input className="amount-input" type="number" />
-              <div className="amount-unit-button">
-                <div className="selected-unit">{currentUnit}</div>
-                <div className="unit-dropdown-button">
-                  <FontAwesomeIcon icon="caret-down" />
-                </div>
-                <div className="dropdown-content"></div>
+              <input
+                className="amount-input"
+                type="number"
+                onChange={e => {
+                  setTokenAmount(e.target.value)
+                }}
+              />
+              <div className="amount-unit-box-wrapper">
+                <Dropdown
+                  onSelected={props.setUnit}
+                  buttonName={currentUnit}
+                  items={[
+                    { name: 'USD', value: 'USD' },
+                    { name: 'EUR', value: 'EUR' },
+                    { name: 'JPY', value: 'JPY' }
+                  ]}
+                />
               </div>
             </div>
           </div>
-          <div className="token-amount-confirm-section">You will deposit:</div>
+          <div className="token-amount-confirm-section">
+            <div className="token-amount-confirm-title">You will deposit:</div>
+            <div className="token-amount">{tokenAmount}</div>
+            <div className="token-currency">
+              {TOKEN_CURRENCY_MAP[currentToken]}
+            </div>
+          </div>
           <div className="cancel-next-buttons">
             <div className="cancel-button">
               <a className="cancel">Cancel</a>
@@ -87,6 +138,7 @@ const DepositModal = props => {
           width: 50%;
           min-width: 520px;
           height: calc(80% - 20px);
+          min-height: 440px;
           background-color: white;
           opacity: 1;
           box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 15px 0px;
@@ -122,9 +174,9 @@ const DepositModal = props => {
           font-weight: 650;
         }
         .token-select-box-wrapper {
-          width: 320px;
-          height: 32px;
-          border: solid 1px lightgray;
+          width: 321px;
+          height: 40px;
+          border: solid 1px darkgray;
           border-radius: 6px;
           display: flex;
           align-items: center;
@@ -133,14 +185,84 @@ const DepositModal = props => {
         .token-select-box-wrapper:hover .token-dropdown-button {
           color: #1d63e6;
         }
-        .selected-token {
-          width: 284px;
-          height: 32px;
-          font-size: 20px;
-          margin-left: 4px;
+        .token-select-box-wrapper > :global(.dropdown) {
+          position: relative;
+          width: 100%;
+          height: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-button) {
+          width: 100%;
+          height: 32px;
+          font-size: 20px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #3d5bf1;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.button-name) {
+          width: 280px;
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .button-name-inner {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .token-name {
+          margin-left: 8px;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.dropdown-caret) {
+          font-size: 20px;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-content) {
+          display: none;
+          position: absolute;
+          left: 4px;
+          bottom: -63px;
+          width: 312px;
+          background-color: white;
+          border: solid 1px darkgray;
+          border-bottom: none;
+          opacity: 90%;
+          z-index: 1;
+          color: #3d5bf1;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item):hover {
+          font-weight: 600;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          padding: 4px;
+          border-bottom: solid 1px darkgray;
         }
         .token-dropdown-button {
           font-size: 20px;
@@ -161,49 +283,110 @@ const DepositModal = props => {
         }
         .amount-box {
           width: 320px;
-          border: solid 1px lightgray;
+          border: solid 1px darkgray;
           border-radius: 6px;
           display: flex;
         }
         .amount-input {
-          width: 240px;
+          width: 246px;
           padding: 4px;
           font-size: 16px;
           margin-left: 4px;
           border: none;
         }
-        .amount-unit-button {
-          width: 80px;
-          height: inherit;
+        .amount-unit-box-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           background-color: #b1c6f7;
           border-radius: 0 5px 5px 0;
+          width: 68px;
+          cursor: pointer;
+        }
+        .amount-unit-box-wrapper > :global(.dropdown) {
+          position: relative;
+          height: 100%;
+          width: 100%;
+        }
+        .amount-unit-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-button) {
+          height: 38px;
           opacity: 0.7;
           display: flex;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
-        }
-        .amount-unit-button:hover {
-          background-color: #c0d3ff;
-        }
-        .amount-unit-button:hover .selected-unit {
-          color: #1d63e6;
-        }
-        .selected-unit {
           font-size: 15px;
           font-weight: 500;
           color: #3d5bf1;
         }
-        .unit-dropdown-button {
+        .amount-unit-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-content) {
+          display: none;
+          font-size: 15px;
+          font-weight: 400;
+          position: absolute;
+          left: 0px;
+          bottom: -78px;
+          width: 65px;
+          background-color: #c0d3ff;
+          border: solid 1px darkgray;
+          border-bottom: none;
+          opacity: 90%;
+        }
+        .amount-unit-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: calc(100% + 1px);
+          padding: 2px;
+          height: 100%;
+          cursor: pointer;
+          border-bottom: solid 1px darkgray;
+          color: #007bff;
+        }
+        .amount-unit-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item):hover {
+          font-weight: 600;
+        }
+        .amount-unit-box-wrapper:hover {
+          background-color: #c0d3ff;
+        }
+        .filter > :global(.dropdown) > :global(.dropdown-button):hover {
+          color: #1d63e6;
+        }
+        .amount-unit-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.dropdown-caret) {
           margin-left: 8px;
           font-size: 20px;
           color: #3d5bf1;
         }
         .token-amount-confirm-section {
+          margin-top: 32px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .token-amount-confirm-title,
+        .token-currency {
           font-size: 16px;
           font-weight: 500;
-          margin-top: 28px;
         }
+        .token-amount {
+          margin: -3px 14px;
+          margin-left: 10px;
+          font-size: 26px;
+          font-weight: 600;
+        }
+
         .cancel-next-buttons {
           display: flex;
           justify-content: center;
@@ -215,7 +398,7 @@ const DepositModal = props => {
         .cancel-button,
         .next-button {
           padding: 3px 4px;
-          border: solid lightgray 2px;
+          border: solid 2px darkgray;
           width: 104px;
           height: 36px;
           text-align: center;

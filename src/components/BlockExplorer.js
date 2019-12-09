@@ -125,6 +125,12 @@ const BlockExplorer = props => {
           height: 24px;
           cursor: pointer;
         }
+        .filter
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.dropdown-caret) {
+          display: none;
+        }
         .filter > :global(.dropdown) > :global(.dropdown-content) {
           display: none;
           position: absolute;

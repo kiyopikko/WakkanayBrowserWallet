@@ -116,6 +116,12 @@ const Tabs = () => {
           cursor: pointer;
           color: #693997;
         }
+        .tab
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.dropdown-caret) {
+          display: none;
+        }
         .tab > :global(.dropdown):hover .dropdown-button {
           background-color: #b1c6f7;
         }

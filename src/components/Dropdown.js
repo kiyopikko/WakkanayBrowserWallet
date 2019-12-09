@@ -1,7 +1,14 @@
-const Dropdown = ({ buttonName, items, onSelected }) => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+const Dropdown = ({ buttonName, items, onSelected, renderItem }) => {
   return (
     <div className="dropdown">
-      <div className="dropdown-button">{buttonName}</div>
+      <div className="dropdown-button">
+        <div className="button-name">{buttonName}</div>
+        <div className="dropdown-caret">
+          <FontAwesomeIcon icon="caret-down" />
+        </div>
+      </div>
       <div className="dropdown-content">
         {items.map(item => (
           <div
@@ -12,7 +19,7 @@ const Dropdown = ({ buttonName, items, onSelected }) => {
               onSelected(item.value)
             }}
           >
-            {item.name}
+            {renderItem ? renderItem(item) : item.name}
           </div>
         ))}
       </div>
