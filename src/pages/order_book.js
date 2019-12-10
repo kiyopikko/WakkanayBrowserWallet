@@ -127,13 +127,13 @@ export default function OrderBook() {
         }
         .orderbook-page-title {
           margin-top: 24px;
-          font-weight: 680;
-          font-size: x-large;
+          font-weight: 700;
+          font-size: 28px;
         }
         .search-box {
           width: 480px;
           height: 108px;
-          border: solid 1px lightgray;
+          border: solid 1px #b1c6f7;
           margin-top: 20px;
           border-radius: 6px;
           display: flex;
@@ -232,7 +232,6 @@ export default function OrderBook() {
           user-select: none;
           transition: all 0.05s linear;
         }
-
         .search-button:active {
           transform: translateY(2px) translateX(1px);
         }
@@ -252,16 +251,18 @@ export default function OrderBook() {
           justify-content: flex-start;
           align-items: center;
           width: 480px;
-          margin-top: 28px;
+          margin-top: 32px;
         }
         .order-list {
+          width: 100%;
           height: 80px;
           display: flex;
           justify-content: center;
           align-items: center;
-          border: solid 2px lightgray;
+          border: solid 2px #b1c6f7;
           margin-bottom: 12px;
           border-radius: 6px;
+          cursor: pointer;
         }
         .token-box {
           display: flex;

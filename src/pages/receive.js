@@ -12,7 +12,7 @@ const Receive = props => {
   return (
     <Layout>
       <div className="balance-box">
-        <div className="your-balance-title">Your Ethereum balance</div>
+        <div className="your-balance-title">Your Ethereum Balance</div>
         <div className="balance-board">
           <img
             className="ethereum-logo"
@@ -28,7 +28,7 @@ const Receive = props => {
       </div>
       <div className="receive-section">
         <div className="receive-eth-title-box">
-          <div className="receive-eth">Request to receive ETH</div>
+          <div className="receive-eth">Request to Receive ETH</div>
           <div className="receive-icon">
             <FontAwesomeIcon icon="sign-in-alt" />
           </div>
@@ -56,8 +56,7 @@ const Receive = props => {
           align-items: center;
         }
         .your-balance-title {
-          font-weight: 680;
-          font-size: x-large;
+          font-size: 24px;
           margin-top: 24px;
         }
         .ethereum-logo {
@@ -85,10 +84,10 @@ const Receive = props => {
           font-weight: 650;
         }
         .receive-section {
+          height: 288px;
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          padding: 16px 24px;
+          padding: 20px 24px;
           margin: 24px;
           background-color: #fcf7f5;
           border: solid lightgray 2px;
@@ -100,8 +99,8 @@ const Receive = props => {
           align-items: center;
         }
         .receive-eth {
-          font-size: 22px;
-          font-weight: 680;
+          font-size: 28px;
+          font-weight: 700;
         }
         .receive-icon {
           font-size: 18px;
@@ -111,24 +110,19 @@ const Receive = props => {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          align-items: center;
         }
         .address-title {
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 500;
-          text-align: center;
-          margin-top: 8px;
+          margin-top: 16px;
           margin-bottom: 2px;
         }
         .address {
-          font-size: 18px;
-          font-weight: 600;
-          text-align: center;
+          font-size: 15px;
           color: #0091ff;
         }
         .qr-code-box {
           width: 180px;
-          margin-top: 12px;
         }
       `}</style>
     </Layout>

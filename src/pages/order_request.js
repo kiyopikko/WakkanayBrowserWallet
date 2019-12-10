@@ -14,8 +14,8 @@ export default function OrderRequest() {
           Exchange Order Request
         </div>
         <div className="exchange-order-request-box">
-          <div className="token-box">
-            <div className="action-title">Paying:</div>
+          <div className="token-box-left">
+            <div className="action-title">Pay:</div>
             <img
               className="token-image"
               src="../ethereum-icon.png"
@@ -24,7 +24,7 @@ export default function OrderRequest() {
             <div className="amount-content">
               <div className="amount-box">
                 <input className="amount-input" type="number"></input>
-                <div className="token-type">ETH ▼</div>
+                <div className="token-type">ETH ▽</div>
               </div>
               <div className="amount-in-usd">$9.33 USD</div>
             </div>
@@ -33,8 +33,8 @@ export default function OrderRequest() {
           <div className="arrow">
             <FontAwesomeIcon icon="arrows-alt-h" />
           </div>
-          <div className="token-box">
-            <div className="action-title">Receiving:</div>
+          <div className="token-box-right">
+            <div className="action-title">Receive:</div>
             <img
               className="token-image"
               src="../dai-icon.png"
@@ -43,16 +43,17 @@ export default function OrderRequest() {
             <div className="amount-content">
               <div className="amount-box">
                 <input className="amount-input"></input>
-                <div className="token-type">DAI ▼</div>
+                <div className="token-type">DAI ▽</div>
               </div>
               <div className="amount-in-usd">$9.33 USD</div>
             </div>
+            <div className="insufficient-fund">Insufficient Fund</div>
           </div>
         </div>
         <div className="expected-balance-box">
           <div className="expected-balance-title">Expected New Balance</div>
           <div className="expected-balance-contents">
-            <div className="token-expected-balance-box">
+            <div className="token-expected-balance-box-left">
               <div className="token-new-amount">
                 <div className="token-new-amount-in-eth">
                   <span className="token-new-amount-text">1.05</span>
@@ -62,7 +63,7 @@ export default function OrderRequest() {
               </div>
               <div className="token-paying-diff">▼ 0.05ETH</div>
             </div>
-            <div className="token-expected-balance-box">
+            <div className="token-expected-balance-box-right">
               <div className="token-new-amount">
                 <div className="token-new-amount-in-eth">
                   <span className="token-new-amount-text">70</span>
@@ -92,31 +93,48 @@ export default function OrderRequest() {
         }
         .exchange-order-request-title-box {
           margin-top: 24px;
-          font-weight: 680;
-          font-size: x-large;
+          font-weight: 700;
+          font-size: 28px;
         }
         .exchange-order-request-box {
           display: flex;
           justify-content: center;
           align-items: flex-start;
         }
-        .token-box {
+        .token-box-left {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          align-items: flex-start;
-          margin: 16px;
+          align-items: center;
+          margin-top: 20px;
+          margin-right: 16px;
+          padding: 8px;
+          border: solid 2px #b1c6f7;
+          border-radius: 6px;
+          box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3),
+            0 4px 8px 3px rgba(60, 64, 67, 0.15);
+        }
+        .token-box-right {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-top: 20px;
+          margin-left: 16px;
+          padding: 8px;
+          border: solid 2px #b1c6f7;
+          border-radius: 6px;
+          box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3),
+            0 4px 8px 3px rgba(60, 64, 67, 0.15);
         }
         .action-title {
           font-weight: 640;
           font-size: 20px;
-          margin: 0px 20px;
         }
         .token-image {
           width: 60px;
           height: 98px;
           margin-top: 8px;
-          margin-left: 28px;
         }
         .amount-box {
           display: flex;
@@ -124,11 +142,12 @@ export default function OrderRequest() {
           align-items: center;
         }
         .amount-input {
+          font-size: 16px;
           margin-top: 12px;
           margin-right: 4px;
           height: 28px;
-          width: 100px;
-          border-bottom: solid 1px lightgray;
+          width: 76px;
+          border-bottom: solid 2px lightgray;
           border-right: none;
           border-left: none;
           border-top: none;
@@ -144,6 +163,7 @@ export default function OrderRequest() {
           font-weight: 640;
         }
         .insufficient-fund {
+          width: 100%;
           color: red;
           font-size: 13px;
         }
@@ -157,12 +177,13 @@ export default function OrderRequest() {
           justify-content: center;
           align-items: center;
           border: dashed 2px #b1c6f7;
-          padding: 20px;
+          padding: 10px 18px;
+          margin-top: 28px;
           border-radius: 6px;
         }
         .expected-balance-title {
-          font-weight: 650;
-          font-size: 20px;
+          font-size: 18px;
+          width: 100%;
         }
         .expected-balance-contents {
           display: flex;
@@ -170,11 +191,16 @@ export default function OrderRequest() {
           align-items: center;
           margin-top: 12px;
         }
-        .token-expected-balance-box {
+        .token-expected-balance-box-left {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin: 0px 32px;
+          margin-right: 58px;
+        }
+        .token-expected-balance-box-right {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
         .token-new-amount-text {
           font-size: 24px;

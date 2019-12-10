@@ -75,8 +75,6 @@ export default ({
       >
         <FontAwesomeIcon icon="pen" />
       </button>
-    </td>
-    <td>
       <button
         className="remove-button"
         onClick={() => {
@@ -87,13 +85,16 @@ export default ({
       </button>
     </td>
     <style jsx>{`
-      tr,
       th,
       td {
-        font-size: 14px;
         border: 1px solid lightgray;
+        font-size: 14px;
+        height: 32px;
         padding: 4px;
-        border-spacing: 0px;
+      }
+      th {
+        padding: 4px;
+        font-weight: 500;
       }
       .name {
         font-size: 14px;
@@ -116,9 +117,9 @@ export default ({
         font-weight: 300;
       }
       .edit-address-input {
-        width: 370px;
+        width: 328px;
         height: 24px;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 300;
         padding: 4px;
       }
@@ -127,17 +128,24 @@ export default ({
         font-size: 14px;
         font-weight: 300;
       }
-      .edit-button,
-      .remove-button {
-        width: 20px;
-        height: 20px;
+      .edit-button {
+        width: 18px;
+        height: 18px;
         font-size: 11px;
         font-weight: 500;
         cursor: pointer;
         color: darkslategrey;
+        margin-left: 4px;
       }
-      .edit-button {
-        margin-left: 6px;
+      .remove-button {
+        width: 18px;
+        height: 18px;
+        font-size: 11px;
+        font-weight: 500;
+        cursor: pointer;
+        color: darkslategrey;
+        margin: 4px 0px;
+        margin-left: 4px;
       }
     `}</style>
   </tr>
