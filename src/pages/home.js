@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <Layout>
       <div className="balance-box">
-        <div className="your-balance-title">Your Ethereum balance</div>
+        <div className="your-balance-title">Your Ethereum Balance</div>
         <div className="balance-board">
           <img
             className="ethereum-logo"
@@ -67,8 +67,7 @@ export default function Home() {
         align-items: center;
       }
       .your-balance-title {
-        font-weight: 680;
-        font-size: x-large;
+        font-size: 24px;
         margin-top: 24px;
       }
       .ethereum-logo {
@@ -94,7 +93,6 @@ export default function Home() {
         font-size:18px;
         font-weight: 650;
       }
-
       .send-receive-buttons {
         display: flex;
         justify-content: space-between;
@@ -126,7 +124,8 @@ export default function Home() {
       }
 
       .transaction-hisotry-title {
-        font-weight: 680;
+        font-size: 24px;
+        font-weight: 700;
       }
       .transaction-date {
         margin-top: 8px;

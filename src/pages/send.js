@@ -121,7 +121,8 @@ export default function Send() {
         }
         .address,
         .amount {
-          font-size: 17px;
+          font-size: 16px;
+          font-weight: 500;
         }
         .address-input,
         .amount-input {
