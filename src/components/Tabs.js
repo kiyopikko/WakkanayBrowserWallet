@@ -5,9 +5,6 @@ import classNames from 'classnames'
 
 const Tabs = () => {
   const router = useRouter()
-  const changePage = newLink => {
-    router.push(newLink)
-  }
   return (
     <div>
       <div className="tabs">
@@ -31,7 +28,7 @@ const Tabs = () => {
           })}
         >
           <Dropdown
-            onSelected={changePage}
+            onSelected={router.push}
             buttonName="Payment"
             items={[
               { name: 'Send', value: '/send' },
@@ -48,7 +45,7 @@ const Tabs = () => {
           })}
         >
           <Dropdown
-            onSelected={changePage}
+            onSelected={router.push}
             buttonName="Exchange"
             items={[
               { name: 'Order Request', value: '/order_request' },
@@ -64,7 +61,7 @@ const Tabs = () => {
           })}
         >
           <Dropdown
-            onSelected={changePage}
+            onSelected={router.push}
             buttonName="NFT Collectibles"
             items={[
               { name: 'Collection', value: '/nft_collection' },
