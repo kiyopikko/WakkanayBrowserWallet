@@ -10,7 +10,7 @@ export default function Send() {
   return (
     <Layout>
       <div className="balance-box">
-        <div className="your-balance-title">Your Ethereum balance</div>
+        <div className="your-balance-title">Your Ethereum Balance</div>
         <div className="balance-board">
           <img
             className="ethereum-logo"
@@ -62,8 +62,7 @@ export default function Send() {
           align-items: center;
         }
         .your-balance-title {
-          font-weight: 680;
-          font-size: x-large;
+          font-size: 24px;
           margin-top: 24px;
         }
         .ethereum-logo {
@@ -91,10 +90,10 @@ export default function Send() {
           font-weight: 650;
         }
         .send-section {
+          height: 288px;
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          padding: 24px;
+          padding: 20px 24px;
           margin: 24px;
           background-color: #fcf7f5;
           border: solid lightgray 2px;
@@ -106,21 +105,23 @@ export default function Send() {
           align-items: center;
         }
         .send-eth {
-          font-size: 22px;
-          font-weight: 680;
+          font-size: 28px;
+          font-weight: 700;
         }
         .send-icon {
           font-size: 18px;
           margin-left: 8px;
         }
-        .address-box,
+        .address-box {
+          margin-top: 16px;
+          margin-bottom: 8px;
+        }
         .amount-box {
-          margin: 8px 0px;
+          margin-bottom: 16px;
         }
         .address,
         .amount {
-          font-size: 18px;
-          font-weight: 650;
+          font-size: 17px;
         }
         .address-input,
         .amount-input {

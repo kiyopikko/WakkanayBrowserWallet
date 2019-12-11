@@ -122,7 +122,7 @@ const AccountInfo = props => {
         }
         .account-name {
           margin-top: 4px;
-          font-weight: 680;
+          font-weight: 600;
           font-size: x-large;
         }
         .account-address-set {
@@ -150,13 +150,13 @@ const AccountInfo = props => {
           border: 4px solid #c0d3ff;
         }
         .total-balance-title {
-          font-weight: 640;
+          font-weight: 600;
           font-size: 20px;
           margin-top: 14px;
         }
         .total-balance {
           font-size: xx-large;
-          font-weight: 680;
+          font-weight: 700;
         }
         .deposit-withdraw-buttons {
           display: flex;
@@ -211,11 +211,11 @@ const AccountInfo = props => {
         .token-amount {
           margin-right: 8px;
           font-size: 20px;
-          font-weight: 540;
+          font-weight: 500;
         }
         .token-type {
           font-size: 20px;
-          font-weight: 540;
+          font-weight: 500;
         }
 
         .usd-amount {
@@ -226,7 +226,7 @@ const AccountInfo = props => {
           font-size: 20px;
           margin-top: 10px;
           margin-bottom: 8px;
-          font-weight: 600;
+          font-weight: 500;
         }
         .bottom-box {
           padding: 40px 0px;
