@@ -21,15 +21,19 @@ const Tabs = () => {
         </Link>
         <div
           className={classNames('tab', {
-            selected: router.route === '/send' || router.route === '/receive'
+            selected:
+              router.route === '/send' ||
+              router.route === '/receive' ||
+              router.route === '/address_book'
           })}
         >
           <Dropdown
+            onSelected={router.push}
             buttonName="Payment"
             items={[
-              { name: 'Send', href: '/send' },
-              { name: 'Receive Request', href: '/receive' },
-              { name: 'Address Book', href: '/address_book' }
+              { name: 'Send', value: '/send' },
+              { name: 'Receive', value: '/receive' },
+              { name: 'Address Book', value: '/address_book' }
             ]}
           />
         </div>
@@ -41,10 +45,11 @@ const Tabs = () => {
           })}
         >
           <Dropdown
+            onSelected={router.push}
             buttonName="Exchange"
             items={[
-              { name: 'Order Request', href: '/order_request' },
-              { name: 'Order Book', href: 'order_book' }
+              { name: 'Order Request', value: '/order_request' },
+              { name: 'Order Book', value: '/order_book' }
             ]}
           />
         </div>
@@ -56,10 +61,11 @@ const Tabs = () => {
           })}
         >
           <Dropdown
+            onSelected={router.push}
             buttonName="NFT Collectibles"
             items={[
-              { name: 'Collection', href: '/nft_collection' },
-              { name: 'Trade', href: '/nft_trade' }
+              { name: 'Collection', value: '/nft_collection' },
+              { name: 'Trade', value: '/nft_trade' }
             ]}
           />
         </div>
@@ -81,24 +87,6 @@ const Tabs = () => {
           background-color: #c0d3ff;
           width: 150px;
         }
-        .home-tab {
-          cursor: pointer;
-        }
-        .home-tab:hover .tab-item {
-          color: #007bff;
-        }
-        .home-tab:hover {
-          background-color: #b1c6f7;
-        }
-
-        .block-explorer-tab {
-          width: calc(100% - 600px);
-          background-color: #fcf7f5;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
         .tab-item {
           font-size: 15px;
           font-weight: 680;
@@ -108,6 +96,78 @@ const Tabs = () => {
         }
         .selected {
           background-color: #b1c6f7;
+        }
+        .tab > :global(.dropdown) {
+          position: relative;
+          width: 150px;
+          height: 100%;
+        }
+        .tab > :global(.dropdown) > :global(.dropdown-button) {
+          font-size: 15px;
+          font-weight: 680;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          color: #693997;
+        }
+        .tab
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.dropdown-caret) {
+          display: none;
+        }
+        .tab > :global(.dropdown):hover .dropdown-button {
+          background-color: #b1c6f7;
+        }
+        .tab > :global(.dropdown) > :global(.dropdown-content) {
+          display: none;
+          position: absolute;
+          left: -2px;
+          width: calc(100% + 4px);
+          background-color: #c0d3ff;
+          opacity: 90%;
+          border: solid 2px lightgray;
+        }
+        .tab
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          color: #693997;
+          padding: 12px;
+          font-size: 15px;
+          font-weight: 680;
+        }
+        .tab
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item):hover {
+          background-color: #b1c6f7;
+          color: #007bff;
+        }
+        .home-tab {
+          cursor: pointer;
+        }
+        .home-tab:hover .tab-item {
+          color: #007bff;
+        }
+        .home-tab:hover {
+          background-color: #b1c6f7;
+        }
+        .block-explorer-tab {
+          width: calc(100% - 600px);
+          background-color: #fcf7f5;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       `}</style>
     </div>

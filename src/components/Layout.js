@@ -2,21 +2,28 @@ import Header from './Header'
 import AccountInfo from './Account'
 import MainDisplay from './MainDisplay'
 import Tabs from './Tabs'
+import DepositModal from './DepositModal'
+import { useRouter } from 'next/router'
 
 const Layout = props => {
+  const router = useRouter()
+  const isModalOpen = router.query.deposit !== undefined
   return (
     <div>
-      <Header />
-      <div className="back-ground">
-        <AccountInfo />
-        <div className="main-display-background">
-          <Tabs />
-          <MainDisplay>{props.children}</MainDisplay>
+      <div>
+        <Header />
+        <div className="back-ground">
+          <AccountInfo />
+          <div className="main-display-background">
+            <Tabs />
+            <MainDisplay>{props.children}</MainDisplay>
+          </div>
         </div>
+        <footer>
+          <h4>Cryptoeconomics Lab Inc.</h4>
+        </footer>
       </div>
-      <footer>
-        <h4>Cryptoeconomics Lab Inc.</h4>
-      </footer>
+      {isModalOpen && <DepositModal />}
       <style>{`
         *,
         *:after,
@@ -28,6 +35,7 @@ const Layout = props => {
         body {
           box-sizing: border-box;
           font-family: 'Avenir Next';
+          ${isModalOpen ? 'overflow: hidden;' : ''}
         }
         input {
           font-family: 'Avenir Next';

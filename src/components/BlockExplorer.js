@@ -6,6 +6,7 @@ library.add(faCaretDown)
 
 import { connect } from 'react-redux'
 import { setFilter } from '../store/block_expolorer'
+import Dropdown from './Dropdown'
 
 const BlockExplorer = props => {
   const currentFilter = props.currentFilter
@@ -14,57 +15,18 @@ const BlockExplorer = props => {
       <div className="search-box-wrapper">
         <div className="search-box">
           <div className="filter">
-            <div className="fliter-dropdown-button">{currentFilter}</div>
-            <div className="dropdown-content">
-              <div
-                className="dropdown-item"
-                onClick={() => {
-                  props.setFilter('Filter ▽')
-                }}
-              >
-                Filter ▽
-              </div>
-              <div
-                className="dropdown-item"
-                onClick={() => {
-                  props.setFilter('Address')
-                }}
-              >
-                Address
-              </div>
-              <div
-                className="dropdown-item"
-                onClick={() => {
-                  props.setFilter('Token')
-                }}
-              >
-                Token
-              </div>
-              <div
-                className="dropdown-item"
-                onClick={() => {
-                  props.setFilter('ENS')
-                }}
-              >
-                ENS
-              </div>
-              <div
-                className="dropdown-item"
-                onClick={() => {
-                  props.setFilter('Block #')
-                }}
-              >
-                Block #
-              </div>
-              <div
-                className="dropdown-item-last"
-                onClick={() => {
-                  props.setFilter('Range')
-                }}
-              >
-                Range
-              </div>
-            </div>
+            <Dropdown
+              onSelected={props.setFilter}
+              buttonName={currentFilter}
+              items={[
+                { name: 'Filter ▽', value: '' },
+                { name: 'Address', value: 'Address' },
+                { name: 'Token', value: 'Token' },
+                { name: 'ENS', value: 'ENS' },
+                { name: 'Block #', value: 'Block #' },
+                { name: 'Range', value: 'Range' }
+              ]}
+            />
           </div>
           <input
             className="search-input"
@@ -138,38 +100,58 @@ const BlockExplorer = props => {
           border: solid 2px lightgray;
           margin: 8px;
           width: 320px;
+          height: 28px;
           border-radius: 6px;
         }
         .filter {
-          min-width: 63px;
+          min-width: 60px;
           border-right: solid 2px lightgray;
-          padding: 4px 8px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .filter > :global(.dropdown) {
+          position: relative;
+          width: 64px;
+          height: 100%;
+        }
+        .filter > :global(.dropdown) > :global(.dropdown-button) {
+          font-size: 11px;
+          font-weight: 600;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 24px;
           cursor: pointer;
         }
-        .filter-dropdown-button {
-          background-color: black;
-          width: 60px;
-          text-align: center;
+        .filter
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.dropdown-caret) {
+          display: none;
         }
-        .filter:hover .dropdown-content {
-          display: block;
-        }
-        .dropdown-content {
+        .filter > :global(.dropdown) > :global(.dropdown-content) {
+          display: none;
           position: absolute;
           left: 1px;
           bottom: -163px;
-          display: none;
-          width: 62px;
+          width: 65px;
           background-color: black;
           border: solid 2px lightgray;
+          border-bottom: none;
+          opacity: 90%;
         }
-        .dropdown-item:hover {
+        .filter
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item):hover {
           font-weight: 600;
         }
-        .dropdown-item-last:hover {
-          font-weight: 600;
-        }
-        .dropdown-item {
+        .filter
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item) {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -178,15 +160,6 @@ const BlockExplorer = props => {
           cursor: pointer;
           padding: 4px;
           border-bottom: solid 2px lightgray;
-        }
-        .dropdown-item-last {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 100%;
-          cursor: pointer;
-          padding: 4px;
         }
         .search-input {
           padding: 8px;
