@@ -57,6 +57,7 @@ const Receive = props => {
         }
         .your-balance-title {
           font-size: 24px;
+          font-weight: 600;
           margin-top: 24px;
         }
         .ethereum-logo {
@@ -119,7 +120,8 @@ const Receive = props => {
         }
         .address {
           font-size: 15px;
-          color: #0091ff;
+          font-weight: 500;
+          color: lightslategray;
         }
         .qr-code-box {
           width: 180px;

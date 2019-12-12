@@ -63,6 +63,7 @@ export default function Send() {
         }
         .your-balance-title {
           font-size: 24px;
+          font-weight: 600;
           margin-top: 24px;
         }
         .ethereum-logo {
@@ -149,23 +150,18 @@ export default function Send() {
         }
         .cancel-button,
         .confirm-button {
-          padding: 3px 4px;
-          border: solid gray 2px;
-          width: 104px;
+          padding: 6px;
+          width: 108px;
           text-align: center;
-          background-color: white;
+          background-color: #b1c6f7;
           border-radius: 6px;
+          font-size: 15px;
+          font-weight: 600;
+          color: white;
+          cursor: pointer;
         }
         .cancel-button {
-          margin-right: 8px;
-        }
-        .confirm-buttom {
-          margin-left: 8px;
-        }
-        .cancel,
-        .confirm {
-          font-size: smaller;
-          font-weight: 680;
+          margin-right: 24px;
         }
       `}</style>
     </Layout>

@@ -14,26 +14,26 @@ export default function OrderBook() {
         <div className="search-box">
           <div className="search-box-content">
             <div className="paid-token-box">
-              <div className="paid-token-title">Exchange</div>
+              <div className="paid-token-title">Exchanged Token</div>
               <input
                 className="paid-token-input"
                 type="text"
                 placeholder=" e.g. Ethereum"
               ></input>
             </div>
-            <div className="received-token-box">
-              <div className="recieved-token-title">Receive</div>
-              <input
-                className="received-token-input"
-                type="text"
-                placeholder=" e.g. Dai"
-              ></input>
-            </div>
             <div className="max-paid-amount-box">
-              <div className="max-amount-title">Max Exchange $</div>
+              <div className="max-paid-amount-title">Max Paid $</div>
               <input
                 className="max-paid-amount-input"
-                placeholder=" 0.01ETH"
+                type="text"
+                placeholder=" e.g. 12.5 USD"
+              ></input>
+            </div>
+            <div className="received-token-box">
+              <div className="received-token-title">Received Token</div>
+              <input
+                className="received-token-input"
+                placeholder=" e.g. Dai"
               ></input>
             </div>
           </div>
@@ -148,31 +148,35 @@ export default function OrderBook() {
           justify-content: center;
           align-items: flex-start;
         }
+        .paid-token-title,
+        .max-paid-amount-title,
+        .received-token-title {
+          width: 100%;
+          font-weight: 600;
+          font-size: 15px;
+          padding-left: 4px;
+          margin-bottom: 2px;
+        }
         .paid-token-box {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
           align-items: center;
-          margin-right: 8px;
           margin-bottom: 24px;
-        }
-        .paid-token-title,
-        .recieved-token-title,
-        .max-amount-title {
-          font-weight: 600;
-          margin-bottom: 2px;
         }
         .paid-token-input {
           border: solid 2px lightgray;
-          border-radius: 6px;
-          width: 132px;
+          border-radius: 6px 0px 0px 6px;
+          width: 136px;
           height: 32px;
           font-size: 16px;
+          width: 136px;
+          border-right: none;
         }
         ::placeholder {
           color: darkgray;
         }
-        .received-token-box {
+        .max-paid-amount-box {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
@@ -180,25 +184,25 @@ export default function OrderBook() {
           margin-right: 16px;
           margin-bottom: 24px;
         }
-        .received-token-input {
+        .max-paid-amount-input {
           border: solid 2px lightgray;
-          border-radius: 6px;
+          border-radius: 0px 6px 6px 0px;
           font-size: 16px;
-          width: 132px;
+          width: 120px;
           height: 32px;
         }
-        .max-paid-amount-box {
+        .receive-token-box {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
           align-items: center;
           margin-bottom: 24px;
         }
-        .max-paid-amount-input {
+        .received-token-input {
           border: solid 2px lightgray;
           border-radius: 6px;
           font-size: 16px;
-          width: 132px;
+          width: 136px;
           height: 32px;
         }
         .search-button-wrapper {

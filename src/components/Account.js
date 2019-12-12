@@ -81,7 +81,7 @@ const AccountInfo = props => {
                 <div className="token-type">{item.tokenName.toUpperCase()}</div>
               </div>
               {/* TODO: Use API to get usd-amount */}
-              <div className="usd-amount">$432.122USD</div>{' '}
+              <div className="usd-amount">$432.122 USD</div>{' '}
             </div>
           </div>
         ))}

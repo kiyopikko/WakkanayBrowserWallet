@@ -125,6 +125,7 @@ const addressList = props => {
         }
         .your-balance-title {
           font-size: 24px;
+          font-weight: 600;
           margin-top: 24px;
         }
         .ethereum-logo {
@@ -187,7 +188,7 @@ const addressList = props => {
           height: 32px;
         }
         th {
-          padding: 4px;
+          padding: 4px 5px;
           font-size: 16px;
           font-weight: 500;
           border-bottom: 2px solid lightgray;
@@ -217,7 +218,7 @@ const addressList = props => {
         .name-input,
         .address-input {
           height: 30px;
-          padding: 4px;
+          padding: 4px 5px;
           font-size: 14px;
           border: none;
         }

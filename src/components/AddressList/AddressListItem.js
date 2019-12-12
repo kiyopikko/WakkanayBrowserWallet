@@ -97,13 +97,13 @@ export default ({
       }
       .name-section {
         border-right: 2px solid lightgray;
-        padding: 4px;
+        padding: 4px 5px;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
       .address-section {
-        padding: 4px;
+        padding: 4px 5px;
       }
       .name {
         font-size: 14px;
@@ -114,11 +114,10 @@ export default ({
         font-weight: 300;
       }
       .edit-name-input {
-        width: 65px;
+        width: 62px;
         height: 24px;
         font-size: 14px;
         font-weight: 300;
-        padding: 4px;
       }
       .edit-name-input::placeholder {
         font-family: 'Avenir Next';
@@ -130,7 +129,6 @@ export default ({
         height: 24px;
         font-size: 13px;
         font-weight: 300;
-        padding: 4px;
       }
       .edit-address-input::placeholder {
         font-family: 'Avenir Next';
@@ -143,8 +141,9 @@ export default ({
         font-size: 11px;
         font-weight: 500;
         cursor: pointer;
-        color: darkslategrey;
+        color: darkgrey;
         margin-left: 8px;
+        background-color: lightblue;
       }
       .remove-button {
         width: 18px;
@@ -152,8 +151,9 @@ export default ({
         font-size: 11px;
         font-weight: 500;
         cursor: pointer;
-        color: darkslategrey;
+        color: darkgrey;
         margin-left: 4px;
+        background-color: lightblue;
       }
     `}</style>
   </tr>

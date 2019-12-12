@@ -91,7 +91,7 @@ const Tabs = () => {
           width: 150px;
         }
         .tab-item {
-          font-size: 17px;
+          font-size: 16px;
           font-weight: 680;
           text-align: center;
           text-decoration: none;
@@ -106,7 +106,7 @@ const Tabs = () => {
           height: 100%;
         }
         .tab > :global(.dropdown) > :global(.dropdown-button) {
-          font-size: 17px;
+          font-size: 16px;
           font-weight: 680;
           display: flex;
           justify-content: center;
@@ -146,7 +146,7 @@ const Tabs = () => {
           cursor: pointer;
           color: #693997;
           padding: 12px;
-          font-size: 17px;
+          font-size: 16px;
           font-weight: 680;
         }
         .tab

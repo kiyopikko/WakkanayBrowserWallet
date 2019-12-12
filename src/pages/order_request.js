@@ -236,23 +236,18 @@ export default function OrderRequest() {
         }
         .cancel-button,
         .confirm-button {
-          padding: 6px 0px;
-          border: solid gray 2px;
+          padding: 6px;
           width: 108px;
           text-align: center;
-          background-color: white;
+          background-color: #b1c6f7;
           border-radius: 6px;
+          font-size: 15px;
+          font-weight: 600;
+          color: white;
+          cursor: pointer;
         }
         .cancel-button {
           margin-right: 24px;
-        }
-        .confirm-buttom {
-          margin-left: 8px;
-        }
-        .cancel,
-        .confirm {
-          font-size: smaller;
-          font-weight: 680;
         }
       `}</style>
     </Layout>
