@@ -370,7 +370,7 @@ const DepositModal = props => {
           color: #3d5bf1;
         }
         .token-amount-confirm-section {
-          margin-top: 32px;
+          margin-top: 40px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -397,33 +397,18 @@ const DepositModal = props => {
         }
         .cancel-button,
         .next-button {
-          padding: 3px 4px;
-          border: solid 2px darkgray;
-          width: 104px;
-          height: 36px;
+          padding: 6px;
+          width: 108px;
           text-align: center;
-          background-color: white;
+          background-color: #b1c6f7;
           border-radius: 6px;
+          font-size: 15px;
+          font-weight: 600;
+          color: white;
           cursor: pointer;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        }
-        .cancel-button:hover,
-        .next-button:hover {
-          color: #007bff;
         }
         .cancel-button {
-          margin-right: 8px;
-        }
-        .next-buttom {
-          margin-left: 8px;
-        }
-        .cancel,
-        .next {
-          font-size: smaller;
-          font-weight: 680;
+          margin-right: 24px;
         }
       `}</style>
     </div>

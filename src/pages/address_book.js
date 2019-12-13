@@ -125,6 +125,7 @@ const addressList = props => {
         }
         .your-balance-title {
           font-size: 24px;
+          font-weight: 600;
           margin-top: 24px;
         }
         .ethereum-logo {
@@ -177,21 +178,27 @@ const addressList = props => {
         .address-book-table {
           border-spacing: 0px;
           text-align: left;
-          border: 1px solid lightgray;
+          border: 2px solid lightgray;
+          border-radius: 6px;
         }
         th,
         td {
-          border: 1px solid lightgray;
           font-size: 14px;
           border-spacing: 0px;
           height: 32px;
         }
         th {
-          padding: 4px 6px;
+          padding: 4px 5px;
+          font-size: 16px;
           font-weight: 500;
+          border-bottom: 2px solid lightgray;
+        }
+        .default-name {
+          border-right: 2px solid lightgray;
         }
         .name-column {
           min-width: 100px;
+          border-right: 2px solid lightgray;
         }
         .cancel-button {
           margin: 0px 2px;
@@ -201,22 +208,23 @@ const addressList = props => {
         .address-book-wrapper {
           background-color: #fcf7f5;
           border: solid lightgray 2px;
-          border-radius: 6px;
         }
         .address-book-table {
           background-color: white;
           width: 502px;
-          margin-top: 12px;
+          margin-top: 16px;
+          border-radius: 6px;
         }
         .name-input,
         .address-input {
           height: 30px;
-          padding: 4px;
+          padding: 4px 5px;
           font-size: 14px;
           border: none;
         }
         .name-input {
           width: 72px;
+          border-bottom-left-radius: 5px;
         }
         .name-input::placeholder {
           font-family: 'Avenir Next';
