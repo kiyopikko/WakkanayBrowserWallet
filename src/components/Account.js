@@ -63,7 +63,14 @@ const AccountInfo = props => {
             <a className="deposit">Deposit</a>
           </div>
 
-          <div className="withdraw-button">
+          <div
+            className="withdraw-button"
+            onClick={e => {
+              e.preventDefault()
+              const href = `${router.route}?withdraw`
+              router.push(href, href, { shallow: true })
+            }}
+          >
             <a className="withdraw">Withdraw</a>
           </div>
         </div>

@@ -45,12 +45,12 @@ export default function Send() {
           <span className="sent-amount-unit">ETH</span>
           <span className="sent-amount-in-usd">(9.33USD)</span>
         </div>
-        <div className="cancel-confirm-buttons">
+        <div className="cancel-next-buttons">
           <div className="cancel-button">
             <a className="cancel">Cancel</a>
           </div>
-          <div className="confirm-button">
-            <a className="confirm">Confirm</a>
+          <div className="next-button">
+            <a className="next">Next</a>
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@ export default function Send() {
           font-weight: 650;
           margin: 0px 6px;
         }
-        .cancel-confirm-buttons {
+        .cancel-next-buttons {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -149,7 +149,7 @@ export default function Send() {
           width: inherit;
         }
         .cancel-button,
-        .confirm-button {
+        .next-button {
           padding: 6px;
           width: 108px;
           text-align: center;
