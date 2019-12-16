@@ -5,7 +5,7 @@ import { addressReducer } from './address'
 import { balanceReducer } from './balance'
 import { addressListReducer } from './address_list_item_register'
 import { editedAddressListItemReducer } from './address_list_item_edit'
-import { filterReducer } from './block_expolorer'
+import { filterReducer } from './transaction_history'
 import {
   tokenSelectReducer,
   unitSelectReducer,

@@ -73,14 +73,14 @@ const Tabs = () => {
           />
         </div>
         <div className="block-explorer-tab">
-          <a className="tab-item">L2 Block Explorer</a>
+          <a className="tab-item">Transaction History</a>
         </div>
       </div>
       <style jsx>{`
         .tabs {
           height: 54px;
           display: flex;
-          border-bottom: solid 2px lightgray;
+          justify-content: flex-end;
         }
         .tab {
           display: flex;
@@ -88,7 +88,7 @@ const Tabs = () => {
           align-items: center;
           border-right: solid 2px lightgray;
           background-color: #c0d3ff;
-          width: 150px;
+          width: 213px;
         }
         .tab-item {
           font-size: 16px;
@@ -102,7 +102,7 @@ const Tabs = () => {
         }
         .tab > :global(.dropdown) {
           position: relative;
-          width: 150px;
+          width: 100%;
           height: 100%;
         }
         .tab > :global(.dropdown) > :global(.dropdown-button) {
@@ -166,7 +166,7 @@ const Tabs = () => {
           background-color: #b1c6f7;
         }
         .block-explorer-tab {
-          width: calc(100% - 600px);
+          width: 414px;
           background-color: #fcf7f5;
           display: flex;
           justify-content: center;

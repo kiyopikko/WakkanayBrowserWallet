@@ -1,5 +1,4 @@
 import Header from './Header'
-import AccountInfo from './Account'
 import MainDisplay from './MainDisplay'
 import Tabs from './Tabs'
 import DepositModal from './DepositModal'
@@ -15,7 +14,6 @@ const Layout = props => {
       <div>
         <Header />
         <div className="back-ground">
-          <AccountInfo />
           <div className="main-display-background">
             <Tabs />
             <MainDisplay>{props.children}</MainDisplay>
@@ -55,10 +53,9 @@ const Layout = props => {
           border: solid 2px lightgray;
         }
         .main-display-background {
-          width: calc(100% - 240px);
+          width: 100%;
           display: flex;
           flex-direction: column;
-          border-left: solid 2px lightgray;
         }
         footer {
           padding: 16px;

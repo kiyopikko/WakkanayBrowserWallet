@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import { connect } from 'react-redux'
 
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -6,7 +7,9 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faSignOutAlt)
 
-export default function Send() {
+import QRCode from 'qrcode.react'
+
+const Send = props => {
   return (
     <Layout>
       <div className="balance-box">
@@ -31,15 +34,21 @@ export default function Send() {
             <FontAwesomeIcon icon="sign-out-alt" />
           </div>
         </div>
+        <div className="token-box">
+          <div className="token-tag">
+            <a className="token-title">Token:</a>
+          </div>
+          <input className="token-input" />
+        </div>
         <div className="address-box">
           <div className="address-tag">
-            <a className="address">Address:</a>
+            <a className="address-title">Address:</a>
           </div>
           <input className="address-input" />
         </div>
         <div className="amount-box">
           <div className="amount-tag">
-            <a className="amount">Amount:</a>
+            <a className="amount-title">Amount:</a>
           </div>
           <input className="amount-input" type="number" />
           <span className="sent-amount-unit">ETH</span>
@@ -51,6 +60,27 @@ export default function Send() {
           </div>
           <div className="next-button">
             <a className="next">Next</a>
+          </div>
+        </div>
+      </div>
+      <div className="receive-section">
+        <div className="receive-eth-title-box">
+          <div className="receive-eth">Request to Receive ETH</div>
+          <div className="receive-icon">
+            <FontAwesomeIcon icon="sign-in-alt" />
+          </div>
+        </div>
+        <div className="address-box">
+          <div className="address-title">Your Plasma Wallet Address:</div>
+          <div className="address">{props.address}</div>
+          <div className="qr-code-box">
+            <QRCode
+              className="qr-code"
+              value={props.address}
+              alt="Your QR Code"
+              size={140}
+              includeMargin={true}
+            />
           </div>
         </div>
       </div>
@@ -91,7 +121,7 @@ export default function Send() {
           font-weight: 650;
         }
         .send-section {
-          height: 288px;
+          width: 452px;
           display: flex;
           flex-direction: column;
           padding: 20px 24px;
@@ -113,20 +143,25 @@ export default function Send() {
           font-size: 18px;
           margin-left: 8px;
         }
-        .address-box {
+        .token-box {
           margin-top: 16px;
+        }
+        .address-box,
+        .token-box {
           margin-bottom: 8px;
         }
         .amount-box {
           margin-bottom: 16px;
         }
-        .address,
-        .amount {
+        .address-title,
+        .amount-title,
+        .token-title {
           font-size: 16px;
           font-weight: 500;
         }
         .address-input,
-        .amount-input {
+        .amount-input,
+        .token-input {
           padding: 4px;
           border: solid 1px lightgray;
           font-size: 16px;
@@ -146,7 +181,6 @@ export default function Send() {
           align-items: center;
           height: 40px;
           margin-top: 12px;
-          width: inherit;
         }
         .cancel-button,
         .next-button {
@@ -163,7 +197,57 @@ export default function Send() {
         .cancel-button {
           margin-right: 24px;
         }
+        .receive-section {
+          height: 288px;
+          width: 452px;
+          display: flex;
+          flex-direction: column;
+          padding: 20px 24px;
+          margin: 24px;
+          background-color: #fcf7f5;
+          border: solid lightgray 2px;
+          border-radius: 6px;
+        }
+        .receive-eth-title-box {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+        .receive-eth {
+          font-size: 28px;
+          font-weight: 700;
+        }
+        .receive-icon {
+          font-size: 18px;
+          margin-left: 8px;
+        }
+        .address-box {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .address-title {
+          font-size: 16px;
+          font-weight: 500;
+          margin-top: 16px;
+          margin-bottom: 2px;
+        }
+        .address {
+          font-size: 15px;
+          font-weight: 500;
+          color: lightslategray;
+        }
+        .qr-code-box {
+          width: 180px;
+        }
       `}</style>
     </Layout>
   )
 }
+
+const mapStateToProps = state => ({
+  address: state.address,
+  balance: state.balance
+})
+
+export default connect(mapStateToProps)(Send)
