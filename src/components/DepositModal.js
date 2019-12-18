@@ -47,7 +47,9 @@ const DepositModal = props => {
         >
           <FontAwesomeIcon icon="times" />
         </div>
-        <div className="deposit-page-title">Deposit from Metamask</div>
+        <div className="deposit-page-title">
+          Deposit Funds from Mainchain Account
+        </div>
         <div className="contents">
           {currentPage === 0 ? (
             <div className="input-page">

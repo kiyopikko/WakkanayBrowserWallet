@@ -160,33 +160,27 @@ const TransactionHistory = props => {
           font-size: 11px;
           cursor: pointer;
         }
-        .tx-list-title {
-          margin-top: 20px;
-          margin-bottom: 16px;
+        .transaction-date {
+          margin-top: 8px;
+        }
+        .transaction {
+          list-style-type: none;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .amount,
+        .time {
+          margin-right: 8px;
+        }
+        .amount-unit {
+          margin-right: 40px;
+        }
+        .ampm {
+          margin-right: 16px;
+        }
+        .caret-down {
           font-size: 16px;
-          width: 100%;
-          font-family: courier;
-        }
-        .tx-list-item {
-          font-family: courier;
-          color: white;
-          font-size: 12px;
-        }
-        .date {
-          color: #6dd400;
-        }
-        .token-title {
-          color: #44d7b6;
-          font-size: 500;
-        }
-        .sender-title {
-          color: #88c7d4;
-        }
-        .recepient-title {
-          color: #80a2be;
-        }
-        .claim-type-title {
-          color: #f7b500;
         }
       `}</style>
     </div>

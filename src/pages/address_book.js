@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import AddressListItem from '../components/AddressList/AddressListItem'
 
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -22,7 +23,6 @@ import {
   setEditedAddress,
   setEditedName
 } from '../store/address_list_item_edit'
-import AddressListItem from '../components/AddressList/AddressListItem'
 
 const addressList = props => {
   const nameInput = useRef('')

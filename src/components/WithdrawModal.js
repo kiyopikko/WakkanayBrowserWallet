@@ -44,7 +44,9 @@ const WithdrawModal = props => {
         >
           <FontAwesomeIcon icon="times" />
         </div>
-        <div className="deposit-page-title">Waithdraw Tokens</div>
+        <div className="deposit-page-title">
+          Waithdraw Funds to Mainchain Account
+        </div>
         <div className="contents">
           <div className="token-box-wrapper">
             <div className="token-box-title">Token</div>
