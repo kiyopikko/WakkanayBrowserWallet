@@ -143,7 +143,12 @@ const DepositModal = props => {
           ) : (
             <div className="confirmation-page">
               <div className="mordal-page-title">Transaction Summary</div>
-              <div className="back-button">
+              <div
+                className="back-button"
+                onClick={() => {
+                  props.setPage(0)
+                }}
+              >
                 <FontAwesomeIcon icon="arrow-left" />
               </div>
               <div className="amount-confirmation-section">

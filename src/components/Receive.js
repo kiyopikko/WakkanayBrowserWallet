@@ -12,13 +12,13 @@ const Receive = props => {
     <div>
       <div className="receive-section" id="receive">
         <div className="receive-eth-title-box">
-          <div className="receive-eth">Request to Receive ETH</div>
+          <div className="receive-eth">Receive Token</div>
           <div className="receive-icon">
             <FontAwesomeIcon icon="sign-in-alt" />
           </div>
         </div>
         <div className="address-box">
-          <div className="address-title">Your Plasma Wallet Address:</div>
+          <div className="address-title">Your Wakkanay Wallet Address:</div>
           <div className="address">{props.address}</div>
           <div className="qr-code-box">
             <QRCode
@@ -32,47 +32,13 @@ const Receive = props => {
         </div>
       </div>
       <style jsx>{`
-        .balance-box {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        .your-balance-title {
-          font-size: 24px;
-          font-weight: 600;
-          margin-top: 24px;
-        }
-        .ethereum-logo {
-          width: 48px;
-          margin-right: 16px;
-        }
-        .balance-board {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-bottom: 24px;
-        }
-        .total-balance-number {
-          font-size: 52px;
-          font-weight: 650;
-        }
-        .total-balance-unit {
-          font-size: 30px;
-          font-weight: 650;
-          margin-left: 8px;
-        }
-        .balance-in-usd {
-          color: darkgray;
-          font-size: 18px;
-          font-weight: 650;
-        }
         .receive-section {
           width: 452px;
           display: flex;
           flex-direction: column;
           padding: 20px 24px;
-          margin: 24px;
+          margin-top: 24px;
+          margin-bottom: 32px;
           background-color: #fcf7f5;
           border: solid lightgray 2px;
           border-radius: 6px;

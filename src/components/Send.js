@@ -9,26 +9,26 @@ library.add(faSignOutAlt)
 const Send = () => {
   return (
     <div>
-      <div className="balance-box">
-        <div className="your-balance-title">Your Ethereum Balance</div>
-        <div className="balance-board">
-          <img
-            className="ethereum-logo"
-            src="../ethereum-icon.png"
-            alt="Ethereum Logo"
-          ></img>
-          <div className="total-balance-box">
-            <span className="total-balance-number">2</span>
-            <span className="total-balance-unit">ETH</span>
-            <div className="balance-in-usd">$370.34 USD</div>
-          </div>
-        </div>
-      </div>
       <div className="send-section" id="send">
         <div className="send-eth-title-box">
-          <div className="send-eth">Send ETH</div>
+          <div className="send-eth">Send Token</div>
           <div className="send-icon">
             <FontAwesomeIcon icon="sign-out-alt" />
+          </div>
+        </div>
+        <div className="balance-box">
+          <div className="your-balance-title">Ethereum Balance</div>
+          <div className="balance-board">
+            <img
+              className="ethereum-logo"
+              src="../ethereum-icon.png"
+              alt="Ethereum Logo"
+            ></img>
+            <div className="total-balance-box">
+              <span className="total-balance-number">2</span>
+              <span className="total-balance-unit">ETH</span>
+              <div className="balance-in-usd">$370.34 USD</div>
+            </div>
           </div>
         </div>
         <div className="token-box">
@@ -61,16 +61,27 @@ const Send = () => {
         </div>
       </div>
       <style jsx>{`
+        .send-section {
+          width: 452px;
+          display: flex;
+          flex-direction: column;
+          padding: 20px 24px;
+          margin-top: 32px;
+          margin-bottom: 24px;
+          background-color: #fcf7f5;
+          border: solid lightgray 2px;
+          border-radius: 6px;
+        }
         .balance-box {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          margin-top: 16px;
         }
         .your-balance-title {
-          font-size: 24px;
-          font-weight: 600;
-          margin-top: 24px;
+          font-size: 20px;
+          font-weight: 500;
         }
         .ethereum-logo {
           width: 48px;
@@ -80,7 +91,6 @@ const Send = () => {
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-bottom: 24px;
         }
         .total-balance-number {
           font-size: 52px;
@@ -95,16 +105,6 @@ const Send = () => {
           color: darkgray;
           font-size: 18px;
           font-weight: 650;
-        }
-        .send-section {
-          width: 452px;
-          display: flex;
-          flex-direction: column;
-          padding: 20px 24px;
-          margin: 24px;
-          background-color: #fcf7f5;
-          border: solid lightgray 2px;
-          border-radius: 6px;
         }
         .send-eth-title-box {
           display: flex;

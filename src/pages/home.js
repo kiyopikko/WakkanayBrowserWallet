@@ -242,6 +242,11 @@ const Home = props => {
             </div>
           </div>
         </div>
+        <hr className="l2-token-total-balance-line"></hr>
+        <div className="l2-token-total-balance">
+          <div>Total</div>
+          <div>$450.3</div>
+        </div>
       </div>
       <div className="address-book-wrapper" id="address-book">
         <div className="address-book-title-box">
@@ -300,7 +305,7 @@ const Home = props => {
         }
         .l1-account-title {
           font-weight: 600;
-          font-size: 28px;
+          font-size: 32px;
           text-align: center;
         }
         .l1-account-box,
@@ -382,11 +387,12 @@ const Home = props => {
           display: flex;
           flex-direction: column;
           padding: 20px;
+          margin-top: 20px;
         }
         .l2-token-box-title {
           font-weight: 600;
-          font-size: 28px;
-          margin-left: 12px;
+          font-size: 32px;
+          margin-left: 4px;
         }
         .l2-token-box-list {
           display: flex;
@@ -429,20 +435,37 @@ const Home = props => {
           cursor: pointer;
           font-weight: 500;
         }
+        .l2-token-total-balance-line {
+          border: none;
+          margin-top: 12px;
+          width: 100%;
+          height: 3px;
+          background-color: #000000;
+        }
+        .l2-token-total-balance {
+          margin-top: 4px;
+          margin-left: 2px;
+          font-size: 28px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
         .address-book-wrapper {
           width: 100%;
           display: flex;
           flex-direction: column;
           padding: 20px;
+          margin: 20px 0px;
         }
         .address-book-title-box {
           display: flex;
           align-items: center;
-          margin-left: 12px;
+          margin-left: 4px;
         }
         .address-book-title {
           font-weight: 600;
-          font-size: 28px;
+          font-size: 32px;
         }
         .book-icon {
           font-size: 24px;
