@@ -25,6 +25,7 @@ const Tabs = () => {
     }
     router.push(tab + `#` + elementId)
   }
+
   return (
     <div>
       <div className="tabs">
@@ -93,6 +94,57 @@ const Tabs = () => {
             />
           </div>
         </Link>
+
+        <div
+          className={classNames('tab', {
+            selected:
+              router.route === '/send' ||
+              router.route === '/receive' ||
+              router.route === '/address_book'
+          })}
+        >
+          <Dropdown
+            onSelected={router.push}
+            buttonName="Payment"
+            items={[
+              { name: 'Send', value: '/send' },
+              { name: 'Receive', value: '/receive' },
+              { name: 'Address Book', value: '/address_book' }
+            ]}
+          />
+        </div>
+        <div
+          className={classNames('tab', {
+            selected:
+              router.route === '/order_request' ||
+              router.route === '/order_book'
+          })}
+        >
+          <Dropdown
+            onSelected={router.push}
+            buttonName="Exchange"
+            items={[
+              { name: 'Order Request', value: '/order_request' },
+              { name: 'Order Book', value: '/order_book' }
+            ]}
+          />
+        </div>
+        <div
+          className={classNames('tab', {
+            selected:
+              router.route === '/nft_collections' ||
+              router.route === '/nft_trade'
+          })}
+        >
+          <Dropdown
+            onSelected={router.push}
+            buttonName="NFT Collectibles"
+            items={[
+              { name: 'Collection', value: '/nft_collection' },
+              { name: 'Trade', value: '/nft_trade' }
+            ]}
+          />
+        </div>
         <div className="block-explorer-tab">
           <a className="tab-item">Transaction History</a>
         </div>

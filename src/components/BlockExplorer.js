@@ -19,7 +19,7 @@ const BlockExplorer = props => {
               onSelected={props.setFilter}
               buttonName={currentFilter}
               items={[
-                { name: 'Filter ▽', value: 'Filter ▽' },
+                { name: 'Filter ▽', value: '' },
                 { name: 'Address', value: 'Address' },
                 { name: 'Token', value: 'Token' },
                 { name: 'ENS', value: 'ENS' },
