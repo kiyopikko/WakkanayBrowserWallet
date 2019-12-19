@@ -1,9 +1,7 @@
-import Layout from '../components/Layout'
-
 export default function NftCollection() {
   return (
-    <Layout>
+    <div id="nft-collection">
       <p>This is the NFT Collection page</p>
-    </Layout>
+    </div>
   )
 }

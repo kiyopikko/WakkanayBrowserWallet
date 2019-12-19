@@ -1,18 +1,21 @@
 import { useRouter } from 'next/router'
 import ClickOutside from 'react-click-outside'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 //react-font-awesome import
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faEthernet } from '@fortawesome/free-solid-svg-icons'
+import {
+  faTimes,
+  faEthernet,
+  faArrowLeft
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-library.add(fab, faTimes, faEthernet)
+library.add(fab, faTimes, faEthernet, faArrowLeft)
 
 import Dropdown from './Dropdown'
 import { connect } from 'react-redux'
-import { setToken } from '../store/deposit_modal'
-import { setUnit } from '../store/deposit_modal'
+import { setToken, setUnit, setPage } from '../store/deposit_modal'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -23,7 +26,9 @@ const DepositModal = props => {
   const router = useRouter()
   const currentToken = props.currentToken
   const currentUnit = props.currentUnit
+  const currentPage = props.currentPage
   const [tokenAmount, setTokenAmount] = useState(0)
+  const amountInput = useRef('')
   return (
     <div className="modal-bg">
       <ClickOutside
@@ -32,6 +37,7 @@ const DepositModal = props => {
           e.preventDefault()
           const href = `${router.route}`
           router.push(href)
+          props.setPage(0)
         }}
       >
         <div
@@ -40,85 +46,150 @@ const DepositModal = props => {
             e.preventDefault()
             const href = `${router.route}`
             router.push(href)
+            props.setPage(0)
           }}
         >
           <FontAwesomeIcon icon="times" />
         </div>
-        <div className="deposit-page-title">Deposit from Metamask</div>
         <div className="contents">
-          <div className="token-box-wrapper">
-            <div className="token-box-title">Token</div>
-            <div className="token-select-box-wrapper">
-              <Dropdown
-                onSelected={props.setToken}
-                renderItem={item => {
-                  return (
-                    <div className="button-name-inner">
-                      <div className="token-icon">
-                        <FontAwesomeIcon icon={['fab', 'ethereum']} />
+          {currentPage === 0 ? (
+            <div className="input-page">
+              <div className="mordal-page-title">
+                Deposit Funds from Mainchain Account
+              </div>
+              <div className="token-box-wrapper">
+                <div className="token-box-title">Token</div>
+                <div className="token-select-box-wrapper">
+                  <Dropdown
+                    onSelected={props.setToken}
+                    renderItem={item => {
+                      return (
+                        <div className="button-name-inner">
+                          <div className="token-icon">
+                            <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                          </div>
+                          <div className="token-name">{item.name}</div>
+                        </div>
+                      )
+                    }}
+                    buttonName={
+                      <div className="button-name-inner">
+                        <div className="token-icon">
+                          <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                        </div>
+                        <div className="token-name">
+                          {currentToken} ({TOKEN_CURRENCY_MAP[currentToken]})
+                        </div>
                       </div>
-                      <div className="token-name">{item.name}</div>
-                    </div>
-                  )
-                }}
-                buttonName={
-                  <div className="button-name-inner">
-                    <div className="token-icon">
-                      <FontAwesomeIcon icon={['fab', 'ethereum']} />
-                    </div>
-                    <div className="token-name">
-                      {currentToken} ({TOKEN_CURRENCY_MAP[currentToken]})
-                    </div>
+                    }
+                    items={[
+                      {
+                        name: 'Ethereum (ETH)',
+                        value: 'Ethereum'
+                      },
+                      { name: 'Dai (DAI)', value: 'Dai' }
+                    ]}
+                  />
+                </div>
+              </div>
+              <div className="amount-box-wrapper">
+                <div className="amount-box-title">Amount</div>
+                <div className="amount-box">
+                  <input
+                    className="amount-input"
+                    type="number"
+                    ref={amountInput}
+                    onChange={e => {
+                      setTokenAmount(e.target.value)
+                    }}
+                  />
+                  <div className="amount-unit-box-wrapper">
+                    <Dropdown
+                      onSelected={props.setUnit}
+                      buttonName={currentUnit}
+                      items={[
+                        { name: 'USD', value: 'USD' },
+                        { name: 'EUR', value: 'EUR' },
+                        { name: 'JPY', value: 'JPY' }
+                      ]}
+                    />
                   </div>
-                }
-                items={[
-                  {
-                    name: 'Ethereum (ETH)',
-                    value: 'Ethereum'
-                  },
-                  { name: 'Dai (DAI)', value: 'Dai' }
-                ]}
-              />
-            </div>
-          </div>
-          <div className="amount-box-wrapper">
-            <div className="amount-box-title">Amount</div>
-            <div className="amount-box">
-              <input
-                className="amount-input"
-                type="number"
-                onChange={e => {
-                  setTokenAmount(e.target.value)
-                }}
-              />
-              <div className="amount-unit-box-wrapper">
-                <Dropdown
-                  onSelected={props.setUnit}
-                  buttonName={currentUnit}
-                  items={[
-                    { name: 'USD', value: 'USD' },
-                    { name: 'EUR', value: 'EUR' },
-                    { name: 'JPY', value: 'JPY' }
-                  ]}
-                />
+                </div>
+              </div>
+              <div className="token-amount-confirm-section">
+                <div className="token-amount-confirm-title">
+                  You will deposit:
+                </div>
+                <div className="token-amount">{tokenAmount}</div>
+                <div className="token-currency">
+                  {TOKEN_CURRENCY_MAP[currentToken]}
+                </div>
+              </div>
+              <div className="cancel-next-buttons">
+                <div
+                  className="cancel-button"
+                  onClick={() => {
+                    amountInput.current.value = ''
+                    setTokenAmount(0)
+                  }}
+                >
+                  <a className="cancel">Cancel</a>
+                </div>
+                <div className="next-button" onClick={props.setPage}>
+                  <a className="next">Next</a>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="token-amount-confirm-section">
-            <div className="token-amount-confirm-title">You will deposit:</div>
-            <div className="token-amount">{tokenAmount}</div>
-            <div className="token-currency">
-              {TOKEN_CURRENCY_MAP[currentToken]}
+          ) : (
+            <div className="confirmation-page">
+              <div className="mordal-page-title">Transaction Summary</div>
+              <div
+                className="back-button"
+                onClick={() => {
+                  props.setPage(0)
+                }}
+              >
+                <FontAwesomeIcon icon="arrow-left" />
+              </div>
+              <div className="amount-confirmation-section">
+                <div className="amount-confirmation-title">
+                  <a>You will deposit</a>
+                </div>
+                <div className="amount-confirmation-box">
+                  <img
+                    className="token-logo"
+                    src="../ethereum-icon.png"
+                    alt="Ethereum Logo"
+                  ></img>
+                  <div className="total-balance-box">
+                    <span className="total-balance-number">2</span>
+                    <span className="total-balance-unit">ETH</span>
+                    <div className="balance-in-usd">$370.34 USD</div>
+                  </div>
+                </div>
+              </div>
+              <div className="account-confirmation-section">
+                <div className="from">
+                  from <a className="address">0x000000....000000</a>
+                </div>
+                <div className="to">to your Wakkanay Wallet</div>
+              </div>
+              <div className="cancel-next-buttons">
+                <div
+                  className="cancel-button"
+                  onClick={() => {
+                    props.setPage(0)
+                  }}
+                >
+                  <a className="cancel">Cancel</a>
+                </div>
+                <div className="next-button">
+                  <a className="next">Confirm</a>
+                </div>
+              </div>
+              <div>Click confirm to open Metamask</div>
             </div>
-          </div>
-          <div className="cancel-next-buttons">
-            <div className="cancel-button">
-              <a className="cancel">Cancel</a>
-            </div>
-            <div className="next-button">
-              <a className="next">Next</a>
-            </div>
-          </div>
+          )}
         </div>
       </ClickOutside>
       <style jsx>{`
@@ -159,15 +230,20 @@ const DepositModal = props => {
           color: darkgray;
           cursor: pointer;
         }
-        .deposit-page-title {
-          margin: 36px;
+        .mordal-page-title {
+          margin: 60px 40px 12px 40px;
           margin-right: 40px;
-          font-size: 34px;
+          font-size: 32px;
           font-weight: 700;
           text-align: center;
         }
         .contents {
-          padding: 16px 32px;
+          padding: 0px 32px 16px 32px;
+        }
+        .input-page {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         .token-box-title {
           font-size: 18px;
@@ -377,7 +453,7 @@ const DepositModal = props => {
         }
         .token-amount-confirm-title,
         .token-currency {
-          font-size: 16px;
+          font-size: 20px;
           font-weight: 500;
         }
         .token-amount {
@@ -392,7 +468,8 @@ const DepositModal = props => {
           justify-content: center;
           align-items: center;
           height: 40px;
-          margin: 16px 0px;
+          margin-top: 24px;
+          margin-bottom: 8px;
           width: inherit;
         }
         .cancel-button,
@@ -410,6 +487,66 @@ const DepositModal = props => {
         .cancel-button {
           margin-right: 24px;
         }
+        .confirmation-page {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .from,
+        .to {
+          font-size: 20px;
+          font-weight: 500;
+        }
+        .address {
+          font-size: 20px;
+          font-weight: 500;
+          color: lightslategray;
+        }
+        .account-confirmation-section {
+          margin-bottom: 20px;
+        }
+        .amount-confirmation-section {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .amount-confirmation-title {
+          font-size: 28px;
+          font-weight: 500;
+          margin-bottom: 8px;
+        }
+        .back-button {
+          margin-right: 8px;
+          font-size: 28px;
+          width: 100%;
+          margin-left: 116px;
+          cursor: pointer;
+        }
+        .token-logo {
+          width: 48px;
+          margin-right: 16px;
+        }
+        .amount-confirmation-box {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 16px;
+        }
+        .total-balance-number {
+          font-size: 52px;
+          font-weight: 650;
+        }
+        .total-balance-unit {
+          font-size: 30px;
+          font-weight: 650;
+          margin-left: 8px;
+        }
+        .balance-in-usd {
+          color: darkgray;
+          font-size: 18px;
+          font-weight: 650;
+        }
       `}</style>
     </div>
   )
@@ -417,12 +554,14 @@ const DepositModal = props => {
 
 const mapStateToProps = state => ({
   currentToken: state.currentToken,
-  currentUnit: state.currentUnit
+  currentUnit: state.currentUnit,
+  currentPage: state.currentPage
 })
 
 const mapDispatchToProps = {
   setToken,
-  setUnit
+  setUnit,
+  setPage
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DepositModal)

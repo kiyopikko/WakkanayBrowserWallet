@@ -5,9 +5,16 @@ import { addressReducer } from './address'
 import { balanceReducer } from './balance'
 import { addressListReducer } from './address_list_item_register'
 import { editedAddressListItemReducer } from './address_list_item_edit'
-import { filterReducer } from './block_expolorer'
-import { tokenSelectReducer } from './deposit_modal'
-import { unitSelectReducer } from './deposit_modal'
+import { filterReducer } from './transaction_history'
+import {
+  tokenSelectReducer,
+  unitSelectReducer,
+  pageTransitionReducer
+} from './deposit_modal'
+import {
+  withdrawnTokenSelectReducer,
+  withdrawnTokenUnitSelectReducer
+} from './withdraw_modal.js'
 
 /**
  * state = {
@@ -19,6 +26,9 @@ import { unitSelectReducer } from './deposit_modal'
  *  currentFilter: string
  *  currentToken: string
  *  currentUnit: string
+ *  currentPage: number
+ *  currentlyWithdrawnToken: string
+ *  currentlyWithdrawnTokenUnit: string
  */
 
 const reducer = combineReducers({
@@ -29,7 +39,10 @@ const reducer = combineReducers({
   editedName: editedAddressListItemReducer,
   currentFilter: filterReducer,
   currentToken: tokenSelectReducer,
-  currentUnit: unitSelectReducer
+  currentUnit: unitSelectReducer,
+  currentPage: pageTransitionReducer,
+  currentlyWithdrawnToken: withdrawnTokenSelectReducer,
+  currentlyWithdrawnTokenUnit: withdrawnTokenUnitSelectReducer
 })
 
 export const initStore = initialState => {

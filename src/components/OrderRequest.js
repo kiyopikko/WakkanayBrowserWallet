@@ -1,5 +1,3 @@
-import Layout from '../components/Layout'
-
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
@@ -8,80 +6,78 @@ library.add(faArrowsAltH)
 
 export default function OrderRequest() {
   return (
-    <Layout>
-      <div className="order-request-page">
-        <div className="exchange-order-request-title-box">
-          Exchange Order Request
+    <div className="order-request-page" id="order-request">
+      <div className="exchange-order-request-title-box">
+        Exchange Order Request
+      </div>
+      <div className="exchange-order-request-box">
+        <div className="token-box-left">
+          <div className="action-title">Pay:</div>
+          <img
+            className="token-image"
+            src="../ethereum-icon.png"
+            alt="Ethereum Icon"
+          ></img>
+          <div className="amount-content">
+            <div className="amount-box">
+              <input className="amount-input" type="number"></input>
+              <div className="token-type">ETH ▽</div>
+            </div>
+            <div className="amount-in-usd">$9.33 USD</div>
+          </div>
+          <div className="insufficient-fund">Insufficient Fund</div>
         </div>
-        <div className="exchange-order-request-box">
-          <div className="token-box-left">
-            <div className="action-title">Pay:</div>
-            <img
-              className="token-image"
-              src="../ethereum-icon.png"
-              alt="Ethereum Icon"
-            ></img>
-            <div className="amount-content">
-              <div className="amount-box">
-                <input className="amount-input" type="number"></input>
-                <div className="token-type">ETH ▽</div>
-              </div>
-              <div className="amount-in-usd">$9.33 USD</div>
-            </div>
-            <div className="insufficient-fund">Insufficient Fund</div>
-          </div>
-          <div className="arrow">
-            <FontAwesomeIcon icon="arrows-alt-h" />
-          </div>
-          <div className="token-box-right">
-            <div className="action-title">Receive:</div>
-            <img
-              className="token-image"
-              src="../dai-icon.png"
-              alt="Dai Icon"
-            ></img>
-            <div className="amount-content">
-              <div className="amount-box">
-                <input className="amount-input"></input>
-                <div className="token-type">DAI ▽</div>
-              </div>
-              <div className="amount-in-usd">$9.33 USD</div>
-            </div>
-            <div className="insufficient-fund">Insufficient Fund</div>
-          </div>
+        <div className="arrow">
+          <FontAwesomeIcon icon="arrows-alt-h" />
         </div>
-        <div className="expected-balance-box">
-          <div className="expected-balance-title">Expected New Balance</div>
-          <div className="expected-balance-contents">
-            <div className="token-expected-balance-box-left">
-              <div className="token-new-amount">
-                <div className="token-new-amount-in-eth">
-                  <span className="token-new-amount-text">1.05</span>
-                  <span className="token-type-unit">ETH</span>
-                </div>
-                <div className="token-new-amount-in-usd">$215.18 USD</div>
-              </div>
-              <div className="token-paying-diff">▼ 0.05ETH</div>
+        <div className="token-box-right">
+          <div className="action-title">Receive:</div>
+          <img
+            className="token-image"
+            src="../dai-icon.png"
+            alt="Dai Icon"
+          ></img>
+          <div className="amount-content">
+            <div className="amount-box">
+              <input className="amount-input"></input>
+              <div className="token-type">DAI ▽</div>
             </div>
-            <div className="token-expected-balance-box-right">
-              <div className="token-new-amount">
-                <div className="token-new-amount-in-eth">
-                  <span className="token-new-amount-text">70</span>
-                  <span className="token-type-unit">DAI</span>
-                </div>
-                <div className="token-new-amount-in-usd">$70 USD</div>
+            <div className="amount-in-usd">$9.33 USD</div>
+          </div>
+          <div className="insufficient-fund">Insufficient Fund</div>
+        </div>
+      </div>
+      <div className="expected-balance-box">
+        <div className="expected-balance-title">Expected New Balance</div>
+        <div className="expected-balance-contents">
+          <div className="token-expected-balance-box-left">
+            <div className="token-new-amount">
+              <div className="token-new-amount-in-eth">
+                <span className="token-new-amount-text">1.05</span>
+                <span className="token-type-unit">ETH</span>
               </div>
-              <div className="token-receiving-diff">▲ 9.33DAI</div>
+              <div className="token-new-amount-in-usd">$215.18 USD</div>
             </div>
+            <div className="token-paying-diff">▼ 0.05ETH</div>
+          </div>
+          <div className="token-expected-balance-box-right">
+            <div className="token-new-amount">
+              <div className="token-new-amount-in-eth">
+                <span className="token-new-amount-text">70</span>
+                <span className="token-type-unit">DAI</span>
+              </div>
+              <div className="token-new-amount-in-usd">$70 USD</div>
+            </div>
+            <div className="token-receiving-diff">▲ 9.33DAI</div>
           </div>
         </div>
-        <div className="cancel-confirm-buttons">
-          <div className="cancel-button">
-            <a className="cancel">Cancel</a>
-          </div>
-          <div className="confirm-button">
-            <a className="confirm">Confirm</a>
-          </div>
+      </div>
+      <div className="cancel-confirm-buttons">
+        <div className="cancel-button">
+          <a className="cancel">Cancel</a>
+        </div>
+        <div className="confirm-button">
+          <a className="confirm">Confirm</a>
         </div>
       </div>
       <style jsx>{`
@@ -231,6 +227,7 @@ export default function OrderRequest() {
           align-items: center;
           height: 40px;
           margin-top: 28px;
+          margin-bottom: 28px;
           width: inherit;
           border-radius: 6px;
         }
@@ -250,6 +247,6 @@ export default function OrderRequest() {
           margin-right: 24px;
         }
       `}</style>
-    </Layout>
+    </div>
   )
 }

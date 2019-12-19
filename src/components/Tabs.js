@@ -5,79 +5,104 @@ import classNames from 'classnames'
 
 const Tabs = () => {
   const router = useRouter()
+  const scrollTo = elementId => {
+    const element = document.getElementById(elementId)
+    if (element !== null)
+      return element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    let tab
+    if (
+      elementId === 'l1-account' ||
+      elementId === 'l2-tokens' ||
+      elementId === 'address-book'
+    ) {
+      tab = '/home'
+    } else if (elementId === 'send' || elementId === 'receive') {
+      tab = '/payment'
+    } else if (elementId === 'order-book' || elementId === 'order-request') {
+      tab = '/exchange'
+    } else {
+      tab = '/nft_collectibles'
+    }
+    router.push(tab + `#` + elementId)
+  }
+
   return (
     <div>
       <div className="tabs">
-        <Link href="./home">
+        <Link href="/home">
           <div
-            className={classNames(
-              'tab',
-              { selected: router.route === '/home' },
-              'home-tab'
-            )}
+            className={classNames('tab', {
+              selected: router.route === '/home'
+            })}
           >
-            <a className="tab-item">Home</a>
+            <Dropdown
+              onSelected={scrollTo}
+              buttonName="Home"
+              items={[
+                { name: 'L1 Account', value: 'l1-account' },
+                { name: 'L2 Tokens', value: 'l2-tokens' },
+                { name: 'Address Book', value: 'address-book' }
+              ]}
+            />
           </div>
         </Link>
-        <div
-          className={classNames('tab', {
-            selected:
-              router.route === '/send' ||
-              router.route === '/receive' ||
-              router.route === '/address_book'
-          })}
-        >
-          <Dropdown
-            onSelected={router.push}
-            buttonName="Payment"
-            items={[
-              { name: 'Send', value: '/send' },
-              { name: 'Receive', value: '/receive' },
-              { name: 'Address Book', value: '/address_book' }
-            ]}
-          />
-        </div>
-        <div
-          className={classNames('tab', {
-            selected:
-              router.route === '/order_request' ||
-              router.route === '/order_book'
-          })}
-        >
-          <Dropdown
-            onSelected={router.push}
-            buttonName="Exchange"
-            items={[
-              { name: 'Order Request', value: '/order_request' },
-              { name: 'Order Book', value: '/order_book' }
-            ]}
-          />
-        </div>
-        <div
-          className={classNames('tab', {
-            selected:
-              router.route === '/nft_collections' ||
-              router.route === '/nft_trade'
-          })}
-        >
-          <Dropdown
-            onSelected={router.push}
-            buttonName="NFT Collectibles"
-            items={[
-              { name: 'Collection', value: '/nft_collection' },
-              { name: 'Trade', value: '/nft_trade' }
-            ]}
-          />
-        </div>
+        <Link href="/payment">
+          <div
+            className={classNames('tab', {
+              selected: router.route === 'payment'
+            })}
+          >
+            <Dropdown
+              onSelected={scrollTo}
+              buttonName="Payment"
+              items={[
+                { name: 'Send', value: 'send' },
+                { name: 'Receive', value: 'receive' }
+              ]}
+            />
+          </div>
+        </Link>
+        <Link href="/exchange">
+          <div
+            className={classNames('tab', {
+              selected: router.route === '/exchange'
+            })}
+          >
+            <Dropdown
+              onSelected={scrollTo}
+              buttonName="Exchange"
+              items={[
+                { name: 'Order Book', value: 'order-book' },
+                { name: 'Order Request', value: 'order-request' }
+              ]}
+            />
+          </div>
+        </Link>
+        <Link href="/nft_collectibles">
+          <div
+            className={classNames('tab', {
+              selected: router.route === '/nft_collectibles'
+            })}
+          >
+            <Dropdown
+              onSelected={scrollTo}
+              buttonName="NFT Collectibles"
+              items={[
+                { name: 'Collection', value: 'nft-collection' },
+                { name: 'Trade', value: 'nft-trade' }
+              ]}
+            />
+          </div>
+        </Link>
         <div className="block-explorer-tab">
-          <a className="tab-item">L2 Block Explorer</a>
+          <a className="tab-item">Transaction History</a>
         </div>
       </div>
       <style jsx>{`
         .tabs {
           height: 54px;
           display: flex;
-          border-bottom: solid 2px lightgray;
+          justify-content: flex-end;
         }
         .tab {
           display: flex;
@@ -85,7 +110,21 @@ const Tabs = () => {
           align-items: center;
           border-right: solid 2px lightgray;
           background-color: #c0d3ff;
-          width: 150px;
+          width: 213px;
+          cursor: pointer;
+        }
+        .tab:hover {
+          background-color: #b1c6f7;
+        }
+        .tab:hover .tab-item {
+          color: #007bff;
+        }
+        .tab:hover
+          .tab
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.button-name) {
+          color: #007bff;
         }
         .tab-item {
           font-size: 16px;
@@ -99,7 +138,7 @@ const Tabs = () => {
         }
         .tab > :global(.dropdown) {
           position: relative;
-          width: 150px;
+          width: 100%;
           height: 100%;
         }
         .tab > :global(.dropdown) > :global(.dropdown-button) {
@@ -118,9 +157,6 @@ const Tabs = () => {
           > :global(.dropdown-button)
           > :global(.dropdown-caret) {
           display: none;
-        }
-        .tab > :global(.dropdown):hover .dropdown-button {
-          background-color: #b1c6f7;
         }
         .tab > :global(.dropdown) > :global(.dropdown-content) {
           display: none;
@@ -153,17 +189,8 @@ const Tabs = () => {
           background-color: #b1c6f7;
           color: #007bff;
         }
-        .home-tab {
-          cursor: pointer;
-        }
-        .home-tab:hover .tab-item {
-          color: #007bff;
-        }
-        .home-tab:hover {
-          background-color: #b1c6f7;
-        }
         .block-explorer-tab {
-          width: calc(100% - 600px);
+          width: 414px;
           background-color: #fcf7f5;
           display: flex;
           justify-content: center;

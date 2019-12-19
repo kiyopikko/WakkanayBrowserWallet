@@ -1,9 +1,12 @@
 import Layout from '../components/Layout'
+import OrderBook from '../components/OrderBook'
+import OrderRequest from '../components/OrderRequest'
 
 export default function Exchange() {
   return (
     <Layout>
-      <p>This is the exchange page</p>
+      <OrderBook />
+      <OrderRequest />
     </Layout>
   )
 }

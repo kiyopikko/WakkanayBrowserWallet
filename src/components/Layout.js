@@ -1,19 +1,19 @@
 import Header from './Header'
-import AccountInfo from './Account'
 import MainDisplay from './MainDisplay'
 import Tabs from './Tabs'
 import DepositModal from './DepositModal'
+import WithdrawModal from './WithdrawModal'
 import { useRouter } from 'next/router'
 
 const Layout = props => {
   const router = useRouter()
-  const isModalOpen = router.query.deposit !== undefined
+  const isDepositModalOpen = router.query.deposit !== undefined
+  const isWithdrawModalOpen = router.query.withdraw !== undefined
   return (
     <div>
       <div>
         <Header />
         <div className="back-ground">
-          <AccountInfo />
           <div className="main-display-background">
             <Tabs />
             <MainDisplay>{props.children}</MainDisplay>
@@ -23,7 +23,8 @@ const Layout = props => {
           <h4>Cryptoeconomics Lab Inc.</h4>
         </footer>
       </div>
-      {isModalOpen && <DepositModal />}
+      {isDepositModalOpen && <DepositModal />}
+      {isWithdrawModalOpen && <WithdrawModal />}
       <style>{`
         *,
         *:after,
@@ -35,7 +36,8 @@ const Layout = props => {
         body {
           box-sizing: border-box;
           font-family: 'Avenir Next';
-          ${isModalOpen ? 'overflow: hidden;' : ''}
+          ${isDepositModalOpen ? 'overflow: hidden;' : ''}
+          ${isWithdrawModalOpen ? 'overflow: hidden;' : ''}
         }
         input {
           font-family: 'Avenir Next';
@@ -51,10 +53,9 @@ const Layout = props => {
           border: solid 2px lightgray;
         }
         .main-display-background {
-          width: calc(100% - 240px);
+          width: 100%;
           display: flex;
           flex-direction: column;
-          border-left: solid 2px lightgray;
         }
         footer {
           padding: 16px;
