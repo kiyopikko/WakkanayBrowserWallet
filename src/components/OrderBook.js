@@ -1,5 +1,3 @@
-import Layout from '../components/Layout'
-
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
@@ -8,8 +6,8 @@ library.add(faArrowsAltH)
 
 export default function OrderBook() {
   return (
-    <Layout>
-      <div className="orderbook-page">
+    <div>
+      <div className="orderbook-page" id="order-book">
         <div className="orderbook-page-title">Exchange Order Book</div>
         <div className="search-box">
           <div className="search-box-content">
@@ -303,6 +301,6 @@ export default function OrderBook() {
           font-size: 28px;
         }
       `}</style>
-    </Layout>
+    </div>
   )
 }

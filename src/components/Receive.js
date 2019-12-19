@@ -1,4 +1,3 @@
-import Layout from '../components/Layout'
 import { connect } from 'react-redux'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -10,23 +9,8 @@ import QRCode from 'qrcode.react'
 
 const Receive = props => {
   return (
-    <Layout>
-      <div className="balance-box">
-        <div className="your-balance-title">Your Ethereum Balance</div>
-        <div className="balance-board">
-          <img
-            className="ethereum-logo"
-            src="../ethereum-icon.png"
-            alt="Ethereum Logo"
-          ></img>
-          <div className="total-balance-box">
-            <span className="total-balance-number">2</span>
-            <span className="total-balance-unit">ETH</span>
-            <div className="balance-in-usd">$370.34 USD</div>
-          </div>
-        </div>
-      </div>
-      <div className="receive-section">
+    <div>
+      <div className="receive-section" id="receive">
         <div className="receive-eth-title-box">
           <div className="receive-eth">Request to Receive ETH</div>
           <div className="receive-icon">
@@ -47,7 +31,6 @@ const Receive = props => {
           </div>
         </div>
       </div>
-
       <style jsx>{`
         .balance-box {
           display: flex;
@@ -85,7 +68,7 @@ const Receive = props => {
           font-weight: 650;
         }
         .receive-section {
-          height: 288px;
+          width: 452px;
           display: flex;
           flex-direction: column;
           padding: 20px 24px;
@@ -127,7 +110,7 @@ const Receive = props => {
           width: 180px;
         }
       `}</style>
-    </Layout>
+    </div>
   )
 }
 

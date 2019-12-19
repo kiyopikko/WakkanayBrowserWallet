@@ -1,4 +1,3 @@
-import Layout from '../components/Layout'
 import { connect } from 'react-redux'
 
 //react-font-awesome import
@@ -7,11 +6,9 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faSignOutAlt)
 
-import QRCode from 'qrcode.react'
-
-const Send = props => {
+const Send = () => {
   return (
-    <Layout>
+    <div>
       <div className="balance-box">
         <div className="your-balance-title">Your Ethereum Balance</div>
         <div className="balance-board">
@@ -27,7 +24,7 @@ const Send = props => {
           </div>
         </div>
       </div>
-      <div className="send-section">
+      <div className="send-section" id="send">
         <div className="send-eth-title-box">
           <div className="send-eth">Send ETH</div>
           <div className="send-icon">
@@ -60,27 +57,6 @@ const Send = props => {
           </div>
           <div className="next-button">
             <a className="next">Next</a>
-          </div>
-        </div>
-      </div>
-      <div className="receive-section">
-        <div className="receive-eth-title-box">
-          <div className="receive-eth">Request to Receive ETH</div>
-          <div className="receive-icon">
-            <FontAwesomeIcon icon="sign-in-alt" />
-          </div>
-        </div>
-        <div className="address-box">
-          <div className="address-title">Your Plasma Wallet Address:</div>
-          <div className="address">{props.address}</div>
-          <div className="qr-code-box">
-            <QRCode
-              className="qr-code"
-              value={props.address}
-              alt="Your QR Code"
-              size={140}
-              includeMargin={true}
-            />
           </div>
         </div>
       </div>
@@ -199,7 +175,6 @@ const Send = props => {
         }
         .receive-section {
           height: 288px;
-          width: 452px;
           display: flex;
           flex-direction: column;
           padding: 20px 24px;
@@ -241,7 +216,7 @@ const Send = props => {
           width: 180px;
         }
       `}</style>
-    </Layout>
+    </div>
   )
 }
 

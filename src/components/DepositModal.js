@@ -5,9 +5,13 @@ import React, { useState, useRef } from 'react'
 //react-font-awesome import
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faEthernet } from '@fortawesome/free-solid-svg-icons'
+import {
+  faTimes,
+  faEthernet,
+  faArrowLeft
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-library.add(fab, faTimes, faEthernet)
+library.add(fab, faTimes, faEthernet, faArrowLeft)
 
 import Dropdown from './Dropdown'
 import { connect } from 'react-redux'
@@ -47,12 +51,12 @@ const DepositModal = props => {
         >
           <FontAwesomeIcon icon="times" />
         </div>
-        <div className="deposit-page-title">
-          Deposit Funds from Mainchain Account
-        </div>
         <div className="contents">
           {currentPage === 0 ? (
             <div className="input-page">
+              <div className="mordal-page-title">
+                Deposit Funds from Mainchain Account
+              </div>
               <div className="token-box-wrapper">
                 <div className="token-box-title">Token</div>
                 <div className="token-select-box-wrapper">
@@ -138,8 +142,47 @@ const DepositModal = props => {
             </div>
           ) : (
             <div className="confirmation-page">
-              This is the confirmation page.
-              {console.log(currentPage, 0)}
+              <div className="mordal-page-title">Transaction Summary</div>
+              <div className="back-button">
+                <FontAwesomeIcon icon="arrow-left" />
+              </div>
+              <div className="amount-confirmation-section">
+                <div className="amount-confirmation-title">
+                  <a>You will deposit</a>
+                </div>
+                <div className="amount-confirmation-box">
+                  <img
+                    className="token-logo"
+                    src="../ethereum-icon.png"
+                    alt="Ethereum Logo"
+                  ></img>
+                  <div className="total-balance-box">
+                    <span className="total-balance-number">2</span>
+                    <span className="total-balance-unit">ETH</span>
+                    <div className="balance-in-usd">$370.34 USD</div>
+                  </div>
+                </div>
+              </div>
+              <div className="account-confirmation-section">
+                <div className="from">
+                  from <a className="address">0x000000....000000</a>
+                </div>
+                <div className="to">to your Wakkanay Wallet</div>
+              </div>
+              <div className="cancel-next-buttons">
+                <div
+                  className="cancel-button"
+                  onClick={() => {
+                    props.setPage(0)
+                  }}
+                >
+                  <a className="cancel">Cancel</a>
+                </div>
+                <div className="next-button">
+                  <a className="next">Confirm</a>
+                </div>
+              </div>
+              <div>Click confirm to open Metamask</div>
             </div>
           )}
         </div>
@@ -182,15 +225,20 @@ const DepositModal = props => {
           color: darkgray;
           cursor: pointer;
         }
-        .deposit-page-title {
-          margin: 60px;
+        .mordal-page-title {
+          margin: 60px 40px 12px 40px;
           margin-right: 40px;
-          font-size: 34px;
+          font-size: 32px;
           font-weight: 700;
           text-align: center;
         }
         .contents {
           padding: 0px 32px 16px 32px;
+        }
+        .input-page {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         .token-box-title {
           font-size: 18px;
@@ -400,7 +448,7 @@ const DepositModal = props => {
         }
         .token-amount-confirm-title,
         .token-currency {
-          font-size: 16px;
+          font-size: 20px;
           font-weight: 500;
         }
         .token-amount {
@@ -415,7 +463,8 @@ const DepositModal = props => {
           justify-content: center;
           align-items: center;
           height: 40px;
-          margin: 16px 0px;
+          margin-top: 24px;
+          margin-bottom: 8px;
           width: inherit;
         }
         .cancel-button,
@@ -432,6 +481,66 @@ const DepositModal = props => {
         }
         .cancel-button {
           margin-right: 24px;
+        }
+        .confirmation-page {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .from,
+        .to {
+          font-size: 20px;
+          font-weight: 500;
+        }
+        .address {
+          font-size: 20px;
+          font-weight: 500;
+          color: lightslategray;
+        }
+        .account-confirmation-section {
+          margin-bottom: 20px;
+        }
+        .amount-confirmation-section {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .amount-confirmation-title {
+          font-size: 28px;
+          font-weight: 500;
+          margin-bottom: 8px;
+        }
+        .back-button {
+          margin-right: 8px;
+          font-size: 28px;
+          width: 100%;
+          margin-left: 116px;
+          cursor: pointer;
+        }
+        .token-logo {
+          width: 48px;
+          margin-right: 16px;
+        }
+        .amount-confirmation-box {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 16px;
+        }
+        .total-balance-number {
+          font-size: 52px;
+          font-weight: 650;
+        }
+        .total-balance-unit {
+          font-size: 30px;
+          font-weight: 650;
+          margin-left: 8px;
+        }
+        .balance-in-usd {
+          color: darkgray;
+          font-size: 18px;
+          font-weight: 650;
         }
       `}</style>
     </div>

@@ -46,7 +46,6 @@ const shortenAddress = address => {
 
 const Home = props => {
   const router = useRouter()
-
   const nameInput = useRef('')
   const addressInput = useRef('')
   const editedNameRef = useRef('')
@@ -67,7 +66,7 @@ const Home = props => {
   }
   return (
     <Layout>
-      <div className="l1-account-box-wrapper">
+      <div className="l1-account-box-wrapper" id="l1-account">
         <div className="l1-account-title">Connected L1 Account</div>
         <div className="l1-account-box">
           <div className="user-address-info-box">
@@ -107,7 +106,7 @@ const Home = props => {
           </div>
         </div>
       </div>
-      <div className="l2-token-box-wrapper">
+      <div className="l2-token-box-wrapper" id="l2-tokens">
         <div className="l2-token-box-title">L2 Tokens</div>
         <div className="l2-token-box-list">
           <div className="l2-token-box">
@@ -244,7 +243,7 @@ const Home = props => {
           </div>
         </div>
       </div>
-      <div className="address-book-wrapper">
+      <div className="address-book-wrapper" id="address-book">
         <div className="address-book-title-box">
           <div className="address-book-title">Address Book</div>
           <div className="book-icon">
