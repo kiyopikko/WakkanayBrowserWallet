@@ -1,12 +1,21 @@
-import { connect } from 'react-redux'
-
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faSignOutAlt)
 
-const Send = () => {
+import { connect } from 'react-redux'
+import Dropdown from './Dropdown'
+import { setToken } from '../store/send'
+
+const TOKEN_CURRENCY_MAP = {
+  Ethereum: 'ETH',
+  Dai: 'DAI'
+}
+
+const Send = props => {
+  const currentToken = props.currentToken
+
   return (
     <div>
       <div className="send-section" id="send">
@@ -26,7 +35,9 @@ const Send = () => {
             ></img>
             <div className="total-balance-box">
               <span className="total-balance-number">2</span>
-              <span className="total-balance-unit">ETH</span>
+              <span className="total-balance-unit">
+                {TOKEN_CURRENCY_MAP[currentToken]}
+              </span>
               <div className="balance-in-usd">$370.34 USD</div>
             </div>
           </div>
@@ -35,7 +46,38 @@ const Send = () => {
           <div className="token-tag">
             <a className="token-title">Token:</a>
           </div>
-          <input className="token-input" />
+          <div className="token-select-box-wrapper">
+            <Dropdown
+              onSelected={props.setToken}
+              renderItem={item => {
+                return (
+                  <div className="button-name-inner">
+                    <div className="token-icon">
+                      <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                    </div>
+                    <div className="token-name">{item.name}</div>
+                  </div>
+                )
+              }}
+              buttonName={
+                <div className="button-name-inner">
+                  <div className="token-icon">
+                    <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                  </div>
+                  <div className="token-name">
+                    {currentToken} ({TOKEN_CURRENCY_MAP[currentToken]})
+                  </div>
+                </div>
+              }
+              items={[
+                {
+                  name: 'Ethereum (ETH)',
+                  value: 'Ethereum'
+                },
+                { name: 'Dai (DAI)', value: 'Dai' }
+              ]}
+            />
+          </div>
         </div>
         <div className="address-box">
           <div className="address-tag">
@@ -48,7 +90,9 @@ const Send = () => {
             <a className="amount-title">Amount:</a>
           </div>
           <input className="amount-input" type="number" />
-          <span className="sent-amount-unit">ETH</span>
+          <span className="sent-amount-unit">
+            {TOKEN_CURRENCY_MAP[currentToken]}
+          </span>
           <span className="sent-amount-in-usd">(9.33USD)</span>
         </div>
         <div className="cancel-next-buttons">
@@ -83,14 +127,14 @@ const Send = () => {
           font-size: 20px;
           font-weight: 500;
         }
-        .ethereum-logo {
-          width: 48px;
-          margin-right: 16px;
-        }
         .balance-board {
           display: flex;
           justify-content: center;
           align-items: center;
+        }
+        .ethereum-logo {
+          width: 48px;
+          margin-right: 16px;
         }
         .total-balance-number {
           font-size: 52px;
@@ -135,9 +179,112 @@ const Send = () => {
           font-size: 16px;
           font-weight: 500;
         }
+        .token-select-box-wrapper {
+          width: 321px;
+          height: 40px;
+          border: solid 1px darkgray;
+          background-color: white;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+        .token-select-box-wrapper:hover .token-dropdown-button {
+          color: #1d63e6;
+        }
+        .token-select-box-wrapper > :global(.dropdown) {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-button) {
+          width: 100%;
+          height: 32px;
+          font-size: 20px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #3d5bf1;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.button-name) {
+          width: 280px;
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .button-name-inner {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .token-name {
+          margin-left: 8px;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-button)
+          > :global(.dropdown-caret) {
+          font-size: 20px;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-content) {
+          display: none;
+          position: absolute;
+          left: 4px;
+          bottom: -63px;
+          width: 312px;
+          background-color: white;
+          border: solid 1px darkgray;
+          border-bottom: none;
+          opacity: 90%;
+          z-index: 1;
+          color: #3d5bf1;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item):hover {
+          font-weight: 600;
+        }
+        .token-select-box-wrapper
+          > :global(.dropdown)
+          > :global(.dropdown-content)
+          > :global(.dropdown-item) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          padding: 4px;
+          border-bottom: solid 1px darkgray;
+        }
+        .token-dropdown-button {
+          font-size: 20px;
+          padding: 0px 8px;
+          cursor: pointer;
+          height: inherit;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
         .address-input,
         .amount-input,
         .token-input {
+          height: 40px;
           padding: 4px;
           border: solid 1px lightgray;
           font-size: 16px;
@@ -222,7 +369,11 @@ const Send = () => {
 
 const mapStateToProps = state => ({
   address: state.address,
-  balance: state.balance
+  balance: state.balance,
+  currentToken: state.currentToken
 })
 
-export default connect(mapStateToProps)(Send)
+const mapDispatchToProps = {
+  setToken
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Send)

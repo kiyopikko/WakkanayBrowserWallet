@@ -170,7 +170,7 @@ export default ({
         width: 68px;
         height: 28px;
         text-align: center;
-        background-color: blue;
+        background-color: #5d5aef;
         color: white;
         cursor: pointer;
         font-weight: 500;

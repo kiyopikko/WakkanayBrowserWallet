@@ -72,8 +72,8 @@ const Home = props => {
           <div className="user-address-info-box">
             <img
               className="profile-picture"
-              src="yuriko-profile-picture.jpg"
-              alt="Yuriko Profile Picture"
+              src="metamask-icon.png"
+              alt="Metamask Account"
             ></img>
             <div className="user-info-bar">
               <span className="account-name">yuriko.eth</span>
@@ -111,12 +111,18 @@ const Home = props => {
         <div className="l2-token-box-list">
           <div className="l2-token-box">
             <div className="l2-token-name">Ethereum</div>
-            <img
-              className="l2-token-img"
-              src="ethereum-icon.png"
-              alt="Ethereum Logo"
-            ></img>
-            <div className="l2-token-balance">$450.34 USD</div>
+            <div className="balance-board">
+              <img
+                className="l2-token-img"
+                src="../ethereum-icon.png"
+                alt="Ethereum Logo"
+              ></img>
+              <div className="total-balance-box">
+                <span className="total-balance-number">2</span>
+                <span className="total-balance-unit">ETH</span>
+                <div className="balance-in-usd">$370.34 USD</div>
+              </div>
+            </div>
             <div className="token-buttons-container">
               <div
                 className="token-button"
@@ -138,18 +144,91 @@ const Home = props => {
               >
                 Withdraw
               </div>
-              <div className="token-button">Send</div>
-              <div className="token-button">Exchange</div>
+              <div
+                className="token-button"
+                onClick={() => {
+                  router.push('/payment#send')
+                }}
+              >
+                Send
+              </div>
+              <div
+                className="token-button"
+                onClick={() => {
+                  router.push('/exchange#order-request')
+                }}
+              >
+                Exchange
+              </div>
+            </div>
+          </div>
+          <div className="l2-token-box">
+            <div className="l2-token-name">Dai</div>
+            <div className="balance-board">
+              <img
+                className="l2-token-img"
+                src="../ethereum-icon.png"
+                alt="Ethereum Logo"
+              ></img>
+              <div className="total-balance-box">
+                <span className="total-balance-number">130</span>
+                <span className="total-balance-unit">DAI</span>
+                <div className="balance-in-usd">$130.00 USD</div>
+              </div>
+            </div>
+            <div className="token-buttons-container">
+              <div
+                className="token-button"
+                onClick={e => {
+                  e.preventDefault()
+                  const href = `${router.route}?deposit`
+                  router.push(href, href, { shallow: true })
+                }}
+              >
+                Deposit
+              </div>
+              <div
+                className="token-button"
+                onClick={e => {
+                  e.preventDefault()
+                  const href = `${router.route}?withdraw`
+                  router.push(href, href, { shallow: true })
+                }}
+              >
+                Withdraw
+              </div>
+              <div
+                className="token-button"
+                onClick={() => {
+                  router.push('/payment#send')
+                }}
+              >
+                Send
+              </div>
+              <div
+                className="token-button"
+                onClick={() => {
+                  router.push('/exchange#order-request')
+                }}
+              >
+                Exchange
+              </div>
             </div>
           </div>
           <div className="l2-token-box">
             <div className="l2-token-name">Ethereum</div>
-            <img
-              className="l2-token-img"
-              src="ethereum-icon.png"
-              alt="Ethereum Logo"
-            ></img>
-            <div className="l2-token-balance">$450.34 USD</div>
+            <div className="balance-board">
+              <img
+                className="l2-token-img"
+                src="../ethereum-icon.png"
+                alt="Ethereum Logo"
+              ></img>
+              <div className="total-balance-box">
+                <span className="total-balance-number">2</span>
+                <span className="total-balance-unit">ETH</span>
+                <div className="balance-in-usd">$370.34 USD</div>
+              </div>
+            </div>
             <div className="token-buttons-container">
               <div
                 className="token-button"
@@ -171,51 +250,38 @@ const Home = props => {
               >
                 Withdraw
               </div>
-              <div className="token-button">Send</div>
-              <div className="token-button">Exchange</div>
+              <div
+                className="token-button"
+                onClick={() => {
+                  router.push('/payment#send')
+                }}
+              >
+                Send
+              </div>
+              <div
+                className="token-button"
+                onClick={() => {
+                  router.push('/exchange#order-request')
+                }}
+              >
+                Exchange
+              </div>
             </div>
           </div>
           <div className="l2-token-box">
             <div className="l2-token-name">Ethereum</div>
-            <img
-              className="l2-token-img"
-              src="ethereum-icon.png"
-              alt="Ethereum Logo"
-            ></img>
-            <div className="l2-token-balance">$450.34 USD</div>
-            <div className="token-buttons-container">
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?deposit`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Deposit
+            <div className="balance-board">
+              <img
+                className="l2-token-img"
+                src="../ethereum-icon.png"
+                alt="Ethereum Logo"
+              ></img>
+              <div className="total-balance-box">
+                <span className="total-balance-number">2</span>
+                <span className="total-balance-unit">ETH</span>
+                <div className="balance-in-usd">$370.34 USD</div>
               </div>
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?withdraw`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Withdraw
-              </div>
-              <div className="token-button">Send</div>
-              <div className="token-button">Exchange</div>
             </div>
-          </div>
-          <div className="l2-token-box">
-            <div className="l2-token-name">Ethereum</div>
-            <img
-              className="l2-token-img"
-              src="ethereum-icon.png"
-              alt="Ethereum Logo"
-            ></img>
-            <div className="l2-token-balance">$450.34 USD</div>
             <div className="token-buttons-container">
               <div
                 className="token-button"
@@ -237,8 +303,22 @@ const Home = props => {
               >
                 Withdraw
               </div>
-              <div className="token-button">Send</div>
-              <div className="token-button">Exchange</div>
+              <div
+                className="token-button"
+                onClick={() => {
+                  router.push('/payment#send')
+                }}
+              >
+                Send
+              </div>
+              <div
+                className="token-button"
+                onClick={() => {
+                  router.push('/exchange#order-request')
+                }}
+              >
+                Exchange
+              </div>
             </div>
           </div>
         </div>
@@ -324,6 +404,8 @@ const Home = props => {
           padding: 3px;
           width: 100%;
           border-bottom: solid 2px lightgray;
+          background-color: ivory;
+          border-radius: 9px 9px 0px 0px;
         }
         .profile-picture {
           width: 50px;
@@ -375,11 +457,11 @@ const Home = props => {
           border-radius: 16px;
           width: 148px;
           text-align: center;
-          background-color: blue;
+          background-color: #5d5aef;
           color: white;
           cursor: pointer;
-          margin-top: 4px;
-          margin-bottom: 40px;
+          margin-top: 12px;
+          margin-bottom: 36px;
           font-weight: 500;
         }
         .l2-token-box-wrapper {
@@ -406,15 +488,32 @@ const Home = props => {
         }
         .l2-token-name {
           font-size: 24px;
-          font-weight: 500;
+          font-weight: 600;
+        }
+        .balance-board {
+          margin-top: 16px;
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         .l2-token-img {
-          height: 100px;
-          margin: 12px;
+          width: 48px;
+          margin-right: 16px;
         }
-        .l2-token-balance {
+        .total-balance-number {
+          font-size: 44px;
+          font-weight: 650;
+        }
+        .total-balance-unit {
           font-size: 30px;
-          font-weight: 700;
+          font-weight: 650;
+          margin-left: 8px;
+        }
+        .balance-in-usd {
+          color: darkgray;
+          font-size: 18px;
+          font-weight: 650;
         }
         .token-buttons-container {
           width: 220px;
@@ -430,7 +529,7 @@ const Home = props => {
           width: 100px;
           height: 36px;
           text-align: center;
-          background-color: blue;
+          background-color: #5d5aef;
           color: white;
           cursor: pointer;
           font-weight: 500;
