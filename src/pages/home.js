@@ -38,6 +38,8 @@ library.add(faClipboard, faUserPlus, faPen, faTrash, faBookOpen)
 // const client = new LightClient()
 // client.init()
 
+import wrapper from '../client'
+
 const shortenAddress = address => {
   const former = address.slice(0, 7)
   const latter = address.slice(address.length - 5, address.length)
@@ -63,6 +65,10 @@ const Home = props => {
       }
       return (nameInput.current.value = ''), (addressInput.current.value = '')
     }
+  }
+  const c = wrapper.getClient()
+  if (c) {
+    c.getBalance().then(console.log)
   }
   return (
     <Layout>
