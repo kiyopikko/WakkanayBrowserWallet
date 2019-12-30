@@ -46,7 +46,6 @@ const Layout = props => {
       <style jsx>{`
         .back-ground {
           display: flex;
-          height: 600px;
           width: 1268px;
           border-right: none;
           margin: 0px 24px;
