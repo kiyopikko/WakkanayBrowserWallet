@@ -1,21 +1,18 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
+import clientWrapper from '../client'
 
 export const setBalance = createAction('SET_BALANCE')
 
-export const balanceReducer = createReducer(
-  [
-    {
-      tokenAddress: '0x0000000000000000000000000000000000000000',
-      tokenName: 'eth',
-      amount: 1.2
-    },
-    {
-      tokenAddress: '0x0000000000000000000000000000000000000001',
-      tokenName: 'dai',
-      amount: 204
-    }
-  ],
-  {
-    [setBalance]: (state, action) => action.payload
+export const getBalance = () => {
+  return dispatch => {
+    const client = clientWrapper.getClient()
+    if (!client) return
+    client.getBalance().then(value => {
+      dispatch(setBalance(value[0].amount))
+    })
   }
-)
+}
+
+export const balanceReducer = createReducer(0, {
+  [setBalance]: (state, action) => action.payload
+})

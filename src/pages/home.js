@@ -16,6 +16,7 @@ import {
   setEditedAddress,
   setEditedName
 } from '../store/address_list_item_edit'
+import { getBalance } from '../store/balance'
 
 // clipboard
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -37,8 +38,6 @@ library.add(faClipboard, faUserPlus, faPen, faTrash, faBookOpen)
 // import LightClient from 'wakkanay-plasma-light-client'
 // const client = new LightClient()
 // client.init()
-
-import wrapper from '../client'
 
 const shortenAddress = address => {
   const former = address.slice(0, 7)
@@ -66,10 +65,8 @@ const Home = props => {
       return (nameInput.current.value = ''), (addressInput.current.value = '')
     }
   }
-  const c = wrapper.getClient()
-  if (c) {
-    c.getBalance().then(console.log)
-  }
+  props.getBalance()
+
   return (
     <Layout>
       <div className="l1-account-box-wrapper" id="l1-account">
@@ -124,7 +121,7 @@ const Home = props => {
                 alt="Ethereum Logo"
               ></img>
               <div className="total-balance-box">
-                <span className="total-balance-number">2</span>
+                <span className="total-balance-number">{props.balance}</span>
                 <span className="total-balance-unit">ETH</span>
                 <div className="balance-in-usd">$370.34 USD</div>
               </div>
@@ -651,7 +648,8 @@ const mapDispatchToProps = {
   editAddressListItem,
   removeAddressListItem,
   setEditedAddress,
-  setEditedName
+  setEditedName,
+  getBalance
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

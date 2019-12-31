@@ -1,5 +1,6 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import logger from 'redux-logger'
+import thunk from 'redux-thunk'
 
 import { addressReducer } from './address'
 import { balanceReducer } from './balance'
@@ -46,5 +47,5 @@ const reducer = combineReducers({
 })
 
 export const initStore = initialState => {
-  return createStore(reducer, initialState, applyMiddleware(logger))
+  return createStore(reducer, initialState, applyMiddleware(logger, thunk))
 }

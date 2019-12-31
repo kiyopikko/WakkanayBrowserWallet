@@ -5,10 +5,6 @@ const sleep = ms => {
 }
 
 class Client {
-  constructor() {
-    alert(10000)
-  }
-
   async getBalance() {
     await sleep(5000)
     return [
