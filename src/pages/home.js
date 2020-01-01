@@ -16,7 +16,8 @@ import {
   setEditedAddress,
   setEditedName
 } from '../store/address_list_item_edit'
-import { getBalance } from '../store/balance'
+import { getBalance, getETHtoUSD } from '../store/balance'
+import { getAddress } from '../store/address'
 
 // clipboard
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -66,6 +67,8 @@ const Home = props => {
     }
   }
   props.getBalance()
+  props.getAddress()
+  props.getETHtoUSD() // get the latest ETH price, returned value's unit is USD/ETH
 
   return (
     <Layout>
@@ -123,7 +126,9 @@ const Home = props => {
               <div className="total-balance-box">
                 <span className="total-balance-number">{props.balance}</span>
                 <span className="total-balance-unit">ETH</span>
-                <div className="balance-in-usd">$370.34 USD</div>
+                <div className="balance-in-usd">
+                  {props.ETHtoUSD * props.balance} USD
+                </div>
               </div>
             </div>
             <div className="token-buttons-container">
@@ -227,9 +232,11 @@ const Home = props => {
                 alt="Ethereum Logo"
               ></img>
               <div className="total-balance-box">
-                <span className="total-balance-number">2</span>
+                <span className="total-balance-number">{props.balance}</span>
                 <span className="total-balance-unit">ETH</span>
-                <div className="balance-in-usd">$370.34 USD</div>
+                <div className="balance-in-usd">
+                  {props.ETHtoUSD * props.balance} USD
+                </div>
               </div>
             </div>
             <div className="token-buttons-container">
@@ -280,9 +287,11 @@ const Home = props => {
                 alt="Ethereum Logo"
               ></img>
               <div className="total-balance-box">
-                <span className="total-balance-number">2</span>
+                <span className="total-balance-number">{props.balance}</span>
                 <span className="total-balance-unit">ETH</span>
-                <div className="balance-in-usd">$370.34 USD</div>
+                <div className="balance-in-usd">
+                  {props.ETHtoUSD * props.balance} USD
+                </div>
               </div>
             </div>
             <div className="token-buttons-container">
@@ -637,7 +646,8 @@ const Home = props => {
 
 const mapStateToProps = state => ({
   address: state.address,
-  balance: state.balance,
+  balance: state.balance.balance,
+  ETHtoUSD: state.balance.ETHtoUSD,
   addressList: state.addressList,
   editedAddress: state.editedAddress,
   editedName: state.editedName
@@ -649,7 +659,9 @@ const mapDispatchToProps = {
   removeAddressListItem,
   setEditedAddress,
   setEditedName,
-  getBalance
+  getBalance,
+  getETHtoUSD,
+  getAddress
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

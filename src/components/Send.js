@@ -7,6 +7,7 @@ library.add(faSignOutAlt)
 import { connect } from 'react-redux'
 import Dropdown from './Dropdown'
 import { setToken } from '../store/send'
+import { getBalance, getETHtoUSD } from '../store/balance'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -15,6 +16,8 @@ const TOKEN_CURRENCY_MAP = {
 
 const Send = props => {
   const currentToken = props.currentToken
+  props.getBalance()
+  props.getETHtoUSD()
 
   return (
     <div>
@@ -26,7 +29,7 @@ const Send = props => {
           </div>
         </div>
         <div className="balance-box">
-          <div className="your-balance-title">Ethereum Balance</div>
+          <div className="your-balance-title">{currentToken} Balance</div>
           <div className="balance-board">
             <img
               className="ethereum-logo"
@@ -34,11 +37,13 @@ const Send = props => {
               alt="Ethereum Logo"
             ></img>
             <div className="total-balance-box">
-              <span className="total-balance-number">2</span>
+              <span className="total-balance-number">{props.balance}</span>
               <span className="total-balance-unit">
                 {TOKEN_CURRENCY_MAP[currentToken]}
               </span>
-              <div className="balance-in-usd">$370.34 USD</div>
+              <div className="balance-in-usd">
+                {props.ETHtoUSD * props.balance} USD
+              </div>
             </div>
           </div>
         </div>
@@ -369,11 +374,14 @@ const Send = props => {
 
 const mapStateToProps = state => ({
   address: state.address,
-  balance: state.balance,
+  balance: state.balance.balance,
+  ETHtoUSD: state.balance.ETHtoUSD,
   currentToken: state.currentToken
 })
 
 const mapDispatchToProps = {
-  setToken
+  setToken,
+  getBalance,
+  getETHtoUSD
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Send)

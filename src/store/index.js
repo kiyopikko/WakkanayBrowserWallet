@@ -21,6 +21,7 @@ import {
  * state = {
  *  address: address
  *  balance: [{tokenAddress: string, tokenName: string, amount: number}]
+ *  ETHtoUSD: number
  *  addressList: [{id: number, name: string, address: string}]
  *  editedAddress: string
  *  editedName: string
