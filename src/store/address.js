@@ -5,18 +5,14 @@ export const setAddress = createAction('SET_ADDRESS')
 
 // thunk action: higher order function
 export const getAddress = () => {
-  return dispatch => {
-    const client = clientWrapper.getClient()
+  return async dispatch => {
+    const client = await clientWrapper.getClient()
     if (!client) return
-    client.getAddress().then(value => {
-      dispatch(setAddress(value))
-    })
+    const addr = client.address
+    dispatch(setAddress(addr))
   }
 }
 
-export const addressReducer = createReducer(
-  '0x0000000000000000000000000000000000000000',
-  {
-    [setAddress]: (state, action) => action.payload
-  }
-)
+export const addressReducer = createReducer('', {
+  [setAddress]: (state, action) => action.payload
+})

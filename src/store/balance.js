@@ -7,12 +7,11 @@ export const setETHtoUSD = createAction('SET_ETH_TO_USD')
 
 // thunk action: higher order function to get deposited token balance from mock client
 export const getBalance = () => {
-  return dispatch => {
-    const client = clientWrapper.getClient()
+  return async dispatch => {
+    const client = await clientWrapper.getClient()
     if (!client) return
-    client.getBalance().then(value => {
-      dispatch(setBalance(value[0].amount))
-    })
+    const balance = await client.getBalance()
+    dispatch(setBalance(balance[0].amount))
   }
 }
 const EtherLatestPriceURL =
