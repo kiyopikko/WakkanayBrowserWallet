@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 // internal import
 import Layout from '../components/Layout'
 import AddressListItem from '../components/AddressList/AddressListItem'
+import { shortenAddress } from '../utils'
 
 //redux
 import { connect } from 'react-redux'
@@ -34,17 +35,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faClipboard, faUserPlus, faPen, faTrash, faBookOpen)
-
-// import mock light client
-// import LightClient from 'wakkanay-plasma-light-client'
-// const client = new LightClient()
-// client.init()
-
-const shortenAddress = address => {
-  const former = address.slice(0, 7)
-  const latter = address.slice(address.length - 5, address.length)
-  return `${former}...${latter}`
-}
 
 const Home = props => {
   const router = useRouter()
