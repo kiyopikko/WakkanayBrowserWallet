@@ -15,7 +15,8 @@ library.add(fab, faTimes, faEthernet, faArrowLeft)
 
 import Dropdown from './Dropdown'
 import { connect } from 'react-redux'
-import { setToken, setUnit, setPage } from '../store/deposit_modal'
+import { setToken, setUnit, setPage, deposit } from '../store/deposit_modal'
+import { shortenAddress } from '../utils'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -25,7 +26,6 @@ const TOKEN_CURRENCY_MAP = {
 const DepositModal = props => {
   const router = useRouter()
   const currentToken = props.currentToken
-  const currentUnit = props.currentUnit
   const currentPage = props.currentPage
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
@@ -103,7 +103,7 @@ const DepositModal = props => {
                       setTokenAmount(e.target.value)
                     }}
                   />
-                  <div className="amount-unit-box-wrapper">
+                  {/* <div className="amount-unit-box-wrapper">
                     <Dropdown
                       onSelected={props.setUnit}
                       buttonName={currentUnit}
@@ -113,7 +113,7 @@ const DepositModal = props => {
                         { name: 'JPY', value: 'JPY' }
                       ]}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="token-amount-confirm-section">
@@ -135,12 +135,17 @@ const DepositModal = props => {
                 >
                   <a className="cancel">Cancel</a>
                 </div>
-                <div className="next-button" onClick={props.setPage}>
+                <div
+                  className="next-button"
+                  onClick={() => {
+                    props.setPage(1)
+                  }}
+                >
                   <a className="next">Next</a>
                 </div>
               </div>
             </div>
-          ) : (
+          ) : currentPage === 1 ? (
             <div className="confirmation-page">
               <div className="mordal-page-title">Transaction Summary</div>
               <div
@@ -162,15 +167,20 @@ const DepositModal = props => {
                     alt="Ethereum Logo"
                   ></img>
                   <div className="total-balance-box">
-                    <span className="total-balance-number">2</span>
-                    <span className="total-balance-unit">ETH</span>
-                    <div className="balance-in-usd">$370.34 USD</div>
+                    <span className="total-balance-number">{tokenAmount}</span>
+                    <span className="total-balance-unit">
+                      {TOKEN_CURRENCY_MAP[currentToken]}
+                    </span>
+                    <div className="balance-in-usd">
+                      {Math.round(tokenAmount * props.ETHtoUSD * 100) / 100} USD
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="account-confirmation-section">
                 <div className="from">
-                  from <a className="address">0x000000....000000</a>
+                  from{' '}
+                  <a className="address">{shortenAddress(props.address)}</a>
                 </div>
                 <div className="to">to your Wakkanay Wallet</div>
               </div>
@@ -184,11 +194,20 @@ const DepositModal = props => {
                   <a className="cancel">Cancel</a>
                 </div>
                 <div className="next-button">
-                  <a className="next">Confirm</a>
+                  <a
+                    className="next"
+                    onClick={() => {
+                      props.deposit(tokenAmount)
+                    }}
+                  >
+                    Confirm
+                  </a>
                 </div>
               </div>
               <div>Click confirm to open Metamask</div>
             </div>
+          ) : (
+            <div>Deposit completed</div>
           )}
         </div>
       </ClickOutside>
@@ -350,9 +369,6 @@ const DepositModal = props => {
           align-items: center;
           justify-content: center;
         }
-        .amount-box-wrapper {
-          margin-top: 16px;
-        }
         .amount-box-title {
           font-size: 18px;
           font-weight: 650;
@@ -364,7 +380,7 @@ const DepositModal = props => {
           display: flex;
         }
         .amount-input {
-          width: 246px;
+          width: 100%;
           padding: 4px;
           font-size: 16px;
           margin-left: 4px;
@@ -555,13 +571,16 @@ const DepositModal = props => {
 const mapStateToProps = state => ({
   currentToken: state.currentToken,
   currentUnit: state.currentUnit,
-  currentPage: state.currentPage
+  currentPage: state.currentPage,
+  ETHtoUSD: state.balance.ETHtoUSD,
+  address: state.address
 })
 
 const mapDispatchToProps = {
   setToken,
   setUnit,
-  setPage
+  setPage,
+  deposit
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DepositModal)
