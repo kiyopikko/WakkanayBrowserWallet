@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // internal import
@@ -12,13 +12,14 @@ import {
   registerAddressListItem,
   editAddressListItem,
   removeAddressListItem
-} from '../store/address_list_item_register'
+} from '../store/address_list_item'
 import {
   setEditedAddress,
   setEditedName
-} from '../store/address_list_item_edit'
-import { getBalance, getETHtoUSD } from '../store/balance'
+} from '../store/edited_address_list_item.js'
+import { getBalance, getETHtoUSD } from '../store/tokenBalanceList'
 import { getAddress } from '../store/address'
+import { setTransferredToken } from '../store/transfer'
 
 // clipboard
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -42,6 +43,7 @@ const Home = props => {
   const addressInput = useRef('')
   const editedNameRef = useRef('')
   const editedAddressRef = useRef('')
+  const ETHtoUSD = props.ETHtoUSD
   const onKeyDown = event => {
     if (event.key === 'Enter') {
       event.preventDefault()
@@ -56,9 +58,11 @@ const Home = props => {
       return (nameInput.current.value = ''), (addressInput.current.value = '')
     }
   }
-  props.getBalance()
-  props.getAddress()
-  props.getETHtoUSD() // get the latest ETH price, returned value's unit is USD/ETH
+  useEffect(() => {
+    props.getBalance()
+    props.getAddress()
+    props.getETHtoUSD() // get the latest ETH price, returned value's unit is USD/ETH
+  }, [])
 
   return (
     <Layout>
@@ -105,224 +109,66 @@ const Home = props => {
       <div className="l2-token-box-wrapper" id="l2-tokens">
         <div className="l2-token-box-title">L2 Tokens</div>
         <div className="l2-token-box-list">
-          <div className="l2-token-box">
-            <div className="l2-token-name">Ethereum</div>
-            <div className="balance-board">
-              <img
-                className="l2-token-img"
-                src="../ethereum-icon.png"
-                alt="Ethereum Logo"
-              ></img>
-              <div className="total-balance-box">
-                <span className="total-balance-number">{props.balance}</span>
-                <span className="total-balance-unit">ETH</span>
-                <div className="balance-in-usd">
-                  {props.ETHtoUSD * props.balance} USD
+          {props.tokenBalanceList.map(({ tokenAddress, amount }) => {
+            return (
+              <div className="l2-token-box">
+                <div className="l2-token-name">Ethereum</div>
+                <div className="balance-board">
+                  <img
+                    className="l2-token-img"
+                    src="../ethereum-icon.png"
+                    alt="Ethereum Logo"
+                  ></img>
+                  <div className="total-balance-box">
+                    <span className="total-balance-number">{amount}</span>
+                    <span className="total-balance-unit">ETH</span>
+                    <div className="balance-in-usd">
+                      {ETHtoUSD * amount} USD
+                    </div>
+                  </div>
+                </div>
+                <div className="token-buttons-container">
+                  <div
+                    className="token-button"
+                    onClick={e => {
+                      e.preventDefault()
+                      const href = `${router.route}?deposit`
+                      router.push(href, href, { shallow: true })
+                    }}
+                  >
+                    Deposit
+                  </div>
+                  <div
+                    className="token-button"
+                    onClick={e => {
+                      e.preventDefault()
+                      const href = `${router.route}?withdraw`
+                      router.push(href, href, { shallow: true })
+                    }}
+                  >
+                    Withdraw
+                  </div>
+                  <div
+                    className="token-button"
+                    onClick={() => {
+                      props.setTransferredToken(tokenAddress)
+                      router.push('/payment#send')
+                    }}
+                  >
+                    Send
+                  </div>
+                  <div
+                    className="token-button"
+                    onClick={() => {
+                      router.push('/exchange#order-request')
+                    }}
+                  >
+                    Exchange
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="token-buttons-container">
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?deposit`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Deposit
-              </div>
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?withdraw`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Withdraw
-              </div>
-              <div
-                className="token-button"
-                onClick={() => {
-                  router.push('/payment#send')
-                }}
-              >
-                Send
-              </div>
-              <div
-                className="token-button"
-                onClick={() => {
-                  router.push('/exchange#order-request')
-                }}
-              >
-                Exchange
-              </div>
-            </div>
-          </div>
-          <div className="l2-token-box">
-            <div className="l2-token-name">Dai</div>
-            <div className="balance-board">
-              <img
-                className="l2-token-img"
-                src="../ethereum-icon.png"
-                alt="Ethereum Logo"
-              ></img>
-              <div className="total-balance-box">
-                <span className="total-balance-number">130</span>
-                <span className="total-balance-unit">DAI</span>
-                <div className="balance-in-usd">$130.00 USD</div>
-              </div>
-            </div>
-            <div className="token-buttons-container">
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?deposit`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Deposit
-              </div>
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?withdraw`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Withdraw
-              </div>
-              <div
-                className="token-button"
-                onClick={() => {
-                  router.push('/payment#send')
-                }}
-              >
-                Send
-              </div>
-              <div
-                className="token-button"
-                onClick={() => {
-                  router.push('/exchange#order-request')
-                }}
-              >
-                Exchange
-              </div>
-            </div>
-          </div>
-          <div className="l2-token-box">
-            <div className="l2-token-name">Ethereum</div>
-            <div className="balance-board">
-              <img
-                className="l2-token-img"
-                src="../ethereum-icon.png"
-                alt="Ethereum Logo"
-              ></img>
-              <div className="total-balance-box">
-                <span className="total-balance-number">{props.balance}</span>
-                <span className="total-balance-unit">ETH</span>
-                <div className="balance-in-usd">
-                  {props.ETHtoUSD * props.balance} USD
-                </div>
-              </div>
-            </div>
-            <div className="token-buttons-container">
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?deposit`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Deposit
-              </div>
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?withdraw`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Withdraw
-              </div>
-              <div
-                className="token-button"
-                onClick={() => {
-                  router.push('/payment#send')
-                }}
-              >
-                Send
-              </div>
-              <div
-                className="token-button"
-                onClick={() => {
-                  router.push('/exchange#order-request')
-                }}
-              >
-                Exchange
-              </div>
-            </div>
-          </div>
-          <div className="l2-token-box">
-            <div className="l2-token-name">Ethereum</div>
-            <div className="balance-board">
-              <img
-                className="l2-token-img"
-                src="../ethereum-icon.png"
-                alt="Ethereum Logo"
-              ></img>
-              <div className="total-balance-box">
-                <span className="total-balance-number">{props.balance}</span>
-                <span className="total-balance-unit">ETH</span>
-                <div className="balance-in-usd">
-                  {props.ETHtoUSD * props.balance} USD
-                </div>
-              </div>
-            </div>
-            <div className="token-buttons-container">
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?deposit`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Deposit
-              </div>
-              <div
-                className="token-button"
-                onClick={e => {
-                  e.preventDefault()
-                  const href = `${router.route}?withdraw`
-                  router.push(href, href, { shallow: true })
-                }}
-              >
-                Withdraw
-              </div>
-              <div
-                className="token-button"
-                onClick={() => {
-                  router.push('/payment#send')
-                }}
-              >
-                Send
-              </div>
-              <div
-                className="token-button"
-                onClick={() => {
-                  router.push('/exchange#order-request')
-                }}
-              >
-                Exchange
-              </div>
-            </div>
-          </div>
+            )
+          })}
         </div>
         <hr className="l2-token-total-balance-line"></hr>
         <div className="l2-token-total-balance">
@@ -351,8 +197,8 @@ const Home = props => {
               removeAddressListItem={props.removeAddressListItem}
               editedNameRef={editedNameRef}
               editedAddressRef={editedAddressRef}
-              editedName={props.editedName}
-              editedAddress={props.editedAddress}
+              editedName={props.editedAddressListItem.name}
+              editedAddress={props.editedAddressListItem.address}
             />
           ))}
           <tr>
@@ -635,12 +481,11 @@ const Home = props => {
 }
 
 const mapStateToProps = state => ({
-  address: state.address,
-  balance: state.balance.balance,
+  tokenBalanceList: state.balance.tokenBalanceList,
   ETHtoUSD: state.balance.ETHtoUSD,
+  address: state.address,
   addressList: state.addressList,
-  editedAddress: state.editedAddress,
-  editedName: state.editedName
+  editedAddressListItem: state.editAddressListItem
 })
 
 const mapDispatchToProps = {
@@ -651,7 +496,8 @@ const mapDispatchToProps = {
   setEditedName,
   getBalance,
   getETHtoUSD,
-  getAddress
+  getAddress,
+  setTransferredToken
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
