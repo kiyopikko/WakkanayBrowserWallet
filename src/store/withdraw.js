@@ -10,10 +10,10 @@ export const withdrawReducer = createReducer(
   },
   {
     [setWithdrawnToken]: (state, action) => {
-      state.WithdrawnToken = action.payload
+      state.withdrawnToken = action.payload
     },
     [setWithdrawPage]: (state, action) => {
-      state.setWithdrawPage = action.payload
+      state.withdrawPage = action.payload
     }
   }
 )

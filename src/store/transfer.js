@@ -24,7 +24,7 @@ export const transferReducer = createReducer(
       state.recepientAddress = action.payload
     },
     [setTransferPage]: (state, action) => {
-      state.setTransferPage = action.payload
+      state.transferPage = action.payload
     }
   }
 )

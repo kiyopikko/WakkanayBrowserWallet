@@ -8,8 +8,8 @@ export const getAddress = () => {
   return async dispatch => {
     const client = await clientWrapper.getClient()
     if (!client) return
-    const addrece = client.address
-    dispatch(setUserAddress(addrece))
+    const address = client.address
+    dispatch(setUserAddress(address))
   }
 }
 

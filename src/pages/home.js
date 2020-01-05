@@ -485,7 +485,7 @@ const mapStateToProps = state => ({
   ETHtoUSD: state.balance.ETHtoUSD,
   address: state.address,
   addressList: state.addressList,
-  editedAddressListItem: state.editAddressListItem
+  editedAddressListItem: state.editedAddressListItem
 })
 
 const mapDispatchToProps = {

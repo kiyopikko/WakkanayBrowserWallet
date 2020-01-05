@@ -29,6 +29,7 @@ const DepositModal = props => {
   const depositPage = props.depositPage
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
+
   return (
     <div className="modal-bg">
       <ClickOutside
@@ -318,7 +319,7 @@ const DepositModal = props => {
           display: none;
           position: absolute;
           left: 4px;
-          top: 38px;
+          top: 38spx;
           width: 312px;
           background-color: white;
           border: solid 1px darkgray;

@@ -19,8 +19,7 @@ import { shortenAddress } from '../utils'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
-  Dai: 'DAI',
-  '0x2323': 'PETH'
+  Dai: 'DAI'
 }
 
 const Send = props => {
