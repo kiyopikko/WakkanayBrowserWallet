@@ -1,3 +1,6 @@
+import { useRef, useEffect } from 'react'
+import { useRouter } from 'next/router'
+
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
@@ -6,8 +9,13 @@ library.add(faSignOutAlt)
 
 import { connect } from 'react-redux'
 import Dropdown from './Dropdown'
-import { setToken } from '../store/send'
-import { getBalance, getETHtoUSD } from '../store/balance'
+import { getBalance, getETHtoUSD } from '../store/tokenBalanceList'
+import {
+  setTransferredToken,
+  setTransferredAmount,
+  setRecepientAddress
+} from '../store/transfer'
+import { shortenAddress } from '../utils'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -15,9 +23,20 @@ const TOKEN_CURRENCY_MAP = {
 }
 
 const Send = props => {
-  const currentToken = props.currentToken
-  props.getBalance()
-  props.getETHtoUSD()
+  const router = useRouter()
+  const recepientAddressRef = useRef('')
+  const amountRef = useRef('')
+  const transferredToken = props.transferredToken
+  const tokenBalanceList = props.tokenBalanceList
+
+  useEffect(() => {
+    props.getBalance()
+    props.getETHtoUSD()
+  }, [])
+
+  const tokenBalance = tokenBalanceList.find(
+    ({ tokenAddress }) => tokenAddress === transferredToken
+  )
 
   return (
     <div>
@@ -29,7 +48,9 @@ const Send = props => {
           </div>
         </div>
         <div className="balance-box">
-          <div className="your-balance-title">{currentToken} Balance</div>
+          <div className="your-balance-title">
+            {shortenAddress(transferredToken)} Balance
+          </div>
           <div className="balance-board">
             <img
               className="ethereum-logo"
@@ -37,12 +58,14 @@ const Send = props => {
               alt="Ethereum Logo"
             ></img>
             <div className="total-balance-box">
-              <span className="total-balance-number">{props.balance}</span>
+              <span className="total-balance-number">
+                {tokenBalance ? tokenBalance.amount : ''}
+              </span>
               <span className="total-balance-unit">
-                {TOKEN_CURRENCY_MAP[currentToken]}
+                {TOKEN_CURRENCY_MAP[transferredToken]}
               </span>
               <div className="balance-in-usd">
-                {props.ETHtoUSD * props.balance} USD
+                {/* {props.ETHtoUSD * props.balance} USD */}
               </div>
             </div>
           </div>
@@ -53,7 +76,7 @@ const Send = props => {
           </div>
           <div className="token-select-box-wrapper">
             <Dropdown
-              onSelected={props.setToken}
+              onSelected={props.setTransferredToken}
               renderItem={item => {
                 return (
                   <div className="button-name-inner">
@@ -70,17 +93,15 @@ const Send = props => {
                     <FontAwesomeIcon icon={['fab', 'ethereum']} />
                   </div>
                   <div className="token-name">
-                    {currentToken} ({TOKEN_CURRENCY_MAP[currentToken]})
+                    {shortenAddress(transferredToken)} (
+                    {TOKEN_CURRENCY_MAP[transferredToken]})
                   </div>
                 </div>
               }
-              items={[
-                {
-                  name: 'Ethereum (ETH)',
-                  value: 'Ethereum'
-                },
-                { name: 'Dai (DAI)', value: 'Dai' }
-              ]}
+              items={tokenBalanceList.map(({ tokenAddress }) => ({
+                name: shortenAddress(tokenAddress),
+                value: tokenAddress
+              }))}
             />
           </div>
         </div>
@@ -88,23 +109,39 @@ const Send = props => {
           <div className="address-tag">
             <a className="address-title">Address:</a>
           </div>
-          <input className="address-input" />
+          <input
+            placeholder={'0x00000000000'}
+            className="recepient-address-input"
+            type="text"
+            ref={recepientAddressRef}
+          />
         </div>
         <div className="amount-box">
           <div className="amount-tag">
             <a className="amount-title">Amount:</a>
           </div>
-          <input className="amount-input" type="number" />
+          <input className="amount-input" type="number" ref={amountRef} />
           <span className="sent-amount-unit">
-            {TOKEN_CURRENCY_MAP[currentToken]}
+            {TOKEN_CURRENCY_MAP[transferredToken]}
           </span>
-          <span className="sent-amount-in-usd">(9.33USD)</span>
+          <span className="sent-amount-in-usd">
+            ({props.ETHtoUSD * amountRef} USD)
+          </span>
         </div>
         <div className="cancel-next-buttons">
           <div className="cancel-button">
             <a className="cancel">Cancel</a>
           </div>
-          <div className="next-button">
+          <div
+            className="next-button"
+            onClick={e => {
+              props.setTransferredAmount(Number(amountRef.current.value))
+              props.setRecepientAddress(recepientAddressRef.current.value)
+              e.preventDefault()
+              const href = `${router.route}?transfer`
+              router.push(href, href, { shallow: true })
+            }}
+          >
             <a className="next">Next</a>
           </div>
         </div>
@@ -248,7 +285,7 @@ const Send = props => {
           display: none;
           position: absolute;
           left: 4px;
-          bottom: -63px;
+          top: 38px;
           width: 312px;
           background-color: white;
           border: solid 1px darkgray;
@@ -286,7 +323,7 @@ const Send = props => {
           align-items: center;
           justify-content: center;
         }
-        .address-input,
+        .recepient-address-input,
         .amount-input,
         .token-input {
           height: 40px;
@@ -295,7 +332,7 @@ const Send = props => {
           font-size: 16px;
           border-radius: 6px;
         }
-        .address-input {
+        .recepient-address-input {
           width: 400px;
         }
         .sent-amount-unit {
@@ -374,14 +411,18 @@ const Send = props => {
 
 const mapStateToProps = state => ({
   address: state.address,
-  balance: state.balance.balance,
+  tokenBalanceList: state.balance.tokenBalanceList,
   ETHtoUSD: state.balance.ETHtoUSD,
-  currentToken: state.currentToken
+  transferredToken: state.transferState.transferredToken,
+  transferredAmount: state.transferState.transferredAmount,
+  recepientAddress: state.transferState.recepientAddress
 })
 
 const mapDispatchToProps = {
-  setToken,
   getBalance,
-  getETHtoUSD
+  getETHtoUSD,
+  setTransferredToken,
+  setTransferredAmount,
+  setRecepientAddress
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Send)

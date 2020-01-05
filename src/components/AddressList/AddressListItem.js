@@ -48,7 +48,7 @@ export default ({
     </td>
     <td className="address-section">
       <div className="address-cell">
-        <span className="address">
+        <div className="address">
           {addressListItem.address === editedAddress ? (
             <input
               placeholder={'address'}
@@ -60,33 +60,35 @@ export default ({
           ) : (
             addressListItem.address
           )}
-        </span>
-        <button
-          className="edit-button"
-          onClick={() => {
-            if (editedAddress === addressListItem.address) {
-              editAddressListItem({
-                id: addressListItem.id,
-                name: addressListItem.name,
-                address: editedAddressRef.current.value
-              })
-              setEditedAddress(null)
-            } else {
-              setEditedAddress(addressListItem.address)
-            }
-          }}
-        >
-          <FontAwesomeIcon icon="pen" />
-        </button>
-        <button
-          className="remove-button"
-          onClick={() => {
-            removeAddressListItem(addressListItem.id)
-          }}
-        >
-          <FontAwesomeIcon icon="trash" />
-        </button>
-        <div className="token-button">Send</div>
+        </div>
+        <div className="button-container">
+          <button
+            className="edit-button"
+            onClick={() => {
+              if (editedAddress === addressListItem.address) {
+                editAddressListItem({
+                  id: addressListItem.id,
+                  name: addressListItem.name,
+                  address: editedAddressRef.current.value
+                })
+                setEditedAddress(null)
+              } else {
+                setEditedAddress(addressListItem.address)
+              }
+            }}
+          >
+            <FontAwesomeIcon icon="pen" />
+          </button>
+          <button
+            className="remove-button"
+            onClick={() => {
+              removeAddressListItem(addressListItem.id)
+            }}
+          >
+            <FontAwesomeIcon icon="trash" />
+          </button>
+          <div className="send-button">Send</div>
+        </div>
       </div>
     </td>
     <style jsx>{`
@@ -115,6 +117,11 @@ export default ({
       .address-cell {
         display: flex;
         align-items: center;
+        justify-content: space-between;
+      }
+      .button-container {
+        display: flex;
+        align-items: center;
       }
       .name {
         font-size: 18px;
@@ -138,7 +145,7 @@ export default ({
       }
       .edit-address-input {
         width: 460px;
-        height: 24px;
+        height: 28px;
         font-size: 18px;
         font-weight: 300;
       }
@@ -162,9 +169,9 @@ export default ({
         margin-left: 4px;
         background-color: lightblue;
       }
-      .token-button {
+      .send-button {
         font-size: 16px;
-        margin-left: 16px;
+        margin-left: 12px;
         padding: 4px;
         border-radius: 16px;
         width: 68px;

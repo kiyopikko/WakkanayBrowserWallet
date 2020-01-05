@@ -3,12 +3,14 @@ import MainDisplay from './MainDisplay'
 import Tabs from './Tabs'
 import DepositModal from './DepositModal'
 import WithdrawModal from './WithdrawModal'
+import TransferModal from './TransferModal'
 import { useRouter } from 'next/router'
 
 const Layout = props => {
   const router = useRouter()
   const isDepositModalOpen = router.query.deposit !== undefined
   const isWithdrawModalOpen = router.query.withdraw !== undefined
+  const isTransferModalOpen = router.query.transfer !== undefined
   return (
     <div>
       <div>
@@ -25,6 +27,7 @@ const Layout = props => {
       </div>
       {isDepositModalOpen && <DepositModal />}
       {isWithdrawModalOpen && <WithdrawModal />}
+      {isTransferModalOpen && <TransferModal />}
       <style>{`
         *,
         *:after,
@@ -38,6 +41,7 @@ const Layout = props => {
           font-family: 'Avenir Next';
           ${isDepositModalOpen ? 'overflow: hidden;' : ''}
           ${isWithdrawModalOpen ? 'overflow: hidden;' : ''}
+          ${isTransferModalOpen ? 'overflow: hidden;' : ''}
         }
         input {
           font-family: 'Avenir Next';

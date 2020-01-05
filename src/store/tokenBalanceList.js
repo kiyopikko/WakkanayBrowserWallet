@@ -2,7 +2,7 @@ import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
 import axios from 'axios'
 
-export const setBalance = createAction('SET_BALANCE')
+export const setTokenBalance = createAction('SET_TOKEN_BALANCE')
 export const setETHtoUSD = createAction('SET_ETH_TO_USD')
 
 // thunk action: higher order function to get deposited token balance from mock client
@@ -11,7 +11,7 @@ export const getBalance = () => {
     const client = await clientWrapper.getClient()
     if (!client) return
     const balance = await client.getBalance()
-    dispatch(setBalance(balance[0].amount))
+    dispatch(setTokenBalance(balance))
   }
 }
 const EtherLatestPriceURL =
@@ -26,14 +26,11 @@ export const getETHtoUSD = () => {
   }
 }
 
-export const balanceReducer = createReducer(
+export const tokenBalanceReducer = createReducer(
+  { tokenBalanceList: [], ETHtoUSD: 0 },
   {
-    balance: 0,
-    ETHtoUSD: 0
-  },
-  {
-    [setBalance]: (state, action) => {
-      state.balance = action.payload
+    [setTokenBalance]: (state, action) => {
+      state.tokenBalanceList = action.payload
     },
     [setETHtoUSD]: (state, action) => {
       state.ETHtoUSD = action.payload

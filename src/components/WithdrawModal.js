@@ -11,8 +11,7 @@ library.add(fab, faTimes, faEthernet)
 
 import Dropdown from './Dropdown'
 import { connect } from 'react-redux'
-import { setWithdrawnToken } from '../store/withdraw_modal'
-import { setWithdrawnTokenUnit } from '../store/withdraw_modal'
+import { setWithdrawnToken, setWithdrawPage } from '../store/withdraw'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -21,8 +20,7 @@ const TOKEN_CURRENCY_MAP = {
 
 const WithdrawModal = props => {
   const router = useRouter()
-  const currentlyWithdrawnToken = props.currentlyWithdrawnToken
-  const currentlyWithdrawnTokenUnit = props.currentlyWithdrawnTokenUnit
+  const withdrawnToken = props.withdrawnToken
   const [tokenAmount, setTokenAmount] = useState(0)
   return (
     <div className="modal-bg">
@@ -69,8 +67,7 @@ const WithdrawModal = props => {
                       <FontAwesomeIcon icon={['fab', 'ethereum']} />
                     </div>
                     <div className="token-name">
-                      {currentlyWithdrawnToken} (
-                      {TOKEN_CURRENCY_MAP[currentlyWithdrawnToken]})
+                      {withdrawnToken} ({TOKEN_CURRENCY_MAP[withdrawnToken]})
                     </div>
                   </div>
                 }
@@ -94,24 +91,13 @@ const WithdrawModal = props => {
                   setTokenAmount(e.target.value)
                 }}
               />
-              <div className="amount-unit-box-wrapper">
-                <Dropdown
-                  onSelected={props.setWithdrawnTokenUnit}
-                  buttonName={currentlyWithdrawnTokenUnit}
-                  items={[
-                    { name: 'USD', value: 'USD' },
-                    { name: 'EUR', value: 'EUR' },
-                    { name: 'JPY', value: 'JPY' }
-                  ]}
-                />
-              </div>
             </div>
           </div>
           <div className="token-amount-confirm-section">
             <div className="token-amount-confirm-title">You will deposit:</div>
             <div className="token-amount">{tokenAmount}</div>
             <div className="token-currency">
-              {TOKEN_CURRENCY_MAP[currentlyWithdrawnToken]}
+              {TOKEN_CURRENCY_MAP[withdrawnToken]}
             </div>
           </div>
           <div className="cancel-next-buttons">
@@ -419,13 +405,13 @@ const WithdrawModal = props => {
 }
 
 const mapStateToProps = state => ({
-  currentlyWithdrawnToken: state.currentlyWithdrawnToken,
-  currentlyWithdrawnTokenUnit: state.currentlyWithdrawnTokenUnit
+  withdrawnToken: state.withdrawState.withdrawnToken,
+  withdrawPage: state.withdrawState.withdrawPage
 })
 
 const mapDispatchToProps = {
   setWithdrawnToken,
-  setWithdrawnTokenUnit
+  setWithdrawPage
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WithdrawModal)

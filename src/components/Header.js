@@ -7,7 +7,6 @@ const Header = () => {
   return (
     <div className="header">
       <h1 className="title">Wakkanay Wallet</h1>
-      {/* <div className="setting-button"><FontAwesomeIcon icon="cogs" /></div> */}
       <style jsx>{`
         .header {
           width: 1252px;

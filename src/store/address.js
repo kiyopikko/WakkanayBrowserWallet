@@ -1,18 +1,18 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
 
-export const setAddress = createAction('SET_ADDRESS')
+export const setUserAddress = createAction('SET_USER_ADDRESS')
 
 // thunk action: higher order function
 export const getAddress = () => {
   return async dispatch => {
     const client = await clientWrapper.getClient()
     if (!client) return
-    const addr = client.address
-    dispatch(setAddress(addr))
+    const address = client.address
+    dispatch(setUserAddress(address))
   }
 }
 
 export const addressReducer = createReducer('', {
-  [setAddress]: (state, action) => action.payload
+  [setUserAddress]: (state, action) => action.payload
 })

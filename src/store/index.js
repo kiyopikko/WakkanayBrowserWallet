@@ -3,48 +3,23 @@ import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
 import { addressReducer } from './address'
-import { balanceReducer } from './balance'
-import { addressListReducer } from './address_list_item_register'
-import { editedAddressListItemReducer } from './address_list_item_edit'
+import { tokenBalanceReducer } from './tokenBalanceList'
+import { addressListReducer } from './address_list_item'
+import { editedAddressListItemReducer } from './edited_address_list_item.js'
 import { filterReducer } from './transaction_history'
-import {
-  tokenSelectReducer,
-  unitSelectReducer,
-  pageTransitionReducer
-} from './deposit_modal'
-import {
-  withdrawnTokenSelectReducer,
-  withdrawnTokenUnitSelectReducer
-} from './withdraw_modal.js'
-
-/**
- * state = {
- *  address: address
- *  balance: [{tokenAddress: string, tokenName: string, amount: number}]
- *  ETHtoUSD: number
- *  addressList: [{id: number, name: string, address: string}]
- *  editedAddress: string
- *  editedName: string
- *  currentFilter: string
- *  currentToken: string
- *  currentUnit: string
- *  currentPage: number
- *  currentlyWithdrawnToken: string
- *  currentlyWithdrawnTokenUnit: string
- */
+import { depositReducer } from './deposit'
+import { transferReducer } from './transfer'
+import { withdrawReducer } from './withdraw'
 
 const reducer = combineReducers({
   address: addressReducer,
-  balance: balanceReducer,
+  balance: tokenBalanceReducer,
   addressList: addressListReducer,
-  editedAddress: editedAddressListItemReducer,
-  editedName: editedAddressListItemReducer,
+  editedAddressListItem: editedAddressListItemReducer,
   currentFilter: filterReducer,
-  currentToken: tokenSelectReducer,
-  currentUnit: unitSelectReducer,
-  currentPage: pageTransitionReducer,
-  currentlyWithdrawnToken: withdrawnTokenSelectReducer,
-  currentlyWithdrawnTokenUnit: withdrawnTokenUnitSelectReducer
+  depositState: depositReducer,
+  transferState: transferReducer,
+  withdrawState: withdrawReducer
 })
 
 export const initStore = initialState => {
