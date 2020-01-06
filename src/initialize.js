@@ -14,13 +14,13 @@ import {
   CheckpointManager
 } from 'wakkanay-plasma-light-client/dist/managers'
 
-async function instantiate() {
+async function instantiate(privateKey) {
   const kvs = new IndexedDbKeyValueStore(Bytes.fromString('plasma_aggregator'))
   const eventDb = await kvs.bucket(Bytes.fromString('event'))
 
   const wallet = new EthWallet(
     new ethers.Wallet(
-      process.env.TEST_PRIVATE_KEY,
+      privateKey,
       new ethers.providers.JsonRpcProvider(process.env.MAIN_CHAIN_HOST)
     )
   )
@@ -39,7 +39,7 @@ async function instantiate() {
   const syncDb = await kvs.bucket(Bytes.fromString('sync'))
   const syncManager = new SyncManager(syncDb)
 
-  const checkpointDb = await kvs.bucket(Bytes.fromString('checkpoint')) 
+  const checkpointDb = await kvs.bucket(Bytes.fromString('checkpoint'))
   const checkpointManager = new CheckpointManager(checkpointDb)
 
   const commitmentContract = new CommitmentContract(
@@ -60,8 +60,8 @@ async function instantiate() {
   )
 }
 
-export default async function initialize() {
-  const lightClient = await instantiate()
+export default async function initialize(privateKey) {
+  const lightClient = await instantiate(privateKey)
   await lightClient.start()
 
   return lightClient
