@@ -34,7 +34,7 @@ export const checkClientInitialized = () => {
   }
 }
 
-export const initializeClient = () => {
+export const initializeClient = privateKey => {
   return async dispatch => {
     dispatch(setAppError(null))
     try {
@@ -42,7 +42,7 @@ export const initializeClient = () => {
       if (!client) {
         dispatch(setAppStatus(APP_STATUS.UNLOADED))
       }
-      await clientWrapper.initializeClient()
+      await clientWrapper.initializeClient(privateKey)
       dispatch(setAppStatus(APP_STATUS.LOADED))
     } catch (error) {
       dispatch(setAppError(error))
