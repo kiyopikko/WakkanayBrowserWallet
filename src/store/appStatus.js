@@ -18,7 +18,6 @@ export const appStatusReducer = createReducer(
       state.status = action.payload
     },
     [setAppError]: (state, action) => {
-      state.status = APP_STATUS.ERROR
       state.error = action.payload
     }
   }
@@ -38,13 +37,10 @@ export const initializeClient = privateKey => {
   return async dispatch => {
     dispatch(setAppError(null))
     try {
-      const client = clientWrapper.getclient()
-      if (!client) {
-        dispatch(setAppStatus(APP_STATUS.UNLOADED))
-      }
       await clientWrapper.initializeClient(privateKey)
       dispatch(setAppStatus(APP_STATUS.LOADED))
     } catch (error) {
+      dispatch(setAppStatus(APP_STATUS.ERROR))
       dispatch(setAppError(error))
     }
   }
