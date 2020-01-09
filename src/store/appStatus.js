@@ -40,8 +40,8 @@ export const initializeClient = privateKey => {
       await clientWrapper.initializeClient(privateKey)
       dispatch(setAppStatus(APP_STATUS.LOADED))
     } catch (error) {
-      dispatch(setAppStatus(APP_STATUS.ERROR))
       dispatch(setAppError(error))
+      dispatch(setAppStatus(APP_STATUS.ERROR))
     }
   }
 }
