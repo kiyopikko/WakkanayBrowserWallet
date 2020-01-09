@@ -33,8 +33,6 @@
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "wakkanay": "github:cryptoeconomicslab/wakkanay",
-    "wakkanay-ethereum": "github:cryptoeconomicslab/wakkanay-ethereum",
     "wakkanay-plasma-light-client": "github:cryptoeconomicslab/wakkanay-plasma-light-client"
   },
   "devDependencies": {
