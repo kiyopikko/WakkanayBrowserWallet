@@ -10,6 +10,7 @@ import { filterReducer } from './transaction_history'
 import { depositReducer } from './deposit'
 import { transferReducer } from './transfer'
 import { withdrawReducer } from './withdraw'
+import { appStatusReducer } from './appStatus'
 
 const reducer = combineReducers({
   address: addressReducer,
@@ -19,7 +20,8 @@ const reducer = combineReducers({
   currentFilter: filterReducer,
   depositState: depositReducer,
   transferState: transferReducer,
-  withdrawState: withdrawReducer
+  withdrawState: withdrawReducer,
+  appStatus: appStatusReducer
 })
 
 export const initStore = initialState => {

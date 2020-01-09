@@ -18,34 +18,48 @@ export const appStatusReducer = createReducer(
       state.status = action.payload
     },
     [setAppError]: (state, action) => {
-      state.status = APP_STATUS.ERROR
       state.error = action.payload
     }
   }
 )
 
 export const checkClientInitialized = () => {
-  return dispatch => {
-    if (clientWrapper.getClient()) {
+  return async dispatch => {
+    if (!process.browser) {
+      dispatch(setAppStatus(APP_STATUS.UNLOADED))
+      return
+    }
+
+    const client = clientWrapper.getClient()
+    if (client) {
       dispatch(setAppStatus(APP_STATUS.LOADED))
+      return
+    }
+
+    const localKey = localStorage.getItem('privateKey')
+    if (localKey) {
+      try {
+        await clientWrapper.initializeClient(localKey)
+        dispatch(setAppStatus(APP_STATUS.LOADED))
+      } catch (e) {
+        localStorage.removeItem('privateKey')
+        dispatch(setAppStatus(APP_STATUS.UNLOADED))
+      }
     } else {
       dispatch(setAppStatus(APP_STATUS.UNLOADED))
     }
   }
 }
 
-export const initializeClient = () => {
+export const initializeClient = privateKey => {
   return async dispatch => {
     dispatch(setAppError(null))
     try {
-      const client = clientWrapper.getclient()
-      if (!client) {
-        dispatch(setAppStatus(APP_STATUS.UNLOADED))
-      }
-      await clientWrapper.initializeClient()
+      await clientWrapper.initializeClient(privateKey)
       dispatch(setAppStatus(APP_STATUS.LOADED))
     } catch (error) {
       dispatch(setAppError(error))
+      dispatch(setAppStatus(APP_STATUS.ERROR))
     }
   }
 }

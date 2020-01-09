@@ -64,5 +64,8 @@ export default async function initialize(privateKey) {
   const lightClient = await instantiate(privateKey)
   await lightClient.start()
 
+  // TODO: need more secure way to store private key.
+  localStorage.setItem('privateKey', privateKey)
+
   return lightClient
 }
