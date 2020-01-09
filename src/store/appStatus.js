@@ -24,9 +24,27 @@ export const appStatusReducer = createReducer(
 )
 
 export const checkClientInitialized = () => {
-  return dispatch => {
-    if (clientWrapper.getClient()) {
+  return async dispatch => {
+    if (!process.browser) {
+      dispatch(setAppStatus(APP_STATUS.UNLOADED))
+      return
+    }
+
+    const client = clientWrapper.getClient()
+    if (client) {
       dispatch(setAppStatus(APP_STATUS.LOADED))
+      return
+    }
+
+    const localKey = localStorage.getItem('privateKey')
+    if (localKey) {
+      try {
+        await clientWrapper.initializeClient(localKey)
+        dispatch(setAppStatus(APP_STATUS.LOADED))
+      } catch (e) {
+        localStorage.removeItem('privateKey')
+        dispatch(setAppStatus(APP_STATUS.UNLOADED))
+      }
     } else {
       dispatch(setAppStatus(APP_STATUS.UNLOADED))
     }
