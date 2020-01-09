@@ -17,12 +17,15 @@ module.exports = {
   },
   webpack: config => {
     config.node = {
+      module: 'empty',
       fs: 'empty',
       child_process: 'empty',
       net: 'empty',
       dns: 'empty',
       tls: 'empty'
     }
+    config.optimization.minimize = false
+    config.optimization.minimizer = []
     return config
   }
 }

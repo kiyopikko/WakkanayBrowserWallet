@@ -1,18 +1,17 @@
 import * as ethers from 'ethers'
-import { EthWallet } from 'wakkanay-ethereum/dist/wallet'
-import { Address, Bytes } from 'wakkanay/dist/types'
-import { IndexedDbKeyValueStore } from 'wakkanay/dist/db'
-import LightClient from 'wakkanay-plasma-light-client'
-import {
-  DepositContract,
-  ERC20Contract,
-  CommitmentContract
-} from 'wakkanay-ethereum/dist/contract'
-import {
+import LightClient, {
+  types,
+  ethWallet,
+  db,
+  ethContract,
   StateManager,
   SyncManager,
   CheckpointManager
-} from 'wakkanay-plasma-light-client/dist/managers'
+} from 'wakkanay-plasma-light-client'
+const { EthWallet } = ethWallet
+const { Address, Bytes } = types
+const { IndexedDbKeyValueStore } = db
+const { DepositContract, ERC20Contract, CommitmentContract } = ethContract
 
 async function instantiate(privateKey) {
   const kvs = new IndexedDbKeyValueStore(Bytes.fromString('plasma_aggregator'))
