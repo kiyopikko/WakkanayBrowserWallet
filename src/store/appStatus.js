@@ -1,5 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
+import { getBalance } from './tokenBalanceList'
 
 const APP_STATUS = {
   UNLOADED: 'unloaded',
@@ -33,6 +34,7 @@ export const checkClientInitialized = () => {
     const client = clientWrapper.getClient()
     if (client) {
       dispatch(setAppStatus(APP_STATUS.LOADED))
+      dispatch(subscribeEvents())
       return
     }
 
@@ -41,6 +43,7 @@ export const checkClientInitialized = () => {
       try {
         await clientWrapper.initializeClient(localKey)
         dispatch(setAppStatus(APP_STATUS.LOADED))
+        dispatch(subscribeEvents())
       } catch (e) {
         localStorage.removeItem('privateKey')
         dispatch(setAppStatus(APP_STATUS.UNLOADED))
@@ -57,9 +60,48 @@ export const initializeClient = privateKey => {
     try {
       await clientWrapper.initializeClient(privateKey)
       dispatch(setAppStatus(APP_STATUS.LOADED))
+      dispatch(subscribeEvents())
     } catch (error) {
       dispatch(setAppError(error))
       dispatch(setAppStatus(APP_STATUS.ERROR))
     }
   }
+}
+
+const subscribeEvents = () => dispatch => {
+  console.log('🔥Subscribe light client events')
+  const client = clientWrapper.getClient()
+  if (!client) {
+    throw new Error('client is not initialized yet.')
+  }
+
+  client.subscribeCheckpointFinalized((checkpointId, checkpoint) => {
+    console.info(
+      `new %ccheckpoint %cdetected: %c{ id: ${checkpointId.toHexString()}, range: (${
+        checkpoint[0].start.data
+      }, ${checkpoint[0].end.data}) }`,
+      'color: pink; font-weight: bold;',
+      '',
+      'font-weight: bold;'
+    )
+    dispatch(getBalance())
+  })
+
+  client.subscribeSyncFinished(blockNumber => {
+    console.info(`sync new state: ${blockNumber.data}`)
+    dispatch(getBalance())
+  })
+
+  client.subscribeTransferComplete(stateUpdate => {
+    console.info(
+      `%c transfer complete for range: %c (${stateUpdate.range.start.data}, ${stateUpdate.range.end.data})`,
+      'color: brown; font-weight: bold;',
+      'font-weight: bold;'
+    )
+    dispatch(getBalance())
+  })
+
+  client.subscribeExitFinalized(exitId => {
+    console.info(`exit finalized for exit: ${exitId.toHexString()}`)
+  })
 }
