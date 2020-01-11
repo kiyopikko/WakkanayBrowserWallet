@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS=--max_old_space_size=4096 next dev src -p 5000",
     "build": "next build src",
-    "start": "next start -p $PORT",
+    "start": "next start src -p $PORT",
     "lint": "eslint --ext js,jsx src",
     "lint:fix": "eslint --fix --ext js,jsx src",
     "postinstall": "npm run build"
