@@ -13,7 +13,8 @@ module.exports = {
       process.env.UNIVERSAL_ADJUDICATION_CONTRACT_ADDRESS,
     THERE_EXISTS_ADDRESS: process.env.THERE_EXISTS_ADDRESS,
     IS_VALID_SIG_ADDRESS: process.env.IS_VALID_SIG_ADDRESS,
-    TEST_PRIVATE_KEY: process.env.TEST_PRIVATE_KEY
+    TEST_PRIVATE_KEY: process.env.TEST_PRIVATE_KEY,
+    ETH_NETWORK: process.env.ETH_NETWORK
   },
   webpack: config => {
     config.node = {
