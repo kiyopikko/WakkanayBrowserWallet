@@ -63,3 +63,22 @@ export const initializeClient = privateKey => {
     }
   }
 }
+
+export const initializeMetamaskWallet = () => {
+  return async dispatch => {
+    dispatch(setAppError(null))
+    try {
+      const snapId = new URL('package.json', window.location.href).toString()
+      await ethereum.send({
+        method: 'wallet_enable',
+        params: [
+          {
+            wallet_plugin: { [snapId]: {} }
+          }
+        ]
+      })
+    } catch (error) {
+      dispatch(setAppError(error))
+    }
+  }
+}

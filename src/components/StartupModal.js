@@ -24,6 +24,14 @@ const StartUpModal = props => {
         >
           Create Wallet
         </button>
+        <button
+          className="create-with-metamask-button"
+          onClick={() => {
+            props.initializeClient()
+          }}
+        >
+          Create Wallet with Metamask Plugin
+        </button>
       </div>
       <style jsx>{`
         .container {
