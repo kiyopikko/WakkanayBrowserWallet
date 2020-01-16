@@ -1,4 +1,4 @@
-import initialize from './initialize'
+// import initialize from './initialize'
 
 class ClientWrapper {
   constructor() {
@@ -24,8 +24,30 @@ class ClientWrapper {
     if (this.instance) return
 
     if (process.browser) {
-      const client = await initialize(privateKey)
-      this.instance = client
+      // const client = await initialize(privateKey)
+
+      // TODO: fix below
+      this.instance = {
+        address: '0x00000000000000000000',
+        subscribeSyncFinished: () => {},
+        subscribeTransferComplete: () => {},
+        subscribeCheckpointFinalized: () => {},
+        subscribeExitFinalized: () => {},
+        deposit: () => {
+          return Promise.resolve()
+        },
+        getBalance: () => {
+          return Promise.resolve([
+            {
+              tokenAddress: '0x00000000000000000000',
+              amount: 12.5
+            }
+          ])
+        },
+        transfer: () => {
+          return Promise.resolve()
+        }
+      }
     }
   }
 }
