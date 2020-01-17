@@ -9,7 +9,6 @@ import LightClient, {
   SyncManager,
   CheckpointManager
 } from 'wakkanay-plasma-light-client'
-import config from '../config.local'
 const { DeciderManager } = ovm
 const { EthWallet } = ethWallet
 const { Address, Bytes } = types
@@ -56,6 +55,8 @@ async function instantiate(privateKey) {
 
   const witnessDb = await kvs.bucket(Bytes.fromString('witness'))
   const deciderManager = new DeciderManager(witnessDb)
+  const mainChainEnv = process.env.MAIN_CHAIN_ENV || 'local'
+  const config = await import(`../config.${mainChainEnv}`)
   deciderManager.loadJson(config)
 
   return new LightClient(
