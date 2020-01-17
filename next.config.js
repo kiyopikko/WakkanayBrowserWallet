@@ -5,6 +5,7 @@ module.exports = {
   env: {
     MAIN_CHAIN_HOST: process.env.MAIN_CHAIN_HOST,
     AGGREGATOR_HOST: process.env.AGGREGATOR_HOST,
+    MAIN_CHAIN_ENV: process.env.MAIN_CHAIN_ENV,
     ETH_ADDRESS: process.env.ETH_ADDRESS,
     TOKEN_ADDRESS: process.env.TOKEN_ADDRESS,
     DEPOSIT_CONTRACT_ADDRESS: process.env.DEPOSIT_CONTRACT_ADDRESS,

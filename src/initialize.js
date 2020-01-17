@@ -3,11 +3,13 @@ import LightClient, {
   types,
   ethWallet,
   db,
+  ovm,
   ethContract,
   StateManager,
   SyncManager,
   CheckpointManager
 } from 'wakkanay-plasma-light-client'
+const { DeciderManager } = ovm
 const { EthWallet } = ethWallet
 const { Address, Bytes } = types
 const { IndexedDbKeyValueStore } = db
@@ -51,6 +53,12 @@ async function instantiate(privateKey) {
     wallet.getEthersWallet()
   )
 
+  const witnessDb = await kvs.bucket(Bytes.fromString('witness'))
+  const deciderManager = new DeciderManager(witnessDb)
+  const mainChainEnv = process.env.MAIN_CHAIN_ENV || 'local'
+  const config = await import(`../config.${mainChainEnv}`)
+  deciderManager.loadJson(config)
+
   return new LightClient(
     wallet,
     kvs,
@@ -59,7 +67,8 @@ async function instantiate(privateKey) {
     commitmentContract,
     stateManager,
     syncManager,
-    checkpointManager
+    checkpointManager,
+    deciderManager
   )
 }
 

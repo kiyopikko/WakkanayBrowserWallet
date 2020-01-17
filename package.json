@@ -7,8 +7,7 @@
     "build": "next build src",
     "start": "next start src -p $PORT",
     "lint": "eslint --ext js,jsx src",
-    "lint:fix": "eslint --fix --ext js,jsx src",
-    "postinstall": "npm run build"
+    "lint:fix": "eslint --fix --ext js,jsx src"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",

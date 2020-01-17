@@ -1,0 +1,38 @@
+{
+  "logicalConnectiveAddressTable": {
+    "Not": "0xABFc7Af72E811C309921D12C65CC11d0876a0379",
+    "And": "0x3ab3FE886a4EFC2bA3066E048Aea8A042a2Ec1EF",
+    "ForAllSuchThat": "0xE3E0EC590CdAB9c4eE32C0e89cAdB1Acee04b587",
+    "ThereExistsSuchThat": "0x30753E4A8aad7F8597332E813735Def5dD300001",
+    "Or": "0x30753E4A8aad7F8597332E813735Def5dD300002"
+  },
+  "atomicPredicateAddressTable": {
+    "IsValidSignature": "0x10faF188399BDa212485B039B57258963E3c7E63",
+    "IsContained": "0x230bcA3A93f241D0Ecc069E33dbF2Db0Ca994622",
+    "IsLessThan": "0xde84803ac3780d134cd82fc64287d9bb179269b5",
+    "Equal": "0x7c372eff07cd97ca394a8d2411f0511e4c9c0e6e",
+    "VerifyInclusion": "0x5f890a067a0f6daf619aa3c3805d65c26c34cdff",
+    "IsSameAmount": "0x976788c1f8041350f9f026e2d55cc23ec9d7068f"
+  },
+  "deployedPredicateTable": {
+    "StateUpdatePredicate": {
+      "deployedAddress": "0x4c048E6d582Fdd1E3C407cb2BfA736e2c4bBDc84",
+      "source": "def stateUpdate(token, range, block_number, so) := with Tx(token, range, block_number) as tx { so(tx) }"
+    },
+    "OwnershipPredicate": {
+      "deployedAddress": "0xF6B2271085cdC55315C26504eb88955d0CA8f70a",
+      "source": "def ownership(owner, tx) := SignedBy(tx, owner)\n"
+    }
+  },
+  "constantVariableTable": {
+    "secp256k1": "0x736563703235366b31",
+    "TransactionAddress": "0x0000000000000000000000000000000000000000"
+  },
+  "commitmentContract": "0x94939e8c0Bc3b69d53F605587C7CFCA4b9491480",
+  "adjudicationContract": "0x13F6cbC7576e7829A4B59611090d43884b4d3877",
+  "payoutContracts": {
+    "DepositContract": "0x006a89284B22f75f22a6b7B37898e295210C99c8",
+    "OwnershipPayout": "0x0000000000000000000000000000000000000000"
+  },
+  "PlasmaETH": "0x8A2355EcBf311b7cd3C063B6346FE7458a14a84A"
+}
