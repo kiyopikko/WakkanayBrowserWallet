@@ -1,3 +1,4 @@
+import { types } from 'wakkanay-plasma-light-client'
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
 
@@ -33,7 +34,11 @@ export const transfer = (amount, tokenContractAddress, recepientAddress) => {
     try {
       const client = await clientWrapper.getClient()
       if (!client) return
-      await client.transfer(amount, tokenContractAddress, recepientAddress)
+      await client.transfer(
+        amount,
+        types.Address.from(tokenContractAddress),
+        types.Address.from(recepientAddress)
+      )
       dispatch(setTransferPage('completion-page'))
     } catch (error) {
       console.log(error)

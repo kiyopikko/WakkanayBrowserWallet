@@ -15,7 +15,7 @@ const Tabs = () => {
       elementId === 'l2-tokens' ||
       elementId === 'address-book'
     ) {
-      tab = '/home'
+      tab = '/'
     } else if (elementId === 'send' || elementId === 'receive') {
       tab = '/payment'
     } else if (elementId === 'order-book' || elementId === 'order-request') {
@@ -29,10 +29,10 @@ const Tabs = () => {
   return (
     <div>
       <div className="tabs">
-        <Link href="/home">
+        <Link href="/">
           <div
             className={classNames('tab', {
-              selected: router.route === '/home'
+              selected: router.route === '/'
             })}
           >
             <Dropdown
