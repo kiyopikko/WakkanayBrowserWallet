@@ -30,5 +30,5 @@ class ClientWrapper {
   }
 }
 
-const wrapper = new ClientWrapper()
-export default wrapper
+const clientWrapper = new ClientWrapper()
+export default clientWrapper

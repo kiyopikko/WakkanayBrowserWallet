@@ -68,7 +68,10 @@ export const initializeMetamaskWallet = () => {
   return async dispatch => {
     dispatch(setAppError(null))
     try {
+      // identify the Snap by the location of its package.json file
       const snapId = new URL('package.json', window.location.href).toString()
+
+      // get permissions to interact with and install the plugin
       await ethereum.send({
         method: 'wallet_enable',
         params: [
@@ -77,6 +80,7 @@ export const initializeMetamaskWallet = () => {
           }
         ]
       })
+      dispatch(setAppStatus(APP_STATUS.LOADED))
     } catch (error) {
       dispatch(setAppError(error))
     }
