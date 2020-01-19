@@ -15,7 +15,7 @@ export default class MetamaskWallet {
       const snapId = new URL('package.json', window.location.href).toString()
 
       // call Plapp Snap (Metamask Plugin)'s "signL2Message" method
-      const response = await ethereum.send({
+      const response = await window.ethereum.send({
         method: 'wallet_invokePlugin',
         params: [
           snapId,
