@@ -68,7 +68,6 @@ export const initializeClient = privateKey => {
   }
 }
 
-<<<<<<< HEAD
 export const initializeMetamaskWallet = () => {
   return async dispatch => {
     dispatch(setAppError(null))
@@ -90,8 +89,9 @@ export const initializeMetamaskWallet = () => {
       dispatch(setAppError(error))
     }
   }
-=======
-const subscribeEvents = () => dispatch => {
+}
+
+export const subscribeEvents = () => dispatch => {
   console.log('🔥Subscribe light client events')
   const client = clientWrapper.getClient()
   if (!client) {
@@ -127,5 +127,4 @@ const subscribeEvents = () => dispatch => {
   client.subscribeExitFinalized(exitId => {
     console.info(`exit finalized for exit: ${exitId.toHexString()}`)
   })
->>>>>>> a916c9cbf2d0a5e7ec6ce06a5de0173a198ae532
 }
