@@ -68,7 +68,30 @@ export const initializeClient = privateKey => {
   }
 }
 
-const subscribeEvents = () => dispatch => {
+export const initializeMetamaskWallet = () => {
+  return async dispatch => {
+    dispatch(setAppError(null))
+    try {
+      // identify the Snap by the location of its package.json file
+      const snapId = new URL('package.json', window.location.href).toString()
+
+      // get permissions to interact with and install the plugin
+      await ethereum.send({
+        method: 'wallet_enable',
+        params: [
+          {
+            wallet_plugin: { [snapId]: {} }
+          }
+        ]
+      })
+      dispatch(setAppStatus(APP_STATUS.LOADED))
+    } catch (error) {
+      dispatch(setAppError(error))
+    }
+  }
+}
+
+export const subscribeEvents = () => dispatch => {
   console.log('🔥Subscribe light client events')
   const client = clientWrapper.getClient()
   if (!client) {

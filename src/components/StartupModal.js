@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { initializeClient } from '../store/appStatus'
+import { initializeClient, initializeMetamaskWallet } from '../store/appStatus'
 import { connect } from 'react-redux'
 
 const StartUpModal = props => {
@@ -23,6 +23,14 @@ const StartUpModal = props => {
           }}
         >
           Create Wallet
+        </button>
+        <button
+          className="create-with-metamask-button"
+          onClick={() => {
+            props.initializeMetamaskWallet()
+          }}
+        >
+          Create Wallet with Metamask Plugin
         </button>
       </div>
       <style jsx>{`
@@ -53,6 +61,7 @@ const StartUpModal = props => {
 }
 
 const mapDispatchToProps = {
-  initializeClient
+  initializeClient,
+  initializeMetamaskWallet
 }
 export default connect(undefined, mapDispatchToProps)(StartUpModal)
