@@ -4,7 +4,7 @@ const Bytes = types.Bytes
 
 export default class MetamaskWallet {
   getAddress() {
-    return Address.from('0x00000000000000000000')
+    return Address.default()
   }
   getL1Balance() {
     throw new Error('not implemented')
