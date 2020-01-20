@@ -9,6 +9,7 @@ import LightClient, {
   SyncManager,
   CheckpointManager
 } from 'wakkanay-plasma-light-client'
+import MetamaskWallet from './metamaskWallet'
 const { DeciderManager } = ovm
 const { EthWallet } = ethWallet
 const { Address, Bytes } = types
@@ -26,16 +27,27 @@ async function instantiate(privateKey) {
   const kvs = new IndexedDbKeyValueStore(Bytes.fromString('plasma_aggregator'))
   const eventDb = await kvs.bucket(Bytes.fromString('event'))
 
-  const wallet = new EthWallet(
-    new ethers.Wallet(privateKey, getProvider(process.env.ETH_NETWORK))
-  )
+  // TODO: fix light client interface
+  let wallet, signer
+  if (typeof privateKey === 'string') {
+    wallet = new EthWallet(
+      new ethers.Wallet(privateKey, getProvider(process.env.ETH_NETWORK))
+    )
+    signer = wallet.getEthersWallet()
+  } else {
+    await window.ethereum.enable()
+    wallet = new MetamaskWallet()
+    signer = new ethers.providers.Web3Provider(window.ethereum).getSigner()
+    wallet.getEthersWallet = () =>
+      new ethers.providers.Web3Provider(window.ethereum).getSigner()
+  }
 
   function depositContractFactory(address) {
-    return new DepositContract(address, eventDb, wallet.getEthersWallet())
+    return new DepositContract(address, eventDb, signer)
   }
 
   function tokenContractFactory(address) {
-    return new ERC20Contract(address, wallet.getEthersWallet())
+    return new ERC20Contract(address, signer)
   }
 
   const stateDb = await kvs.bucket(Bytes.fromString('state'))
@@ -50,7 +62,7 @@ async function instantiate(privateKey) {
   const commitmentContract = new CommitmentContract(
     Address.from(process.env.COMMITMENT_CONTRACT_ADDRESS),
     eventDb,
-    wallet.getEthersWallet()
+    signer
   )
 
   const witnessDb = await kvs.bucket(Bytes.fromString('witness'))

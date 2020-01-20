@@ -74,9 +74,10 @@ export const initializeMetamaskWallet = () => {
     try {
       // identify the Snap by the location of its package.json file
       const snapId = new URL('package.json', window.location.href).toString()
+      await clientWrapper.initializeClient()
 
       // get permissions to interact with and install the plugin
-      await ethereum.send({
+      await window.ethereum.send({
         method: 'wallet_enable',
         params: [
           {
