@@ -6,6 +6,7 @@ import TransferModal from './TransferModal'
 import TransactionHistory from './TransactionHistory'
 import { useRouter } from 'next/router'
 import { BACKGROUND, TEXT } from '../colors'
+import Head from 'next/head'
 
 const Layout = props => {
   const router = useRouter()
@@ -14,6 +15,12 @@ const Layout = props => {
   const isTransferModalOpen = router.query.transfer !== undefined
   return (
     <div>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,500,700&display=swap"
+        />
+      </Head>
       <div>
         <Header />
         <div className="layout">
@@ -39,15 +46,13 @@ const Layout = props => {
         }
         body {
           box-sizing: border-box;
-          font-family: 'Avenir Next';
+          font-family: 'Roboto', sans-serif;
+          font-weight: 500;
           background: ${BACKGROUND};
           color: ${TEXT};
           ${isDepositModalOpen ? 'overflow: hidden;' : ''}
           ${isWithdrawModalOpen ? 'overflow: hidden;' : ''}
           ${isTransferModalOpen ? 'overflow: hidden;' : ''}
-        }
-        input {
-          font-family: 'Avenir Next';
         }
       `}</style>
       <style jsx>{`

@@ -463,7 +463,6 @@ const Home = props => {
           border-bottom-left-radius: 5px;
         }
         .name-input::placeholder {
-          font-family: 'Avenir Next';
           font-size: 18px;
           font-weight: 300;
         }
@@ -471,7 +470,6 @@ const Home = props => {
           width: 460px;
         }
         .address-input::placeholder {
-          font-family: 'Avenir Next';
           font-size: 18px;
           font-weight: 300;
         }
