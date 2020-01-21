@@ -9,7 +9,10 @@ const Header = () => {
       <h1 className="title">Wakkanay Wallet</h1>
       <style jsx>{`
         .header {
-          width: 1252px;
+          width: 70%;
+          position: fixed;
+          top: 0;
+          left: 0;
           display: flex;
           align-items: center;
           justify-content: space-between;
