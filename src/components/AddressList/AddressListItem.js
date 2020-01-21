@@ -139,7 +139,6 @@ export default ({
       }
       .edit-name-input::placeholder,
       .edit-address-input::placeholder {
-        font-family: 'Avenir Next';
         font-size: 18px;
         font-weight: 300;
       }
