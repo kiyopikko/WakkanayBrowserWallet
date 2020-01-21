@@ -1,10 +1,11 @@
 import Header from './Header'
 import MainDisplay from './MainDisplay'
-import Tabs from './Tabs'
 import DepositModal from './DepositModal'
 import WithdrawModal from './WithdrawModal'
 import TransferModal from './TransferModal'
+import TransactionHistory from './TransactionHistory'
 import { useRouter } from 'next/router'
+import { BACKGROUND, TEXT } from '../colors'
 
 const Layout = props => {
   const router = useRouter()
@@ -15,15 +16,15 @@ const Layout = props => {
     <div>
       <div>
         <Header />
-        <div className="back-ground">
-          <div className="main-display-background">
-            <Tabs />
+        <div className="layout">
+          <div className="main">
             <MainDisplay>{props.children}</MainDisplay>
+            <footer>Cryptoeconomics Lab Inc.</footer>
+          </div>
+          <div className="transaction-history-wrap">
+            <TransactionHistory />
           </div>
         </div>
-        <footer>
-          <h4>Cryptoeconomics Lab Inc.</h4>
-        </footer>
       </div>
       {isDepositModalOpen && <DepositModal />}
       {isWithdrawModalOpen && <WithdrawModal />}
@@ -39,6 +40,8 @@ const Layout = props => {
         body {
           box-sizing: border-box;
           font-family: 'Avenir Next';
+          background: ${BACKGROUND};
+          color: ${TEXT};
           ${isDepositModalOpen ? 'overflow: hidden;' : ''}
           ${isWithdrawModalOpen ? 'overflow: hidden;' : ''}
           ${isTransferModalOpen ? 'overflow: hidden;' : ''}
@@ -48,23 +51,26 @@ const Layout = props => {
         }
       `}</style>
       <style jsx>{`
-        .back-ground {
+        .layout {
           display: flex;
-          width: 1268px;
-          border-right: none;
-          margin: 0px 24px;
-          border: solid 2px lightgray;
+          height: 100%;
+          min-height: 100vh;
         }
-        .main-display-background {
-          width: 100%;
+        .main {
           display: flex;
           flex-direction: column;
+          width: 70%;
+        }
+        .transaction-history-wrap {
+          position: fixed;
+          width: 30%;
+          height: 100%;
+          min-height: 100vh;
+          top: 0;
+          right: 0;
         }
         footer {
           padding: 16px;
-          width: 1252px;
-        }
-        footer > h4 {
           text-align: center;
         }
       `}</style>

@@ -1,10 +1,7 @@
-import TransactionHistory from './TransactionHistory'
-
 const MainDisplay = props => {
   return (
     <div className="main-display">
       <div className="pages">{props.children}</div>
-      <TransactionHistory />
       <style jsx>{`
         .main-display {
           display: flex;
