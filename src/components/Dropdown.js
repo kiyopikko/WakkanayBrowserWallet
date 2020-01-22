@@ -1,13 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 const Dropdown = ({ buttonName, items, onSelected, renderItem }) => {
   return (
     <div className="dropdown">
       <div className="dropdown-button">
         <div className="button-name">{buttonName}</div>
-        <div className="dropdown-caret">
-          <FontAwesomeIcon icon="caret-down" />
-        </div>
       </div>
       <div className="dropdown-content">
         {items.map(item => (
@@ -26,6 +21,11 @@ const Dropdown = ({ buttonName, items, onSelected, renderItem }) => {
       <style jsx>{`
         .dropdown:hover .dropdown-content {
           display: block;
+        }
+        .dropdown-button {
+          background-image: url('/chevron-down.svg');
+          background-repeat: no-repeat;
+          background-position: calc(100% - 0.5rem) 50%;
         }
       `}</style>
     </div>
