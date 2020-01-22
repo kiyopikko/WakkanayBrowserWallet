@@ -14,7 +14,6 @@ const MainDisplay = props => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          border-right: solid 2px lightgray;
           overflow: scroll;
         }
       `}</style>

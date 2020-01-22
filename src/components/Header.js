@@ -79,15 +79,18 @@ const Header = () => {
           text-align: center;
           margin: 0;
           border-radius: 5px 5px 0 0;
+          opacity: 0.3;
+          background-color: rgba(255,255,255,0.1);
         }
         .tab + .tab {
-          margin-left: 1rem;
+          margin-left: 0.5rem;
         }
         .tab.active {
+          opacity: 1;
           background-color: ${BACKGROUND};
         }
         .tab:hover:not(.active) {
-          background-color: rgba(0,0,0,0.2);
+          background-color: rgba(255,255,255,0.15);
         }
         .tab__link {
           display: block;
