@@ -10,6 +10,13 @@
     "lint:fix": "eslint --fix --ext js,jsx src"
   },
   "dependencies": {
+    "@cryptoeconomicslab/context": "0.0.12",
+    "@cryptoeconomicslab/eth-coder": "0.0.1",
+    "@cryptoeconomicslab/eth-contract": "0.0.1",
+    "@cryptoeconomicslab/eth-wallet": "0.0.1",
+    "@cryptoeconomicslab/indexeddb-kvs": "0.0.3",
+    "@cryptoeconomicslab/ovm": "0.0.12",
+    "@cryptoeconomicslab/primitives": "0.0.12",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-brands-svg-icons": "^5.11.2",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",

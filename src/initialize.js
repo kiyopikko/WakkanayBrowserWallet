@@ -1,20 +1,19 @@
 import * as ethers from 'ethers'
 import LightClient, {
-  types,
-  ethWallet,
-  db,
-  ovm,
-  ethContract,
   StateManager,
   SyncManager,
   CheckpointManager
 } from 'wakkanay-plasma-light-client'
 import MetamaskWallet from './metamaskWallet'
-const { DeciderManager } = ovm
-const { EthWallet } = ethWallet
-const { Address, Bytes } = types
-const { IndexedDbKeyValueStore } = db
-const { DepositContract, ERC20Contract, CommitmentContract } = ethContract
+import { EthWallet } from '@cryptoeconomicslab/eth-wallet'
+import { Address, Bytes } from '@cryptoeconomicslab/primitives'
+import { IndexedDbKeyValueStore } from '@cryptoeconomicslab/indexeddb-kvs'
+import {
+  DepositContract,
+  ERC20Contract,
+  CommitmentContract
+} from '@cryptoeconomicslab/eth-contract'
+
 function getProvider(network) {
   if (network === 'local') {
     return new ethers.providers.JsonRpcProvider(process.env.MAIN_CHAIN_HOST)
@@ -65,11 +64,8 @@ async function instantiate(privateKey) {
     signer
   )
 
-  const witnessDb = await kvs.bucket(Bytes.fromString('witness'))
-  const deciderManager = new DeciderManager(witnessDb)
   const mainChainEnv = process.env.MAIN_CHAIN_ENV || 'local'
   const config = await import(`../config.${mainChainEnv}`)
-  deciderManager.loadJson(config)
 
   return new LightClient(
     wallet,
@@ -80,7 +76,7 @@ async function instantiate(privateKey) {
     stateManager,
     syncManager,
     checkpointManager,
-    deciderManager
+    config
   )
 }
 
