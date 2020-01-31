@@ -1,6 +1,4 @@
-import { types } from 'wakkanay-plasma-light-client'
-const Address = types.Address
-const Bytes = types.Bytes
+import { Address, Bytes } from '@cryptoeconomicslab/primitives'
 
 export default class MetamaskWallet {
   getAddress() {

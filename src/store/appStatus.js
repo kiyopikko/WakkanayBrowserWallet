@@ -1,6 +1,8 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
 import { getBalance } from './tokenBalanceList'
+import { EthCoder } from '@cryptoeconomicslab/eth-coder'
+import { setupContext } from '@cryptoeconomicslab/context'
 
 const APP_STATUS = {
   UNLOADED: 'unloaded',
@@ -31,6 +33,7 @@ export const checkClientInitialized = () => {
       return
     }
 
+    setupContext({ coder: EthCoder })
     const client = clientWrapper.getClient()
     if (client) {
       dispatch(setAppStatus(APP_STATUS.LOADED))
