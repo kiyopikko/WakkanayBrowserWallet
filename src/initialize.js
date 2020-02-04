@@ -13,6 +13,12 @@ import {
   ERC20Contract,
   CommitmentContract
 } from '@cryptoeconomicslab/eth-contract'
+import * as Sentry from '@sentry/browser'
+if (process.env.SENTRY_ENDPOINT) {
+  Sentry.init({
+    dsn: process.env.SENTRY_ENDPOINT
+  })
+}
 
 function getProvider(network) {
   if (network === 'local') {
