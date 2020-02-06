@@ -306,6 +306,7 @@ const Home = props => {
           font-size: 24px;
         }
         .l2-token-box-list {
+          margin-top: 10px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -444,7 +445,6 @@ const Home = props => {
         .address-book-title-box {
           display: flex;
           align-items: center;
-          margin-left: 4px;
         }
         .address-book-title {
           font-weight: 400;
@@ -455,32 +455,31 @@ const Home = props => {
           margin-left: 8px;
         }
         .address-book-table {
+          margin-top: 10px;
           border-spacing: 0px;
           text-align: left;
-          border: 2px solid lightgray;
-          border-radius: 16px;
-          background-color: white;
+          background-color: rgba(255, 255, 255, 0.08);
           width: 100%;
-          border-radius: 6px;
         }
         th,
         td {
-          font-size: 20px;
+          font-size: 18px;
           border-spacing: 0px;
           height: 36px;
+          color: rgba(255, 255, 255, 0.74);
         }
         th {
           padding: 8px;
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 500;
-          border-bottom: 2px solid lightgray;
+          border-bottom: 2px solid black;
         }
         .default-name {
-          border-right: 2px solid lightgray;
+          border-right: 2px solid black;
         }
         .name-column {
           min-width: 100px;
-          border-right: 2px solid lightgray;
+          border-right: 2px solid black;
         }
         .cancel-button {
           margin: 0px 2px;
