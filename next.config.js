@@ -15,7 +15,8 @@ module.exports = {
     THERE_EXISTS_ADDRESS: process.env.THERE_EXISTS_ADDRESS,
     IS_VALID_SIG_ADDRESS: process.env.IS_VALID_SIG_ADDRESS,
     TEST_PRIVATE_KEY: process.env.TEST_PRIVATE_KEY,
-    ETH_NETWORK: process.env.ETH_NETWORK
+    ETH_NETWORK: process.env.ETH_NETWORK,
+    SENTRY_ENDPOINT: process.env.SENTRY_ENDPOINT
   },
   webpack: config => {
     config.node = {
