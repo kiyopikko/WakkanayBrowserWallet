@@ -5,8 +5,8 @@ const MainDisplay = props => {
       <style jsx>{`
         .main-display {
           display: flex;
-          justify-content: flex-end;
           height: 100%;
+          width: 100%;
         }
         .pages {
           width: 100%;

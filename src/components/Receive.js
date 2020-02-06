@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-
+import { SUBTEXT, BACKGROUND } from '../colors'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,71 +9,67 @@ import QRCode from 'qrcode.react'
 
 const Receive = props => {
   return (
-    <div>
-      <div className="receive-section" id="receive">
-        <div className="receive-eth-title-box">
-          <div className="receive-eth">Receive Token</div>
-          <div className="receive-icon">
-            <FontAwesomeIcon icon="sign-in-alt" />
-          </div>
-        </div>
+    <div className="receive-section" id="receive">
+      <div className="receive-section-title">Receive Token</div>
+      <div className="address-box-wrapper">
+        <div className="address-title">Your Wakkanay Wallet Address</div>
         <div className="address-box">
-          <div className="address-title">Your Wakkanay Wallet Address:</div>
-          <div className="address">{props.address}</div>
-          <div className="qr-code-box">
-            <QRCode
-              className="qr-code"
-              value={props.address}
-              alt="Your QR Code"
-              size={140}
-              includeMargin={true}
-            />
-          </div>
+          <div className="address">0x0000000000</div>
         </div>
       </div>
+      <div className="qr-code-box">
+        <QRCode
+          className="qr-code"
+          value={props.address}
+          alt="Your QR Code"
+          size={120}
+          includeMargin={true}
+        />
+      </div>
+
       <style jsx>{`
         .receive-section {
-          width: 452px;
+          width: calc(100% - 40px);
+          height: 160px;
           display: flex;
           flex-direction: column;
-          padding: 20px 24px;
-          margin-top: 24px;
-          margin-bottom: 32px;
-          background-color: #fcf7f5;
-          border: solid lightgray 2px;
-          border-radius: 6px;
+          padding: 20px;
+          margin: 20px 0px;
+          background-color: rgba(255, 255, 255, 0.08);
+          position: relative;
         }
-        .receive-eth-title-box {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
+        .receive-section-title {
+          font-size: 24px;
+          font-weight: 400;
         }
-        .receive-eth {
-          font-size: 28px;
-          font-weight: 700;
-        }
-        .receive-icon {
-          font-size: 18px;
-          margin-left: 8px;
-        }
-        .address-box {
+        .address-box-wrapper {
+          margin-top: 20px;
           display: flex;
           flex-direction: column;
           justify-content: center;
         }
         .address-title {
           font-size: 16px;
-          font-weight: 500;
-          margin-top: 16px;
-          margin-bottom: 2px;
+          font-weight: 800;
+          color: rgba(255, 255, 255, 0.5);
         }
-        .address {
-          font-size: 15px;
-          font-weight: 500;
-          color: lightslategray;
+        .address-box {
+          margin-top: 12px;
+          height: 32px;
+          width: 522px;
+          background-color: ${BACKGROUND};
+          font-size: 14px;
+          font-weight: 800;
+          color: ${SUBTEXT};
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 12px;
         }
         .qr-code-box {
-          width: 180px;
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
         }
       `}</style>
     </div>
