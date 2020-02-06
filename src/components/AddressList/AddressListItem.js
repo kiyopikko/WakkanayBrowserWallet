@@ -94,20 +94,18 @@ export default ({
     <style jsx>{`
       th,
       td {
-        border-bottom: 2px solid lightgray;
+        border-bottom: 2px solid black;
         font-size: 18px;
         height: 36px;
         padding: 8px;
       }
-      th {
-        font-weight: 500;
-      }
       .name-section,
       .address-section {
         padding: 8px;
+        color: rgba(255, 255, 255, 0.74);
       }
       .name-section {
-        border-right: 2px solid lightgray;
+        border-right: 2px solid black;
       }
       .name-cell {
         display: flex;
@@ -125,11 +123,11 @@ export default ({
       }
       .name {
         font-size: 18px;
-        font-weight: 300;
+        font-weight: 800;
       }
       .address {
-        font-size: 18px;
-        font-weight: 300;
+        font-size: 14px;
+        font-weight: 800;
       }
       .edit-name-input {
         width: 100px;
@@ -169,17 +167,17 @@ export default ({
         background-color: lightblue;
       }
       .send-button {
-        font-size: 16px;
-        margin-left: 12px;
-        padding: 4px;
-        border-radius: 16px;
-        width: 68px;
-        height: 28px;
+        margin-left: 19px;
+        padding: 7px;
+        border-radius: 80.7px;
+        width: 93px;
+        height: 30px;
         text-align: center;
-        background-color: #5d5aef;
-        color: white;
+        background-color: #eb3959;
+        color: rgba(255, 255, 255, 0.85);
         cursor: pointer;
-        font-weight: 500;
+        font-size: 14px;
+        font-weight: 800;
       }
     `}</style>
   </tr>
