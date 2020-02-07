@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { SUBTEXT, BACKGROUND } from '../colors'
+import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND } from '../colors'
 
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -135,7 +135,7 @@ const Send = props => {
           flex-direction: column;
           padding: 20px;
           margin: 20px 0px;
-          background-color: rgba(255, 255, 255, 0.08);
+          background-color: ${SECTION_BACKGROUND};
           position: relative;
         }
         .send-section-title {
