@@ -287,7 +287,6 @@ const Home = props => {
           cursor: pointer;
           margin-top: 12px;
           margin-bottom: 20px;
-          font-weight: 500;
         }
         .deposit {
           font-weight: 800;
