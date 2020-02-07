@@ -4,3 +4,7 @@ export const shortenAddress = address => {
   const latter = address.slice(address.length - 5, address.length)
   return `${former}...${latter}`
 }
+export const TOKEN_CURRENCY_MAP = {
+  Ethereum: 'ETH',
+  Dai: 'DAI'
+}
