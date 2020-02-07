@@ -16,12 +16,7 @@ import {
   setTransferredAmount,
   setRecepientAddress
 } from '../store/transfer'
-import { shortenAddress } from '../utils'
-
-const TOKEN_CURRENCY_MAP = {
-  Ethereum: 'ETH',
-  Dai: 'DAI'
-}
+import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 
 const Send = props => {
   const router = useRouter()
