@@ -170,9 +170,9 @@ const OrderBook = props => {
           </div>
           <div
             className="exchange-button"
-            onClick={() => {
-              router.push('/exchange#order-request')
-            }}
+            // onClick={() => {
+
+            // }}
           >
             Exchange
           </div>
