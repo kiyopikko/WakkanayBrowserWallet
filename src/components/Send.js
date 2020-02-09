@@ -81,8 +81,12 @@ const Send = props => {
             renderItem={item => {
               return (
                 <div className="button-name-inner">
-                  <div className="token-icon">
-                    <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                  <div className="l2-token-img-bg">
+                    <img
+                      className="l2-token-img"
+                      src="../ethereum-icon.png"
+                      alt="Ethereum Logo"
+                    ></img>
                   </div>
                   <div className="token-name">{item.name}</div>
                 </div>
@@ -90,8 +94,12 @@ const Send = props => {
             }}
             buttonName={
               <div className="button-name-inner">
-                <div className="token-icon">
-                  <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                <div className="l2-token-img-bg">
+                  <img
+                    className="l2-token-img"
+                    src="../ethereum-icon.png"
+                    alt="Ethereum Logo"
+                  ></img>
                 </div>
                 <div className="token-name">
                   {shortenAddress(transferredToken)} (
@@ -179,9 +187,7 @@ const Send = props => {
           align-items: center;
           cursor: pointer;
         }
-        .token-select-box-wrapper:hover .token-dropdown-button {
-          color: #1d63e6;
-        }
+
         .token-select-box-wrapper > :global(.dropdown) {
           position: relative;
           width: 100%;
@@ -195,19 +201,18 @@ const Send = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 20px;
-          font-weight: 600;
+          font-size: 16px;
+          font-weight: 400;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #3d5bf1;
+          color: #ffffff;
         }
         .token-select-box-wrapper
           > :global(.dropdown)
           > :global(.dropdown-button)
           > :global(.button-name) {
           width: 280px;
-          font-size: 20px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -216,16 +221,23 @@ const Send = props => {
           width: 100%;
           display: flex;
           align-items: center;
+          justify-content: flex-start;
+        }
+        .l2-token-img-bg {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background-color: #ffffff;
+          display: flex;
+          align-items: center;
           justify-content: center;
+          margin-left: 14px;
+        }
+        .l2-token-img {
+          height: 22px;
         }
         .token-name {
           margin-left: 8px;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button)
-          > :global(.dropdown-caret) {
-          font-size: 20px;
         }
         .token-select-box-wrapper
           > :global(.dropdown)
@@ -261,16 +273,7 @@ const Send = props => {
           padding: 4px;
           border-bottom: solid 1px darkgray;
         }
-        .token-dropdown-button {
-          font-size: 20px;
-          padding: 0px 8px;
-          cursor: pointer;
-          height: inherit;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        }
+
         .amount-input {
           margin-left: 10px;
           height: 47px;
