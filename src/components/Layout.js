@@ -3,6 +3,7 @@ import MainDisplay from './MainDisplay'
 import DepositModal from './DepositModal'
 import WithdrawModal from './WithdrawModal'
 import TransferModal from './TransferModal'
+import OrderRequestModal from './OrderRequestModal'
 import TransactionHistory from './TransactionHistory'
 import { useRouter } from 'next/router'
 import { BACKGROUND, TEXT, SUBTEXT } from '../colors'
@@ -13,6 +14,7 @@ const Layout = props => {
   const isDepositModalOpen = router.query.deposit !== undefined
   const isWithdrawModalOpen = router.query.withdraw !== undefined
   const isTransferModalOpen = router.query.transfer !== undefined
+  const isOrderRequestModalOpen = router.query.orderRequest !== undefined
   return (
     <div>
       <Head>
@@ -38,6 +40,7 @@ const Layout = props => {
       {isDepositModalOpen && <DepositModal />}
       {isWithdrawModalOpen && <WithdrawModal />}
       {isTransferModalOpen && <TransferModal />}
+      {isOrderRequestModalOpen && <OrderRequestModal />}
       <style>{`
         *,
         *:after,
@@ -55,6 +58,7 @@ const Layout = props => {
           ${isDepositModalOpen ? 'overflow: hidden;' : ''}
           ${isWithdrawModalOpen ? 'overflow: hidden;' : ''}
           ${isTransferModalOpen ? 'overflow: hidden;' : ''}
+          ${isOrderRequestModalOpen ? 'overflow: hidden;' : ''}
         }
       `}</style>
       <style jsx>{`
