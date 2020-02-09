@@ -72,11 +72,6 @@ const Home = props => {
         {/* <div className="l1-account-title">Connected L1 Account</div> */}
         <div className="l1-account-box">
           <div className="user-address-info-box">
-            <img
-              className="profile-picture"
-              src="metamask-icon.png"
-              alt="Metamask Account"
-            ></img>
             <div className="user-info-bar">
               <span className="account-name">yuriko.eth</span>
               <CopyToClipboard text={props.address}>
