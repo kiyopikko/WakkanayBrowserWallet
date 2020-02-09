@@ -67,7 +67,7 @@ const Home = props => {
   return (
     <Layout>
       <div className="l1-account-box-wrapper" id="l1-account">
-        <div className="l1-account-title">Connected L1 Account</div>
+        {/* <div className="l1-account-title">Connected L1 Account</div> */}
         <div className="l1-account-box">
           <div className="user-address-info-box">
             <img
@@ -92,8 +92,8 @@ const Home = props => {
               </ReactTooltip>
             </div>
           </div>
-          <div className="total-balance-title">Total </div>
-          <div className="total-balance">$450.34 USD</div>
+          <div className="total-balance-title">L1 Total </div>
+          <div className="total-balance">450.34 $</div>
           <div
             className="deposit-button"
             onClick={e => {
@@ -102,7 +102,7 @@ const Home = props => {
               router.push(href, href, { shallow: true })
             }}
           >
-            <a className="deposit">Deposit to L2</a>
+            <a className="deposit">Deposit</a>
           </div>
         </div>
       </div>
@@ -112,34 +112,22 @@ const Home = props => {
           {props.tokenBalanceList.map(({ tokenAddress, amount }) => {
             return (
               <div className="l2-token-box">
-                <div className="l2-token-name">Ethereum</div>
                 <div className="balance-board">
-                  <img
-                    className="l2-token-img"
-                    src="../ethereum-icon.png"
-                    alt="Ethereum Logo"
-                  ></img>
-                  <div className="total-balance-box">
-                    <span className="total-balance-number">{amount}</span>
-                    <span className="total-balance-unit">ETH</span>
-                    <div className="balance-in-usd">
-                      {ETHtoUSD * amount} USD
-                    </div>
+                  <div className="l2-token-img-bg">
+                    <img
+                      className="l2-token-img"
+                      src="../ethereum-icon.png"
+                      alt="Ethereum Logo"
+                    ></img>
                   </div>
+                  <div className="token-balance-unit">ETH</div>
+                  <div className="token-balance-number">{amount}</div>
+                  <hr className="line"></hr>
+                  <div className="balance-in-usd">{ETHtoUSD * amount} USD</div>
                 </div>
                 <div className="token-buttons-container">
                   <div
-                    className="token-button"
-                    onClick={e => {
-                      e.preventDefault()
-                      const href = `${router.route}?deposit`
-                      router.push(href, href, { shallow: true })
-                    }}
-                  >
-                    Deposit
-                  </div>
-                  <div
-                    className="token-button"
+                    className="withdraw-button"
                     onClick={e => {
                       e.preventDefault()
                       const href = `${router.route}?withdraw`
@@ -148,8 +136,9 @@ const Home = props => {
                   >
                     Withdraw
                   </div>
+                  <div className="slash" />
                   <div
-                    className="token-button"
+                    className="send-button"
                     onClick={() => {
                       props.setTransferredToken(tokenAddress)
                       router.push('/payment#send')
@@ -158,7 +147,7 @@ const Home = props => {
                     Send
                   </div>
                   <div
-                    className="token-button"
+                    className="exchange-button"
                     onClick={() => {
                       router.push('/exchange#order-request')
                     }}
@@ -171,17 +160,14 @@ const Home = props => {
           })}
         </div>
         <hr className="l2-token-total-balance-line"></hr>
-        <div className="l2-token-total-balance">
-          <div>Total</div>
-          <div>$450.3</div>
+        <div className="l2-token-total-balance-wrapper">
+          <div className="l2-token-total-balance-title">Total</div>
+          <div className="l2-token-total-balance">USD 450.3</div>
         </div>
       </div>
       <div className="address-book-wrapper" id="address-book">
         <div className="address-book-title-box">
           <div className="address-book-title">Address Book</div>
-          <div className="book-icon">
-            <FontAwesomeIcon icon="book-open" />
-          </div>
         </div>
         <table className="address-book-table">
           <tr>
@@ -226,34 +212,24 @@ const Home = props => {
 
       <style jsx>{`
         .l1-account-box-wrapper {
-          display: flex;
-          flex-direction: column;
-          width: 400px;
-          padding: 20px;
+          width: 100%;
         }
-        .l1-account-title {
-          font-weight: 600;
-          font-size: 32px;
-          text-align: center;
-        }
-        .l1-account-box,
-        .l2-token-box {
-          border: solid 2px lightgray;
-          border-radius: 12px;
+        .l1-account-box {
+          background-color: rgba(255, 255, 255, 0.08);
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          width: 280px;
+          margin: 20px;
         }
         .user-address-info-box {
           display: flex;
           justify-content: center;
           align-items: center;
-          padding: 3px;
+          padding: 8px;
           width: 100%;
-          border-bottom: solid 2px lightgray;
-          background-color: ivory;
-          border-radius: 9px 9px 0px 0px;
+          border-bottom: solid 1px black;
         }
         .profile-picture {
           width: 50px;
@@ -292,25 +268,31 @@ const Home = props => {
           margin-left: 4px;
         }
         .total-balance-title {
-          font-weight: 600;
-          font-size: 24px;
-          margin-top: 24px;
+          font-size: 16px;
+          font-weight: 100;
+          margin-top: 20px;
+          margin-bottom: 14px;
         }
         .total-balance {
           font-size: 36px;
-          font-weight: 700;
+          font-weight: 200;
         }
         .deposit-button {
-          padding: 7px;
-          border-radius: 16px;
-          width: 148px;
+          padding: 12px 14px 30px 5px;
+          border-radius: 80.7px;
+          width: 109px;
+          height: 40px;
           text-align: center;
-          background-color: #5d5aef;
-          color: white;
+          background: linear-gradient(122.3deg, #ec8383 0.21%, #c13087 93.55%);
           cursor: pointer;
           margin-top: 12px;
-          margin-bottom: 36px;
+          margin-bottom: 20px;
           font-weight: 500;
+        }
+        .deposit {
+          font-weight: 800;
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.85);
         }
         .l2-token-box-wrapper {
           width: 100%;
@@ -320,67 +302,119 @@ const Home = props => {
           margin-top: 20px;
         }
         .l2-token-box-title {
-          font-weight: 600;
-          font-size: 32px;
-          margin-left: 4px;
+          font-weight: 400;
+          font-size: 24px;
         }
         .l2-token-box-list {
+          margin-top: 10px;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: flex-start;
-          overflow-x: scroll;
+          overflow-y: scroll;
         }
         .l2-token-box {
           padding: 12px;
-          margin-right: 20px;
-        }
-        .l2-token-name {
-          font-size: 24px;
-          font-weight: 600;
+          background-color: rgba(255, 255, 255, 0.08);
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
         .balance-board {
-          margin-top: 16px;
-          margin-bottom: 20px;
           display: flex;
           justify-content: center;
           align-items: center;
         }
+        .l2-token-img-bg {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background-color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         .l2-token-img {
-          width: 48px;
-          margin-right: 16px;
+          height: 22px;
         }
-        .total-balance-number {
-          font-size: 44px;
+        .token-balance-unit {
+          margin-left: 16px;
+          font-size: 16px;
           font-weight: 650;
         }
-        .total-balance-unit {
-          font-size: 30px;
-          font-weight: 650;
-          margin-left: 8px;
+        .token-balance-number {
+          margin-left: 12px;
+          font-size: 26px;
+          font-weight: 500;
+        }
+        .line {
+          margin-left: 24px;
+          width: 11px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .balance-in-usd {
-          color: darkgray;
-          font-size: 18px;
+          margin-left: 12px;
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 14px;
           font-weight: 650;
         }
         .token-buttons-container {
-          width: 220px;
-          height: 100px;
           display: flex;
-          flex-wrap: wrap;
-          justify-content: space-around;
           align-items: center;
         }
-        .token-button {
+        .withdraw-button {
           padding: 7px;
-          border-radius: 16px;
-          width: 100px;
-          height: 36px;
+          border-radius: 80.7px;
+          width: 93px;
+          height: 30px;
           text-align: center;
-          background-color: #5d5aef;
-          color: white;
+          background-color: rgba(255, 255, 255, 0.06);
+          color: rgba(255, 255, 255, 0.85);
           cursor: pointer;
-          font-weight: 500;
+          font-size: 14px;
+          font-weight: 800;
+        }
+        .slash {
+          margin-left: 17px;
+          width: 11px;
+          height: 25px;
+          position: relative;
+        }
+        .slash:after {
+          content: '';
+          position: absolute;
+          left: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          width: 26px;
+          transform: rotate(110deg);
+          transform-origin: 0% 0%;
+        }
+        .send-button {
+          margin-left: 19px;
+          padding: 7px;
+          border-radius: 80.7px;
+          width: 93px;
+          height: 30px;
+          text-align: center;
+          background-color: #eb3959;
+          color: rgba(255, 255, 255, 0.85);
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 800;
+        }
+        .exchange-button {
+          margin-left: 10px;
+          padding: 7px;
+          border-radius: 80.7px;
+          width: 93px;
+          height: 30px;
+          text-align: center;
+          background-color: #4e3ff4;
+          color: rgba(255, 255, 255, 0.85);
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 800;
         }
         .l2-token-total-balance-line {
           border: none;
@@ -389,14 +423,17 @@ const Home = props => {
           height: 3px;
           background-color: #000000;
         }
-        .l2-token-total-balance {
+        .l2-token-total-balance-wrapper {
+          color: rgba(255, 255, 255, 0.5);
           margin-top: 4px;
-          margin-left: 2px;
-          font-size: 28px;
-          font-weight: 600;
+          font-size: 18px;
+          font-weight: 800;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-end;
+        }
+        .l2-token-total-balance {
+          margin-left: 20px;
         }
         .address-book-wrapper {
           width: 100%;
@@ -408,43 +445,41 @@ const Home = props => {
         .address-book-title-box {
           display: flex;
           align-items: center;
-          margin-left: 4px;
         }
         .address-book-title {
-          font-weight: 600;
-          font-size: 32px;
+          font-weight: 400;
+          font-size: 24px;
         }
         .book-icon {
           font-size: 24px;
           margin-left: 8px;
         }
         .address-book-table {
+          margin-top: 10px;
           border-spacing: 0px;
           text-align: left;
-          border: 2px solid lightgray;
-          border-radius: 16px;
-          background-color: white;
+          background-color: rgba(255, 255, 255, 0.08);
           width: 100%;
-          border-radius: 6px;
         }
         th,
         td {
-          font-size: 20px;
+          font-size: 18px;
           border-spacing: 0px;
           height: 36px;
+          color: rgba(255, 255, 255, 0.74);
         }
         th {
           padding: 8px;
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 500;
-          border-bottom: 2px solid lightgray;
+          border-bottom: 2px solid black;
         }
         .default-name {
-          border-right: 2px solid lightgray;
+          border-right: 2px solid black;
         }
         .name-column {
           min-width: 100px;
-          border-right: 2px solid lightgray;
+          border-right: 2px solid black;
         }
         .cancel-button {
           margin: 0px 2px;
