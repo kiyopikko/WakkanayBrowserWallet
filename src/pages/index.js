@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import classNames from 'classnames'
 
 // internal import
 import Layout from '../components/Layout'
@@ -44,6 +45,7 @@ const Home = props => {
   const editedNameRef = useRef('')
   const editedAddressRef = useRef('')
   const ETHtoUSD = props.ETHtoUSD
+
   const onKeyDown = event => {
     if (event.key === 'Enter') {
       event.preventDefault()
@@ -127,7 +129,7 @@ const Home = props => {
                 </div>
                 <div className="token-buttons-container">
                   <div
-                    className="withdraw-button"
+                    className="token-button"
                     onClick={e => {
                       e.preventDefault()
                       const href = `${router.route}?withdraw`
@@ -138,7 +140,7 @@ const Home = props => {
                   </div>
                   <div className="slash" />
                   <div
-                    className="send-button"
+                    className={classNames('token-button', 'send-button')}
                     onClick={() => {
                       props.setTransferredToken(tokenAddress)
                       router.push('/payment#send')
@@ -147,7 +149,7 @@ const Home = props => {
                     Send
                   </div>
                   <div
-                    className="exchange-button"
+                    className={classNames('token-button', 'exchange-button')}
                     onClick={() => {
                       router.push('/exchange#order-request')
                     }}
@@ -230,12 +232,6 @@ const Home = props => {
           padding: 8px;
           width: 100%;
           border-bottom: solid 1px black;
-        }
-        .profile-picture {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          border: 4px solid #c0d3ff;
         }
         .user-info-bar {
           margin-left: 8px;
@@ -362,7 +358,7 @@ const Home = props => {
           display: flex;
           align-items: center;
         }
-        .withdraw-button {
+        .token-button {
           padding: 7px;
           border-radius: 80.7px;
           width: 93px;
@@ -391,29 +387,15 @@ const Home = props => {
         }
         .send-button {
           margin-left: 19px;
-          padding: 7px;
-          border-radius: 80.7px;
-          width: 93px;
-          height: 30px;
-          text-align: center;
+        }
+        .send-button:hover {
           background-color: #eb3959;
-          color: rgba(255, 255, 255, 0.85);
-          cursor: pointer;
-          font-size: 14px;
-          font-weight: 800;
         }
         .exchange-button {
           margin-left: 10px;
-          padding: 7px;
-          border-radius: 80.7px;
-          width: 93px;
-          height: 30px;
-          text-align: center;
+        }
+        .exchange-button:hover {
           background-color: #4e3ff4;
-          color: rgba(255, 255, 255, 0.85);
-          cursor: pointer;
-          font-size: 14px;
-          font-weight: 800;
         }
         .l2-token-total-balance-line {
           border: none;
