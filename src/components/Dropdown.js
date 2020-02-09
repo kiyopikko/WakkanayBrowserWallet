@@ -25,7 +25,7 @@ const Dropdown = ({ buttonName, items, onSelected, renderItem }) => {
         .dropdown-button {
           background-image: url('/chevron-down.svg');
           background-repeat: no-repeat;
-          background-position: calc(100% - 0.5rem) 50%;
+          background-position: calc(100% - 0.7rem) 50%;
         }
       `}</style>
     </div>
