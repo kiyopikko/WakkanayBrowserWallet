@@ -466,13 +466,12 @@ const OrderBook = props => {
         .create-new-request-button {
           margin-left: 16px;
           margin-top: 20px;
-          padding: 12px 14px 30px 5px;
           border-radius: 80.7px;
           width: 167px;
           height: 40px;
           display: flex;
           justify-content: center;
-          text-align: center;
+          align-items: center;
           cursor: pointer;
           border: 1px solid rgba(255, 255, 255, 0.2);
         }
