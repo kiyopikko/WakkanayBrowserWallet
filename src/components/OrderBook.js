@@ -3,7 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faArrowsAltH)
-import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND } from '../colors'
+import { SUBTEXT, SECTION_BACKGROUND } from '../colors'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import Dropdown from './Dropdown'
@@ -27,8 +27,12 @@ const OrderBook = props => {
               renderItem={item => {
                 return (
                   <div className="button-name-inner">
-                    <div className="token-icon">
-                      <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                    <div className="exchanged-token-img-bg">
+                      <img
+                        className="exchanged-token-img"
+                        src="../ethereum-icon.png"
+                        alt="Ethereum Logo"
+                      ></img>
                     </div>
                     <div className="token-name">{item.name}</div>
                   </div>
@@ -36,8 +40,12 @@ const OrderBook = props => {
               }}
               buttonName={
                 <div className="button-name-inner">
-                  <div className="token-icon">
-                    <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                  <div className="exchanged-token-img-bg">
+                    <img
+                      className="exchanged-token-img"
+                      src="../ethereum-icon.png"
+                      alt="Ethereum Logo"
+                    ></img>
                   </div>
                   <div className="token-name">
                     {shortenAddress(transferredToken)} (
@@ -67,8 +75,12 @@ const OrderBook = props => {
               renderItem={item => {
                 return (
                   <div className="button-name-inner">
-                    <div className="token-icon">
-                      <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                    <div className="exchanged-token-img-bg">
+                      <img
+                        className="exchanged-token-img"
+                        src="../ethereum-icon.png"
+                        alt="Ethereum Logo"
+                      ></img>
                     </div>
                     <div className="token-name">{item.name}</div>
                   </div>
@@ -76,8 +88,12 @@ const OrderBook = props => {
               }}
               buttonName={
                 <div className="button-name-inner">
-                  <div className="token-icon">
-                    <FontAwesomeIcon icon={['fab', 'ethereum']} />
+                  <div className="exchanged-token-img-bg">
+                    <img
+                      className="exchanged-token-img"
+                      src="../ethereum-icon.png"
+                      alt="Ethereum Logo"
+                    ></img>
                   </div>
                   <div className="token-name">
                     {shortenAddress(transferredToken)} (
@@ -204,7 +220,6 @@ const OrderBook = props => {
           align-items: center;
           cursor: pointer;
         }
-
         .paid-token-select-box-wrapper > :global(.dropdown) {
           position: relative;
           width: 100%;
@@ -218,19 +233,18 @@ const OrderBook = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 20px;
-          font-weight: 600;
+          font-size: 16px;
+          font-weight: 400;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #3d5bf1;
+          color: white;
         }
         .paid-token-select-box-wrapper
           > :global(.dropdown)
           > :global(.dropdown-button)
           > :global(.button-name) {
           width: 280px;
-          font-size: 20px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -239,13 +253,23 @@ const OrderBook = props => {
           width: 100%;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
         }
-        .paid-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button)
-          > :global(.dropdown-caret) {
-          font-size: 20px;
+        .exchanged-token-img-bg {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background-color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: 10px;
+        }
+        .exchanged-token-img {
+          height: 22px;
+        }
+        .token-name {
+          margin-left: 8px;
         }
         .paid-token-select-box-wrapper
           > :global(.dropdown)
@@ -260,7 +284,6 @@ const OrderBook = props => {
           border-bottom: none;
           opacity: 90%;
           z-index: 1;
-          color: #3d5bf1;
         }
         .paid-token-select-box-wrapper
           > :global(.dropdown)
@@ -351,19 +374,17 @@ const OrderBook = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 20px;
-          font-weight: 600;
+          font-size: 16px;
+          font-weight: 400;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #3d5bf1;
         }
         .received-token-select-box-wrapper
           > :global(.dropdown)
           > :global(.dropdown-button)
           > :global(.button-name) {
           width: 280px;
-          font-size: 20px;
           display: flex;
           align-items: center;
           justify-content: center;
