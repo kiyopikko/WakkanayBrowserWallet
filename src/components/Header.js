@@ -39,7 +39,7 @@ const Header = () => {
         >
           <Link href="/nft_collectibles" passHref>
             <a className="tab__link">
-              <span className="tab__txt nft">NFT Collectibles</span>
+              <span className="tab__txt nft">Collectibles</span>
             </a>
           </Link>
         </li>
