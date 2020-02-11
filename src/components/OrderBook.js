@@ -9,6 +9,8 @@ import { connect } from 'react-redux'
 import Dropdown from './Dropdown'
 import { setTransferredToken } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
+import { PrimaryButton } from './PrimaryButton'
+import { EXTRABOLD } from '../fonts'
 
 const OrderBook = props => {
   const router = useRouter()
@@ -109,16 +111,18 @@ const OrderBook = props => {
           </div>
         </div>
         <div className="search-button">
-          <img
-            className="seach-icon"
-            src="//ssl.gstatic.com/images/icons/material/system/2x/search_white_24dp.png"
-            height="24"
-            width="24"
-          />
-          <span className="search">Search</span>
+          <PrimaryButton>
+            <img
+              className="seach-icon"
+              src="//ssl.gstatic.com/images/icons/material/system/2x/search_white_24dp.png"
+              height="24"
+              width="24"
+            />
+            <a>Search</a>
+          </PrimaryButton>
         </div>
         <div className="or">or</div>
-        <div
+        <button
           className="create-new-request-button"
           onClick={e => {
             e.preventDefault()
@@ -126,8 +130,8 @@ const OrderBook = props => {
             router.push(href, href, { shallow: true })
           }}
         >
-          <a className="create-new-request">Create New Request</a>
-        </div>
+          Create New Request
+        </button>
       </div>
       <div className="order-list">
         <div className="order-list-item">
@@ -168,14 +172,14 @@ const OrderBook = props => {
               </div>
             </div>
           </div>
-          <div
+          <button
             className="exchange-button"
             // onClick={() => {
 
             // }}
           >
             Exchange
-          </div>
+          </button>
         </div>
       </div>
       <style jsx>{`
@@ -211,7 +215,7 @@ const OrderBook = props => {
         }
         .paid-token-select-box-wrapper {
           border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 80.7px 0px 0px 80.7px;
+          border-radius: 40px 0px 0px 40px;
           width: 136px;
           height: 45px;
           border-right: none;
@@ -322,7 +326,7 @@ const OrderBook = props => {
         }
         .max-paid-amount-input-wrapper {
           border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 0px 80.7px 80.7px 0px;
+          border-radius: 0px 40px 40px 0px;
           font-size: 29px;
           font-weight: 300;
           width: 120px;
@@ -355,7 +359,7 @@ const OrderBook = props => {
         }
         .received-token-select-box-wrapper {
           border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 80.7px;
+          border-radius: 40px;
           font-size: 16px;
           width: 136px;
           height: 45px;
@@ -432,15 +436,6 @@ const OrderBook = props => {
         .search-button {
           margin-left: 16px;
           margin-top: 20px;
-          padding: 12px 14px 30px 5px;
-          border-radius: 80.7px;
-          width: 109px;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          text-align: center;
-          background: linear-gradient(122.3deg, #ec8383 0.21%, #c13087 93.55%);
-          cursor: pointer;
         }
         .search-button:active {
           transform: translateY(2px) translateX(1px);
@@ -466,7 +461,7 @@ const OrderBook = props => {
         .create-new-request-button {
           margin-left: 16px;
           margin-top: 20px;
-          border-radius: 80.7px;
+          border-radius: 40px;
           width: 167px;
           height: 40px;
           display: flex;
@@ -474,11 +469,10 @@ const OrderBook = props => {
           align-items: center;
           cursor: pointer;
           border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .create-new-request {
-          font-weight: 800;
           font-size: 14px;
+          font-weight: ${EXTRABOLD};
           color: rgba(255, 255, 255, 0.85);
+          background: transparent;
         }
         .order-list {
           display: flex;
@@ -547,16 +541,18 @@ const OrderBook = props => {
           margin: 0px 38px;
         }
         .exchange-button {
-          padding: 7px;
-          border-radius: 80.7px;
+          border-radius: 40px;
+          border: none;
           width: 93px;
           height: 30px;
-          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           background-color: #4e3ff4;
           color: rgba(255, 255, 255, 0.85);
           cursor: pointer;
           font-size: 14px;
-          font-weight: 800;
+          font-weight: ${EXTRABOLD};
         }
       `}</style>
     </div>

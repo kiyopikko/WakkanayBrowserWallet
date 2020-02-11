@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { EXTRABOLD } from '../../fonts'
 
 export default ({
   addressListItem,
@@ -139,8 +140,7 @@ export default ({
       }
       .send-button {
         margin-left: 15px;
-        padding: 7px;
-        border-radius: 80.7px;
+        border-radius: 40px;
         width: 73px;
         height: 24px;
         display: flex;
@@ -150,7 +150,7 @@ export default ({
         color: rgba(255, 255, 255, 0.85);
         cursor: pointer;
         font-size: 12px;
-        font-weight: 800;
+        font-weight: ${EXTRABOLD};
       }
       .send-button:hover {
         background-color: #eb3959;

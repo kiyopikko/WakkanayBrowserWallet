@@ -19,6 +19,7 @@ import {
   setOrderRequestPage
 } from '../store/exchange'
 import { MODAL_BACKGROUND, SUBTEXT } from '../colors'
+import { PrimaryButton } from './PrimaryButton'
 
 const OrderRequestModal = props => {
   const router = useRouter()
@@ -181,8 +182,14 @@ const OrderRequestModal = props => {
                 <div className="cancel-button">
                   <a className="cancel">Cancel</a>
                 </div>
-                <div className="confirm-button">
-                  <a className="confirm">Create</a>
+                <div className="create-button">
+                  <PrimaryButton
+                    onClick={() => {
+                      props.setOrderRequestPage('confirm-page')
+                    }}
+                  >
+                    Create
+                  </PrimaryButton>
                 </div>
               </div>
             </div>
@@ -209,15 +216,8 @@ const OrderRequestModal = props => {
                 >
                   <a className="cancel">Cancel</a>
                 </div>
-                <div className="next-button">
-                  <a
-                    className="next"
-                    // onClick={() => {
-                    //   props.deposit(tokenAmount)
-                    // }}
-                  >
-                    Confirm
-                  </a>
+                <div className="confirm-button">
+                  <PrimaryButton>Confirm</PrimaryButton>
                 </div>
               </div>
               <div>Click confirm to open Metamask</div>
@@ -500,27 +500,20 @@ const OrderRequestModal = props => {
           width: 100%;
           border-radius: 6px;
         }
-        .cancel-button,
-        .confirm-button {
-          padding: 6px;
-          width: 109px;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 80.7px;
-          font-size: 14px;
-          font-weight: 800;
-          color: rgba(255, 255, 255, 0.85);
-          cursor: pointer;
-        }
         .cancel-button {
           background: transparent;
           border: 1px solid rgba(255, 255, 255, 0.2);
           margin-right: 24px;
-        }
-        .confirm-button {
-          background: linear-gradient(122.3deg, #eb3959 0.21%, #c13087 93.55%);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 108px;
+          height: 40px;
+          border-radius: 40px;
+          font-size: 16px;
+          font-weight: 800;
+          color: rgba(255, 255, 255, 0.85);
+          cursor: pointer;
         }
       `}</style>
     </div>
