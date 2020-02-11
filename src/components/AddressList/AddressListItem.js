@@ -17,7 +17,7 @@ export default ({
         <span className="name">
           {addressListItem.name === editedName ? (
             <input
-              placeholder={'name'}
+              placeholder="NAME"
               defaultValue={addressListItem.name}
               className="edit-name-input"
               type="text"
@@ -27,23 +27,6 @@ export default ({
             addressListItem.name
           )}
         </span>
-        <button
-          className="edit-button"
-          onClick={() => {
-            if (editedName === addressListItem.name) {
-              editAddressListItem({
-                id: addressListItem.id,
-                name: editedNameRef.current.value,
-                address: addressListItem.address
-              })
-              setEditedName(null)
-            } else {
-              setEditedName(addressListItem.name)
-            }
-          }}
-        >
-          <FontAwesomeIcon icon="pen" />
-        </button>
       </div>
     </td>
     <td className="address-section">
@@ -51,7 +34,7 @@ export default ({
         <div className="address">
           {addressListItem.address === editedAddress ? (
             <input
-              placeholder={'address'}
+              placeholder="ADDRESS"
               defaultValue={addressListItem.address}
               className="edit-address-input"
               type="text"
@@ -62,7 +45,9 @@ export default ({
           )}
         </div>
         <div className="button-container">
-          <button
+          <img
+            src="../pencil.png"
+            alt="edit-button"
             className="edit-button"
             onClick={() => {
               if (editedAddress === addressListItem.address) {
@@ -76,17 +61,15 @@ export default ({
                 setEditedAddress(addressListItem.address)
               }
             }}
-          >
-            <FontAwesomeIcon icon="pen" />
-          </button>
-          <button
+          ></img>
+          <img
+            src="../trash-box.png"
+            alt="remove-button"
             className="remove-button"
             onClick={() => {
               removeAddressListItem(addressListItem.id)
             }}
-          >
-            <FontAwesomeIcon icon="trash" />
-          </button>
+          ></img>
           <div className="send-button">Send</div>
         </div>
       </div>
@@ -94,18 +77,13 @@ export default ({
     <style jsx>{`
       th,
       td {
-        border-bottom: 2px solid black;
-        font-size: 18px;
-        height: 36px;
+        height: 52px;
         padding: 8px;
       }
       .name-section,
       .address-section {
         padding: 8px;
         color: rgba(255, 255, 255, 0.74);
-      }
-      .name-section {
-        border-right: 2px solid black;
       }
       .name-cell {
         display: flex;
@@ -122,62 +100,60 @@ export default ({
         align-items: center;
       }
       .name {
-        font-size: 18px;
-        font-weight: 800;
+        font-size: 14px;
+        font-weight: 500;
       }
       .address {
-        font-size: 14px;
-        font-weight: 800;
+        font-size: 12px;
+        font-weight: 500;
       }
-      .edit-name-input {
-        width: 100px;
-        height: 24px;
-        font-size: 18px;
-        font-weight: 300;
+      .edit-name-input,
+      .edit-address-input {
+        width: 355px;
+        height: 14px;
+        font-weight: 800;
+        font-size: 13px;
+        border: none;
+        background-color: transparent;
       }
       .edit-name-input::placeholder,
       .edit-address-input::placeholder {
-        font-size: 18px;
-        font-weight: 300;
+        font-weight: 800;
+        font-size: 13px;
       }
+      .edit-name-input,
       .edit-address-input {
-        width: 460px;
-        height: 28px;
-        font-size: 18px;
-        font-weight: 300;
+        width: 355px;
+        height: 14px;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        opacity: 0.7;
       }
-      .edit-button {
-        width: 18px;
-        height: 18px;
-        font-size: 11px;
-        font-weight: 500;
-        cursor: pointer;
-        color: darkgrey;
-        margin-left: 20px;
-        background-color: lightblue;
-      }
+      .edit-button,
       .remove-button {
-        width: 18px;
-        height: 18px;
-        font-size: 11px;
-        font-weight: 500;
+        width: 24px;
+        height: 24px;
         cursor: pointer;
-        color: darkgrey;
-        margin-left: 4px;
-        background-color: lightblue;
+        margin-left: 9px;
       }
       .send-button {
-        margin-left: 19px;
+        margin-left: 15px;
         padding: 7px;
         border-radius: 80.7px;
-        width: 93px;
-        height: 30px;
-        text-align: center;
-        background-color: #eb3959;
+        width: 73px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.06);
         color: rgba(255, 255, 255, 0.85);
         cursor: pointer;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 800;
+      }
+      .send-button:hover {
+        background-color: #eb3959;
       }
     `}</style>
   </tr>

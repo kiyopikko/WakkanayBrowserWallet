@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import Layout from '../components/Layout'
 import AddressListItem from '../components/AddressList/AddressListItem'
 import { shortenAddress } from '../utils'
+import { BOLD } from '../fonts'
 
 //redux
 import { connect } from 'react-redux'
@@ -69,7 +70,6 @@ const Home = props => {
   return (
     <Layout>
       <div className="l1-account-box-wrapper" id="l1-account">
-        {/* <div className="l1-account-title">Connected L1 Account</div> */}
         <div className="l1-account-box">
           <div className="user-address-info-box">
             <div className="user-info-bar">
@@ -99,7 +99,7 @@ const Home = props => {
               router.push(href, href, { shallow: true })
             }}
           >
-            <a className="deposit">Deposit</a>
+            Deposit
           </div>
         </div>
       </div>
@@ -168,8 +168,8 @@ const Home = props => {
         </div>
         <table className="address-book-table">
           <tr>
-            <th className="name-column">Name</th>
-            <th className="address-column">Address</th>
+            <th className="name-column">NAME</th>
+            <th className="address-column">ADDRESS</th>
           </tr>
           {props.addressList.map(addressListItem => (
             <AddressListItem
@@ -187,21 +187,38 @@ const Home = props => {
           <tr>
             <td className="default-name">
               <input
-                className="name-input"
+                className={classNames('address-book-input', 'name-input')}
                 type="text"
                 ref={nameInput}
-                placeholder="Alice"
+                placeholder="NAME"
                 onKeyDown={onKeyDown}
               />
             </td>
             <td className="default-address">
               <input
-                className="address-input"
+                className={classNames('address-book-input', 'address-input')}
                 type="text"
                 ref={addressInput}
-                placeholder="0x0000000000000000000000000000000000000000"
+                placeholder="ADDRESS"
                 onKeyDown={onKeyDown}
               />
+              <div
+                className="add-button"
+                onClick={() => {
+                  if (
+                    nameInput.current.value !== '' &&
+                    addressInput.current.value !== ''
+                  ) {
+                    props.registerAddressListItem({
+                      id: `${Date.now()}`,
+                      name: nameInput.current.value,
+                      address: addressInput.current.value
+                    })
+                  }
+                }}
+              >
+                Add
+              </div>
             </td>
           </tr>
         </table>
@@ -269,17 +286,16 @@ const Home = props => {
           font-weight: 200;
         }
         .deposit-button {
-          padding: 12px 14px 30px 5px;
           border-radius: 80.7px;
           width: 109px;
           height: 40px;
-          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           background: linear-gradient(122.3deg, #ec8383 0.21%, #c13087 93.55%);
           cursor: pointer;
           margin-top: 12px;
           margin-bottom: 20px;
-        }
-        .deposit {
           font-weight: 800;
           font-size: 16px;
           color: rgba(255, 255, 255, 0.85);
@@ -358,7 +374,9 @@ const Home = props => {
           border-radius: 80.7px;
           width: 93px;
           height: 30px;
-          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           background-color: rgba(255, 255, 255, 0.06);
           color: rgba(255, 255, 255, 0.85);
           cursor: pointer;
@@ -434,55 +452,82 @@ const Home = props => {
           margin-top: 10px;
           border-spacing: 0px;
           text-align: left;
-          background-color: rgba(255, 255, 255, 0.08);
           width: 100%;
         }
         th,
         td {
-          font-size: 18px;
+          font-size: 13px;
+          font-weight: ${BOLD};
           border-spacing: 0px;
-          height: 36px;
+          height: 52px;
           color: rgba(255, 255, 255, 0.74);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         th {
           padding: 8px;
-          font-size: 18px;
-          font-weight: 500;
-          border-bottom: 2px solid black;
+          font-size: 13px;
+          font-weight: ${BOLD};
+        }
+        tr {
+          align-items: center;
         }
         .default-name {
-          border-right: 2px solid black;
+        }
+        .default-address {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
         }
         .name-column {
           min-width: 100px;
-          border-right: 2px solid black;
         }
         .cancel-button {
           margin: 0px 2px;
           border: solid 1px lightgray;
           padding: 2px;
         }
-        .name-input,
-        .address-input {
-          height: 36px;
+
+        .address-book-input {
+          height: 52px;
           padding: 8px;
-          font-size: 18px;
+          font-size: 13px;
+          font-weight: 800;
           border: none;
+          background-color: transparent;
+          color: #ffffff;
+          opacity: 0.7;
+        }
+        .address-book-input:focus {
+          outline: 0;
         }
         .name-input {
           width: 100px;
-          border-bottom-left-radius: 5px;
         }
         .name-input::placeholder {
-          font-size: 18px;
-          font-weight: 300;
+          font-size: 13px;
+          font-weight: ${BOLD};
+          opacity: 0.4;
         }
         .address-input {
           width: 460px;
         }
         .address-input::placeholder {
-          font-size: 18px;
-          font-weight: 300;
+          font-size: 13px;
+          font-weight: ${BOLD};
+          opacity: 0.4;
+        }
+        .add-button {
+          border-radius: 80.7px;
+          width: 87px;
+          height: 36px;
+          background: linear-gradient(122.3deg, #ec8383 0.21%, #c13087 93.55%);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 800;
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.85);
         }
       `}</style>
     </Layout>
