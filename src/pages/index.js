@@ -138,7 +138,7 @@ const Home = props => {
                     className={classNames('token-button', 'send-button')}
                     onClick={() => {
                       props.setTransferredToken(tokenAddress)
-                      router.push('/payment#send')
+                      router.push('/payment')
                     }}
                   >
                     Send
@@ -146,7 +146,7 @@ const Home = props => {
                   <div
                     className={classNames('token-button', 'exchange-button')}
                     onClick={() => {
-                      router.push('/exchange#order-request')
+                      router.push('/exchange')
                     }}
                   >
                     Exchange
