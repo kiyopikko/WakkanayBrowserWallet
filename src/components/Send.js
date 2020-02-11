@@ -17,6 +17,7 @@ import {
   setRecepientAddress
 } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
+import { PrimaryButton } from './PrimaryButton'
 
 const Send = props => {
   const router = useRouter()
@@ -118,17 +119,18 @@ const Send = props => {
           </span>
         </div>
       </div>
-      <div
-        className="send-button"
-        onClick={e => {
-          props.setTransferredAmount(Number(amountRef.current.value))
-          props.setRecepientAddress(recepientAddressRef.current.value)
-          e.preventDefault()
-          const href = `${router.route}?transfer`
-          router.push(href, href, { shallow: true })
-        }}
-      >
-        Send
+      <div className="send-button">
+        <PrimaryButton
+          onClick={e => {
+            props.setTransferredAmount(Number(amountRef.current.value))
+            props.setRecepientAddress(recepientAddressRef.current.value)
+            e.preventDefault()
+            const href = `${router.route}?transfer`
+            router.push(href, href, { shallow: true })
+          }}
+        >
+          Send
+        </PrimaryButton>
       </div>
 
       <style jsx>{`
@@ -290,18 +292,6 @@ const Send = props => {
           color: ${SUBTEXT};
         }
         .send-button {
-          padding: 6px;
-          width: 109px;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background: linear-gradient(122.3deg, #eb3959 0.21%, #c13087 93.55%);
-          border-radius: 80.7px;
-          font-size: 14px;
-          font-weight: 800;
-          color: rgba(255, 255, 255, 0.85);
-          cursor: pointer;
           position: absolute;
           bottom: 25px;
           right: 20px;

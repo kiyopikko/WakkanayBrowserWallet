@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import Layout from '../components/Layout'
 import AddressListItem from '../components/AddressList/AddressListItem'
 import { shortenAddress } from '../utils'
-import { BOLD } from '../fonts'
+import { BOLD, EXTRABOLD } from '../fonts'
 
 //redux
 import { connect } from 'react-redux'
@@ -37,6 +37,8 @@ import {
   faBookOpen
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { PrimaryButton } from '../components/PrimaryButton'
+import { SUBTEXT } from '../colors'
 library.add(faClipboard, faUserPlus, faPen, faTrash, faBookOpen)
 
 const Home = props => {
@@ -79,9 +81,9 @@ const Home = props => {
                   <div className="account-address">
                     {shortenAddress(props.address)}
                   </div>
-                  <div className="copy-button">
+                  <button className="copy-button">
                     <FontAwesomeIcon icon="clipboard" />
-                  </div>
+                  </button>
                 </div>
               </CopyToClipboard>
               <ReactTooltip place="bottom" type="dark" effect="solid">
@@ -91,15 +93,16 @@ const Home = props => {
           </div>
           <div className="total-balance-title">L1 Total </div>
           <div className="total-balance">450.34 $</div>
-          <div
-            className="deposit-button"
-            onClick={e => {
-              e.preventDefault()
-              const href = `${router.route}?deposit`
-              router.push(href, href, { shallow: true })
-            }}
-          >
-            Deposit
+          <div className="deposit-button">
+            <PrimaryButton
+              onClick={e => {
+                e.preventDefault()
+                const href = `${router.route}?deposit`
+                router.push(href, href, { shallow: true })
+              }}
+            >
+              Deposit
+            </PrimaryButton>
           </div>
         </div>
       </div>
@@ -123,7 +126,7 @@ const Home = props => {
                   <div className="balance-in-usd">{ETHtoUSD * amount} USD</div>
                 </div>
                 <div className="token-buttons-container">
-                  <div
+                  <button
                     className="token-button"
                     onClick={e => {
                       e.preventDefault()
@@ -132,9 +135,9 @@ const Home = props => {
                     }}
                   >
                     Withdraw
-                  </div>
+                  </button>
                   <div className="slash" />
-                  <div
+                  <button
                     className={classNames('token-button', 'send-button')}
                     onClick={() => {
                       props.setTransferredToken(tokenAddress)
@@ -142,15 +145,15 @@ const Home = props => {
                     }}
                   >
                     Send
-                  </div>
-                  <div
+                  </button>
+                  <button
                     className={classNames('token-button', 'exchange-button')}
                     onClick={() => {
                       router.push('/exchange')
                     }}
                   >
                     Exchange
-                  </div>
+                  </button>
                 </div>
               </div>
             )
@@ -202,7 +205,7 @@ const Home = props => {
                 placeholder="ADDRESS"
                 onKeyDown={onKeyDown}
               />
-              <div
+              <button
                 className="add-button"
                 onClick={() => {
                   if (
@@ -218,7 +221,7 @@ const Home = props => {
                 }}
               >
                 Add
-              </div>
+              </button>
             </td>
           </tr>
         </table>
@@ -264,16 +267,19 @@ const Home = props => {
           cursor: pointer;
         }
         .account-address-set:hover {
-          background-color: lightgray;
+          background-color: rgba(255, 255, 255, 0.1);
         }
         .account-address {
-          color: lightslategray;
+          color: ${SUBTEXT};
           font-size: 14px;
           font-weight: 500;
         }
         .copy-button {
           font-size: 12px;
           margin-left: 4px;
+          border: none;
+          background: transparent;
+          color: ${SUBTEXT};
         }
         .total-balance-title {
           font-size: 16px;
@@ -286,19 +292,9 @@ const Home = props => {
           font-weight: 200;
         }
         .deposit-button {
-          border-radius: 80.7px;
-          width: 109px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: linear-gradient(122.3deg, #ec8383 0.21%, #c13087 93.55%);
-          cursor: pointer;
+          border: none;
           margin-top: 12px;
           margin-bottom: 20px;
-          font-weight: 800;
-          font-size: 16px;
-          color: rgba(255, 255, 255, 0.85);
         }
         .l2-token-box-wrapper {
           width: 100%;
@@ -370,8 +366,8 @@ const Home = props => {
           align-items: center;
         }
         .token-button {
-          padding: 7px;
-          border-radius: 80.7px;
+          border: none;
+          border-radius: 40px;
           width: 93px;
           height: 30px;
           display: flex;
@@ -381,7 +377,7 @@ const Home = props => {
           color: rgba(255, 255, 255, 0.85);
           cursor: pointer;
           font-size: 14px;
-          font-weight: 800;
+          font-weight: ${EXTRABOLD};
         }
         .slash {
           margin-left: 17px;
@@ -481,12 +477,6 @@ const Home = props => {
         .name-column {
           min-width: 100px;
         }
-        .cancel-button {
-          margin: 0px 2px;
-          border: solid 1px lightgray;
-          padding: 2px;
-        }
-
         .address-book-input {
           height: 52px;
           padding: 8px;
@@ -517,7 +507,8 @@ const Home = props => {
           opacity: 0.4;
         }
         .add-button {
-          border-radius: 80.7px;
+          border: none;
+          border-radius: 40px;
           width: 87px;
           height: 36px;
           background: linear-gradient(122.3deg, #ec8383 0.21%, #c13087 93.55%);
@@ -525,7 +516,7 @@ const Home = props => {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-weight: 800;
+          font-weight: ${EXTRABOLD};
           font-size: 14px;
           color: rgba(255, 255, 255, 0.85);
         }
