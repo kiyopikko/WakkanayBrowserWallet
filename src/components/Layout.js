@@ -53,6 +53,9 @@ const Layout = props => {
           padding: 0;
           box-sizing: border-box;
         }
+        input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        }
         body {
           box-sizing: border-box;
           font-family: 'Roboto', sans-serif;
