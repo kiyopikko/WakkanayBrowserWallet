@@ -18,6 +18,7 @@ import {
 } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
+import { NORMAL } from '../fonts'
 
 const Send = props => {
   const router = useRouter()
@@ -111,12 +112,13 @@ const Send = props => {
         </div>
         <div className="amount-box">
           <input className="amount-input" type="number" ref={amountRef} />
-          <span className="sent-amount-unit">
-            {TOKEN_CURRENCY_MAP[transferredToken]}
-          </span>
           <span className="sent-amount-in-usd">
-            ({props.ETHtoUSD * amountRef} USD)
+            ={props.ETHtoUSD * amountRef} USD
           </span>
+        </div>
+        <div className="current-balance-box">
+          <span className="current-balance-number">/1.2</span>
+          <span className="your-current-balance">(your current balance)</span>
         </div>
       </div>
       <div className="send-button">
@@ -150,6 +152,11 @@ const Send = props => {
         .address-box {
           margin-top: 20px;
         }
+        .address-title {
+          font-size: 16px;
+          font-weight: 800;
+          color: rgba(255, 255, 255, 0.5);
+        }
         .recepient-address-input {
           width: 683px;
           height: 40px;
@@ -166,14 +173,6 @@ const Send = props => {
         .token-box {
           margin-top: 16px;
           display: flex;
-        }
-        .amount-box {
-          margin-bottom: 16px;
-        }
-        .address-title {
-          font-size: 16px;
-          font-weight: 800;
-          color: rgba(255, 255, 255, 0.5);
         }
         .token-select-box-wrapper {
           width: 128px;
@@ -270,26 +269,46 @@ const Send = props => {
           padding: 4px;
           border-bottom: solid 1px darkgray;
         }
-
-        .amount-input {
+        .amount-box {
           margin-left: 10px;
+          display: flex;
+          flex-direction: column;
+        }
+        .amount-input {
           height: 47px;
           width: 85px;
           padding: 4px;
           font-size: 36px;
-          font-weight: 300;
+          font-weight: ${NORMAL};
           color: white;
           border-radius: 4px;
           background-color: ${BACKGROUND};
           border: none;
         }
-        .sent-amount-unit {
-          font-size: 18px;
-          font-weight: 650;
-          margin: 0px 6px;
+        .amount-input:focus {
+          outline: 0;
         }
         .sent-amount-in-usd {
+          margin-top: 8px;
+          margin-left: 4px;
           color: ${SUBTEXT};
+        }
+        .current-balance-box {
+          height: 47px;
+          display: flex;
+          align-items: center;
+          margin-left: 10px;
+          color: ${SUBTEXT};
+        }
+        .current-balance-number {
+          font-size: 36px;
+          font-weight: ${NORMAL};
+        }
+        .your-current-balance {
+          margin-left: 4px;
+          margin-top: 7px;
+          font-size: 20px;
+          font-weight: ${NORMAL};
         }
         .send-button {
           position: absolute;
