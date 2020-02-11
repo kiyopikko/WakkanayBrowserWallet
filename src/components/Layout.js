@@ -7,6 +7,7 @@ import OrderRequestModal from './OrderRequestModal'
 import TransactionHistory from './TransactionHistory'
 import { useRouter } from 'next/router'
 import { BACKGROUND, TEXT, SUBTEXT } from '../colors'
+import { NORMAL } from '../fonts'
 import Head from 'next/head'
 
 const Layout = props => {
@@ -28,6 +29,9 @@ const Layout = props => {
         <div className="layout">
           <div className="main">
             <MainDisplay>{props.children}</MainDisplay>
+            <div className="wallet-id-section">
+              Your wallet ID: 0x00000000000000000000000000000000
+            </div>
             <footer>
               Copyright © 2020 Cryptoeconomics lab, Inc. All rights reserved.
             </footer>
@@ -73,6 +77,16 @@ const Layout = props => {
           flex-direction: column;
           width: 70%;
         }
+        .wallet-id-section {
+          height: 32px;
+          background-color: #2d2a2c;
+          font-size: 12px;
+          font-weight: ${NORMAL};
+          color: rgba(255, 255, 255, 0.4);
+          display: flex;
+          align-items: center;
+          padding: 10px;
+        }
         .transaction-history-wrap {
           position: fixed;
           width: 30%;
@@ -87,7 +101,7 @@ const Layout = props => {
           font-weight: 300;
           color: ${SUBTEXT};
           font-size: 0.75rem;
-          padding: 4rem 0 1.5rem;
+          padding: 2rem 0 1.5rem;
           text-align: center;
         }
       `}</style>
