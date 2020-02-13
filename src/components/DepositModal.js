@@ -219,7 +219,6 @@ const DepositModal = props => {
           min-height: 440px;
           background-color: white;
           opacity: 1;
-          box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 15px 0px;
           border-radius: 6px;
           display: flex;
           flex-direction: column;
