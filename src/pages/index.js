@@ -7,6 +7,14 @@ import Layout from '../components/Layout'
 import AddressListItem from '../components/AddressList/AddressListItem'
 import { shortenAddress } from '../utils'
 import { BOLD, EXTRABOLD } from '../fonts'
+import {
+  SUBTEXT,
+  BORDER,
+  SECTION_BACKGROUND,
+  BORDER_DARK,
+  PRIMARY_BUTTON_TEXT,
+  White
+} from '../colors'
 
 //redux
 import { connect } from 'react-redux'
@@ -38,7 +46,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PrimaryButton } from '../components/PrimaryButton'
-import { SUBTEXT } from '../colors'
 library.add(faClipboard, faUserPlus, faPen, faTrash, faBookOpen)
 
 const Home = props => {
@@ -232,7 +239,7 @@ const Home = props => {
           width: 100%;
         }
         .l1-account-box {
-          background-color: rgba(255, 255, 255, 0.08);
+          background-color: ${SECTION_BACKGROUND};
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -267,7 +274,7 @@ const Home = props => {
           cursor: pointer;
         }
         .account-address-set:hover {
-          background-color: rgba(255, 255, 255, 0.1);
+          background-color: ${BORDER_DARK};
         }
         .account-address {
           color: ${SUBTEXT};
@@ -317,7 +324,7 @@ const Home = props => {
         }
         .l2-token-box {
           padding: 12px;
-          background-color: rgba(255, 255, 255, 0.08);
+          background-color: ${SECTION_BACKGROUND};
           width: 100%;
           display: flex;
           justify-content: space-between;
@@ -353,11 +360,11 @@ const Home = props => {
         .line {
           margin-left: 24px;
           width: 11px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid ${BORDER};
         }
         .balance-in-usd {
           margin-left: 12px;
-          color: rgba(255, 255, 255, 0.5);
+          color: ${SUBTEXT};
           font-size: 14px;
           font-weight: 650;
         }
@@ -373,8 +380,8 @@ const Home = props => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background-color: rgba(255, 255, 255, 0.06);
-          color: rgba(255, 255, 255, 0.85);
+          background-color: ${White(0.06)};
+          color: ${PRIMARY_BUTTON_TEXT};
           cursor: pointer;
           font-size: 14px;
           font-weight: ${EXTRABOLD};
@@ -389,7 +396,7 @@ const Home = props => {
           content: '';
           position: absolute;
           left: 10px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid ${BORDER_DARK};
           width: 26px;
           transform: rotate(110deg);
           transform-origin: 0% 0%;
@@ -411,10 +418,10 @@ const Home = props => {
           margin-top: 12px;
           width: 100%;
           height: 3px;
-          background-color: #000000;
+          background-color: ${BORDER};
         }
         .l2-token-total-balance-wrapper {
-          color: rgba(255, 255, 255, 0.5);
+          color: ${SUBTEXT};
           margin-top: 4px;
           font-size: 18px;
           font-weight: 800;
@@ -456,8 +463,8 @@ const Home = props => {
           font-weight: ${BOLD};
           border-spacing: 0px;
           height: 52px;
-          color: rgba(255, 255, 255, 0.74);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          color: ${White(0.74)};
+          border-bottom: 1px solid ${BORDER_DARK};
         }
         th {
           padding: 8px;
@@ -518,7 +525,7 @@ const Home = props => {
           justify-content: center;
           font-weight: ${EXTRABOLD};
           font-size: 14px;
-          color: rgba(255, 255, 255, 0.85);
+          color: ${PRIMARY_BUTTON_TEXT};
         }
       `}</style>
     </Layout>

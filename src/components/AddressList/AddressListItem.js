@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { EXTRABOLD } from '../../fonts'
+import { PRIMARY_BUTTON_TEXT, White } from '../../colors'
 
 export default ({
   addressListItem,
@@ -84,7 +84,7 @@ export default ({
       .name-section,
       .address-section {
         padding: 8px;
-        color: rgba(255, 255, 255, 0.74);
+        color: ${White(0.74)};
       }
       .name-cell {
         display: flex;
@@ -146,8 +146,8 @@ export default ({
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: rgba(255, 255, 255, 0.06);
-        color: rgba(255, 255, 255, 0.85);
+        background-color: ${White(0.06)};
+        color: ${PRIMARY_BUTTON_TEXT};
         cursor: pointer;
         font-size: 12px;
         font-weight: ${EXTRABOLD};

@@ -18,7 +18,14 @@ import {
   setRequestedAmountToReceive,
   setOrderRequestPage
 } from '../store/exchange'
-import { MODAL_BACKGROUND, SUBTEXT } from '../colors'
+import {
+  MODAL_BACKGROUND,
+  SUBTEXT,
+  BORDER,
+  PRIMARY_BUTTON_TEXT,
+  White,
+  Black
+} from '../colors'
 import { PrimaryButton } from './PrimaryButton'
 
 const OrderRequestModal = props => {
@@ -298,7 +305,7 @@ const OrderRequestModal = props => {
           justify-content: center;
           align-items: center;
           padding: 20px;
-          background-color: rgba(0, 0, 0, 0.2);
+          background-color: ${Black(0.4)};
           border-radius: 4px;
         }
         .action-title {
@@ -309,7 +316,7 @@ const OrderRequestModal = props => {
           margin-top: 14px;
           width: 128px;
           height: 47px;
-          background-color: rgba(255, 255, 255, 0.05);
+          background-color: ${White(0.05)};
           border-radius: 4px;
           display: flex;
           align-items: center;
@@ -408,7 +415,7 @@ const OrderRequestModal = props => {
           font-weight: 300;
           color: white;
           border: none;
-          background-color: rgba(255, 255, 255, 0.04);
+          background-color: ${White(0.04)};
           border-radius: 4px;
           margin-top: 10px;
         }
@@ -435,7 +442,7 @@ const OrderRequestModal = props => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          background-color: rgba(0, 0, 0, 0.2);
+          background-color: ${Black(0.4)};
           border-radius: 4px;
           padding: 16px;
           margin-top: 14px;
@@ -499,7 +506,7 @@ const OrderRequestModal = props => {
         }
         .cancel-button {
           background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid ${BORDER};
           margin-right: 24px;
           display: flex;
           justify-content: center;
@@ -509,7 +516,7 @@ const OrderRequestModal = props => {
           border-radius: 40px;
           font-size: 16px;
           font-weight: 800;
-          color: rgba(255, 255, 255, 0.85);
+          color: ${PRIMARY_BUTTON_TEXT};
           cursor: pointer;
         }
       `}</style>

@@ -6,7 +6,7 @@ import TransferModal from './TransferModal'
 import OrderRequestModal from './OrderRequestModal'
 import TransactionHistory from './TransactionHistory'
 import { useRouter } from 'next/router'
-import { BACKGROUND, TEXT, SUBTEXT } from '../colors'
+import { BACKGROUND, TEXT, SUBTEXT, BORDER_DARK, Black } from '../colors'
 import { NORMAL } from '../fonts'
 import Head from 'next/head'
 
@@ -85,7 +85,7 @@ const Layout = props => {
           background-color: #2d2a2c;
           font-size: 12px;
           font-weight: ${NORMAL};
-          color: rgba(255, 255, 255, 0.4);
+          color: ${SUBTEXT};
           display: flex;
           align-items: center;
           padding: 10px;
@@ -97,8 +97,8 @@ const Layout = props => {
           min-height: 100vh;
           top: 0;
           right: 0;
-          border-left: 1px solid rgba(255, 255, 255, 0.1);
-          background-color: rgba(0, 0, 0, 0.05);
+          border-left: 1px solid ${BORDER_DARK};
+          background-color: ${Black(0.05)};
         }
         footer {
           font-weight: 300;
