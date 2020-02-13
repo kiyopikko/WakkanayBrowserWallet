@@ -14,7 +14,7 @@ const Receive = props => {
       <div className="address-box-wrapper">
         <div className="address-title">Your Wakkanay Wallet Address</div>
         <div className="address-box">
-          <div className="address">0x0000000000</div>
+          <div className="address">{props.address}</div>
         </div>
       </div>
       <div className="qr-code-box">
@@ -77,8 +77,7 @@ const Receive = props => {
 }
 
 const mapStateToProps = state => ({
-  address: state.address,
-  balance: state.balance
+  address: state.address
 })
 
-export default connect(mapStateToProps)(Receive)
+export default connect(mapStateToProps, undefined)(Receive)

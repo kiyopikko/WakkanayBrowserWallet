@@ -70,11 +70,6 @@ const Home = props => {
       return (nameInput.current.value = ''), (addressInput.current.value = '')
     }
   }
-  useEffect(() => {
-    props.getBalance()
-    props.getAddress()
-    props.getETHtoUSD() // get the latest ETH price, returned value's unit is USD/ETH
-  }, [])
 
   return (
     <Layout>

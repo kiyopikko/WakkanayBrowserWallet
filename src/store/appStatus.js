@@ -1,6 +1,7 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
-import { getBalance } from './tokenBalanceList'
+import { getBalance, getETHtoUSD } from './tokenBalanceList'
+import { getAddress } from './address'
 
 const APP_STATUS = {
   UNLOADED: 'unloaded',
@@ -35,6 +36,10 @@ export const checkClientInitialized = () => {
     if (client) {
       dispatch(setAppStatus(APP_STATUS.LOADED))
       dispatch(subscribeEvents())
+      dispatch(getBalance())
+      dispatch(getAddress())
+      dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
+
       return
     }
 
@@ -44,6 +49,9 @@ export const checkClientInitialized = () => {
         await clientWrapper.initializeClient(localKey)
         dispatch(setAppStatus(APP_STATUS.LOADED))
         dispatch(subscribeEvents())
+        dispatch(getBalance())
+        dispatch(getAddress())
+        dispatch(getETHtoUSD())
       } catch (e) {
         localStorage.removeItem('privateKey')
         dispatch(setAppStatus(APP_STATUS.UNLOADED))
@@ -61,6 +69,9 @@ export const initializeClient = privateKey => {
       await clientWrapper.initializeClient(privateKey)
       dispatch(setAppStatus(APP_STATUS.LOADED))
       dispatch(subscribeEvents())
+      dispatch(getBalance())
+      dispatch(getAddress())
+      dispatch(getETHtoUSD())
     } catch (error) {
       dispatch(setAppError(error))
       dispatch(setAppStatus(APP_STATUS.ERROR))
