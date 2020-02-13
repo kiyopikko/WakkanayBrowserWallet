@@ -1,4 +1,5 @@
 import { EXTRABOLD } from '../fonts'
+import { PRIMARY_BUTTON_TEXT } from '../colors'
 
 export const PrimaryButton = props => {
   return (
@@ -16,7 +17,7 @@ export const PrimaryButton = props => {
           font-size: 16px;
           font-weight: ${EXTRABOLD};
           background: linear-gradient(122.3deg, #ec8383 0.21%, #c13087 93.55%);
-          color: rgba(255, 255, 255, 0.85);
+          color: ${PRIMARY_BUTTON_TEXT};
           cursor: pointer;
         }
       `}</style>

@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND } from '../colors'
+import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND, BORDER } from '../colors'
 
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -155,7 +155,7 @@ const Send = props => {
         .address-title {
           font-size: 16px;
           font-weight: 800;
-          color: rgba(255, 255, 255, 0.5);
+          color: ${SUBTEXT};
         }
         .recepient-address-input {
           width: 683px;
@@ -164,7 +164,7 @@ const Send = props => {
           font-size: 16px;
           color: ${SUBTEXT};
           background-color: transparent;
-          border: 1px solid rgba();
+          border: 1px solid ${BORDER};
           border-width: 0 0 1px;
         }
         .recepient-address-input:focus {

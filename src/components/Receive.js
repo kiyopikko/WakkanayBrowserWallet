@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { SUBTEXT, BACKGROUND } from '../colors'
+import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND } from '../colors'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -35,7 +35,7 @@ const Receive = props => {
           flex-direction: column;
           padding: 20px;
           margin: 20px 0px;
-          background-color: rgba(255, 255, 255, 0.08);
+          background-color: ${SECTION_BACKGROUND};
           position: relative;
         }
         .receive-section-title {
@@ -51,7 +51,7 @@ const Receive = props => {
         .address-title {
           font-size: 16px;
           font-weight: 800;
-          color: rgba(255, 255, 255, 0.5);
+          color: ${SUBTEXT};
         }
         .address-box {
           margin-top: 12px;

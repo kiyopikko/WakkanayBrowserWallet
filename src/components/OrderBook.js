@@ -3,7 +3,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faArrowsAltH)
-import { SUBTEXT, SECTION_BACKGROUND } from '../colors'
+import {
+  SUBTEXT,
+  SECTION_BACKGROUND,
+  BORDER,
+  PRIMARY_BUTTON_TEXT
+} from '../colors'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import Dropdown from './Dropdown'
@@ -214,7 +219,7 @@ const OrderBook = props => {
           text-align: center;
         }
         .paid-token-select-box-wrapper {
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid ${BORDER};
           border-radius: 40px 0px 0px 40px;
           width: 136px;
           height: 45px;
@@ -325,7 +330,7 @@ const OrderBook = props => {
           margin-right: 16px;
         }
         .max-paid-amount-input-wrapper {
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid ${BORDER};
           border-radius: 0px 40px 40px 0px;
           font-size: 29px;
           font-weight: 300;
@@ -358,7 +363,7 @@ const OrderBook = props => {
           text-align: center;
         }
         .received-token-select-box-wrapper {
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid ${BORDER};
           border-radius: 40px;
           font-size: 16px;
           width: 136px;
@@ -448,7 +453,7 @@ const OrderBook = props => {
         .search {
           font-weight: 800;
           font-size: 16px;
-          color: rgba(255, 255, 255, 0.85);
+          color: ${PRIMARY_BUTTON_TEXT};
         }
         .or {
           margin-top: 20px;
@@ -468,10 +473,10 @@ const OrderBook = props => {
           justify-content: center;
           align-items: center;
           cursor: pointer;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid ${BORDER};
           font-size: 14px;
           font-weight: ${EXTRABOLD};
-          color: rgba(255, 255, 255, 0.85);
+          color: ${PRIMARY_BUTTON_TEXT};
           background: transparent;
         }
         .order-list {
@@ -549,7 +554,7 @@ const OrderBook = props => {
           justify-content: center;
           align-items: center;
           background-color: #4e3ff4;
-          color: rgba(255, 255, 255, 0.85);
+          color: ${PRIMARY_BUTTON_TEXT};
           cursor: pointer;
           font-size: 14px;
           font-weight: ${EXTRABOLD};
