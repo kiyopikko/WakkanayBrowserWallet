@@ -245,7 +245,6 @@ const OrderRequestModal = props => {
           min-height: 440px;
           background-color: rgba(32, 32, 32, 0.9);
           opacity: 1;
-          box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 15px 0px;
           border-radius: 10px;
           display: flex;
           flex-direction: column;
@@ -301,8 +300,6 @@ const OrderRequestModal = props => {
           padding: 20px;
           background-color: rgba(0, 0, 0, 0.2);
           border-radius: 4px;
-          box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3),
-            0 4px 8px 3px rgba(60, 64, 67, 0.15);
         }
         .action-title {
           font-weight: 400;
