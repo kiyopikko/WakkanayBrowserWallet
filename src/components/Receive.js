@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND } from '../colors'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faSignInAlt)
 
 import QRCode from 'qrcode.react'
@@ -26,7 +25,6 @@ const Receive = props => {
           includeMargin={true}
         />
       </div>
-
       <style jsx>{`
         .receive-section {
           width: calc(100% - 40px);

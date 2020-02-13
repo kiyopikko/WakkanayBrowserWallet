@@ -5,7 +5,6 @@ import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND, BORDER } from '../colors'
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faSignOutAlt)
 
 import { connect } from 'react-redux'
