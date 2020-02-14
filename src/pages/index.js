@@ -1,10 +1,12 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 
 // internal import
 import Layout from '../components/Layout'
 import AddressListItem from '../components/AddressList/AddressListItem'
+import { SectionTitle } from '../components/SectionTitle'
+import { PrimaryButton } from '../components/PrimaryButton'
 import { shortenAddress } from '../utils'
 import { BOLD, EXTRABOLD } from '../fonts'
 import {
@@ -45,7 +47,6 @@ import {
   faBookOpen
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { PrimaryButton } from '../components/PrimaryButton'
 library.add(faClipboard, faUserPlus, faPen, faTrash, faBookOpen)
 
 const Home = props => {
@@ -109,7 +110,7 @@ const Home = props => {
         </div>
       </div>
       <div className="l2-token-box-wrapper" id="l2-tokens">
-        <div className="l2-token-box-title">L2 Tokens</div>
+        <SectionTitle>L2 Tokens</SectionTitle>
         <div className="l2-token-box-list">
           {props.tokenBalanceList.map(({ tokenAddress, amount }) => {
             return (
@@ -169,7 +170,7 @@ const Home = props => {
       </div>
       <div className="address-book-wrapper" id="address-book">
         <div className="address-book-title-box">
-          <div className="address-book-title">Address Book</div>
+          <SectionTitle>Address Book</SectionTitle>
         </div>
         <table className="address-book-table">
           <tr>
@@ -305,10 +306,6 @@ const Home = props => {
           padding: 20px;
           margin-top: 20px;
         }
-        .l2-token-box-title {
-          font-weight: 400;
-          font-size: 24px;
-        }
         .l2-token-box-list {
           margin-top: 10px;
           display: flex;
@@ -437,10 +434,6 @@ const Home = props => {
         .address-book-title-box {
           display: flex;
           align-items: center;
-        }
-        .address-book-title {
-          font-weight: 400;
-          font-size: 24px;
         }
         .book-icon {
           font-size: 24px;

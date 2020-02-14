@@ -15,6 +15,7 @@ import Dropdown from './Dropdown'
 import { setTransferredToken } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
+import { SectionTitle } from '../components/SectionTitle'
 import { EXTRABOLD } from '../fonts'
 
 const OrderBook = props => {
@@ -24,7 +25,7 @@ const OrderBook = props => {
 
   return (
     <div className="orderbook-section" id="order-book">
-      <div className="orderbook-page-title">Exchange Order Book</div>
+      <SectionTitle>Exchange Order Book</SectionTitle>
       <div className="search-box">
         <div className="paid-token-box">
           <div className="paid-token-title">Exchanged</div>
@@ -193,10 +194,6 @@ const OrderBook = props => {
           display: flex;
           flex-direction: column;
           margin: 20px 0px;
-        }
-        .orderbook-page-title {
-          font-size: 24px;
-          font-weight: 400;
         }
         .search-box {
           margin-top: 20px;
