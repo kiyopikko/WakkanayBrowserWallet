@@ -17,6 +17,7 @@ import {
 } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
+import { SectionTitle } from '../components/SectionTitle'
 import { NORMAL } from '../fonts'
 
 const Send = props => {
@@ -37,7 +38,7 @@ const Send = props => {
 
   return (
     <div className="send-section" id="send">
-      <div className="send-section-title">Send Token</div>
+      <SectionTitle>Send Token</SectionTitle>
       {/* <div className="balance-box">
         <div className="your-balance-title">
           {shortenAddress(transferredToken)} Balance
@@ -143,10 +144,6 @@ const Send = props => {
           margin: 20px 0px;
           background-color: ${SECTION_BACKGROUND};
           position: relative;
-        }
-        .send-section-title {
-          font-size: 24px;
-          font-weight: 400;
         }
         .address-box {
           margin-top: 20px;
