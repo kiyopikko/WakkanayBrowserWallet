@@ -8,6 +8,7 @@ import TransactionHistory from './TransactionHistory'
 import { useRouter } from 'next/router'
 import { BACKGROUND, TEXT, SUBTEXT, BORDER_DARK, Black } from '../colors'
 import { NORMAL } from '../fonts'
+import { connect } from 'react-redux'
 import Head from 'next/head'
 
 const Layout = props => {
@@ -30,7 +31,7 @@ const Layout = props => {
           <div className="main">
             <MainDisplay>{props.children}</MainDisplay>
             <div className="wallet-id-section">
-              Your wallet ID: 0x00000000000000000000000000000000
+              Your wallet ID: {props.address}
             </div>
             <footer>
               Copyright © 2020 Cryptoeconomics lab, Inc. All rights reserved.
@@ -112,4 +113,7 @@ const Layout = props => {
   )
 }
 
-export default Layout
+const mapStateToProps = state => ({
+  address: state.address
+})
+export default connect(mapStateToProps, undefined)(Layout)
