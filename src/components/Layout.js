@@ -63,10 +63,10 @@ const Layout = props => {
           font-weight: 500;
           background: ${BACKGROUND};
           color: ${TEXT};
-          ${isDepositModalOpen ? 'overflow: hidden;' : ''}
-          ${isWithdrawModalOpen ? 'overflow: hidden;' : ''}
-          ${isTransferModalOpen ? 'overflow: hidden;' : ''}
-          ${isOrderRequestModalOpen ? 'overflow: hidden;' : ''}
+          ${(isDepositModalOpen,
+          isWithdrawModalOpen,
+          isTransferModalOpen,
+          isOrderRequestModalOpen ? 'overflow: hidden;' : '')}
         }
       `}</style>
       <style jsx>{`
