@@ -94,7 +94,7 @@ const TransactionHistory = props => {
           overflow-y: scroll;
           height: calc(100vh - 7.5rem);
         }
-        .transaction-hisotry-t${White(0.75)};
+        .transaction-hisotry: ${White(0.75)};
           font-size: 1.25rem;
           font-weight: 300;
           margin-bottom: 1rem;
