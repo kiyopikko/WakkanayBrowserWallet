@@ -27,11 +27,6 @@ const Send = props => {
   const transferredToken = props.transferredToken
   const tokenBalanceList = props.tokenBalanceList
 
-  // useEffect(() => {
-  //   props.getBalance()
-  //   props.getETHtoUSD()
-  // }, [])
-
   const tokenBalance = tokenBalanceList.find(
     ({ tokenAddress }) => tokenAddress === transferredToken
   )

@@ -29,6 +29,12 @@ export const appStatusReducer = createReducer(
 
 export const checkClientInitialized = () => {
   return async dispatch => {
+    const initialGetters = () => {
+      dispatch(getBalance())
+      dispatch(getAddress())
+      dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
+    }
+
     if (!process.browser) {
       dispatch(setAppStatus(APP_STATUS.UNLOADED))
       return
@@ -39,10 +45,7 @@ export const checkClientInitialized = () => {
     if (client) {
       dispatch(setAppStatus(APP_STATUS.LOADED))
       dispatch(subscribeEvents())
-      dispatch(getBalance())
-      dispatch(getAddress())
-      dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
-
+      initialGetters()
       return
     }
 
@@ -52,9 +55,7 @@ export const checkClientInitialized = () => {
         await clientWrapper.initializeClient(localKey)
         dispatch(setAppStatus(APP_STATUS.LOADED))
         dispatch(subscribeEvents())
-        dispatch(getBalance())
-        dispatch(getAddress())
-        dispatch(getETHtoUSD())
+        initialGetters()
       } catch (e) {
         localStorage.removeItem('privateKey')
         dispatch(setAppStatus(APP_STATUS.UNLOADED))
@@ -67,14 +68,18 @@ export const checkClientInitialized = () => {
 
 export const initializeClient = privateKey => {
   return async dispatch => {
+    const initialGetters = () => {
+      dispatch(getBalance())
+      dispatch(getAddress())
+      dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
+    }
+
     dispatch(setAppError(null))
     try {
       await clientWrapper.initializeClient(privateKey)
       dispatch(setAppStatus(APP_STATUS.LOADED))
       dispatch(subscribeEvents())
-      dispatch(getBalance())
-      dispatch(getAddress())
-      dispatch(getETHtoUSD())
+      initialGetters()
     } catch (error) {
       dispatch(setAppError(error))
       dispatch(setAppStatus(APP_STATUS.ERROR))
