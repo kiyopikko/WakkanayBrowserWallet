@@ -18,7 +18,7 @@ import {
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
-import { NORMAL } from '../fonts'
+import { NORMAL, SMALL, MEDIUM, XLARGE } from '../fonts'
 
 const Send = props => {
   const router = useRouter()
@@ -149,7 +149,7 @@ const Send = props => {
           margin-top: 20px;
         }
         .address-title {
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 800;
           color: ${SUBTEXT};
         }
@@ -157,7 +157,7 @@ const Send = props => {
           width: 683px;
           height: 40px;
           padding: 4px;
-          font-size: 16px;
+          font-size: ${SMALL};
           color: ${SUBTEXT};
           background-color: transparent;
           border: 1px solid ${BORDER};
@@ -193,7 +193,7 @@ const Send = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 400;
           display: flex;
           align-items: center;
@@ -274,7 +274,7 @@ const Send = props => {
           height: 47px;
           width: 85px;
           padding: 4px;
-          font-size: 36px;
+          font-size: ${XLARGE};
           font-weight: ${NORMAL};
           color: white;
           border-radius: 4px;
@@ -297,13 +297,13 @@ const Send = props => {
           color: ${SUBTEXT};
         }
         .current-balance-number {
-          font-size: 36px;
+          font-size: ${XLARGE};
           font-weight: ${NORMAL};
         }
         .your-current-balance {
           margin-left: 4px;
           margin-top: 7px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: ${NORMAL};
         }
         .send-button {

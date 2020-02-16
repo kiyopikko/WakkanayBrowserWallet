@@ -12,6 +12,7 @@ library.add(fab, faTimes, faEthernet)
 import Dropdown from './Dropdown'
 import { connect } from 'react-redux'
 import { setWithdrawnToken, setWithdrawPage } from '../store/withdraw'
+import { SMALL, MEDIUM, LARGER } from '../fonts'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -186,7 +187,7 @@ const WithdrawModal = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 600;
           display: flex;
           align-items: center;
@@ -198,7 +199,7 @@ const WithdrawModal = props => {
           > :global(.dropdown-button)
           > :global(.button-name) {
           width: 280px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           display: flex;
           align-items: center;
           justify-content: center;
@@ -216,7 +217,7 @@ const WithdrawModal = props => {
           > :global(.dropdown)
           > :global(.dropdown-button)
           > :global(.dropdown-caret) {
-          font-size: 20px;
+          font-size: ${MEDIUM};
         }
         .token-select-box-wrapper
           > :global(.dropdown)
@@ -253,7 +254,7 @@ const WithdrawModal = props => {
           border-bottom: solid 1px darkgray;
         }
         .token-dropdown-button {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           padding: 0px 8px;
           cursor: pointer;
           height: inherit;
@@ -278,7 +279,7 @@ const WithdrawModal = props => {
         .amount-input {
           width: 246px;
           padding: 4px;
-          font-size: 16px;
+          font-size: ${SMALL};
           margin-left: 4px;
           border: none;
         }
@@ -354,7 +355,7 @@ const WithdrawModal = props => {
           > :global(.dropdown-button)
           > :global(.dropdown-caret) {
           margin-left: 8px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           color: #3d5bf1;
         }
         .token-amount-confirm-section {
@@ -365,13 +366,13 @@ const WithdrawModal = props => {
         }
         .token-amount-confirm-title,
         .token-currency {
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 500;
         }
         .token-amount {
           margin: -3px 14px;
           margin-left: 10px;
-          font-size: 26px;
+          font-size: ${LARGER};
           font-weight: 600;
         }
 

@@ -1,4 +1,4 @@
-import { BOLD } from '../fonts'
+import { BOLD, LARGE } from '../fonts'
 
 export const SectionTitle = props => {
   return (
@@ -6,7 +6,7 @@ export const SectionTitle = props => {
       {props.children}
       <style jsx>{`
         font-weight: ${BOLD};
-        font-size: 24px;
+        font-size: ${LARGE};
       `}</style>
     </div>
   )
