@@ -26,6 +26,7 @@ import {
   White,
   Black
 } from '../colors'
+import { XSMALL, SMALLER, SMALL, LARGE, XLARGE } from '../fonts'
 import { PrimaryButton } from './PrimaryButton'
 
 const OrderRequestModal = props => {
@@ -290,7 +291,7 @@ const OrderRequestModal = props => {
         .exchange-order-request-title-box {
           margin-top: 32px;
           font-weight: 400;
-          font-size: 24px;
+          font-size: ${LARGE};
         }
         .exchange-order-request-box {
           width: 100%;
@@ -310,7 +311,7 @@ const OrderRequestModal = props => {
         }
         .action-title {
           font-weight: 400;
-          font-size: 24px;
+          font-size: ${LARGE};
         }
         .token-select-box-wrapper {
           margin-top: 14px;
@@ -336,7 +337,7 @@ const OrderRequestModal = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 400;
           display: flex;
           align-items: center;
@@ -411,7 +412,7 @@ const OrderRequestModal = props => {
         .amount-input {
           width: 129px;
           height: 47px;
-          font-size: 36px;
+          font-size: ${XLARGE};
           font-weight: 300;
           color: white;
           border: none;
@@ -423,14 +424,14 @@ const OrderRequestModal = props => {
           outline: 0;
         }
         .amount-in-usd {
-          font-size: 13px;
+          font-size: ${XSMALL};
           color: darkgray;
           font-weight: 640;
           margin-top: 8px;
         }
         .insufficient-fund {
           color: red;
-          font-size: 13px;
+          font-size: ${XSMALL};
           margin-top: 4px;
         }
         .arrow {
@@ -449,7 +450,7 @@ const OrderRequestModal = props => {
           border-radius: 6px;
         }
         .expected-balance-title {
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 400;
           width: 100%;
         }
@@ -471,16 +472,16 @@ const OrderRequestModal = props => {
           align-items: center;
         }
         .token-new-amount-text {
-          font-size: 36px;
+          font-size: ${XLARGE};
           font-weight: 300;
         }
         .token-type-unit {
-          font-size: 14px;
+          font-size: ${SMALLER};
           font-weight: 400;
           margin-left: 6px;
         }
         .token-new-amount-in-usd {
-          font-size: 14px;
+          font-size: ${SMALLER};
           font-weight: 400;
           color: ${SUBTEXT};
         }
@@ -514,7 +515,7 @@ const OrderRequestModal = props => {
           width: 108px;
           height: 40px;
           border-radius: 40px;
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 800;
           color: ${PRIMARY_BUTTON_TEXT};
           cursor: pointer;

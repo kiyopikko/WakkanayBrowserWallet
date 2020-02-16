@@ -16,6 +16,7 @@ library.add(fab, faTimes, faEthernet, faArrowLeft)
 import { connect } from 'react-redux'
 import { setTransferPage, transfer } from '../store/transfer'
 import { shortenAddress } from '../utils'
+import { SMALL, MEDIUM, LARGER } from '../fonts'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -202,7 +203,7 @@ const TransferModal = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 600;
           display: flex;
           align-items: center;
@@ -214,7 +215,7 @@ const TransferModal = props => {
           > :global(.dropdown-button)
           > :global(.button-name) {
           width: 280px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           display: flex;
           align-items: center;
           justify-content: center;
@@ -232,7 +233,7 @@ const TransferModal = props => {
           > :global(.dropdown)
           > :global(.dropdown-button)
           > :global(.dropdown-caret) {
-          font-size: 20px;
+          font-size: ${MEDIUM};
         }
         .token-select-box-wrapper
           > :global(.dropdown)
@@ -269,7 +270,7 @@ const TransferModal = props => {
           border-bottom: solid 1px darkgray;
         }
         .token-dropdown-button {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           padding: 0px 8px;
           cursor: pointer;
           height: inherit;
@@ -295,7 +296,7 @@ const TransferModal = props => {
           width: 100%;
           height: 40px;
           padding: 4px;
-          font-size: 16px;
+          font-size: ${SMALL};
           border-radius: 6px;
           border: none;
         }
@@ -371,7 +372,7 @@ const TransferModal = props => {
           > :global(.dropdown-button)
           > :global(.dropdown-caret) {
           margin-left: 8px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           color: #3d5bf1;
         }
         .token-amount-confirm-section {
@@ -382,13 +383,13 @@ const TransferModal = props => {
         }
         .token-amount-confirm-title,
         .token-currency {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 500;
         }
         .token-amount {
           margin: -3px 14px;
           margin-left: 10px;
-          font-size: 26px;
+          font-size: ${LARGER};
           font-weight: 600;
         }
 
@@ -423,11 +424,11 @@ const TransferModal = props => {
         }
         .from,
         .to {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 500;
         }
         .address {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 500;
           color: lightslategray;
         }

@@ -1,3 +1,11 @@
 export const NORMAL = '300'
 export const BOLD = '400'
 export const EXTRABOLD = '600'
+
+export const XLARGE = '36px'
+export const LARGER = '26px'
+export const LARGE = '24px'
+export const MEDIUM = '20px'
+export const SMALL = '16px'
+export const SMALLER = '14px'
+export const XSMALL = '13px'

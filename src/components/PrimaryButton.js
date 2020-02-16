@@ -1,4 +1,4 @@
-import { EXTRABOLD } from '../fonts'
+import { EXTRABOLD, SMALL } from '../fonts'
 import { PRIMARY_BUTTON_TEXT } from '../colors'
 
 export const PrimaryButton = props => {
@@ -14,7 +14,7 @@ export const PrimaryButton = props => {
           width: 108px;
           height: 40px;
           border-radius: 40px;
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: ${EXTRABOLD};
           background: linear-gradient(122.3deg, #ec8383 0.21%, #c13087 93.55%);
           color: ${PRIMARY_BUTTON_TEXT};

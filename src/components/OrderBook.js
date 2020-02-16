@@ -16,7 +16,7 @@ import { setTransferredToken } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
-import { EXTRABOLD } from '../fonts'
+import { EXTRABOLD, XSMALL, SMALLER, SMALL, MEDIUM, LARGER } from '../fonts'
 
 const OrderBook = props => {
   const router = useRouter()
@@ -206,7 +206,7 @@ const OrderBook = props => {
         .received-token-title {
           width: 100%;
           font-weight: 800;
-          font-size: 13px;
+          font-size: ${XSMALL};
           margin-bottom: 8px;
           color: ${SUBTEXT};
         }
@@ -239,7 +239,7 @@ const OrderBook = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 400;
           display: flex;
           align-items: center;
@@ -311,7 +311,7 @@ const OrderBook = props => {
           border-bottom: solid 1px darkgray;
         }
         .token-dropdown-button {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           padding: 0px 8px;
           cursor: pointer;
           height: inherit;
@@ -351,7 +351,7 @@ const OrderBook = props => {
         }
         .max-paid-amount-unit {
           font-weight: 800;
-          font-size: 13px;
+          font-size: ${XSMALL};
           color: ${SUBTEXT};
         }
         .received-token-box {
@@ -362,7 +362,7 @@ const OrderBook = props => {
         .received-token-select-box-wrapper {
           border: 1px solid ${BORDER};
           border-radius: 40px;
-          font-size: 16px;
+          font-size: ${SMALL};
           width: 136px;
           height: 45px;
           background-color: transparent;
@@ -380,7 +380,7 @@ const OrderBook = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 400;
           display: flex;
           align-items: center;
@@ -399,7 +399,7 @@ const OrderBook = props => {
           > :global(.dropdown)
           > :global(.dropdown-button)
           > :global(.dropdown-caret) {
-          font-size: 20px;
+          font-size: ${MEDIUM};
         }
         .received-token-select-box-wrapper
           > :global(.dropdown)
@@ -449,7 +449,7 @@ const OrderBook = props => {
         }
         .search {
           font-weight: 800;
-          font-size: 16px;
+          font-size: ${SMALL};
           color: ${PRIMARY_BUTTON_TEXT};
         }
         .or {
@@ -471,7 +471,7 @@ const OrderBook = props => {
           align-items: center;
           cursor: pointer;
           border: 1px solid ${BORDER};
-          font-size: 14px;
+          font-size: ${SMALLER};
           font-weight: ${EXTRABOLD};
           color: ${PRIMARY_BUTTON_TEXT};
           background: transparent;
@@ -525,16 +525,16 @@ const OrderBook = props => {
           align-items: center;
         }
         .token-type {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 400;
           margin-right: 5px;
         }
         .amount {
-          font-size: 26px;
+          font-size: ${LARGER};
           font-weight: 300;
         }
         .amount-in-usd {
-          font-size: 14px;
+          font-size: ${SMALLER};
           color: ${SUBTEXT};
           font-weight: 400;
         }
@@ -553,7 +553,7 @@ const OrderBook = props => {
           background-color: #4e3ff4;
           color: ${PRIMARY_BUTTON_TEXT};
           cursor: pointer;
-          font-size: 14px;
+          font-size: ${SMALLER};
           font-weight: ${EXTRABOLD};
         }
       `}</style>

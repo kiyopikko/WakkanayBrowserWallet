@@ -1,4 +1,4 @@
-import { EXTRABOLD } from '../../fonts'
+import { EXTRABOLD, XSMALL, SMALLER } from '../../fonts'
 import { PRIMARY_BUTTON_TEXT, White } from '../../colors'
 
 export default ({
@@ -101,7 +101,7 @@ export default ({
         align-items: center;
       }
       .name {
-        font-size: 14px;
+        font-size: ${SMALLER};
         font-weight: 500;
       }
       .address {
@@ -113,21 +113,21 @@ export default ({
         width: 355px;
         height: 14px;
         font-weight: 800;
-        font-size: 13px;
+        font-size: ${XSMALL};
         border: none;
         background-color: transparent;
       }
       .edit-name-input::placeholder,
       .edit-address-input::placeholder {
         font-weight: 800;
-        font-size: 13px;
+        font-size: ${XSMALL};
       }
       .edit-name-input,
       .edit-address-input {
         width: 355px;
         height: 14px;
         font-weight: 800;
-        font-size: 13px;
+        font-size: ${XSMALL};
         color: white;
         opacity: 0.7;
       }

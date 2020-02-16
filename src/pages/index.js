@@ -8,7 +8,16 @@ import AddressListItem from '../components/AddressList/AddressListItem'
 import { SectionTitle } from '../components/SectionTitle'
 import { PrimaryButton } from '../components/PrimaryButton'
 import { shortenAddress } from '../utils'
-import { BOLD, EXTRABOLD } from '../fonts'
+import {
+  BOLD,
+  EXTRABOLD,
+  XSMALL,
+  SMALLER,
+  SMALL,
+  LARGE,
+  LARGER,
+  XLARGE
+} from '../fonts'
 import {
   SUBTEXT,
   BORDER,
@@ -274,7 +283,7 @@ const Home = props => {
         }
         .account-address {
           color: ${SUBTEXT};
-          font-size: 14px;
+          font-size: ${SMALLER};
           font-weight: 500;
         }
         .copy-button {
@@ -285,13 +294,13 @@ const Home = props => {
           color: ${SUBTEXT};
         }
         .total-balance-title {
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 100;
           margin-top: 20px;
           margin-bottom: 14px;
         }
         .total-balance {
-          font-size: 36px;
+          font-size: ${XLARGE};
           font-weight: 200;
         }
         .deposit-button {
@@ -341,12 +350,12 @@ const Home = props => {
         }
         .token-balance-unit {
           margin-left: 16px;
-          font-size: 16px;
+          font-size: ${SMALL};
           font-weight: 650;
         }
         .token-balance-number {
           margin-left: 12px;
-          font-size: 26px;
+          font-size: ${LARGER};
           font-weight: 500;
         }
         .line {
@@ -357,7 +366,7 @@ const Home = props => {
         .balance-in-usd {
           margin-left: 12px;
           color: ${SUBTEXT};
-          font-size: 14px;
+          font-size: ${SMALLER};
           font-weight: 650;
         }
         .token-buttons-container {
@@ -375,7 +384,7 @@ const Home = props => {
           background-color: ${White(0.06)};
           color: ${PRIMARY_BUTTON_TEXT};
           cursor: pointer;
-          font-size: 14px;
+          font-size: ${SMALLER};
           font-weight: ${EXTRABOLD};
         }
         .slash {
@@ -436,7 +445,7 @@ const Home = props => {
           align-items: center;
         }
         .book-icon {
-          font-size: 24px;
+          font-size: ${LARGE};
           margin-left: 8px;
         }
         .address-book-table {
@@ -447,7 +456,7 @@ const Home = props => {
         }
         th,
         td {
-          font-size: 13px;
+          font-size: ${XSMALL};
           font-weight: ${BOLD};
           border-spacing: 0px;
           height: 52px;
@@ -456,7 +465,7 @@ const Home = props => {
         }
         th {
           padding: 8px;
-          font-size: 13px;
+          font-size: ${XSMALL};
           font-weight: ${BOLD};
         }
         tr {
@@ -475,7 +484,7 @@ const Home = props => {
         .address-book-input {
           height: 52px;
           padding: 8px;
-          font-size: 13px;
+          font-size: ${XSMALL};
           font-weight: 800;
           border: none;
           background-color: transparent;
@@ -489,7 +498,7 @@ const Home = props => {
           width: 100px;
         }
         .name-input::placeholder {
-          font-size: 13px;
+          font-size: ${XSMALL};
           font-weight: ${BOLD};
           opacity: 0.4;
         }
@@ -497,7 +506,7 @@ const Home = props => {
           width: 460px;
         }
         .address-input::placeholder {
-          font-size: 13px;
+          font-size: ${XSMALL};
           font-weight: ${BOLD};
           opacity: 0.4;
         }
@@ -512,7 +521,7 @@ const Home = props => {
           align-items: center;
           justify-content: center;
           font-weight: ${EXTRABOLD};
-          font-size: 14px;
+          font-size: ${SMALLER};
           color: ${PRIMARY_BUTTON_TEXT};
         }
       `}</style>
