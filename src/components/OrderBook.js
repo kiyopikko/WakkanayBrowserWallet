@@ -1,8 +1,3 @@
-//react-font-awesome import
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-library.add(faArrowsAltH)
 import {
   SUBTEXT,
   SECTION_BACKGROUND,
@@ -167,7 +162,7 @@ const OrderBook = props => {
               </div>
             </div>
             <div className="arrow">
-              <FontAwesomeIcon icon="arrows-alt-h" />
+              <img src="../arrow.png" width="41"></img>
             </div>
             <div className="token-box">
               <div className="l2-token-img-bg">

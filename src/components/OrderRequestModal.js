@@ -121,7 +121,7 @@ const OrderRequestModal = props => {
                   <div className="insufficient-fund">Insufficient Fund</div>
                 </div>
                 <div className="arrow">
-                  <FontAwesomeIcon icon="arrows-alt-h" />
+                  <img src="../arrow.png" width="41"></img>
                 </div>
                 <div className="token-box">
                   <div className="action-title">Receive</div>
@@ -444,7 +444,10 @@ const OrderRequestModal = props => {
           margin-top: 4px;
         }
         .arrow {
-          font-size: 28px;
+          height: 228px;
+          display: flex;
+          margin: 0px 16px;
+          align-items: center;
         }
         .expected-balance-box {
           width: 100%;
