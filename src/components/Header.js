@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AREA, TEXT, BACKGROUND } from '../colors'
 import { Z_HEADER } from '../zindex'
+import { SMALLER } from '../fonts'
 
 const Header = () => {
   const router = useRouter()
@@ -39,7 +40,7 @@ const Header = () => {
         >
           <Link href="/nft_collectibles" passHref>
             <a className="tab__link">
-              <span className="tab__txt nft">NFT Collectibles</span>
+              <span className="tab__txt nft">Collectibles</span>
             </a>
           </Link>
         </li>
@@ -80,7 +81,7 @@ const Header = () => {
           margin: 0;
           border-radius: 5px 5px 0 0;
           opacity: 0.3;
-          background-color: rgba(255,255,255,0.1);
+          background-color: rgba(255, 255, 255, 0.1);
         }
         .tab + .tab {
           margin-left: 0.5rem;
@@ -90,12 +91,12 @@ const Header = () => {
           background-color: ${BACKGROUND};
         }
         .tab:hover:not(.active) {
-          background-color: rgba(255,255,255,0.15);
+          background-color: rgba(255, 255, 255, 0.15);
         }
         .tab__link {
           display: block;
           color: ${TEXT};
-          font-size 14px;
+          font-size: ${SMALLER};
           text-decoration: none;
           height: 66px;
           line-height: 66px;
@@ -111,7 +112,7 @@ const Header = () => {
         }
         .payment {
           background-image: url('/tabbar-payment.svg');
-          background-position:  0 50%;
+          background-position: 0 50%;
         }
         .exchange {
           background-image: url('/tabbar-exchange.svg');

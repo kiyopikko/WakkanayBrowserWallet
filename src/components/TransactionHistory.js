@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { setFilter } from '../store/transaction_history'
 import Dropdown from './Dropdown'
-import { SUBTEXT, TEXT } from '../colors'
+import { SUBTEXT, TEXT, BORDER, BORDER_DARK, White, Black } from '../colors'
 
 const TransactionHistory = props => {
   const currentFilter = props.currentFilter
@@ -95,7 +95,7 @@ const TransactionHistory = props => {
           height: calc(100vh - 7.5rem);
         }
         .transaction-hisotry-title {
-          color: rgba(255, 255, 255, 0.75);
+          color: ${White(0.75)};
           font-size: 1.25rem;
           font-weight: 300;
           margin-bottom: 1rem;
@@ -114,19 +114,19 @@ const TransactionHistory = props => {
           display: flex;
           align-items: center;
           border-radius: 2rem;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid ${BORDER};
         }
         .search-button {
           padding: 0.4375rem 0;
           flex-basis: 6rem;
           margin-left: 0.5rem;
           text-align: center;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid ${BORDER};
           border-radius: 2rem;
           cursor: pointer;
         }
         .search-button:hover {
-          background: rgba(255, 255, 255, 0.05);
+          background: ${White(0.05)};
         }
         .search-input {
           flex: 1;
@@ -139,7 +139,7 @@ const TransactionHistory = props => {
           font-size: 0.8125rem;
         }
         .search-input::placeholder {
-          color: rgba(255, 255, 255, 0.15);
+          color: ${White(0.15)};
         }
         .filter {
           flex-basis: 6rem;
@@ -152,7 +152,7 @@ const TransactionHistory = props => {
           position: relative;
           flex: 1;
           height: 100%;
-          border-right: 1px solid rgba(255, 255, 255, 0.2);
+          border-right: 1px solid ${BORDER};
         }
         .filter :global(.dropdown-button) {
           display: flex;
@@ -170,9 +170,8 @@ const TransactionHistory = props => {
           top: calc(100% - 0.5rem);
           width: 100%;
           border-bottom: none;
-          background: rgba(0, 0, 0, 0.9);
+          background: ${Black(0.9)};
           border-radius: 3px;
-          box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.8);
         }
         .filter :global(.dropdown-item) {
           display: flex;
@@ -186,18 +185,18 @@ const TransactionHistory = props => {
         }
         .filter :global(.dropdown-item):hover {
           color: ${TEXT};
-          background: rgba(0, 0, 0, 1);
+          background: ${Black(1)};
         }
         .filter :global(.dropdown-item) + :global(.dropdown-item) {
-          border-top: solid 1px rgba(255, 255, 255, 0.1);
+          border-top: solid 1px ${BORDER_DARK};
         }
         .transaction-history {
           margin-bottom: 2rem;
         }
         .transaction-date {
           font-size: 0.8125rem;
-          color: rgba(255, 255, 255, 0.5);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          color: ${SUBTEXT};
+          border-bottom: 1px solid ${BORDER_DARK};
           padding-bottom: 0.25rem;
         }
         .transaction {

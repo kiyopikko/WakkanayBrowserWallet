@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { initializeClient } from '../store/appStatus'
 import { connect } from 'react-redux'
+import { SMALLER, LARGE } from '../fonts'
 
 const StartUpModal = props => {
   const privateKeyRef = useRef('')
@@ -38,13 +39,13 @@ const StartUpModal = props => {
           padding: 20px;
         }
         .title {
-          font-size: 24px;
+          font-size: ${LARGE};
           font-wright: 500;
         }
         .address-input {
           width: 300px;
           height: 24px;
-          font-size: 14px;
+          font-size: ${SMALLER};
           font-weight: 300;
         }
       `}</style>
