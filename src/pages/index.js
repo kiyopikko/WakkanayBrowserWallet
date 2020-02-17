@@ -16,7 +16,10 @@ import {
   SMALL,
   LARGE,
   LARGER,
-  XLARGE
+  XLARGE,
+  XXSMALL,
+  MEDIUM,
+  SMALLPLUS
 } from '../fonts'
 import {
   SUBTEXT,
@@ -269,7 +272,7 @@ const Home = props => {
         .account-name {
           margin-top: 4px;
           font-weight: 600;
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
         }
         .account-address-set {
           display: flex;
@@ -287,14 +290,14 @@ const Home = props => {
           font-weight: 500;
         }
         .copy-button {
-          font-size: 12px;
+          font-size: ${XXSMALL};
           margin-left: 4px;
           border: none;
           background: transparent;
           color: ${SUBTEXT};
         }
         .total-balance-title {
-          font-size: ${SMALL};
+          font-size: ${MEDIUM};
           font-weight: 100;
           margin-top: 20px;
           margin-bottom: 14px;
@@ -424,7 +427,7 @@ const Home = props => {
         .l2-token-total-balance-wrapper {
           color: ${SUBTEXT};
           margin-top: 4px;
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 800;
           display: flex;
           align-items: center;

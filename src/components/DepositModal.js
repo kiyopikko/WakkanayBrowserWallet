@@ -17,7 +17,7 @@ import Dropdown from './Dropdown'
 import { connect } from 'react-redux'
 import { setDepositedToken, setDepositPage, deposit } from '../store/deposit'
 import { shortenAddress } from '../utils'
-import { SMALL, MEDIUM, LARGER } from '../fonts'
+import { SMALL, MEDIUM, LARGER, SMALLPLUS } from '../fonts'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -253,7 +253,7 @@ const DepositModal = props => {
           align-items: center;
         }
         .token-box-title {
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
         .token-select-box-wrapper {
@@ -361,7 +361,7 @@ const DepositModal = props => {
           margin-top: 16px;
         }
         .amount-box-title {
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
         .amount-box {
@@ -552,7 +552,7 @@ const DepositModal = props => {
         }
         .balance-in-usd {
           color: darkgray;
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
       `}</style>

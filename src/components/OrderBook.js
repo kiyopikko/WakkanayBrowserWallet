@@ -16,7 +16,15 @@ import { setTransferredToken } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
-import { EXTRABOLD, XSMALL, SMALLER, SMALL, MEDIUM, LARGER } from '../fonts'
+import {
+  EXTRABOLD,
+  XSMALL,
+  SMALLER,
+  SMALL,
+  MEDIUM,
+  LARGER,
+  LARGERPLUS
+} from '../fonts'
 
 const OrderBook = props => {
   const router = useRouter()
@@ -329,7 +337,6 @@ const OrderBook = props => {
         .max-paid-amount-input-wrapper {
           border: 1px solid ${BORDER};
           border-radius: 0px 40px 40px 0px;
-          font-size: 29px;
           font-weight: 300;
           width: 120px;
           height: 45px;
@@ -341,7 +348,7 @@ const OrderBook = props => {
         .max-paid-amount-input {
           border: none;
           width: 64px;
-          font-size: 29px;
+          font-size: ${LARGERPLUS};
           font-weight: 300;
           color: #ffffff;
           background-color: transparent;
@@ -539,7 +546,6 @@ const OrderBook = props => {
           font-weight: 400;
         }
         .arrow {
-          font-size: 28px;
           margin: 0px 38px;
         }
         .exchange-button {

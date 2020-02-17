@@ -16,7 +16,7 @@ library.add(fab, faTimes, faEthernet, faArrowLeft)
 import { connect } from 'react-redux'
 import { setTransferPage, transfer } from '../store/transfer'
 import { shortenAddress } from '../utils'
-import { SMALL, MEDIUM, LARGER } from '../fonts'
+import { SMALL, MEDIUM, LARGER, SMALLPLUS } from '../fonts'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -175,7 +175,7 @@ const TransferModal = props => {
           align-items: center;
         }
         .token-box-title {
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
         .token-select-box-wrapper {
@@ -283,7 +283,7 @@ const TransferModal = props => {
           margin-top: 16px;
         }
         .amount-box-title {
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
         .amount-box {
@@ -467,7 +467,7 @@ const TransferModal = props => {
         }
         .balance-in-usd {
           color: darkgray;
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
       `}</style>
