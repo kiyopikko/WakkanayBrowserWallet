@@ -1,4 +1,4 @@
-import { EXTRABOLD, XSMALL, SMALLER } from '../../fonts'
+import { EXTRABOLD, XSMALL, SMALLER, XXSMALL } from '../../fonts'
 import { PRIMARY_BUTTON_TEXT, White } from '../../colors'
 
 export default ({
@@ -105,7 +105,7 @@ export default ({
         font-weight: 500;
       }
       .address {
-        font-size: 12px;
+        font-size: ${SMALLER};
         font-weight: 500;
       }
       .edit-name-input,
@@ -149,7 +149,7 @@ export default ({
         background-color: ${White(0.06)};
         color: ${PRIMARY_BUTTON_TEXT};
         cursor: pointer;
-        font-size: 12px;
+        font-size: ${XXSMALL};
         font-weight: ${EXTRABOLD};
       }
       .send-button:hover {

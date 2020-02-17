@@ -26,7 +26,16 @@ import {
   White,
   Black
 } from '../colors'
-import { XSMALL, SMALLER, SMALL, LARGE, XLARGE } from '../fonts'
+import {
+  XSMALL,
+  SMALLER,
+  SMALL,
+  LARGE,
+  XLARGE,
+  LARGER,
+  XXSMALL,
+  LARGERPLUS
+} from '../fonts'
 import { PrimaryButton } from './PrimaryButton'
 
 const OrderRequestModal = props => {
@@ -261,19 +270,19 @@ const OrderRequestModal = props => {
         }
         .close-button {
           text-align: end;
-          font-size: 32px;
+          font-size: ${LARGERPLUS};
           position: absolute;
           top: 0px;
           right: 0px;
-          margin-top: 16px;
-          margin-right: 24px;
+          margin-top: 18px;
+          margin-right: 26px;
           color: darkgray;
           cursor: pointer;
         }
         .mordal-page-title {
           margin: 60px 40px 12px 40px;
           margin-right: 40px;
-          font-size: 32px;
+          font-size: ${LARGE};
           font-weight: 700;
           text-align: center;
         }
@@ -486,13 +495,13 @@ const OrderRequestModal = props => {
           color: ${SUBTEXT};
         }
         .token-paying-diff {
-          font-size: 12px;
+          font-size: ${XXSMALL};
           font-weight: 400;
           margin-left: 5px;
           color: #eb3959;
         }
         .token-receiving-diff {
-          font-size: 12px;
+          font-size: ${XXSMALL};
           font-weight: 400;
           margin-left: 5px;
           color: #2baef8;

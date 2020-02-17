@@ -7,7 +7,7 @@ import OrderRequestModal from './OrderRequestModal'
 import TransactionHistory from './TransactionHistory'
 import { useRouter } from 'next/router'
 import { BACKGROUND, TEXT, SUBTEXT, BORDER_DARK, Black } from '../colors'
-import { NORMAL } from '../fonts'
+import { NORMAL, XXSMALL } from '../fonts'
 import { connect } from 'react-redux'
 import Head from 'next/head'
 
@@ -84,7 +84,7 @@ const Layout = props => {
         .wallet-id-section {
           height: 32px;
           background-color: #2d2a2c;
-          font-size: 12px;
+          font-size: ${XXSMALL};
           font-weight: ${NORMAL};
           color: ${SUBTEXT};
           display: flex;

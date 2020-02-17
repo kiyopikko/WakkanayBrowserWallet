@@ -12,7 +12,7 @@ library.add(fab, faTimes, faEthernet)
 import Dropdown from './Dropdown'
 import { connect } from 'react-redux'
 import { setWithdrawnToken, setWithdrawPage } from '../store/withdraw'
-import { SMALL, MEDIUM, LARGER } from '../fonts'
+import { SMALL, MEDIUM, LARGER, SMALLPLUS } from '../fonts'
 
 const TOKEN_CURRENCY_MAP = {
   Ethereum: 'ETH',
@@ -159,7 +159,7 @@ const WithdrawModal = props => {
           padding: 16px 32px;
         }
         .token-box-title {
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
         .token-select-box-wrapper {
@@ -267,7 +267,7 @@ const WithdrawModal = props => {
           margin-top: 16px;
         }
         .amount-box-title {
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
         .amount-box {
