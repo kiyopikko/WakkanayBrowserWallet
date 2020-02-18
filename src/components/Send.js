@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { useRouter } from 'next/router'
 import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND, BORDER } from '../colors'
 
@@ -18,6 +18,7 @@ import {
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
+import { TokenSelectButton } from './TokenSelectButton'
 import { NORMAL, SMALL, MEDIUM, XLARGE } from '../fonts'
 
 const Send = props => {
@@ -35,28 +36,19 @@ const Send = props => {
     <div className="send-section" id="send">
       <SectionTitle>Send Token</SectionTitle>
       {/* <div className="balance-box">
-        <div className="your-balance-title">
-          {shortenAddress(transferredToken)} Balance
-        </div>
-        <div className="balance-board">
-          <img
-            className="ethereum-logo"
-            src="../ethereum-icon.png"
-            alt="Ethereum Logo"
-          ></img>
-          <div className="total-balance-box">
-            <span className="total-balance-number">
-              {tokenBalance ? tokenBalance.amount : ''}
-            </span>
-            <span className="total-balance-unit">
-              {TOKEN_CURRENCY_MAP[transferredToken]}
-            </span>
-            <div className="balance-in-usd">
-              {props.ETHtoUSD * props.balance} USD
+            <div className="total-balance-box">
+              <span className="total-balance-number">
+                {tokenBalance ? tokenBalance.amount : ''}
+              </span>
+              <span className="total-balance-unit">
+                {TOKEN_CURRENCY_MAP[transferredToken]}
+              </span>
+              <div className="balance-in-usd">
+                {props.ETHtoUSD * props.balance} USD
+              </div>
             </div>
           </div>
-        </div>
-      </div> */}
+       */}
       <div className="address-box">
         <div className="address-title">Address</div>
         <input
@@ -69,21 +61,8 @@ const Send = props => {
       <div className="token-box">
         <div className="token-select-box-wrapper">
           <Dropdown
+            width="100%"
             onSelected={props.setTransferredToken}
-            renderItem={item => {
-              return (
-                <div className="button-name-inner">
-                  <div className="l2-token-img-bg">
-                    <img
-                      className="l2-token-img"
-                      src="../ethereum-icon.png"
-                      alt="Ethereum Logo"
-                    ></img>
-                  </div>
-                  <div className="token-name">{item.name}</div>
-                </div>
-              )
-            }}
             buttonName={
               <div className="button-name-inner">
                 <div className="l2-token-img-bg">
@@ -94,15 +73,20 @@ const Send = props => {
                   ></img>
                 </div>
                 <div className="token-name">
-                  {shortenAddress(transferredToken)} (
-                  {TOKEN_CURRENCY_MAP[transferredToken]})
+                  {/* {shortenAddress(transferredToken)} (
+                  {TOKEN_CURRENCY_MAP[transferredToken]}) */}
+                  ETH
                 </div>
               </div>
             }
             items={tokenBalanceList.map(({ tokenAddress }) => ({
-              name: shortenAddress(tokenAddress),
+              // name: shortenAddress(tokenAddress),
+              name: 'ETH',
               value: tokenAddress
             }))}
+            renderItem={item => (
+              <TokenSelectButton item={item} padding="32px" />
+            )}
           />
         </div>
         <div className="amount-box">
@@ -158,57 +142,33 @@ const Send = props => {
           border: 1px solid ${BORDER};
           border-width: 0 0 1px;
         }
-        .recepient-address-input:focus {
-          outline: 0;
-        }
         .token-box {
           margin-top: 16px;
           display: flex;
         }
         .token-select-box-wrapper {
           width: 128px;
-          height: 47px;
+          height: 48px;
           background-color: ${BACKGROUND};
           border-radius: 4px;
           display: flex;
           align-items: center;
-          cursor: pointer;
-        }
-
-        .token-select-box-wrapper > :global(.dropdown) {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button) {
-          width: 100%;
-          height: 32px;
-          font-size: ${SMALL};
-          font-weight: 400;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #ffffff;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button)
-          > :global(.button-name) {
-          width: 280px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
         }
         .button-name-inner {
           width: 100%;
+          padding: 8px 8px 8px 22px;
           display: flex;
           align-items: center;
           justify-content: flex-start;
+        }
+        .token-select-box-wrapper :global(.dropdown-button) {
+          font-size: ${SMALL};
+          font-weight: 400;
+        }
+        .token-select-box-wrapper :global(.dropdown-content) {
+          left: -7px;
+          top: calc(100% - 0.5rem);
+          width: 144px;
         }
         .l2-token-img-bg {
           width: 32px;
@@ -218,47 +178,12 @@ const Send = props => {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-left: 14px;
         }
         .l2-token-img {
           height: 22px;
         }
         .token-name {
           margin-left: 8px;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content) {
-          display: none;
-          position: absolute;
-          left: 4px;
-          top: 38px;
-          width: 312px;
-          background-color: white;
-          border: solid 1px darkgray;
-          border-bottom: none;
-          opacity: 90%;
-          z-index: 1;
-          color: #3d5bf1;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content)
-          > :global(.dropdown-item):hover {
-          font-weight: 600;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content)
-          > :global(.dropdown-item) {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 100%;
-          cursor: pointer;
-          padding: 4px;
-          border-bottom: solid 1px darkgray;
         }
         .amount-box {
           margin-left: 10px;
@@ -275,9 +200,6 @@ const Send = props => {
           border-radius: 4px;
           background-color: ${BACKGROUND};
           border: none;
-        }
-        .amount-input:focus {
-          outline: 0;
         }
         .sent-amount-in-usd {
           margin-top: 8px;

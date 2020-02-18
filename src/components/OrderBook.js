@@ -1,12 +1,8 @@
-import {
-  SUBTEXT,
-  SECTION_BACKGROUND,
-  BORDER,
-  PRIMARY_BUTTON_TEXT
-} from '../colors'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
+
 import Dropdown from './Dropdown'
+import { TokenSelectButton } from './TokenSelectButton'
 import { setTransferredToken } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
@@ -20,6 +16,12 @@ import {
   LARGER,
   LARGERPLUS
 } from '../fonts'
+import {
+  SUBTEXT,
+  SECTION_BACKGROUND,
+  BORDER,
+  PRIMARY_BUTTON_TEXT
+} from '../colors'
 
 const OrderBook = props => {
   const router = useRouter()
@@ -34,21 +36,8 @@ const OrderBook = props => {
           <div className="paid-token-title">Exchanged</div>
           <div className="paid-token-select-box-wrapper">
             <Dropdown
+              width="100%"
               onSelected={props.setTransferredToken}
-              renderItem={item => {
-                return (
-                  <div className="button-name-inner">
-                    <div className="exchanged-token-img-bg">
-                      <img
-                        className="exchanged-token-img"
-                        src="../ethereum-icon.png"
-                        alt="Ethereum Logo"
-                      ></img>
-                    </div>
-                    <div className="token-name">{item.name}</div>
-                  </div>
-                )
-              }}
               buttonName={
                 <div className="button-name-inner">
                   <div className="exchanged-token-img-bg">
@@ -59,15 +48,20 @@ const OrderBook = props => {
                     ></img>
                   </div>
                   <div className="token-name">
-                    {shortenAddress(transferredToken)} (
-                    {TOKEN_CURRENCY_MAP[transferredToken]})
+                    {/* {shortenAddress(transferredToken)} (
+                    {TOKEN_CURRENCY_MAP[transferredToken]}) */}
+                    ETH
                   </div>
                 </div>
               }
               items={tokenBalanceList.map(({ tokenAddress }) => ({
-                name: shortenAddress(tokenAddress),
+                // name: shortenAddress(tokenAddress),
+                name: 'ETH',
                 value: tokenAddress
               }))}
+              renderItem={item => (
+                <TokenSelectButton item={item} padding="28px" />
+              )}
             />
           </div>
         </div>
@@ -83,39 +77,30 @@ const OrderBook = props => {
           <div className="received-token-select-box-wrapper">
             <Dropdown
               onSelected={props.setTransferredToken}
-              renderItem={item => {
-                return (
-                  <div className="button-name-inner">
-                    <div className="exchanged-token-img-bg">
-                      <img
-                        className="exchanged-token-img"
-                        src="../ethereum-icon.png"
-                        alt="Ethereum Logo"
-                      ></img>
-                    </div>
-                    <div className="token-name">{item.name}</div>
-                  </div>
-                )
-              }}
               buttonName={
                 <div className="button-name-inner">
                   <div className="exchanged-token-img-bg">
                     <img
                       className="exchanged-token-img"
                       src="../ethereum-icon.png"
-                      alt="Ethereum Logo"
+                      alt="Eth Logo"
                     ></img>
                   </div>
                   <div className="token-name">
-                    {shortenAddress(transferredToken)} (
-                    {TOKEN_CURRENCY_MAP[transferredToken]})
+                    {/* {shortenAddress(transferredToken)} (
+                    {TOKEN_CURRENCY_MAP[transferredToken]}) */}
+                    ETH
                   </div>
                 </div>
               }
               items={tokenBalanceList.map(({ tokenAddress }) => ({
-                name: shortenAddress(tokenAddress),
+                // name: shortenAddress(tokenAddress),
+                name: 'ETH',
                 value: tokenAddress
               }))}
+              renderItem={item => (
+                <TokenSelectButton item={item} padding="28px" />
+              )}
             />
           </div>
         </div>
@@ -181,14 +166,7 @@ const OrderBook = props => {
               </div>
             </div>
           </div>
-          <button
-            className="exchange-button"
-            // onClick={() => {
-
-            // }}
-          >
-            Exchange
-          </button>
+          <button className="exchange-button">Exchange</button>
         </div>
       </div>
       <style jsx>{`
@@ -219,51 +197,32 @@ const OrderBook = props => {
           text-align: center;
         }
         .paid-token-select-box-wrapper {
-          border: 1px solid ${BORDER};
-          border-radius: 40px 0px 0px 40px;
           width: 136px;
           height: 45px;
-          border-right: none;
           background-color: transparent;
+          border-right: none;
+          border: 1px solid ${BORDER};
+          border-radius: 40px 0px 0px 40px;
           display: flex;
           align-items: center;
-          cursor: pointer;
-        }
-        .paid-token-select-box-wrapper > :global(.dropdown) {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .paid-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button) {
-          width: 100%;
-          height: 32px;
-          font-size: ${SMALL};
-          font-weight: 400;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-        }
-        .paid-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button)
-          > :global(.button-name) {
-          width: 280px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
         }
         .button-name-inner {
           width: 100%;
+          padding: 6px;
           display: flex;
           align-items: center;
           justify-content: flex-start;
         }
+        .paid-token-select-box-wrapper :global(.dropdown-button) {
+          font-size: ${SMALL};
+          font-weight: 400;
+        }
+        .paid-token-select-box-wrapper :global(.dropdown-content) {
+          left: 0px;
+          top: calc(100% - 0.2rem);
+          width: 136px;
+        }
+
         .exchanged-token-img-bg {
           width: 32px;
           height: 32px;
@@ -272,56 +231,13 @@ const OrderBook = props => {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-left: 10px;
+          margin-left: 4px;
         }
         .exchanged-token-img {
           height: 22px;
         }
         .token-name {
           margin-left: 8px;
-        }
-        .paid-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content) {
-          display: none;
-          position: absolute;
-          left: 4px;
-          top: 38px;
-          width: 312px;
-          background-color: white;
-          border: solid 1px darkgray;
-          border-bottom: none;
-          opacity: 90%;
-          z-index: 1;
-        }
-        .paid-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content)
-          > :global(.dropdown-item):hover {
-          font-weight: 600;
-        }
-        .paid-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content)
-          > :global(.dropdown-item) {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 100%;
-          cursor: pointer;
-          padding: 4px;
-          border-bottom: solid 1px darkgray;
-        }
-        .token-dropdown-button {
-          font-size: ${MEDIUM};
-          padding: 0px 8px;
-          cursor: pointer;
-          height: inherit;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
         }
         .max-paid-amount-box {
           display: flex;
@@ -348,9 +264,6 @@ const OrderBook = props => {
           color: #ffffff;
           background-color: transparent;
         }
-        .max-paid-amount-input:focus {
-          outline: 0;
-        }
         .max-paid-amount-unit {
           font-weight: 800;
           font-size: ${XSMALL};
@@ -369,73 +282,14 @@ const OrderBook = props => {
           height: 45px;
           background-color: transparent;
         }
-        .received-token-select-box-wrapper > :global(.dropdown) {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .received-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button) {
-          width: 100%;
-          height: 32px;
+        .received-token-select-box-wrapper :global(.dropdown-button) {
           font-size: ${SMALL};
           font-weight: 400;
-          display: flex;
-          align-items: center;
-          justify-content: center;
         }
-        .received-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button)
-          > :global(.button-name) {
-          width: 280px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .received-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button)
-          > :global(.dropdown-caret) {
-          font-size: ${MEDIUM};
-        }
-        .received-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content) {
-          display: none;
-          position: absolute;
-          left: 4px;
-          top: 38px;
-          width: 312px;
-          background-color: white;
-          border: solid 1px darkgray;
-          border-bottom: none;
-          opacity: 90%;
-          z-index: 1;
-          color: #3d5bf1;
-        }
-        .received-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content)
-          > :global(.dropdown-item):hover {
-          font-weight: 600;
-        }
-        .received-token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content)
-          > :global(.dropdown-item) {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 100%;
-          cursor: pointer;
-          padding: 4px;
-          border-bottom: solid 1px darkgray;
+        .received-token-select-box-wrapper :global(.dropdown-content) {
+          left: 0px;
+          top: calc(100% - 0.2rem);
+          width: 136px;
         }
         .search-button {
           margin-left: 16px;

@@ -57,6 +57,8 @@ const Layout = props => {
         input[type=number]::-webkit-inner-spin-button {
         -webkit-appearance: none;
         }
+        button:focus {outline:0;}
+        input:focus {outline:0;}
         body {
           box-sizing: border-box;
           font-family: 'Roboto', sans-serif;
