@@ -40,11 +40,11 @@ import { PrimaryButton } from './PrimaryButton'
 
 const OrderRequestModal = props => {
   const router = useRouter()
+  const amountRef = useRef('')
+  const [requestedAmountToExchange, setRequestedAmountToExchnage] = useState(0)
   const requestedTokenToExchange = props.requestedTokenToExchange
   const requestedTokenToReceive = props.requestedTokenToReceive
   const orderRequestPage = props.orderRequestPage
-  const [requestedAmountToExchange, setRequestedAmountToExchnage] = useState(0)
-  const amountInput = useRef('')
   const tokenBalanceList = props.tokenBalanceList
 
   return (
@@ -80,10 +80,27 @@ const OrderRequestModal = props => {
                   <div className="action-title">Pay</div>
                   <div className="token-select-box-wrapper">
                     <Dropdown
+                      width="100%"
                       onSelected={props.setRequestedTokenToExchange}
+                      buttonName={
+                        <div className="button-name-inner">
+                          <div className="l2-token-img-bg">
+                            <img
+                              className="l2-token-img"
+                              src="../ethereum-icon.png"
+                              alt="Ethereum Logo"
+                            ></img>
+                          </div>
+                          <div className="token-name">
+                            {/* {shortenAddress(requestedTokenToExchange)} (
+                            {TOKEN_CURRENCY_MAP[requestedTokenToExchange]}) */}
+                            ETH
+                          </div>
+                        </div>
+                      }
                       renderItem={item => {
                         return (
-                          <div className="button-name-inner">
+                          <div className="item-name-inner">
                             <div className="l2-token-img-bg">
                               <img
                                 className="l2-token-img"
@@ -95,29 +112,21 @@ const OrderRequestModal = props => {
                           </div>
                         )
                       }}
-                      buttonName={
-                        <div className="button-name-inner">
-                          <div className="l2-token-img-bg">
-                            <img
-                              className="l2-token-img"
-                              src="../ethereum-icon.png"
-                              alt="Ethereum Logo"
-                            ></img>
-                          </div>
-                          <div className="token-name">
-                            {shortenAddress(requestedTokenToExchange)} (
-                            {TOKEN_CURRENCY_MAP[requestedTokenToExchange]})
-                          </div>
-                        </div>
-                      }
                       items={tokenBalanceList.map(({ tokenAddress }) => ({
-                        name: shortenAddress(tokenAddress),
+                        // name: shortenAddress(tokenAddress),
+                        name: 'ETH',
                         value: tokenAddress
                       }))}
                     />
                   </div>
-                  <input className="amount-input" type="number"></input>
-                  <div className="amount-in-usd">9.33 USD</div>
+                  <input
+                    className="amount-input"
+                    type="number"
+                    ref={amountRef}
+                  />
+                  <div className="amount-in-usd">
+                    {props.ETHtoUSD * amountRef} USD
+                  </div>
                   <div className="insufficient-fund">Insufficient Fund</div>
                 </div>
                 <div className="arrow">
@@ -128,9 +137,25 @@ const OrderRequestModal = props => {
                   <div className="token-select-box-wrapper">
                     <Dropdown
                       onSelected={props.setRequestedTokenToReceive}
+                      buttonName={
+                        <div className="button-name-inner">
+                          <div className="l2-token-img-bg">
+                            <img
+                              className="l2-token-img"
+                              src="../ethereum-icon.png"
+                              alt="Ethereum Logo"
+                            ></img>
+                          </div>
+                          <div className="token-name">
+                            {/* {shortenAddress(requestedTokenToReceive)} (
+                            {TOKEN_CURRENCY_MAP[requestedTokenToReceive]}) */}
+                            ETH
+                          </div>
+                        </div>
+                      }
                       renderItem={item => {
                         return (
-                          <div className="button-name-inner">
+                          <div className="item-name-inner">
                             <div className="l2-token-img-bg">
                               <img
                                 className="l2-token-img"
@@ -142,29 +167,21 @@ const OrderRequestModal = props => {
                           </div>
                         )
                       }}
-                      buttonName={
-                        <div className="button-name-inner">
-                          <div className="l2-token-img-bg">
-                            <img
-                              className="l2-token-img"
-                              src="../ethereum-icon.png"
-                              alt="Ethereum Logo"
-                            ></img>
-                          </div>
-                          <div className="token-name">
-                            {shortenAddress(requestedTokenToReceive)} (
-                            {TOKEN_CURRENCY_MAP[requestedTokenToReceive]})
-                          </div>
-                        </div>
-                      }
                       items={tokenBalanceList.map(({ tokenAddress }) => ({
-                        name: shortenAddress(tokenAddress),
+                        // name: shortenAddress(tokenAddress),
+                        name: 'ETH',
                         value: tokenAddress
                       }))}
                     />
                   </div>
-                  <input className="amount-input"></input>
-                  <div className="amount-in-usd">9.33 USD</div>
+                  <input
+                    className="amount-input"
+                    type="number"
+                    ref={amountRef}
+                  />
+                  <div className="amount-in-usd">
+                    {props.ETHtoUSD * amountRef} USD
+                  </div>
                   <div className="insufficient-fund">Insufficient Fund</div>
                 </div>
               </div>
@@ -325,45 +342,30 @@ const OrderRequestModal = props => {
         .token-select-box-wrapper {
           margin-top: 14px;
           width: 128px;
-          height: 47px;
+          height: 48px;
           background-color: ${White(0.05)};
           border-radius: 4px;
           display: flex;
-          align-items: center;
-          cursor: pointer;
-        }
-
-        .token-select-box-wrapper > :global(.dropdown) {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button) {
-          width: 100%;
-          height: 32px;
-          font-size: ${SMALL};
-          font-weight: 400;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #ffffff;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-button)
-          > :global(.button-name) {
-          width: 280px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
         }
         .button-name-inner {
           width: 100%;
+          padding: 8px 8px 8px 22px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+        }
+        .token-select-box-wrapper :global(.dropdown-button) {
+          font-size: ${SMALL};
+          font-weight: 400;
+        }
+        .token-select-box-wrapper :global(.dropdown-content) {
+          left: -7px;
+          top: calc(100% - 0.5rem);
+          width: 144px;
+        }
+        .item-name-inner {
+          width: 100%;
+          padding: 8px 32px;
           display: flex;
           align-items: center;
           justify-content: flex-start;
@@ -376,47 +378,12 @@ const OrderRequestModal = props => {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-left: 14px;
         }
         .l2-token-img {
           height: 22px;
         }
         .token-name {
           margin-left: 8px;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content) {
-          display: none;
-          position: absolute;
-          left: 4px;
-          top: 38px;
-          width: 312px;
-          background-color: white;
-          border: solid 1px darkgray;
-          border-bottom: none;
-          opacity: 90%;
-          z-index: 1;
-          color: #3d5bf1;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content)
-          > :global(.dropdown-item):hover {
-          font-weight: 600;
-        }
-        .token-select-box-wrapper
-          > :global(.dropdown)
-          > :global(.dropdown-content)
-          > :global(.dropdown-item) {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 100%;
-          cursor: pointer;
-          padding: 4px;
-          border-bottom: solid 1px darkgray;
         }
         .amount-input {
           width: 129px;
@@ -428,9 +395,6 @@ const OrderRequestModal = props => {
           background-color: ${White(0.04)};
           border-radius: 4px;
           margin-top: 10px;
-        }
-        .amount-input:focus {
-          outline: 0;
         }
         .amount-in-usd {
           font-size: ${XSMALL};
