@@ -108,6 +108,40 @@ const TransactionHistory = props => {
           font-size: 0.875rem;
           margin-bottom: 1.5rem;
         }
+        .filter {
+          flex-basis: 6rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 2rem;
+        }
+        .filter :global(.dropdown) {
+          position: relative;
+          flex: 1;
+          border-right: 1px solid ${BORDER};
+        }
+        .filter :global(.dropdown-button) {
+          font-size: 0.875rem;
+          font-weight: 500;
+          padding-right: 0.75rem;
+        }
+        .filter :global(.dropdown-content) {
+          left: -3px;
+          top: calc(100% - 0.2rem);
+          width: 100px;
+        }
+        .filter :global(.dropdown-item) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          padding: 0.5rem 0;
+        }
+        .filter :global(.dropdown-item) + :global(.dropdown-item) {
+          border-top: solid 1px ${BORDER_DARK};
+        }
         .search-box {
           flex: 1;
           position: relative;
@@ -115,18 +149,6 @@ const TransactionHistory = props => {
           align-items: center;
           border-radius: 2rem;
           border: 1px solid ${BORDER};
-        }
-        .search-button {
-          padding: 0.4375rem 0;
-          flex-basis: 6rem;
-          margin-left: 0.5rem;
-          text-align: center;
-          border: 1px solid ${BORDER};
-          border-radius: 2rem;
-          cursor: pointer;
-        }
-        .search-button:hover {
-          background: ${White(0.05)};
         }
         .search-input {
           flex: 1;
@@ -141,54 +163,17 @@ const TransactionHistory = props => {
         .search-input::placeholder {
           color: ${White(0.15)};
         }
-        .filter {
+        .search-button {
+          padding: 0.4375rem 0;
           flex-basis: 6rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 2rem;
-        }
-        .filter :global(.dropdown) {
-          position: relative;
-          flex: 1;
-          height: 100%;
-          border-right: 1px solid ${BORDER};
-        }
-        .filter :global(.dropdown-button) {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 100%;
+          margin-left: 0.5rem;
+          text-align: center;
+          border: 1px solid ${BORDER};
+          border-radius: 2rem;
           cursor: pointer;
-          padding-right: 0.75rem;
         }
-        .filter :global(.dropdown-content) {
-          color: ${SUBTEXT};
-          display: none;
-          position: absolute;
-          top: calc(100% - 0.5rem);
-          width: 100%;
-          border-bottom: none;
-          background: ${Black(0.9)};
-          border-radius: 3px;
-        }
-        .filter :global(.dropdown-item) {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 100%;
-          cursor: pointer;
-          padding: 4px;
-          padding: 0.5rem 0;
-        }
-        .filter :global(.dropdown-item):hover {
-          color: ${TEXT};
-          background: ${Black(1)};
-        }
-        .filter :global(.dropdown-item) + :global(.dropdown-item) {
-          border-top: solid 1px ${BORDER_DARK};
+        .search-button:hover {
+          background: ${White(0.05)};
         }
         .transaction-history {
           margin-bottom: 2rem;
