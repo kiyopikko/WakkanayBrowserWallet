@@ -1,12 +1,8 @@
-import {
-  SUBTEXT,
-  SECTION_BACKGROUND,
-  BORDER,
-  PRIMARY_BUTTON_TEXT
-} from '../colors'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
+
 import Dropdown from './Dropdown'
+import { TokenSelectButton } from './TokenSelectButton'
 import { setTransferredToken } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
@@ -20,6 +16,12 @@ import {
   LARGER,
   LARGERPLUS
 } from '../fonts'
+import {
+  SUBTEXT,
+  SECTION_BACKGROUND,
+  BORDER,
+  PRIMARY_BUTTON_TEXT
+} from '../colors'
 
 const OrderBook = props => {
   const router = useRouter()
@@ -52,25 +54,14 @@ const OrderBook = props => {
                   </div>
                 </div>
               }
-              renderItem={item => {
-                return (
-                  <div className="item-name-inner">
-                    <div className="exchanged-token-img-bg">
-                      <img
-                        className="exchanged-token-img"
-                        src="../ethereum-icon.png"
-                        alt="Ethereum Logo"
-                      ></img>
-                    </div>
-                    <div className="token-name">{item.name}</div>
-                  </div>
-                )
-              }}
               items={tokenBalanceList.map(({ tokenAddress }) => ({
                 // name: shortenAddress(tokenAddress),
                 name: 'ETH',
                 value: tokenAddress
               }))}
+              renderItem={item => (
+                <TokenSelectButton item={item} padding="28px" />
+              )}
             />
           </div>
         </div>
@@ -91,36 +82,25 @@ const OrderBook = props => {
                   <div className="exchanged-token-img-bg">
                     <img
                       className="exchanged-token-img"
-                      src="../dai-icon.png"
-                      alt="Dai Logo"
+                      src="../ethereum-icon.png"
+                      alt="Eth Logo"
                     ></img>
                   </div>
                   <div className="token-name">
                     {/* {shortenAddress(transferredToken)} (
                     {TOKEN_CURRENCY_MAP[transferredToken]}) */}
-                    DAI
+                    ETH
                   </div>
                 </div>
               }
-              renderItem={item => {
-                return (
-                  <div className="item-name-inner">
-                    <div className="exchanged-token-img-bg">
-                      <img
-                        className="exchanged-token-img"
-                        src="../dai-icon.png"
-                        alt="Dai Logo"
-                      ></img>
-                    </div>
-                    <div className="token-name">{item.name}</div>
-                  </div>
-                )
-              }}
               items={tokenBalanceList.map(({ tokenAddress }) => ({
                 // name: shortenAddress(tokenAddress),
-                name: 'DAI',
+                name: 'ETH',
                 value: tokenAddress
               }))}
+              renderItem={item => (
+                <TokenSelectButton item={item} padding="28px" />
+              )}
             />
           </div>
         </div>
@@ -242,13 +222,7 @@ const OrderBook = props => {
           top: calc(100% - 0.2rem);
           width: 136px;
         }
-        .item-name-inner {
-          width: 100%;
-          padding: 8px 28px;
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-        }
+
         .exchanged-token-img-bg {
           width: 32px;
           height: 32px;

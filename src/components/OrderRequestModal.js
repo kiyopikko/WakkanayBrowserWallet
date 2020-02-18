@@ -37,6 +37,7 @@ import {
   LARGERPLUS
 } from '../fonts'
 import { PrimaryButton } from './PrimaryButton'
+import { TokenSelectButton } from './TokenSelectButton'
 
 const OrderRequestModal = props => {
   const router = useRouter()
@@ -98,25 +99,14 @@ const OrderRequestModal = props => {
                           </div>
                         </div>
                       }
-                      renderItem={item => {
-                        return (
-                          <div className="item-name-inner">
-                            <div className="l2-token-img-bg">
-                              <img
-                                className="l2-token-img"
-                                src="../ethereum-icon.png"
-                                alt="Ethereum Logo"
-                              ></img>
-                            </div>
-                            <div className="token-name">{item.name}</div>
-                          </div>
-                        )
-                      }}
                       items={tokenBalanceList.map(({ tokenAddress }) => ({
                         // name: shortenAddress(tokenAddress),
                         name: 'ETH',
                         value: tokenAddress
                       }))}
+                      renderItem={item => (
+                        <TokenSelectButton item={item} padding="32px" />
+                      )}
                     />
                   </div>
                   <input
@@ -153,25 +143,14 @@ const OrderRequestModal = props => {
                           </div>
                         </div>
                       }
-                      renderItem={item => {
-                        return (
-                          <div className="item-name-inner">
-                            <div className="l2-token-img-bg">
-                              <img
-                                className="l2-token-img"
-                                src="../ethereum-icon.png"
-                                alt="Ethereum Logo"
-                              ></img>
-                            </div>
-                            <div className="token-name">{item.name}</div>
-                          </div>
-                        )
-                      }}
                       items={tokenBalanceList.map(({ tokenAddress }) => ({
                         // name: shortenAddress(tokenAddress),
                         name: 'ETH',
                         value: tokenAddress
                       }))}
+                      renderItem={item => (
+                        <TokenSelectButton item={item} padding="32px" />
+                      )}
                     />
                   </div>
                   <input
@@ -362,13 +341,6 @@ const OrderRequestModal = props => {
           left: -7px;
           top: calc(100% - 0.5rem);
           width: 144px;
-        }
-        .item-name-inner {
-          width: 100%;
-          padding: 8px 32px;
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
         }
         .l2-token-img-bg {
           width: 32px;

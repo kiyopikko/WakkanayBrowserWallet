@@ -18,6 +18,7 @@ import {
 import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
+import { TokenSelectButton } from './TokenSelectButton'
 import { NORMAL, SMALL, MEDIUM, XLARGE } from '../fonts'
 
 const Send = props => {
@@ -78,25 +79,14 @@ const Send = props => {
                 </div>
               </div>
             }
-            renderItem={item => {
-              return (
-                <div className="item-name-inner">
-                  <div className="l2-token-img-bg">
-                    <img
-                      className="l2-token-img"
-                      src="../ethereum-icon.png"
-                      alt="Ethereum Logo"
-                    ></img>
-                  </div>
-                  <div className="token-name">{item.name}</div>
-                </div>
-              )
-            }}
             items={tokenBalanceList.map(({ tokenAddress }) => ({
               // name: shortenAddress(tokenAddress),
               name: 'ETH',
               value: tokenAddress
             }))}
+            renderItem={item => (
+              <TokenSelectButton item={item} padding="32px" />
+            )}
           />
         </div>
         <div className="amount-box">
@@ -152,7 +142,6 @@ const Send = props => {
           border: 1px solid ${BORDER};
           border-width: 0 0 1px;
         }
-
         .token-box {
           margin-top: 16px;
           display: flex;
@@ -180,13 +169,6 @@ const Send = props => {
           left: -7px;
           top: calc(100% - 0.5rem);
           width: 144px;
-        }
-        .item-name-inner {
-          width: 100%;
-          padding: 8px 32px;
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
         }
         .l2-token-img-bg {
           width: 32px;
