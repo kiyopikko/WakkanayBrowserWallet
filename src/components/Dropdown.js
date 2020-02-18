@@ -2,7 +2,7 @@ import ClickOutside from 'react-click-outside'
 import { TEXT, SUBTEXT, Black } from '../colors'
 import classNames from 'classnames'
 import React, { useState } from 'react'
-const Dropdown = ({ buttonName, items, onSelected, renderItem, width }) => {
+const Dropdown = ({ width, onSelected, buttonName, renderItem, items }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
