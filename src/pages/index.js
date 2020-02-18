@@ -494,9 +494,6 @@ const Home = props => {
           color: #ffffff;
           opacity: 0.7;
         }
-        .address-book-input:focus {
-          outline: 0;
-        }
         .name-input {
           width: 100px;
         }
