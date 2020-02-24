@@ -105,7 +105,7 @@ const OrderBook = props => {
           </div>
         </div>
         <div className="search-button">
-          <PrimaryButton>
+          <PrimaryButton height={40}>
             <img
               className="seach-icon"
               src="//ssl.gstatic.com/images/icons/material/system/2x/search_white_24dp.png"
