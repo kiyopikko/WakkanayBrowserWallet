@@ -16,7 +16,7 @@ library.add(fab, faTimes, faEthernet, faArrowLeft)
 import { connect } from 'react-redux'
 import { setTransferPage, transfer } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP, roundBalance } from '../utils'
-import { SMALL, MEDIUM, LARGER, SMALLPLUS, BOLD } from '../fonts'
+import { SMALL, MEDIUM, LARGER, SMALLPLUS } from '../fonts'
 import { MODAL_MAIN_BACKGROUND } from '../colors'
 
 const TransferModal = props => {
