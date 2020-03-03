@@ -1,4 +1,3 @@
-import { Address } from '@cryptoeconomicslab/primitives'
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
 
@@ -29,15 +28,15 @@ export const transferReducer = createReducer(
     }
   }
 )
-export const transfer = (amount, tokenContractAddress, recepientAddress) => {
+export const transfer = (amount, depositContractAddress, recepientAddress) => {
   return async dispatch => {
     try {
       const client = await clientWrapper.getClient()
       if (!client) return
       await client.transfer(
-        amount,
-        Address.from(tokenContractAddress),
-        Address.from(recepientAddress)
+        Number(amount),
+        depositContractAddress,
+        recepientAddress
       )
       dispatch(setTransferPage('completion-page'))
     } catch (error) {

@@ -10,13 +10,15 @@
     "lint:fix": "eslint --fix --ext js,jsx src"
   },
   "dependencies": {
-    "@cryptoeconomicslab/context": "0.0.12",
-    "@cryptoeconomicslab/eth-coder": "0.0.1",
-    "@cryptoeconomicslab/eth-contract": "0.0.1",
-    "@cryptoeconomicslab/eth-wallet": "0.0.1",
+    "@cryptoeconomicslab/context": "0.0.35",
+    "@cryptoeconomicslab/db": "0.0.35",
+    "@cryptoeconomicslab/eth-coder": "0.0.7",
+    "@cryptoeconomicslab/eth-contract": "0.0.7",
+    "@cryptoeconomicslab/eth-wallet": "0.0.7",
     "@cryptoeconomicslab/indexeddb-kvs": "0.0.3",
-    "@cryptoeconomicslab/ovm": "0.0.12",
-    "@cryptoeconomicslab/primitives": "0.0.12",
+    "@cryptoeconomicslab/ovm": "0.0.35",
+    "@cryptoeconomicslab/plasma-light-client": "0.0.35",
+    "@cryptoeconomicslab/primitives": "0.0.35",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-brands-svg-icons": "^5.11.2",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
@@ -39,8 +41,7 @@
     "react-tooltip": "^3.11.1",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
-    "wakkanay-plasma-light-client": "github:cryptoeconomicslab/wakkanay-plasma-light-client"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

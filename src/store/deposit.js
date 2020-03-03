@@ -16,12 +16,13 @@ export const depositReducer = createReducer(
   }
 )
 
-export const deposit = amount => {
+export const deposit = (amount, addr) => {
+  console.log('deposit', amount, addr)
   return async dispatch => {
     try {
       const client = await clientWrapper.getClient()
       if (!client) return
-      await client.deposit(amount)
+      await client.deposit(Number(amount), addr)
       dispatch(setDepositPage('completion-page'))
     } catch (error) {
       console.log(error)

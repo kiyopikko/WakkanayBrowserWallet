@@ -173,7 +173,7 @@ const DepositModal = props => {
                 <div
                   className="confirm-button"
                   onClick={() => {
-                    props.setDepositPage('completion-page')
+                    props.deposit(tokenAmount, props.depositedToken)
                   }}
                 >
                   <PrimaryButton>Confirm</PrimaryButton>

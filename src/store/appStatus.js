@@ -58,6 +58,7 @@ export const checkClientInitialized = () => {
         initialGetters()
       } catch (e) {
         localStorage.removeItem('privateKey')
+        console.error(e)
         dispatch(setAppStatus(APP_STATUS.UNLOADED))
       }
     } else {
@@ -81,6 +82,7 @@ export const initializeClient = privateKey => {
       dispatch(subscribeEvents())
       initialGetters()
     } catch (error) {
+      console.error(error)
       dispatch(setAppError(error))
       dispatch(setAppStatus(APP_STATUS.ERROR))
     }
@@ -106,6 +108,7 @@ export const initializeMetamaskWallet = () => {
       })
       dispatch(setAppStatus(APP_STATUS.LOADED))
     } catch (error) {
+      console.error(error)
       dispatch(setAppError(error))
     }
   }
