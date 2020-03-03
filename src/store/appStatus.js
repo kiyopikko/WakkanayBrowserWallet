@@ -1,8 +1,9 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
-import { getBalance } from './tokenBalanceList'
 import { EthCoder } from '@cryptoeconomicslab/eth-coder'
 import { setupContext } from '@cryptoeconomicslab/context'
+import { getBalance, getETHtoUSD } from './tokenBalanceList'
+import { getAddress } from './address'
 
 const APP_STATUS = {
   UNLOADED: 'unloaded',
@@ -28,6 +29,12 @@ export const appStatusReducer = createReducer(
 
 export const checkClientInitialized = () => {
   return async dispatch => {
+    const initialGetters = () => {
+      dispatch(getBalance())
+      dispatch(getAddress())
+      dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
+    }
+
     if (!process.browser) {
       dispatch(setAppStatus(APP_STATUS.UNLOADED))
       return
@@ -38,6 +45,7 @@ export const checkClientInitialized = () => {
     if (client) {
       dispatch(setAppStatus(APP_STATUS.LOADED))
       dispatch(subscribeEvents())
+      initialGetters()
       return
     }
 
@@ -47,8 +55,10 @@ export const checkClientInitialized = () => {
         await clientWrapper.initializeClient(localKey)
         dispatch(setAppStatus(APP_STATUS.LOADED))
         dispatch(subscribeEvents())
+        initialGetters()
       } catch (e) {
         localStorage.removeItem('privateKey')
+        console.error(e)
         dispatch(setAppStatus(APP_STATUS.UNLOADED))
       }
     } else {
@@ -59,12 +69,20 @@ export const checkClientInitialized = () => {
 
 export const initializeClient = privateKey => {
   return async dispatch => {
+    const initialGetters = () => {
+      dispatch(getBalance())
+      dispatch(getAddress())
+      dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
+    }
+
     dispatch(setAppError(null))
     try {
       await clientWrapper.initializeClient(privateKey)
       dispatch(setAppStatus(APP_STATUS.LOADED))
       dispatch(subscribeEvents())
+      initialGetters()
     } catch (error) {
+      console.error(error)
       dispatch(setAppError(error))
       dispatch(setAppStatus(APP_STATUS.ERROR))
     }
@@ -90,6 +108,7 @@ export const initializeMetamaskWallet = () => {
       })
       dispatch(setAppStatus(APP_STATUS.LOADED))
     } catch (error) {
+      console.error(error)
       dispatch(setAppError(error))
     }
   }

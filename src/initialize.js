@@ -2,16 +2,21 @@ import * as ethers from 'ethers'
 import LightClient, {
   StateManager,
   SyncManager,
-  CheckpointManager
-} from 'wakkanay-plasma-light-client'
+  CheckpointManager,
+  DepositedRangeManager
+} from '@cryptoeconomicslab/plasma-light-client'
 import MetamaskWallet from './metamaskWallet'
 import { EthWallet } from '@cryptoeconomicslab/eth-wallet'
 import { Address, Bytes } from '@cryptoeconomicslab/primitives'
+import { RangeDb } from '@cryptoeconomicslab/db'
 import { IndexedDbKeyValueStore } from '@cryptoeconomicslab/indexeddb-kvs'
 import {
   DepositContract,
   ERC20Contract,
-  CommitmentContract
+  CommitmentContract,
+  AdjudicationContract,
+  OwnershipPayoutContract,
+  PETHContract
 } from '@cryptoeconomicslab/eth-contract'
 import * as Sentry from '@sentry/browser'
 if (process.env.SENTRY_ENDPOINT) {
@@ -32,7 +37,6 @@ async function instantiate(privateKey) {
   const kvs = new IndexedDbKeyValueStore(Bytes.fromString('plasma_aggregator'))
   const eventDb = await kvs.bucket(Bytes.fromString('event'))
 
-  // TODO: fix light client interface
   let wallet, signer
   if (typeof privateKey === 'string') {
     wallet = new EthWallet(
@@ -46,6 +50,17 @@ async function instantiate(privateKey) {
     wallet.getEthersWallet = () =>
       new ethers.providers.Web3Provider(window.ethereum).getSigner()
   }
+
+  const adjudicationContract = new AdjudicationContract(
+    Address.from(process.env.UNIVERSAL_ADJUDICATION_CONTRACT_ADDRESS),
+    eventDb,
+    signer
+  )
+
+  const ownershipPayoutContract = new OwnershipPayoutContract(
+    Address.from(process.env.OWNERSHIP_PAYOUT_CONTRACT_ADDRESS),
+    signer
+  )
 
   function depositContractFactory(address) {
     return new DepositContract(address, eventDb, signer)
@@ -64,6 +79,11 @@ async function instantiate(privateKey) {
   const checkpointDb = await kvs.bucket(Bytes.fromString('checkpoint'))
   const checkpointManager = new CheckpointManager(checkpointDb)
 
+  const depositedRangeDb = await kvs.bucket(Bytes.fromString('depositedRange'))
+  const depositedRangeManager = new DepositedRangeManager(
+    new RangeDb(depositedRangeDb)
+  )
+
   const commitmentContract = new CommitmentContract(
     Address.from(process.env.COMMITMENT_CONTRACT_ADDRESS),
     eventDb,
@@ -73,17 +93,31 @@ async function instantiate(privateKey) {
   const mainChainEnv = process.env.MAIN_CHAIN_ENV || 'local'
   const config = await import(`../config.${mainChainEnv}`)
 
-  return new LightClient(
+  const client = new LightClient(
     wallet,
     kvs,
+    adjudicationContract,
     depositContractFactory,
     tokenContractFactory,
     commitmentContract,
+    ownershipPayoutContract,
     stateManager,
     syncManager,
     checkpointManager,
-    config
+    depositedRangeManager,
+    config,
+    {
+      aggregatorEndpoint: process.env.AGGREGATOR_HOST
+    }
   )
+
+  // register Peth
+  client.registerCustomToken(
+    new PETHContract(Address.from(process.env.PETH_ADDRESS), signer),
+    depositContractFactory(Address.from(process.env.DEPOSIT_CONTRACT_ADDRESS))
+  )
+
+  return client
 }
 
 export default async function initialize(privateKey) {

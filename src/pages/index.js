@@ -1,10 +1,33 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { useRouter } from 'next/router'
+import classNames from 'classnames'
 
 // internal import
 import Layout from '../components/Layout'
-import AddressListItem from '../components/AddressList/AddressListItem'
-import { shortenAddress } from '../utils'
+import AddressListItem from '../components/AddressListItem'
+import { SectionTitle } from '../components/SectionTitle'
+import { PrimaryButton } from '../components/PrimaryButton'
+import { shortenAddress, roundBalance } from '../utils'
+import {
+  BOLD,
+  EXTRABOLD,
+  XSMALL,
+  SMALLER,
+  SMALL,
+  LARGER,
+  XLARGE,
+  XXSMALL,
+  MEDIUM,
+  SMALLPLUS
+} from '../fonts'
+import {
+  SUBTEXT,
+  BORDER,
+  SECTION_BACKGROUND,
+  BORDER_DARK,
+  PRIMARY_BUTTON_TEXT,
+  White
+} from '../colors'
 
 //redux
 import { connect } from 'react-redux'
@@ -17,7 +40,6 @@ import {
   setEditedAddress,
   setEditedName
 } from '../store/edited_address_list_item.js'
-import { getBalance, getETHtoUSD } from '../store/tokenBalanceList'
 import { getAddress } from '../store/address'
 import { setTransferredToken } from '../store/transfer'
 
@@ -43,7 +65,7 @@ const Home = props => {
   const addressInput = useRef('')
   const editedNameRef = useRef('')
   const editedAddressRef = useRef('')
-  const ETHtoUSD = props.ETHtoUSD
+
   const onKeyDown = event => {
     if (event.key === 'Enter') {
       event.preventDefault()
@@ -58,23 +80,12 @@ const Home = props => {
       return (nameInput.current.value = ''), (addressInput.current.value = '')
     }
   }
-  useEffect(() => {
-    props.getBalance()
-    props.getAddress()
-    props.getETHtoUSD() // get the latest ETH price, returned value's unit is USD/ETH
-  }, [])
 
   return (
     <Layout>
       <div className="l1-account-box-wrapper" id="l1-account">
-        <div className="l1-account-title">Connected L1 Account</div>
         <div className="l1-account-box">
           <div className="user-address-info-box">
-            <img
-              className="profile-picture"
-              src="metamask-icon.png"
-              alt="Metamask Account"
-            ></img>
             <div className="user-info-bar">
               <span className="account-name">yuriko.eth</span>
               <CopyToClipboard text={props.address}>
@@ -82,9 +93,9 @@ const Home = props => {
                   <div className="account-address">
                     {shortenAddress(props.address)}
                   </div>
-                  <div className="copy-button">
+                  <button className="copy-button">
                     <FontAwesomeIcon icon="clipboard" />
-                  </div>
+                  </button>
                 </div>
               </CopyToClipboard>
               <ReactTooltip place="bottom" type="dark" effect="solid">
@@ -92,53 +103,44 @@ const Home = props => {
               </ReactTooltip>
             </div>
           </div>
-          <div className="total-balance-title">Total </div>
-          <div className="total-balance">$450.34 USD</div>
-          <div
-            className="deposit-button"
-            onClick={e => {
-              e.preventDefault()
-              const href = `${router.route}?deposit`
-              router.push(href, href, { shallow: true })
-            }}
-          >
-            <a className="deposit">Deposit to L2</a>
+          <div className="total-balance-title">L1 Total </div>
+          <div className="total-balance">450.34 $</div>
+          <div className="deposit-button">
+            <PrimaryButton
+              onClick={e => {
+                e.preventDefault()
+                const href = `${router.route}?deposit`
+                router.push(href, href, { shallow: true })
+              }}
+            >
+              Deposit
+            </PrimaryButton>
           </div>
         </div>
       </div>
       <div className="l2-token-box-wrapper" id="l2-tokens">
-        <div className="l2-token-box-title">L2 Tokens</div>
+        <SectionTitle>L2 Tokens</SectionTitle>
         <div className="l2-token-box-list">
           {props.tokenBalanceList.map(({ tokenAddress, amount }) => {
             return (
               <div className="l2-token-box">
-                <div className="l2-token-name">Ethereum</div>
                 <div className="balance-board">
-                  <img
-                    className="l2-token-img"
-                    src="../ethereum-icon.png"
-                    alt="Ethereum Logo"
-                  ></img>
-                  <div className="total-balance-box">
-                    <span className="total-balance-number">{amount}</span>
-                    <span className="total-balance-unit">ETH</span>
-                    <div className="balance-in-usd">
-                      {ETHtoUSD * amount} USD
-                    </div>
+                  <div className="l2-token-img-bg">
+                    <img
+                      className="l2-token-img"
+                      src="../tokenIcons/ethereum-logo.png"
+                      alt="Ethereum Logo"
+                    ></img>
+                  </div>
+                  <div className="token-balance-unit">ETH</div>
+                  <div className="token-balance-number">{amount}</div>
+                  <hr className="line"></hr>
+                  <div className="balance-in-usd">
+                    {roundBalance(props.ETHtoUSD, amount)} USD
                   </div>
                 </div>
                 <div className="token-buttons-container">
-                  <div
-                    className="token-button"
-                    onClick={e => {
-                      e.preventDefault()
-                      const href = `${router.route}?deposit`
-                      router.push(href, href, { shallow: true })
-                    }}
-                  >
-                    Deposit
-                  </div>
-                  <div
+                  <button
                     className="token-button"
                     onClick={e => {
                       e.preventDefault()
@@ -147,119 +149,122 @@ const Home = props => {
                     }}
                   >
                     Withdraw
-                  </div>
-                  <div
-                    className="token-button"
+                  </button>
+                  <div className="slash" />
+                  <button
+                    className={classNames('token-button', 'send-button')}
                     onClick={() => {
                       props.setTransferredToken(tokenAddress)
-                      router.push('/payment#send')
+                      router.push('/payment')
                     }}
                   >
                     Send
-                  </div>
-                  <div
-                    className="token-button"
+                  </button>
+                  <button
+                    className={classNames('token-button', 'exchange-button')}
                     onClick={() => {
-                      router.push('/exchange#order-request')
+                      router.push('/exchange')
                     }}
                   >
                     Exchange
-                  </div>
+                  </button>
                 </div>
               </div>
             )
           })}
         </div>
         <hr className="l2-token-total-balance-line"></hr>
-        <div className="l2-token-total-balance">
-          <div>Total</div>
-          <div>$450.3</div>
+        <div className="l2-token-total-balance-wrapper">
+          <div className="l2-token-total-balance-title">Total</div>
+          <div className="l2-token-total-balance">USD 450.3</div>
         </div>
       </div>
       <div className="address-book-wrapper" id="address-book">
         <div className="address-book-title-box">
-          <div className="address-book-title">Address Book</div>
-          <div className="book-icon">
-            <FontAwesomeIcon icon="book-open" />
-          </div>
+          <SectionTitle>Address Book</SectionTitle>
         </div>
-        <table className="address-book-table">
-          <tr>
-            <th className="name-column">Name</th>
-            <th className="address-column">Address</th>
-          </tr>
+        <div className="address-book-table">
+          <div className="column-titles">
+            <div className="name-column">NAME</div>
+            <div className="address-column">ADDRESS</div>
+          </div>
           {props.addressList.map(addressListItem => (
-            <AddressListItem
-              addressListItem={addressListItem}
-              editAddressListItem={props.editAddressListItem}
-              setEditedName={props.setEditedName}
-              setEditedAddress={props.setEditedAddress}
-              removeAddressListItem={props.removeAddressListItem}
-              editedNameRef={editedNameRef}
-              editedAddressRef={editedAddressRef}
-              editedName={props.editedAddressListItem.name}
-              editedAddress={props.editedAddressListItem.address}
-            />
+            <div className="address-book-item">
+              <AddressListItem
+                addressListItem={addressListItem}
+                editAddressListItem={props.editAddressListItem}
+                setEditedName={props.setEditedName}
+                setEditedAddress={props.setEditedAddress}
+                removeAddressListItem={props.removeAddressListItem}
+                editedNameRef={editedNameRef}
+                editedAddressRef={editedAddressRef}
+                editedName={props.editedAddressListItem.name}
+                editedAddress={props.editedAddressListItem.address}
+              />
+            </div>
           ))}
-          <tr>
-            <td className="default-name">
+          <div className="address-book-new-item">
+            <div className="new-item-inputs">
               <input
-                className="name-input"
+                className={classNames('address-name-input', 'name-input')}
                 type="text"
                 ref={nameInput}
-                placeholder="Alice"
+                placeholder="NAME"
                 onKeyDown={onKeyDown}
               />
-            </td>
-            <td className="default-address">
               <input
-                className="address-input"
+                className={classNames('address-name-input', 'address-input')}
                 type="text"
                 ref={addressInput}
-                placeholder="0x0000000000000000000000000000000000000000"
+                placeholder="ADDRESS"
                 onKeyDown={onKeyDown}
               />
-            </td>
-          </tr>
-        </table>
+            </div>
+            <button
+              className="add-button"
+              onClick={() => {
+                if (
+                  nameInput.current.value !== '' &&
+                  addressInput.current.value !== ''
+                ) {
+                  props.registerAddressListItem({
+                    id: `${Date.now()}`,
+                    name: nameInput.current.value,
+                    address: addressInput.current.value
+                  })
+                }
+                return (
+                  (nameInput.current.value = ''),
+                  (addressInput.current.value = '')
+                )
+              }}
+            >
+              Add
+            </button>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
         .l1-account-box-wrapper {
-          display: flex;
-          flex-direction: column;
-          width: 400px;
-          padding: 20px;
+          width: 100%;
         }
-        .l1-account-title {
-          font-weight: 600;
-          font-size: 32px;
-          text-align: center;
-        }
-        .l1-account-box,
-        .l2-token-box {
-          border: solid 2px lightgray;
-          border-radius: 12px;
+        .l1-account-box {
+          background-color: ${SECTION_BACKGROUND};
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          width: 280px;
+          margin: 20px;
         }
         .user-address-info-box {
           display: flex;
           justify-content: center;
           align-items: center;
-          padding: 3px;
+          padding: 8px;
           width: 100%;
-          border-bottom: solid 2px lightgray;
-          background-color: ivory;
-          border-radius: 9px 9px 0px 0px;
-        }
-        .profile-picture {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          border: 4px solid #c0d3ff;
+          border-bottom: solid 1px black;
         }
         .user-info-bar {
           margin-left: 8px;
@@ -270,7 +275,7 @@ const Home = props => {
         .account-name {
           margin-top: 4px;
           font-weight: 600;
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
         }
         .account-address-set {
           display: flex;
@@ -280,37 +285,34 @@ const Home = props => {
           cursor: pointer;
         }
         .account-address-set:hover {
-          background-color: lightgray;
+          background-color: ${BORDER_DARK};
         }
         .account-address {
-          color: lightslategray;
-          font-size: 14px;
+          color: ${SUBTEXT};
+          font-size: ${SMALLER};
           font-weight: 500;
         }
         .copy-button {
-          font-size: 12px;
+          font-size: ${XXSMALL};
           margin-left: 4px;
+          border: none;
+          background: transparent;
+          color: ${SUBTEXT};
         }
         .total-balance-title {
-          font-weight: 600;
-          font-size: 24px;
-          margin-top: 24px;
+          font-size: ${MEDIUM};
+          font-weight: 100;
+          margin-top: 20px;
+          margin-bottom: 14px;
         }
         .total-balance {
-          font-size: 36px;
-          font-weight: 700;
+          font-size: ${XLARGE};
+          font-weight: 200;
         }
         .deposit-button {
-          padding: 7px;
-          border-radius: 16px;
-          width: 148px;
-          text-align: center;
-          background-color: #5d5aef;
-          color: white;
-          cursor: pointer;
+          border: none;
           margin-top: 12px;
-          margin-bottom: 36px;
-          font-weight: 500;
+          margin-bottom: 20px;
         }
         .l2-token-box-wrapper {
           width: 100%;
@@ -319,84 +321,123 @@ const Home = props => {
           padding: 20px;
           margin-top: 20px;
         }
-        .l2-token-box-title {
-          font-weight: 600;
-          font-size: 32px;
-          margin-left: 4px;
-        }
         .l2-token-box-list {
+          margin-top: 10px;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: flex-start;
-          overflow-x: scroll;
+          overflow-y: scroll;
         }
         .l2-token-box {
           padding: 12px;
-          margin-right: 20px;
-        }
-        .l2-token-name {
-          font-size: 24px;
-          font-weight: 600;
+          background-color: ${SECTION_BACKGROUND};
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
         .balance-board {
-          margin-top: 16px;
-          margin-bottom: 20px;
           display: flex;
           justify-content: center;
           align-items: center;
         }
+        .l2-token-img-bg {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background-color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         .l2-token-img {
-          width: 48px;
-          margin-right: 16px;
+          height: 22px;
         }
-        .total-balance-number {
-          font-size: 44px;
+        .token-balance-unit {
+          margin-left: 16px;
+          font-size: ${SMALL};
           font-weight: 650;
         }
-        .total-balance-unit {
-          font-size: 30px;
-          font-weight: 650;
-          margin-left: 8px;
+        .token-balance-number {
+          margin-left: 12px;
+          font-size: ${LARGER};
+          font-weight: 500;
+        }
+        .line {
+          margin-left: 24px;
+          width: 11px;
+          border: 1px solid ${BORDER};
         }
         .balance-in-usd {
-          color: darkgray;
-          font-size: 18px;
+          margin-left: 12px;
+          color: ${SUBTEXT};
+          font-size: ${SMALLER};
           font-weight: 650;
         }
         .token-buttons-container {
-          width: 220px;
-          height: 100px;
           display: flex;
-          flex-wrap: wrap;
-          justify-content: space-around;
           align-items: center;
         }
         .token-button {
-          padding: 7px;
-          border-radius: 16px;
-          width: 100px;
-          height: 36px;
-          text-align: center;
-          background-color: #5d5aef;
-          color: white;
+          border: none;
+          border-radius: 40px;
+          width: 93px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: ${White(0.06)};
+          color: ${PRIMARY_BUTTON_TEXT};
           cursor: pointer;
-          font-weight: 500;
+          font-size: ${SMALLER};
+          font-weight: ${EXTRABOLD};
+        }
+        .slash {
+          margin-left: 17px;
+          width: 11px;
+          height: 25px;
+          position: relative;
+        }
+        .slash:after {
+          content: '';
+          position: absolute;
+          left: 10px;
+          border: 1px solid ${BORDER_DARK};
+          width: 26px;
+          transform: rotate(110deg);
+          transform-origin: 0% 0%;
+        }
+        .send-button {
+          margin-left: 19px;
+        }
+        .send-button:hover {
+          background-color: #eb3959;
+        }
+        .exchange-button {
+          margin-left: 10px;
+        }
+        .exchange-button:hover {
+          background-color: #4e3ff4;
         }
         .l2-token-total-balance-line {
           border: none;
           margin-top: 12px;
           width: 100%;
           height: 3px;
-          background-color: #000000;
+          background-color: ${BORDER};
         }
-        .l2-token-total-balance {
+        .l2-token-total-balance-wrapper {
+          color: ${SUBTEXT};
           margin-top: 4px;
-          margin-left: 2px;
-          font-size: 28px;
-          font-weight: 600;
+          font-size: ${SMALLPLUS};
+          font-weight: 800;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-end;
+        }
+        .l2-token-total-balance {
+          margin-left: 20px;
         }
         .address-book-wrapper {
           width: 100%;
@@ -408,72 +449,87 @@ const Home = props => {
         .address-book-title-box {
           display: flex;
           align-items: center;
-          margin-left: 4px;
-        }
-        .address-book-title {
-          font-weight: 600;
-          font-size: 32px;
-        }
-        .book-icon {
-          font-size: 24px;
-          margin-left: 8px;
         }
         .address-book-table {
-          border-spacing: 0px;
-          text-align: left;
-          border: 2px solid lightgray;
-          border-radius: 16px;
-          background-color: white;
-          width: 100%;
-          border-radius: 6px;
+          margin-top: 30px;
+          display: flex;
+          flex-direction: column;
+          font-size: ${XSMALL};
+          font-weight: ${BOLD};
         }
-        th,
-        td {
-          font-size: 20px;
-          border-spacing: 0px;
-          height: 36px;
-        }
-        th {
-          padding: 8px;
-          font-size: 20px;
-          font-weight: 500;
-          border-bottom: 2px solid lightgray;
-        }
-        .default-name {
-          border-right: 2px solid lightgray;
+        .column-titles {
+          color: ${White(0.5)};
+          display: flex;
+          align-items: center;
+          padding-bottom: 12px;
+          margin-bottom: 12px;
+          border-bottom: 1px solid ${BORDER_DARK};
         }
         .name-column {
-          min-width: 100px;
-          border-right: 2px solid lightgray;
+          width: 100px;
         }
-        .cancel-button {
-          margin: 0px 2px;
-          border: solid 1px lightgray;
-          padding: 2px;
+        .address-column {
+          width: calc(100% - 100px);
+          padding-left: 12px;
         }
-        .name-input,
-        .address-input {
-          height: 36px;
-          padding: 8px;
-          font-size: 18px;
-          border: none;
+        .address-book-item {
+          color: ${White(0.7)};
+          margin-top: 4px;
+        }
+        .address-book-new-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 4px;
+          color: ${White(0.7)};
+        }
+        .new-item-inputs {
+          width: calc(100% - 87px);
+          display: flex;
+          border-bottom: 1px solid ${BORDER_DARK};
+        }
+        .new-item-inputs:focus-within {
+          border-bottom: 1px solid #2baef8;
+        }
+        .address-name-input {
+          margin-bottom: 12px;
+          background-color: transparent;
+          font-size: ${XSMALL};
+          font-weight: ${BOLD};
+          color: ${BORDER_DARK};
+        }
+        .address-name-input::placeholder {
+          font-size: ${XSMALL};
+          font-weight: ${BOLD};
+          color: ${BORDER_DARK};
+        }
+        .name-input:focus + .address-input {
+          border-left: 1px solid #2baef8;
         }
         .name-input {
           width: 100px;
-          border-bottom-left-radius: 5px;
-        }
-        .name-input::placeholder {
-          font-family: 'Avenir Next';
-          font-size: 18px;
-          font-weight: 300;
         }
         .address-input {
-          width: 460px;
+          border-left: 1px solid ${BORDER_DARK};
+          width: calc(100% - 100px);
+          padding-left: 12px;
         }
-        .address-input::placeholder {
-          font-family: 'Avenir Next';
-          font-size: 18px;
-          font-weight: 300;
+        .address-input:focus {
+          border-left: 1px solid #2baef8;
+        }
+        .add-button {
+          border-radius: 40px;
+          margin-left: 18px;
+          width: 87px;
+          height: 36px;
+          background: linear-gradient(122.3deg, #ec8383 0.21%, #c13087 93.55%);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: ${EXTRABOLD};
+          font-size: ${SMALLER};
+          color: ${PRIMARY_BUTTON_TEXT};
         }
       `}</style>
     </Layout>
@@ -494,8 +550,6 @@ const mapDispatchToProps = {
   removeAddressListItem,
   setEditedAddress,
   setEditedName,
-  getBalance,
-  getETHtoUSD,
   getAddress,
   setTransferredToken
 }

@@ -15,19 +15,12 @@ library.add(fab, faTimes, faEthernet, faArrowLeft)
 
 import { connect } from 'react-redux'
 import { setTransferPage, transfer } from '../store/transfer'
-import { shortenAddress } from '../utils'
-
-const TOKEN_CURRENCY_MAP = {
-  Ethereum: 'ETH',
-  Dai: 'DAI'
-}
+import { shortenAddress, TOKEN_CURRENCY_MAP, roundBalance } from '../utils'
+import { SMALL, MEDIUM, LARGER, SMALLPLUS } from '../fonts'
+import { MODAL_MAIN_BACKGROUND } from '../colors'
 
 const TransferModal = props => {
   const router = useRouter()
-  const transferredToken = props.transferredToken
-  const transferredAmount = props.transferredAmount
-  const recepientAddress = props.recepientAddress
-  const transferPage = props.transferPage
 
   return (
     <div className="modal-bg">
@@ -52,7 +45,7 @@ const TransferModal = props => {
           <FontAwesomeIcon icon="times" />
         </div>
         <div className="contents">
-          {transferPage === 'confirmation-page' ? (
+          {props.transferPage === 'confirmation-page' ? (
             <div className="confirmation-page">
               <div className="mordal-page-title">Transaction Summary</div>
               <div className="amount-confirmation-section">
@@ -62,19 +55,18 @@ const TransferModal = props => {
                 <div className="amount-confirmation-box">
                   <img
                     className="token-logo"
-                    src="../ethereum-icon.png"
+                    src="../tokenIcons/ethereum-logo.png"
                     alt="Ethereum Logo"
                   ></img>
                   <div className="total-balance-box">
                     <span className="total-balance-number">
-                      {transferredAmount}
+                      {props.transferredAmount}
                     </span>
                     <span className="total-balance-unit">
-                      {TOKEN_CURRENCY_MAP[transferredToken]}
+                      {TOKEN_CURRENCY_MAP[props.transferredToken]}
                     </span>
                     <div className="balance-in-usd">
-                      {Math.round(transferredAmount * props.ETHtoUSD * 100) /
-                        100}{' '}
+                      {roundBalance(props.ETHtoUSD, props.transferredAmount)}{' '}
                       USD
                     </div>
                   </div>
@@ -85,7 +77,7 @@ const TransferModal = props => {
                   from{' '}
                   <a className="address">{shortenAddress(props.address)}</a>
                 </div>
-                <div className="to">to {recepientAddress}</div>
+                <div className="to">to {props.recepientAddress}</div>
               </div>
               <div className="cancel-next-buttons">
                 <div
@@ -104,9 +96,9 @@ const TransferModal = props => {
                     className="next"
                     onClick={() => {
                       props.transfer(
-                        transferredAmount,
-                        transferredToken,
-                        recepientAddress
+                        props.transferredAmount,
+                        props.transferredToken,
+                        props.recepientAddress
                       )
                     }}
                   >
@@ -117,7 +109,7 @@ const TransferModal = props => {
               <div>Click confirm to open Metamask</div>
             </div>
           ) : (
-            <div>Deposit completed</div>
+            <div className="send-completion">Send completed</div>
           )}
         </div>
       </ClickOutside>
@@ -139,9 +131,8 @@ const TransferModal = props => {
           min-width: 520px;
           height: calc(80% - 20px);
           min-height: 440px;
-          background-color: white;
+          background-color: ${MODAL_MAIN_BACKGROUND};
           opacity: 1;
-          box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 15px 0px;
           border-radius: 6px;
           display: flex;
           flex-direction: column;
@@ -175,7 +166,7 @@ const TransferModal = props => {
           align-items: center;
         }
         .token-box-title {
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
         .token-select-box-wrapper {
@@ -203,7 +194,7 @@ const TransferModal = props => {
           > :global(.dropdown-button) {
           width: 100%;
           height: 32px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 600;
           display: flex;
           align-items: center;
@@ -215,7 +206,7 @@ const TransferModal = props => {
           > :global(.dropdown-button)
           > :global(.button-name) {
           width: 280px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           display: flex;
           align-items: center;
           justify-content: center;
@@ -233,7 +224,7 @@ const TransferModal = props => {
           > :global(.dropdown)
           > :global(.dropdown-button)
           > :global(.dropdown-caret) {
-          font-size: 20px;
+          font-size: ${MEDIUM};
         }
         .token-select-box-wrapper
           > :global(.dropdown)
@@ -270,7 +261,7 @@ const TransferModal = props => {
           border-bottom: solid 1px darkgray;
         }
         .token-dropdown-button {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           padding: 0px 8px;
           cursor: pointer;
           height: inherit;
@@ -283,7 +274,7 @@ const TransferModal = props => {
           margin-top: 16px;
         }
         .amount-box-title {
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
         .amount-box {
@@ -296,7 +287,7 @@ const TransferModal = props => {
           width: 100%;
           height: 40px;
           padding: 4px;
-          font-size: 16px;
+          font-size: ${SMALL};
           border-radius: 6px;
           border: none;
         }
@@ -372,7 +363,7 @@ const TransferModal = props => {
           > :global(.dropdown-button)
           > :global(.dropdown-caret) {
           margin-left: 8px;
-          font-size: 20px;
+          font-size: ${MEDIUM};
           color: #3d5bf1;
         }
         .token-amount-confirm-section {
@@ -383,13 +374,13 @@ const TransferModal = props => {
         }
         .token-amount-confirm-title,
         .token-currency {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 500;
         }
         .token-amount {
           margin: -3px 14px;
           margin-left: 10px;
-          font-size: 26px;
+          font-size: ${LARGER};
           font-weight: 600;
         }
 
@@ -424,11 +415,11 @@ const TransferModal = props => {
         }
         .from,
         .to {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 500;
         }
         .address {
-          font-size: 20px;
+          font-size: ${MEDIUM};
           font-weight: 500;
           color: lightslategray;
         }
@@ -467,7 +458,7 @@ const TransferModal = props => {
         }
         .balance-in-usd {
           color: darkgray;
-          font-size: 18px;
+          font-size: ${SMALLPLUS};
           font-weight: 650;
         }
       `}</style>

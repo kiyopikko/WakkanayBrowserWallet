@@ -1,79 +1,82 @@
 import { connect } from 'react-redux'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-library.add(faSignInAlt)
+import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND, BORDER_DARK } from '../colors'
+import { SMALLER, SMALL } from '../fonts'
+import { SectionTitle } from '../components/SectionTitle'
 
 import QRCode from 'qrcode.react'
 
+// clipboard
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import ReactTooltip from 'react-tooltip'
+
 const Receive = props => {
   return (
-    <div>
-      <div className="receive-section" id="receive">
-        <div className="receive-eth-title-box">
-          <div className="receive-eth">Receive Token</div>
-          <div className="receive-icon">
-            <FontAwesomeIcon icon="sign-in-alt" />
+    <div className="receive-section" id="receive">
+      <SectionTitle>Receive Token</SectionTitle>
+      <div className="address-box-wrapper">
+        <div className="address-title">Your Wakkanay Wallet Address</div>
+        <CopyToClipboard text={props.address}>
+          <div className="address-box" data-tip="React-tooltip">
+            {props.address}
           </div>
-        </div>
-        <div className="address-box">
-          <div className="address-title">Your Wakkanay Wallet Address:</div>
-          <div className="address">{props.address}</div>
-          <div className="qr-code-box">
-            <QRCode
-              className="qr-code"
-              value={props.address}
-              alt="Your QR Code"
-              size={140}
-              includeMargin={true}
-            />
-          </div>
-        </div>
+        </CopyToClipboard>
+        <ReactTooltip place="bottom" type="dark" effect="solid">
+          <span>Copy to Clipboard</span>
+        </ReactTooltip>
+      </div>
+      <div className="qr-code-box">
+        <QRCode
+          className="qr-code"
+          value={props.address}
+          alt="Your QR Code"
+          size={120}
+          includeMargin={true}
+        />
       </div>
       <style jsx>{`
         .receive-section {
-          width: 452px;
+          width: calc(100% - 40px);
+          height: 160px;
           display: flex;
           flex-direction: column;
-          padding: 20px 24px;
-          margin-top: 24px;
-          margin-bottom: 32px;
-          background-color: #fcf7f5;
-          border: solid lightgray 2px;
-          border-radius: 6px;
+          padding: 20px;
+          margin: 20px 0px;
+          background-color: ${SECTION_BACKGROUND};
+          position: relative;
         }
-        .receive-eth-title-box {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-        }
-        .receive-eth {
-          font-size: 28px;
-          font-weight: 700;
-        }
-        .receive-icon {
-          font-size: 18px;
-          margin-left: 8px;
-        }
-        .address-box {
+        .address-box-wrapper {
+          margin-top: 20px;
           display: flex;
           flex-direction: column;
           justify-content: center;
         }
         .address-title {
-          font-size: 16px;
-          font-weight: 500;
-          margin-top: 16px;
-          margin-bottom: 2px;
+          font-size: ${SMALL};
+          font-weight: 800;
+          color: ${SUBTEXT};
         }
-        .address {
-          font-size: 15px;
-          font-weight: 500;
-          color: lightslategray;
+        .address-box {
+          margin-top: 12px;
+          height: 32px;
+          width: 522px;
+          background-color: ${BACKGROUND};
+          font-size: ${SMALLER};
+          font-weight: 800;
+          color: ${SUBTEXT};
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 12px;
+          cursor: pointer;
+        }
+        .address-box:hover {
+          background-color: ${BORDER_DARK};
         }
         .qr-code-box {
-          width: 180px;
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
         }
       `}</style>
     </div>
@@ -81,8 +84,7 @@ const Receive = props => {
 }
 
 const mapStateToProps = state => ({
-  address: state.address,
-  balance: state.balance
+  address: state.address
 })
 
-export default connect(mapStateToProps)(Receive)
+export default connect(mapStateToProps, undefined)(Receive)
