@@ -16,7 +16,7 @@ library.add(fab, faTimes, faEthernet, faArrowLeft)
 import { connect } from 'react-redux'
 import { setTransferPage, transfer } from '../store/transfer'
 import { shortenAddress, TOKEN_CURRENCY_MAP, roundBalance } from '../utils'
-import { SMALL, MEDIUM, LARGER, SMALLPLUS } from '../fonts'
+import { SMALL, MEDIUM, LARGER, SMALLPLUS, BOLD } from '../fonts'
 import { MODAL_MAIN_BACKGROUND } from '../colors'
 
 const TransferModal = props => {
@@ -109,7 +109,7 @@ const TransferModal = props => {
               <div>Click confirm to open Metamask</div>
             </div>
           ) : (
-            <div>Deposit completed</div>
+            <div className="send-completion">Send completed</div>
           )}
         </div>
       </ClickOutside>
