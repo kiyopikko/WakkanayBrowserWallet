@@ -15,13 +15,14 @@ import {
 } from '../store/transfer'
 
 //internal import
-import { shortenAddress, TOKEN_CURRENCY_MAP, roundBalance } from '../utils'
+import { roundBalance } from '../utils'
 import Dropdown from './Dropdown'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
 import { TokenSelectButton } from './TokenSelectButton'
 import { NORMAL, SMALL, MEDIUM, XLARGE } from '../fonts'
 import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND, BORDER } from '../colors'
+import { TOKEN_LIST } from '../tokens'
 
 const Send = props => {
   const router = useRouter()
@@ -51,29 +52,12 @@ const Send = props => {
           <Dropdown
             width="100%"
             onSelected={props.setTransferredToken}
-            buttonName={
-              <div className="button-name-inner">
-                <div className="l2-token-img-bg">
-                  <img
-                    className="l2-token-img"
-                    src="../tokenIcons/ethereum-logo.png"
-                    alt="Ethereum Logo"
-                  ></img>
-                </div>
-                <div className="token-name">
-                  {/* {shortenAddress(props.transferredToken)} (
-                  {TOKEN_CURRENCY_MAP[props.transferredToken]}) */}
-                  ETH
-                </div>
-              </div>
-            }
-            items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-              // name: shortenAddress(tokenAddress),
-              name: 'ETH',
-              value: tokenAddress
-            }))}
+            topButtonName={item => (
+              <TokenSelectButton item={item} padding="8px 16px" />
+            )}
+            items={TOKEN_LIST}
             renderItem={item => (
-              <TokenSelectButton item={item} padding="32px" />
+              <TokenSelectButton item={item} padding="8px 16px" />
             )}
           />
         </div>

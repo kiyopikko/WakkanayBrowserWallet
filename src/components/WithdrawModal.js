@@ -34,6 +34,7 @@ import {
   PRIMARY_BUTTON_TEXT,
   SUBTEXT
 } from '../colors'
+import { TOKEN_LIST } from '../tokens'
 
 const WithdrawModal = props => {
   const router = useRouter()
@@ -63,30 +64,12 @@ const WithdrawModal = props => {
                 <div className="token-select-box-wrapper">
                   <Dropdown
                     onSelected={props.setWithdrawnToken}
-                    buttonName={
-                      <div className="button-name-inner">
-                        <div className="l2-token-img-bg">
-                          <img
-                            className="l2-token-img"
-                            src="../tokenIcons/ethereum-logo.png"
-                            alt="Ethereum Logo"
-                          ></img>
-                        </div>
-                        <div className="token-name">
-                          {/* TODO */}
-                          {/* {TOKEN_CURRENCY_MAP[withdrawnToken]} */}
-                          ETH
-                        </div>
-                      </div>
-                    }
-                    items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-                      // TODO
-                      // name: shortenAddress(tokenAddress),
-                      name: 'ETH',
-                      value: tokenAddress
-                    }))}
+                    topButtonName={item => (
+                      <TokenSelectButton item={item} padding="8px 16px" />
+                    )}
+                    items={TOKEN_LIST}
                     renderItem={item => (
-                      <TokenSelectButton item={item} padding="32px" />
+                      <TokenSelectButton item={item} padding="8px 16px" />
                     )}
                   />
                 </div>

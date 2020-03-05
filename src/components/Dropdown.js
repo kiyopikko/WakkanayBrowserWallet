@@ -2,9 +2,15 @@ import ClickOutside from 'react-click-outside'
 import { TEXT, SUBTEXT, Black } from '../colors'
 import classNames from 'classnames'
 import React, { useState } from 'react'
-const Dropdown = ({ width, onSelected, buttonName, renderItem, items }) => {
+const Dropdown = ({ width, topButtonName, renderItem, items }) => {
   const [isOpen, setIsOpen] = useState(false)
-
+  const [selectedToken, setSelectedToken] = useState({
+    name: 'Ethereum',
+    unit: 'ETH',
+    tokenContractAddress: process.env.PETH_ADDRESS,
+    depositContractAddress: process.env.DEPOSIT_CONTRACT_ADDRESS,
+    imgSrc: '../tokenIcons/ethereum-logo.png'
+  })
   return (
     <div className="dropdown">
       <button
@@ -13,7 +19,7 @@ const Dropdown = ({ width, onSelected, buttonName, renderItem, items }) => {
           setIsOpen(true)
         }}
       >
-        <div className="button-name">{buttonName}</div>
+        <div className="top-button-name">{topButtonName(selectedToken)}</div>
       </button>
       <ClickOutside
         onClickOutside={() => {
@@ -28,15 +34,15 @@ const Dropdown = ({ width, onSelected, buttonName, renderItem, items }) => {
         >
           {items.map(item => (
             <div
-              key={item.name}
+              key={item}
               className="dropdown-item"
               onClick={e => {
                 e.preventDefault()
-                onSelected(item.value)
+                setSelectedToken(item)
                 setIsOpen(false)
               }}
             >
-              {renderItem ? renderItem(item) : item.name}
+              {renderItem ? renderItem(item) : item.unit}
             </div>
           ))}
         </div>
@@ -66,7 +72,7 @@ const Dropdown = ({ width, onSelected, buttonName, renderItem, items }) => {
           position: relative;
           color: #ffffff;
         }
-        .button-name {
+        .top-button-name {
           width: 100%;
         }
         .dropdown-closed {

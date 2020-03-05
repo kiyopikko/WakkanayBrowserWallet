@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import Dropdown from './Dropdown'
 import { TokenSelectButton } from './TokenSelectButton'
 import { setTransferredToken } from '../store/transfer'
-import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
+import { TOKEN_LIST } from '../tokens'
 import {
   EXTRABOLD,
   XSMALL,
@@ -36,31 +36,12 @@ const OrderBook = props => {
             <Dropdown
               width="100%"
               onSelected={props.setTransferredToken}
-              buttonName={
-                <div className="button-name-inner">
-                  <div className="exchanged-token-img-bg">
-                    <img
-                      className="exchanged-token-img"
-                      src="../tokenIcons/ethereum-logo.png"
-                      alt="Ethereum Logo"
-                    ></img>
-                  </div>
-                  <div className="token-name">
-                    {/* TODO
-                    {shortenAddress(props.transferredToken)} (
-                    {TOKEN_CURRENCY_MAP[props.transferredToken]}) */}
-                    ETH
-                  </div>
-                </div>
-              }
-              items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-                // TODO
-                // name: shortenAddress(tokenAddress),
-                name: 'ETH',
-                value: tokenAddress
-              }))}
+              topButtonName={item => (
+                <TokenSelectButton item={item} padding="4px 10px" />
+              )}
+              items={TOKEN_LIST}
               renderItem={item => (
-                <TokenSelectButton item={item} padding="28px" />
+                <TokenSelectButton item={item} padding="4px 10px" />
               )}
             />
           </div>
@@ -77,29 +58,12 @@ const OrderBook = props => {
           <div className="received-token-select-box-wrapper">
             <Dropdown
               onSelected={props.setTransferredToken}
-              buttonName={
-                <div className="button-name-inner">
-                  <div className="exchanged-token-img-bg">
-                    <img
-                      className="exchanged-token-img"
-                      src="../tokenIcons/ethereum-logo.png"
-                      alt="Eth Logo"
-                    ></img>
-                  </div>
-                  <div className="token-name">
-                    {/* {shortenAddress(props.transferredToken)} (
-                    {TOKEN_CURRENCY_MAP[props.transferredToken]}) */}
-                    ETH
-                  </div>
-                </div>
-              }
-              items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-                // name: shortenAddress(tokenAddress),
-                name: 'ETH',
-                value: tokenAddress
-              }))}
+              topButtonName={item => (
+                <TokenSelectButton item={item} padding="4px 10px" />
+              )}
+              items={TOKEN_LIST}
               renderItem={item => (
-                <TokenSelectButton item={item} padding="28px" />
+                <TokenSelectButton item={item} padding="4px 10px" />
               )}
             />
           </div>

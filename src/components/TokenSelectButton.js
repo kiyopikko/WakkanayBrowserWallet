@@ -1,23 +1,23 @@
 export const TokenSelectButton = props => {
   return (
     <div className="item-name-inner">
-      <div className="selected-token-img-bg">
+      <div className="token-img-bg">
         <img
-          className="selected-token-img"
-          src="../tokenIcons/ethereum-logo.png"
-          alt="Eth Logo"
+          className="token-img"
+          src={props.item.imgSrc}
+          alt="token logo"
         ></img>
       </div>
-      <div className="token-name">{props.item.name}</div>
+      <div className="token-name">{props.item.unit}</div>
       <style jsx>{`
         .item-name-inner {
           width: 100%;
-          padding: 8px ${props.padding};
+          padding: ${props.padding};
           display: flex;
           align-items: center;
           justify-content: flex-start;
         }
-        .selected-token-img-bg {
+        .token-img-bg {
           width: 32px;
           height: 32px;
           border-radius: 50%;
@@ -27,7 +27,7 @@ export const TokenSelectButton = props => {
           justify-content: center;
           margin-left: 4px;
         }
-        .selected-token-img {
+        .token-img {
           height: 22px;
         }
         .token-name {

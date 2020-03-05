@@ -13,7 +13,7 @@ import {
   setRequestedTokenToReceive,
   setOrderRequestPage
 } from '../store/exchange'
-import { shortenAddress, TOKEN_CURRENCY_MAP, roundBalance } from '../utils'
+import { roundBalance } from '../utils'
 import Dropdown from './Dropdown'
 import { PrimaryButton } from './PrimaryButton'
 import { TokenSelectButton } from './TokenSelectButton'
@@ -35,6 +35,7 @@ import {
   XXSMALL,
   NORMAL
 } from '../fonts'
+import { TOKEN_LIST } from '../tokens'
 
 const OrderRequestModal = props => {
   const router = useRouter()
@@ -67,29 +68,12 @@ const OrderRequestModal = props => {
                     <Dropdown
                       width="100%"
                       onSelected={props.setRequestedTokenToExchange}
-                      buttonName={
-                        <div className="button-name-inner">
-                          <div className="l2-token-img-bg">
-                            <img
-                              className="l2-token-img"
-                              src="../tokenIcons/ethereum-logo.png"
-                              alt="Ethereum Logo"
-                            ></img>
-                          </div>
-                          <div className="token-name">
-                            {/* {shortenAddress(props.requestedTokenToExchange)} (
-                            {TOKEN_CURRENCY_MAP[props.requestedTokenToExchange]}) */}
-                            ETH
-                          </div>
-                        </div>
-                      }
-                      items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-                        // name: shortenAddress(tokenAddress),
-                        name: 'ETH',
-                        value: tokenAddress
-                      }))}
+                      topButtonName={item => (
+                        <TokenSelectButton item={item} padding="4px 8px" />
+                      )}
+                      items={TOKEN_LIST}
                       renderItem={item => (
-                        <TokenSelectButton item={item} padding="32px" />
+                        <TokenSelectButton item={item} padding="4px 8px" />
                       )}
                     />
                   </div>
@@ -115,31 +99,12 @@ const OrderRequestModal = props => {
                   <div className="token-select-box-wrapper">
                     <Dropdown
                       onSelected={props.setRequestedTokenToReceive}
-                      buttonName={
-                        <div className="button-name-inner">
-                          <div className="l2-token-img-bg">
-                            <img
-                              className="l2-token-img"
-                              src="../tokenIcons/ethereum-logo.png"
-                              alt="Ethereum Logo"
-                            ></img>
-                          </div>
-                          <div className="token-name">
-                            {/* TODO */}
-                            {/* {shortenAddress(props.requestedTokenToReceive)} (
-                            {TOKEN_CURRENCY_MAP[props.requestedTokenToReceive]}) */}
-                            ETH
-                          </div>
-                        </div>
-                      }
-                      items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-                        // TODO
-                        // name: shortenAddress(tokenAddress),
-                        name: 'ETH',
-                        value: tokenAddress
-                      }))}
+                      topButtonName={item => (
+                        <TokenSelectButton item={item} padding="4px 8px" />
+                      )}
+                      items={TOKEN_LIST}
                       renderItem={item => (
-                        <TokenSelectButton item={item} padding="32px" />
+                        <TokenSelectButton item={item} padding="4px 8px" />
                       )}
                     />
                   </div>
