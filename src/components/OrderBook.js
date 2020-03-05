@@ -370,7 +370,7 @@ const OrderBook = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.balance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalanceList,
   transferredToken: state.transferState.transferredToken
 })
 

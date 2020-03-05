@@ -422,11 +422,11 @@ const OrderRequestModal = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.balance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalanceList,
   requestedTokenToExchange: state.exchangeState.requestedTokenToExchange,
   requestedTokenToReceive: state.exchangeState.requestedTokenToReceive,
   orderRequestPage: state.exchangeState.orderRequestPage,
-  ETHtoUSD: state.balance.ETHtoUSD
+  ETHtoUSD: state.tokenBalance.ETHtoUSD
 })
 
 const mapDispatchToProps = {

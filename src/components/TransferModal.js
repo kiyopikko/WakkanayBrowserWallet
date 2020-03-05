@@ -471,7 +471,7 @@ const mapStateToProps = state => ({
   transferredAmount: state.transferState.transferredAmount,
   recepientAddress: state.transferState.recepientAddress,
   transferPage: state.transferState.transferPage,
-  ETHtoUSD: state.balance.ETHtoUSD,
+  ETHtoUSD: state.tokenBalance.ETHtoUSD,
   address: state.address
 })
 

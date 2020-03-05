@@ -15,7 +15,7 @@ import { exchangeReducer } from './exchange'
 
 const reducer = combineReducers({
   address: addressReducer,
-  balance: tokenBalanceReducer,
+  tokenBalance: tokenBalanceReducer,
   addressList: addressListReducer,
   editedAddressListItem: editedAddressListItemReducer,
   currentFilter: filterReducer,
