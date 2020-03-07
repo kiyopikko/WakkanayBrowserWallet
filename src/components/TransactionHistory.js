@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { setFilter } from '../store/transaction_history'
 import Dropdown from './Dropdown'
-import { SUBTEXT, TEXT, BORDER, BORDER_DARK, White, Black } from '../colors'
+import { SUBTEXT, BORDER, BORDER_DARK, White } from '../colors'
 
 const TransactionHistory = props => {
   return (
@@ -12,7 +12,7 @@ const TransactionHistory = props => {
           <div className="filter">
             <Dropdown
               onSelected={props.setFilter}
-              buttonName={props.currentFilter}
+              topButtonName={() => props.currentFilter}
               items={[
                 { name: 'Filter', value: 'Filter' },
                 { name: 'Address', value: 'Address' },
