@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Dropdown from './Dropdown'
 import { TokenSelectButton } from './TokenSelectButton'
-import { setTransferredToken } from '../store/transfer'
+import { setExchangedToken, setReceivedToken } from '../store/exchange'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
 import { TOKEN_LIST } from '../tokens'
@@ -384,11 +384,13 @@ const OrderBook = props => {
 
 const mapStateToProps = state => ({
   tokenBalanceList: state.tokenBalance.tokenBalanceList,
-  transferredToken: state.transferState.transferredToken
+  exchangedToken: state.exchangeState.exchangedToken,
+  receivedToken: state.exchangeState.receivedToken
 })
 
 const mapDispatchToProps = {
-  setTransferredToken
+  setExchangedToken,
+  setReceivedToken
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderBook)
