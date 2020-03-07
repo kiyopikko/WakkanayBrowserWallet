@@ -8,7 +8,7 @@ export const setTransferPage = createAction('SET_TRANSFER_PAGE')
 
 export const transferReducer = createReducer(
   {
-    transferredToken: undefined,
+    transferredToken: process.env.PETH_ADDRESS,
     transferredAmount: 0,
     recepientAddress: '0x00000000000',
     transferPage: 'confirmation-page'

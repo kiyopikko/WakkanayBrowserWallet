@@ -6,7 +6,7 @@ export const setWithdrawPage = createAction('SET_WITHDRAW_PAGE')
 
 export const withdrawReducer = createReducer(
   {
-    withdrawnToken: 'Ethereum',
+    withdrawnToken: process.env.PETH_ADDRESS,
     withdrawPage: 'input-page'
   },
   {

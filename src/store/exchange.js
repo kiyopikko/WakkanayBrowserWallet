@@ -19,13 +19,13 @@ export const setRequestedAmountToReceive = createAction(
 
 export const exchangeReducer = createReducer(
   {
-    exchangedToken: undefined,
+    exchangedToken: process.env.PETH_ADDRESS,
     maxExchangedAmount: 0,
-    receivedToken: undefined,
+    receivedToken: '0x6b175474e89094c44da98b954eedeac495271d0f',
     orderRequestPage: 'input-page',
-    requestedTokenToExchange: undefined,
+    requestedTokenToExchange: process.env.PETH_ADDRESS,
     requestedAmountToExchange: 0,
-    requestedTokenToReceive: undefined,
+    requestedTokenToReceive: '0x6b175474e89094c44da98b954eedeac495271d0f',
     requestedAmountToReceive: 0
   },
   {
