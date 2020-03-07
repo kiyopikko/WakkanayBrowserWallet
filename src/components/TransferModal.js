@@ -15,7 +15,7 @@ library.add(fab, faTimes, faEthernet, faArrowLeft)
 
 import { connect } from 'react-redux'
 import { setTransferPage, transfer } from '../store/transfer'
-import { shortenAddress, TOKEN_CURRENCY_MAP, roundBalance } from '../utils'
+import { shortenAddress, roundBalance } from '../utils'
 import { SMALL, MEDIUM, LARGER, SMALLPLUS } from '../fonts'
 import { MODAL_MAIN_BACKGROUND } from '../colors'
 
@@ -63,7 +63,7 @@ const TransferModal = props => {
                       {props.transferredAmount}
                     </span>
                     <span className="total-balance-unit">
-                      {TOKEN_CURRENCY_MAP[props.transferredToken]}
+                      {transferredTokenObj.unit}
                     </span>
                     <div className="balance-in-usd">
                       {roundBalance(props.ETHtoUSD, props.transferredAmount)}{' '}

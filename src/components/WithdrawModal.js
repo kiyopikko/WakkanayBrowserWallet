@@ -10,7 +10,7 @@ import { faEthernet } from '@fortawesome/free-solid-svg-icons'
 library.add(fab, faEthernet)
 
 import { setWithdrawnToken, setWithdrawPage, withdraw } from '../store/withdraw'
-import { shortenAddress, TOKEN_CURRENCY_MAP, roundBalance } from '../utils'
+import { shortenAddress, roundBalance } from '../utils'
 import Dropdown from './Dropdown'
 import { SectionTitle } from './SectionTitle'
 import { TokenSelectButton } from './TokenSelectButton'
@@ -83,7 +83,7 @@ const WithdrawModal = props => {
                     }}
                   />
                   <div className="deposited-token-unit">
-                    {TOKEN_CURRENCY_MAP[props.withdrawnToken]}
+                    {withdrawnTokenObj.unit}
                   </div>
                 </div>
                 <div className="deposited-token-confirm">
@@ -128,7 +128,7 @@ const WithdrawModal = props => {
                   <div className="total-balance-box">
                     <span className="total-balance-number">{tokenAmount}</span>
                     <span className="total-balance-unit">
-                      {TOKEN_CURRENCY_MAP[props.withdrawnToken]}
+                      {withdrawnTokenObj.unit}
                     </span>
                     <div className="balance-in-usd">
                       {roundBalance(props.ETHtoUSD, tokenAmount)} USD
