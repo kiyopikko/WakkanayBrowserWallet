@@ -26,6 +26,12 @@ import {
 const OrderBook = props => {
   const router = useRouter()
 
+  const exchangedTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) => tokenContractAddress === props.exchangedToken
+  )
+  const receivedTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) => tokenContractAddress === props.receivedToken
+  )
   return (
     <div className="orderbook-section" id="order-book">
       <SectionTitle>Exchange Order Book</SectionTitle>
@@ -34,8 +40,10 @@ const OrderBook = props => {
           <div className="paid-token-title">Exchanged</div>
           <div className="paid-token-select-box-wrapper">
             <Dropdown
+              onselect={selectedTokenContractAddress => {
+                props.setExchangedToken(selectedTokenContractAddress)
+              }}
               width="100%"
-              onSelected={props.setTransferredToken}
               topButtonName={item => (
                 <TokenSelectButton item={item} padding="4px 10px" />
               )}
@@ -43,6 +51,7 @@ const OrderBook = props => {
               renderItem={item => (
                 <TokenSelectButton item={item} padding="4px 10px" />
               )}
+              selectedItem={exchangedTokenObj}
             />
           </div>
         </div>
@@ -57,7 +66,10 @@ const OrderBook = props => {
           <div className="received-token-title">Received</div>
           <div className="received-token-select-box-wrapper">
             <Dropdown
-              onSelected={props.setTransferredToken}
+              onselect={selectedTokenContractAddress => {
+                props.setReceivedToken(selectedTokenContractAddress)
+              }}
+              width="100%"
               topButtonName={item => (
                 <TokenSelectButton item={item} padding="4px 10px" />
               )}
@@ -65,6 +77,7 @@ const OrderBook = props => {
               renderItem={item => (
                 <TokenSelectButton item={item} padding="4px 10px" />
               )}
+              selectedItem={receivedTokenObj}
             />
           </div>
         </div>

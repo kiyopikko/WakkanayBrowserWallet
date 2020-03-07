@@ -18,9 +18,14 @@ import { setTransferPage, transfer } from '../store/transfer'
 import { shortenAddress, roundBalance } from '../utils'
 import { SMALL, MEDIUM, LARGER, SMALLPLUS } from '../fonts'
 import { MODAL_MAIN_BACKGROUND } from '../colors'
+import { TOKEN_LIST } from '../tokens'
 
 const TransferModal = props => {
   const router = useRouter()
+  const transferredTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) =>
+      tokenContractAddress === props.transferredToken
+  )
 
   return (
     <div className="modal-bg">

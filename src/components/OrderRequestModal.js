@@ -44,6 +44,14 @@ const OrderRequestModal = props => {
   const [requestedAmountToExchange, setRequestedAmountToExchnage] = useState(0)
   const [requestedAmountToReceive, setRequestedAmountToReceive] = useState(0)
 
+  const requestedTokenToExchangeObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) =>
+      tokenContractAddress === props.requestedTokenToExchange
+  )
+  const requestedTokenToReceiveObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) =>
+      tokenContractAddress === props.requestedTokenToReceive
+  )
   return (
     <div className="modal-bg">
       <ClickOutside
@@ -66,8 +74,12 @@ const OrderRequestModal = props => {
                   <div className="action-title">Pay</div>
                   <div className="token-select-box-wrapper">
                     <Dropdown
+                      onselect={selectedTokenContractAddress => {
+                        props.setRequestedTokenToExchange(
+                          selectedTokenContractAddress
+                        )
+                      }}
                       width="100%"
-                      onSelected={props.setRequestedTokenToExchange}
                       topButtonName={item => (
                         <TokenSelectButton item={item} padding="4px 8px" />
                       )}
@@ -75,6 +87,7 @@ const OrderRequestModal = props => {
                       renderItem={item => (
                         <TokenSelectButton item={item} padding="4px 8px" />
                       )}
+                      selectedItem={requestedTokenToExchangeObj}
                     />
                   </div>
                   <input
@@ -98,7 +111,12 @@ const OrderRequestModal = props => {
                   <div className="action-title">Receive</div>
                   <div className="token-select-box-wrapper">
                     <Dropdown
-                      onSelected={props.setRequestedTokenToReceive}
+                      onselect={selectedTokenContractAddress => {
+                        props.setRequestedTokenToReceive(
+                          selectedTokenContractAddress
+                        )
+                      }}
+                      width="100%"
                       topButtonName={item => (
                         <TokenSelectButton item={item} padding="4px 8px" />
                       )}
@@ -106,6 +124,7 @@ const OrderRequestModal = props => {
                       renderItem={item => (
                         <TokenSelectButton item={item} padding="4px 8px" />
                       )}
+                      selectedItem={requestedTokenToReceiveObj}
                     />
                   </div>
                   <input

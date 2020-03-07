@@ -33,6 +33,10 @@ const Send = props => {
   const tokenBalance = props.tokenBalanceList.find(
     ({ tokenAddress }) => tokenAddress === props.transferredToken
   )
+  const transferredTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) =>
+      tokenContractAddress === props.transferredToken
+  )
 
   return (
     <div className="send-section" id="send">
@@ -50,8 +54,10 @@ const Send = props => {
       <div className="token-box">
         <div className="token-select-box-wrapper">
           <Dropdown
+            onselect={selectedTokenContractAddress => {
+              props.setTransferredToken(selectedTokenContractAddress)
+            }}
             width="100%"
-            onSelected={props.setTransferredToken}
             topButtonName={item => (
               <TokenSelectButton item={item} padding="8px 16px" />
             )}
@@ -59,6 +65,7 @@ const Send = props => {
             renderItem={item => (
               <TokenSelectButton item={item} padding="8px 16px" />
             )}
+            selectedItem={transferredTokenObj}
           />
         </div>
         <div className="amount-box">

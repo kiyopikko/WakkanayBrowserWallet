@@ -2,15 +2,16 @@ import ClickOutside from 'react-click-outside'
 import { TEXT, SUBTEXT, Black } from '../colors'
 import classNames from 'classnames'
 import React, { useState } from 'react'
-const Dropdown = ({ width, topButtonName, renderItem, items }) => {
+const Dropdown = ({
+  onselect,
+  topButtonName,
+  items,
+  renderItem,
+  width,
+  selectedItem
+}) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedToken, setSelectedToken] = useState({
-    name: 'Ethereum',
-    unit: 'ETH',
-    tokenContractAddress: process.env.PETH_ADDRESS,
-    depositContractAddress: process.env.DEPOSIT_CONTRACT_ADDRESS,
-    imgSrc: '../tokenIcons/ethereum-logo.png'
-  })
+
   return (
     <div className="dropdown">
       <button
@@ -19,7 +20,7 @@ const Dropdown = ({ width, topButtonName, renderItem, items }) => {
           setIsOpen(true)
         }}
       >
-        <div className="top-button-name">{topButtonName(selectedToken)}</div>
+        <div className="top-button-name">{topButtonName(selectedItem)}</div>
       </button>
       <ClickOutside
         onClickOutside={() => {
@@ -38,7 +39,7 @@ const Dropdown = ({ width, topButtonName, renderItem, items }) => {
               className="dropdown-item"
               onClick={e => {
                 e.preventDefault()
-                setSelectedToken(item)
+                onselect(item.tokenContractAddress)
                 setIsOpen(false)
               }}
             >

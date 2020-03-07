@@ -41,6 +41,9 @@ const DepositModal = props => {
   const router = useRouter()
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
+  const depositedTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) => tokenContractAddress === props.depositedToken
+  )
 
   return (
     <div className="modal-bg">
@@ -64,7 +67,9 @@ const DepositModal = props => {
               <div className="input-contents-box">
                 <div className="token-select-box-wrapper">
                   <Dropdown
-                    onSelected={props.setDepositedToken}
+                    onselect={selectedTokenContractAddress => {
+                      props.setDepositedToken(selectedTokenContractAddress)
+                    }}
                     topButtonName={item => (
                       <TokenSelectButton item={item} padding="8px 16px" />
                     )}
@@ -72,6 +77,7 @@ const DepositModal = props => {
                     renderItem={item => (
                       <TokenSelectButton item={item} padding="8px 16px" />
                     )}
+                    selectedItem={depositedTokenObj}
                   />
                 </div>
                 <div className="amount-input-wrapper">

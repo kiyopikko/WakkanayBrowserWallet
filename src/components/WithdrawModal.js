@@ -40,6 +40,9 @@ const WithdrawModal = props => {
   const router = useRouter()
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
+  const withdrawnTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) => tokenContractAddress === props.withdrawnToken
+  )
 
   return (
     <div className="modal-bg">
@@ -63,7 +66,9 @@ const WithdrawModal = props => {
               <div className="input-contents-box">
                 <div className="token-select-box-wrapper">
                   <Dropdown
-                    onSelected={props.setWithdrawnToken}
+                    onselect={selectedTokenContractAddress => {
+                      props.setWithdrawnToken(selectedTokenContractAddress)
+                    }}
                     topButtonName={item => (
                       <TokenSelectButton item={item} padding="8px 16px" />
                     )}
@@ -71,6 +76,7 @@ const WithdrawModal = props => {
                     renderItem={item => (
                       <TokenSelectButton item={item} padding="8px 16px" />
                     )}
+                    selectedItem={withdrawnTokenObj}
                   />
                 </div>
                 <div className="amount-input-wrapper">
