@@ -5,7 +5,7 @@ export const setDepositedToken = createAction('SET_DEPOSITED_TOKEN')
 export const setDepositPage = createAction('SET_DEPOSIT_PAGE')
 
 export const depositReducer = createReducer(
-  { depositedToken: 'Ethereum', depositPage: 'input-page' },
+  { depositedToken: process.env.PETH_ADDRESS, depositPage: 'input-page' },
   {
     [setDepositedToken]: (state, action) => {
       state.depositedToken = action.payload

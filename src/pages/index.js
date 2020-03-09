@@ -537,8 +537,8 @@ const Home = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.balance.tokenBalanceList,
-  ETHtoUSD: state.balance.ETHtoUSD,
+  tokenBalanceList: state.tokenBalance.tokenBalanceList,
+  ETHtoUSD: state.tokenBalance.ETHtoUSD,
   address: state.address,
   addressList: state.addressList,
   editedAddressListItem: state.editedAddressListItem

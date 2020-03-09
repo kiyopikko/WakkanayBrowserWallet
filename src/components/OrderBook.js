@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 
 import Dropdown from './Dropdown'
 import { TokenSelectButton } from './TokenSelectButton'
-import { setTransferredToken } from '../store/transfer'
-import { shortenAddress, TOKEN_CURRENCY_MAP } from '../utils'
+import { setExchangedToken, setReceivedToken } from '../store/exchange'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
+import { TOKEN_LIST } from '../tokens'
 import {
   EXTRABOLD,
   XSMALL,
@@ -26,6 +26,12 @@ import {
 const OrderBook = props => {
   const router = useRouter()
 
+  const exchangedTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) => tokenContractAddress === props.exchangedToken
+  )
+  const receivedTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) => tokenContractAddress === props.receivedToken
+  )
   return (
     <div className="orderbook-section" id="order-book">
       <SectionTitle>Exchange Order Book</SectionTitle>
@@ -34,34 +40,18 @@ const OrderBook = props => {
           <div className="paid-token-title">Exchanged</div>
           <div className="paid-token-select-box-wrapper">
             <Dropdown
+              onselect={selectedTokenContractAddress => {
+                props.setExchangedToken(selectedTokenContractAddress)
+              }}
               width="100%"
-              onSelected={props.setTransferredToken}
-              buttonName={
-                <div className="button-name-inner">
-                  <div className="exchanged-token-img-bg">
-                    <img
-                      className="exchanged-token-img"
-                      src="../tokenIcons/ethereum-logo.png"
-                      alt="Ethereum Logo"
-                    ></img>
-                  </div>
-                  <div className="token-name">
-                    {/* TODO
-                    {shortenAddress(props.transferredToken)} (
-                    {TOKEN_CURRENCY_MAP[props.transferredToken]}) */}
-                    ETH
-                  </div>
-                </div>
-              }
-              items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-                // TODO
-                // name: shortenAddress(tokenAddress),
-                name: 'ETH',
-                value: tokenAddress
-              }))}
-              renderItem={item => (
-                <TokenSelectButton item={item} padding="28px" />
+              topButtonName={item => (
+                <TokenSelectButton item={item} padding="4px 10px" />
               )}
+              items={TOKEN_LIST}
+              renderItem={item => (
+                <TokenSelectButton item={item} padding="4px 10px" />
+              )}
+              selectedItem={exchangedTokenObj}
             />
           </div>
         </div>
@@ -76,31 +66,18 @@ const OrderBook = props => {
           <div className="received-token-title">Received</div>
           <div className="received-token-select-box-wrapper">
             <Dropdown
-              onSelected={props.setTransferredToken}
-              buttonName={
-                <div className="button-name-inner">
-                  <div className="exchanged-token-img-bg">
-                    <img
-                      className="exchanged-token-img"
-                      src="../tokenIcons/ethereum-logo.png"
-                      alt="Eth Logo"
-                    ></img>
-                  </div>
-                  <div className="token-name">
-                    {/* {shortenAddress(props.transferredToken)} (
-                    {TOKEN_CURRENCY_MAP[props.transferredToken]}) */}
-                    ETH
-                  </div>
-                </div>
-              }
-              items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-                // name: shortenAddress(tokenAddress),
-                name: 'ETH',
-                value: tokenAddress
-              }))}
-              renderItem={item => (
-                <TokenSelectButton item={item} padding="28px" />
+              onselect={selectedTokenContractAddress => {
+                props.setReceivedToken(selectedTokenContractAddress)
+              }}
+              width="100%"
+              topButtonName={item => (
+                <TokenSelectButton item={item} padding="4px 10px" />
               )}
+              items={TOKEN_LIST}
+              renderItem={item => (
+                <TokenSelectButton item={item} padding="4px 10px" />
+              )}
+              selectedItem={receivedTokenObj}
             />
           </div>
         </div>
@@ -406,12 +383,14 @@ const OrderBook = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.balance.tokenBalanceList,
-  transferredToken: state.transferState.transferredToken
+  tokenBalanceList: state.tokenBalance.tokenBalanceList,
+  exchangedToken: state.exchangeState.exchangedToken,
+  receivedToken: state.exchangeState.receivedToken
 })
 
 const mapDispatchToProps = {
-  setTransferredToken
+  setExchangedToken,
+  setReceivedToken
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderBook)

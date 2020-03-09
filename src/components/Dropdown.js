@@ -2,7 +2,14 @@ import ClickOutside from 'react-click-outside'
 import { TEXT, SUBTEXT, Black } from '../colors'
 import classNames from 'classnames'
 import React, { useState } from 'react'
-const Dropdown = ({ width, onSelected, buttonName, renderItem, items }) => {
+const Dropdown = ({
+  onselect,
+  topButtonName,
+  items,
+  renderItem,
+  width,
+  selectedItem
+}) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -13,7 +20,7 @@ const Dropdown = ({ width, onSelected, buttonName, renderItem, items }) => {
           setIsOpen(true)
         }}
       >
-        <div className="button-name">{buttonName}</div>
+        <div className="top-button-name">{topButtonName(selectedItem)}</div>
       </button>
       <ClickOutside
         onClickOutside={() => {
@@ -28,15 +35,15 @@ const Dropdown = ({ width, onSelected, buttonName, renderItem, items }) => {
         >
           {items.map(item => (
             <div
-              key={item.name}
+              key={item}
               className="dropdown-item"
               onClick={e => {
                 e.preventDefault()
-                onSelected(item.value)
+                onselect(item.tokenContractAddress)
                 setIsOpen(false)
               }}
             >
-              {renderItem ? renderItem(item) : item.name}
+              {renderItem ? renderItem(item) : item.unit}
             </div>
           ))}
         </div>
@@ -66,7 +73,7 @@ const Dropdown = ({ width, onSelected, buttonName, renderItem, items }) => {
           position: relative;
           color: #ffffff;
         }
-        .button-name {
+        .top-button-name {
           width: 100%;
         }
         .dropdown-closed {

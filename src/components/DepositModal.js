@@ -11,11 +11,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(fab, faArrowLeft)
 
 import { setDepositedToken, setDepositPage, deposit } from '../store/deposit'
-import { shortenAddress, TOKEN_CURRENCY_MAP, roundBalance } from '../utils'
+import { shortenAddress, roundBalance } from '../utils'
 import Dropdown from './Dropdown'
 import { SectionTitle } from './SectionTitle'
 import { TokenSelectButton } from './TokenSelectButton'
 import { PrimaryButton } from './PrimaryButton'
+import { TOKEN_LIST } from '../tokens'
 
 import {
   SMALL,
@@ -40,6 +41,9 @@ const DepositModal = props => {
   const router = useRouter()
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
+  const depositedTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) => tokenContractAddress === props.depositedToken
+  )
 
   return (
     <div className="modal-bg">
@@ -63,32 +67,17 @@ const DepositModal = props => {
               <div className="input-contents-box">
                 <div className="token-select-box-wrapper">
                   <Dropdown
-                    onSelected={props.setDepositedToken}
-                    buttonName={
-                      <div className="button-name-inner">
-                        <div className="l2-token-img-bg">
-                          <img
-                            className="l2-token-img"
-                            src="../tokenIcons/ethereum-logo.png"
-                            alt="Ethereum Logo"
-                          ></img>
-                        </div>
-                        <div className="token-name">
-                          {/* TODO */}
-                          {/* {TOKEN_CURRENCY_MAP[props.depositedToken]}*/}
-                          ETH
-                        </div>
-                      </div>
-                    }
-                    items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-                      // TODO
-                      // name: shortenAddress(tokenAddress),
-                      name: 'ETH',
-                      value: tokenAddress
-                    }))}
-                    renderItem={item => (
-                      <TokenSelectButton item={item} padding="32px" />
+                    onselect={selectedTokenContractAddress => {
+                      props.setDepositedToken(selectedTokenContractAddress)
+                    }}
+                    topButtonName={item => (
+                      <TokenSelectButton item={item} padding="8px 16px" />
                     )}
+                    items={TOKEN_LIST}
+                    renderItem={item => (
+                      <TokenSelectButton item={item} padding="8px 16px" />
+                    )}
+                    selectedItem={depositedTokenObj}
                   />
                 </div>
                 <div className="amount-input-wrapper">
@@ -101,7 +90,7 @@ const DepositModal = props => {
                     }}
                   />
                   <div className="deposited-token-unit">
-                    {TOKEN_CURRENCY_MAP[props.depositedToken]}
+                    {depositedTokenObj.unit}
                   </div>
                 </div>
                 <div className="deposited-token-confirm">
@@ -146,7 +135,7 @@ const DepositModal = props => {
                   <div className="total-balance-box">
                     <span className="total-balance-number">{tokenAmount}</span>
                     <span className="total-balance-unit">
-                      {TOKEN_CURRENCY_MAP[props.depositedToken]}
+                      {depositedTokenObj.unit}
                     </span>
                     <div className="balance-in-usd">
                       {roundBalance(props.ETHtoUSD, tokenAmount)} USD
@@ -249,18 +238,6 @@ const DepositModal = props => {
         }
         .token-select-box-wrapper :global(.dropdown-caret) {
           font-size: ${MEDIUM};
-        }
-        .l2-token-img-bg {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background-color: #ffffff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .l2-token-img {
-          height: 22px;
         }
         .token-name {
           margin-left: 8px;
@@ -396,10 +373,10 @@ const DepositModal = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.balance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalanceList,
   depositedToken: state.depositState.depositedToken,
   depositPage: state.depositState.depositPage,
-  ETHtoUSD: state.balance.ETHtoUSD,
+  ETHtoUSD: state.tokenBalance.ETHtoUSD,
   address: state.address
 })
 

@@ -10,7 +10,7 @@ import { faEthernet } from '@fortawesome/free-solid-svg-icons'
 library.add(fab, faEthernet)
 
 import { setWithdrawnToken, setWithdrawPage, withdraw } from '../store/withdraw'
-import { shortenAddress, TOKEN_CURRENCY_MAP, roundBalance } from '../utils'
+import { shortenAddress, roundBalance } from '../utils'
 import Dropdown from './Dropdown'
 import { SectionTitle } from './SectionTitle'
 import { TokenSelectButton } from './TokenSelectButton'
@@ -34,11 +34,15 @@ import {
   PRIMARY_BUTTON_TEXT,
   SUBTEXT
 } from '../colors'
+import { TOKEN_LIST } from '../tokens'
 
 const WithdrawModal = props => {
   const router = useRouter()
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
+  const withdrawnTokenObj = TOKEN_LIST.find(
+    ({ tokenContractAddress }) => tokenContractAddress === props.withdrawnToken
+  )
 
   return (
     <div className="modal-bg">
@@ -62,32 +66,17 @@ const WithdrawModal = props => {
               <div className="input-contents-box">
                 <div className="token-select-box-wrapper">
                   <Dropdown
-                    onSelected={props.setWithdrawnToken}
-                    buttonName={
-                      <div className="button-name-inner">
-                        <div className="l2-token-img-bg">
-                          <img
-                            className="l2-token-img"
-                            src="../tokenIcons/ethereum-logo.png"
-                            alt="Ethereum Logo"
-                          ></img>
-                        </div>
-                        <div className="token-name">
-                          {/* TODO */}
-                          {/* {TOKEN_CURRENCY_MAP[withdrawnToken]} */}
-                          ETH
-                        </div>
-                      </div>
-                    }
-                    items={props.tokenBalanceList.map(({ tokenAddress }) => ({
-                      // TODO
-                      // name: shortenAddress(tokenAddress),
-                      name: 'ETH',
-                      value: tokenAddress
-                    }))}
-                    renderItem={item => (
-                      <TokenSelectButton item={item} padding="32px" />
+                    onselect={selectedTokenContractAddress => {
+                      props.setWithdrawnToken(selectedTokenContractAddress)
+                    }}
+                    topButtonName={item => (
+                      <TokenSelectButton item={item} padding="8px 16px" />
                     )}
+                    items={TOKEN_LIST}
+                    renderItem={item => (
+                      <TokenSelectButton item={item} padding="8px 16px" />
+                    )}
+                    selectedItem={withdrawnTokenObj}
                   />
                 </div>
                 <div className="amount-input-wrapper">
@@ -100,7 +89,7 @@ const WithdrawModal = props => {
                     }}
                   />
                   <div className="deposited-token-unit">
-                    {TOKEN_CURRENCY_MAP[props.withdrawnToken]}
+                    {withdrawnTokenObj.unit}
                   </div>
                 </div>
                 <div className="deposited-token-confirm">
@@ -145,7 +134,7 @@ const WithdrawModal = props => {
                   <div className="total-balance-box">
                     <span className="total-balance-number">{tokenAmount}</span>
                     <span className="total-balance-unit">
-                      {TOKEN_CURRENCY_MAP[props.withdrawnToken]}
+                      {withdrawnTokenObj.unit}
                     </span>
                     <div className="balance-in-usd">
                       {roundBalance(props.ETHtoUSD, tokenAmount)} USD
@@ -395,10 +384,10 @@ const WithdrawModal = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.balance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalanceList,
   withdrawnToken: state.withdrawState.withdrawnToken,
   withdrawPage: state.withdrawState.withdrawPage,
-  ETHtoUSD: state.balance.ETHtoUSD,
+  ETHtoUSD: state.tokenBalance.ETHtoUSD,
   address: state.address
 })
 
