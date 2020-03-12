@@ -23,8 +23,9 @@ import { TOKEN_LIST } from '../tokens'
 const TransferModal = props => {
   const router = useRouter()
   const transferredTokenObj = TOKEN_LIST.find(
-    ({ tokenContractAddress }) =>
-      tokenContractAddress === props.transferredToken
+    ({ depositContractAddress }) =>
+      depositContractAddress.toLowerCase() ===
+      props.transferredToken.toLowerCase()
   )
 
   return (

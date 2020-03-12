@@ -34,8 +34,9 @@ const Send = props => {
     ({ tokenAddress }) => tokenAddress === props.transferredToken
   )
   const transferredTokenObj = TOKEN_LIST.find(
-    ({ tokenContractAddress }) =>
-      tokenContractAddress === props.transferredToken
+    ({ depositContractAddress }) =>
+      depositContractAddress.toLowerCase() ===
+      props.transferredToken.toLowerCase()
   )
 
   return (

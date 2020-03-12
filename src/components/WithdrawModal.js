@@ -41,7 +41,8 @@ const WithdrawModal = props => {
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
   const withdrawnTokenObj = TOKEN_LIST.find(
-    ({ tokenContractAddress }) => tokenContractAddress === props.withdrawnToken
+    ({ depositContractAddress }) =>
+      depositContractAddress === props.withdrawnToken
   )
 
   return (

@@ -27,10 +27,12 @@ const OrderBook = props => {
   const router = useRouter()
 
   const exchangedTokenObj = TOKEN_LIST.find(
-    ({ tokenContractAddress }) => tokenContractAddress === props.exchangedToken
+    ({ depositContractAddress }) =>
+      depositContractAddress === props.exchangedToken
   )
   const receivedTokenObj = TOKEN_LIST.find(
-    ({ tokenContractAddress }) => tokenContractAddress === props.receivedToken
+    ({ depositContractAddress }) =>
+      depositContractAddress === props.receivedToken
   )
   return (
     <div className="orderbook-section" id="order-book">

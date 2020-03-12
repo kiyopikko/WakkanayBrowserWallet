@@ -45,12 +45,12 @@ const OrderRequestModal = props => {
   const [requestedAmountToReceive, setRequestedAmountToReceive] = useState(0)
 
   const requestedTokenToExchangeObj = TOKEN_LIST.find(
-    ({ tokenContractAddress }) =>
-      tokenContractAddress === props.requestedTokenToExchange
+    ({ depositContractAddress }) =>
+      depositContractAddress === props.requestedTokenToExchange
   )
   const requestedTokenToReceiveObj = TOKEN_LIST.find(
-    ({ tokenContractAddress }) =>
-      tokenContractAddress === props.requestedTokenToReceive
+    ({ depositContractAddress }) =>
+      depositContractAddress === props.requestedTokenToReceive
   )
   return (
     <div className="modal-bg">
