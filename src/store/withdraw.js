@@ -19,15 +19,43 @@ export const withdrawReducer = createReducer(
   }
 )
 
-export const withdraw = amount => {
+export const withdraw = (amount, depositContractAddress) => {
   return async dispatch => {
     try {
       const client = await clientWrapper.getClient()
       if (!client) return
-      await client.withdraw(amount)
+      await client.exit(amount, depositContractAddress)
       dispatch(setWithdrawPage('completion-page'))
     } catch (error) {
       console.log(error)
     }
   }
+}
+
+export const finalizeExit = () => {
+  return async dispatch => {
+    const client = await clientWrapper.getClient()
+    if (!client) return
+    const exitList = await client.getExitlist()
+    exitList.map(async exit => {
+      try {
+        console.log(exit)
+        await client.finalizeExit(exit)
+        dispatch({
+          type: `NOTIFY_FINALIZE_EXIT`,
+          payload: exit.id.intoHexString()
+        })
+      } catch (e) {
+        console.error(e)
+        return
+      }
+    })
+  }
+}
+export const sleep = msec => new Promise(resolve => setTimeout(resolve, msec))
+
+export const autoFinalizeExit = async dispatch => {
+  dispatch(finalizeExit())
+  await sleep(20000)
+  return await autoFinalizeExit(dispatch)
 }

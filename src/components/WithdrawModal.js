@@ -161,7 +161,10 @@ const WithdrawModal = props => {
                 <div
                   className="confirm-button"
                   onClick={() => {
-                    props.setWithdrawPage('completion-page')
+                    props.withdraw(
+                      tokenAmount,
+                      withdrawnTokenObj.depositContractAddress
+                    )
                   }}
                 >
                   <PrimaryButton>Confirm</PrimaryButton>
