@@ -4,6 +4,7 @@ import { EthCoder } from '@cryptoeconomicslab/eth-coder'
 import { setupContext } from '@cryptoeconomicslab/context'
 import { getBalance, getETHtoUSD } from './tokenBalanceList'
 import { getAddress } from './address'
+import { finalizeExit, autoFinalizeExit } from './withdraw'
 
 const APP_STATUS = {
   UNLOADED: 'unloaded',
@@ -150,4 +151,6 @@ export const subscribeEvents = () => dispatch => {
   client.subscribeExitFinalized(exitId => {
     console.info(`exit finalized for exit: ${exitId.toHexString()}`)
   })
+
+  autoFinalizeExit(dispatch)
 }
