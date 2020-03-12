@@ -42,7 +42,8 @@ const DepositModal = props => {
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
   const depositedTokenObj = TOKEN_LIST.find(
-    ({ tokenContractAddress }) => tokenContractAddress === props.depositedToken
+    ({ depositContractAddress }) =>
+      depositContractAddress === props.depositedToken
   )
 
   return (

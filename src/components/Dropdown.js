@@ -39,7 +39,7 @@ const Dropdown = ({
               className="dropdown-item"
               onClick={e => {
                 e.preventDefault()
-                onselect(item.tokenContractAddress)
+                onselect(item.depositContractAddress)
                 setIsOpen(false)
               }}
             >
