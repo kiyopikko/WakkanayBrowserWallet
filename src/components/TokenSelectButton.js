@@ -1,5 +1,5 @@
 export const TokenSelectButton = props => {
-  return (
+  return props.item ? (
     <div className="item-name-inner">
       <div className="token-img-bg">
         <img
@@ -35,5 +35,5 @@ export const TokenSelectButton = props => {
         }
       `}</style>
     </div>
-  )
+  ) : null
 }

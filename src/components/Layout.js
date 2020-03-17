@@ -4,9 +4,8 @@ import DepositModal from './DepositModal'
 import WithdrawModal from './WithdrawModal'
 import TransferModal from './TransferModal'
 import OrderRequestModal from './OrderRequestModal'
-import TransactionHistory from './TransactionHistory'
 import { useRouter } from 'next/router'
-import { BACKGROUND, TEXT, SUBTEXT, BORDER_DARK, Black } from '../colors'
+import { BACKGROUND, TEXT, SUBTEXT } from '../colors'
 import { NORMAL, XXSMALL } from '../fonts'
 import { connect } from 'react-redux'
 import Head from 'next/head'
@@ -22,7 +21,7 @@ const Layout = props => {
       <Head>
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,500,700&display=swap"
+          href="https://fonts.googleapis.com/css?family=Roboto:500,700,900&display=swap"
         />
       </Head>
       <div>
@@ -36,9 +35,6 @@ const Layout = props => {
             <footer>
               Copyright © 2020 Cryptoeconomics lab, Inc. All rights reserved.
             </footer>
-          </div>
-          <div className="transaction-history-wrap">
-            <TransactionHistory />
           </div>
         </div>
       </div>
@@ -82,12 +78,10 @@ const Layout = props => {
           display: flex;
           height: 100%;
           min-height: 100vh;
-          margin-top: 74px;
         }
         .main {
           display: flex;
           flex-direction: column;
-          width: 70%;
         }
         .wallet-id-section {
           height: 32px;
@@ -98,16 +92,6 @@ const Layout = props => {
           display: flex;
           align-items: center;
           padding: 10px;
-        }
-        .transaction-history-wrap {
-          position: fixed;
-          width: 30%;
-          height: 100%;
-          min-height: 100vh;
-          top: 0;
-          right: 0;
-          border-left: 1px solid ${BORDER_DARK};
-          background-color: ${Black(0.05)};
         }
         footer {
           font-weight: 300;
