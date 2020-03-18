@@ -1,60 +1,63 @@
-import { useRef } from 'react'
+import { useState } from 'react'
 import { initializeClient, initializeMetamaskWallet } from '../store/appStatus'
 import { connect } from 'react-redux'
-import { SMALLER, LARGE } from '../fonts'
+import { FZ_MEDIUM } from '../fonts'
+import Input from './Base/Input'
+import Button from './Base/Button'
+import { BORDER, White, PLACEHOLDER } from '../colors'
 
 const StartUpModal = props => {
-  const privateKeyRef = useRef('')
+  const [privateKey, setPrivateKey] = useState('')
+
+  const updatePrivateKey = e => {
+    setPrivateKey(e.target.value.trim())
+  }
 
   return (
     <div className="container">
-      <div className="title">Startup Modal</div>
-      <div>Type in your private key</div>
+      <img src="/logo-gray.svg" width="82" />
+      <p className="sub mtm mbs">
+        Create L2 wallet from your mainchain wallet to start wakkanay!
+      </p>
       <div>
-        <input
-          className="address-input"
+        <Input
+          className="mbs"
+          isfull
           placeholder={'0x8fxkho7892dfsh4h2l9bhcn3bb4th3'}
           type="text"
-          ref={privateKeyRef}
-        ></input>
-        <button
-          className="create-button"
-          onClick={() => {
-            props.initializeClient(privateKeyRef.current.value)
-          }}
-        >
+          onChange={updatePrivateKey}
+        />
+        <Button isfull onClick={() => props.initializeClient(privateKey)}>
           Create Wallet
-        </button>
-        <button
-          className="create-with-metamask-button"
-          onClick={() => {
-            props.initializeMetamaskWallet()
-          }}
-        >
-          Create Wallet with Metamask Plugin
-        </button>
+        </Button>
+        <div className="spacer">
+          <div className="spacer__txt">or</div>
+        </div>
+        <Button isfull onClick={() => props.initializeMetamaskWallet()}>
+          Create Wallet with MetaMask
+        </Button>
       </div>
       <style jsx>{`
         .container {
-          display: fixed;
-          width: 100vw;
-          height: 100vh;
-          top: 0;
-          left: 0;
-          background-color: white;
-          display: flex;
-          flex-direction: column;
-          padding: 20px;
+          text-align: center;
+          font-size: ${FZ_MEDIUM};
         }
-        .title {
-          font-size: ${LARGE};
-          font-wright: 500;
+        .private-key-input {
+          width: 100%;
         }
-        .address-input {
-          width: 300px;
-          height: 24px;
-          font-size: ${SMALLER};
-          font-weight: 300;
+        .spacer {
+          border-top: 1px solid ${BORDER};
+          width: 5rem;
+          margin: 1.125rem auto 0;
+        }
+        .spacer__txt {
+          color: ${PLACEHOLDER};
+          width: 3rem;
+          display: block;
+          background: ${White()};
+          position: relative;
+          top: -0.625rem;
+          left: 1rem;
         }
       `}</style>
     </div>
