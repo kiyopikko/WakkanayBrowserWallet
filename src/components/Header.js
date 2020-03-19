@@ -1,18 +1,27 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { AREA, TEXT, BACKGROUND } from '../colors'
-import { Z_HEADER } from '../zindex'
-import { SMALLER } from '../fonts'
+// import { useRouter } from 'next/router'
+import { MAIN, Main } from '../colors'
+import { FW_NORMAL, FZ_MEDIUM } from '../fonts'
 
 const Header = () => {
-  const router = useRouter()
+  // const router = useRouter()
 
   return (
     <div className="header">
       <h1 className="title">
         <img src="/logo.svg" width="116" />
       </h1>
-      <ul className="tabs">
+      <Link href="/history" passHref>
+        <a className="historyButton">
+          <img
+            src="/icon-history.svg"
+            width="14"
+            className="historyButton__img"
+          />
+          <span className="historyButton__txt">History</span>
+        </a>
+      </Link>
+      {/* <ul className="tabs">
         <li className={`tab ${router.pathname === '/' && 'active'}`}>
           <Link href="/" passHref>
             <a className="tab__link">
@@ -44,19 +53,12 @@ const Header = () => {
             </a>
           </Link>
         </li>
-      </ul>
+      </ul> */}
       <style jsx>{`
         .header {
-          font-weight: 300;
-          z-index: ${Z_HEADER};
-          width: 70%;
-          position: fixed;
-          top: 0;
-          left: 0;
           display: flex;
-          align-items: flex-end;
+          align-items: center;
           justify-content: space-between;
-          background: ${AREA};
           height: 74px;
           padding: 0 1rem;
         }
@@ -66,61 +68,27 @@ const Header = () => {
           flex-basis: 126px;
           height: 100%;
           padding-right: 4vw;
-        }
-        .tabs {
           flex: 1;
+        }
+        .historyButton {
           display: flex;
-          margin: 0;
-          padding: 0;
-          list-style-type: none;
-          align-items: flex-end;
-        }
-        .tab {
-          flex: 1;
-          text-align: center;
-          margin: 0;
-          border-radius: 5px 5px 0 0;
-          opacity: 0.3;
-          background-color: rgba(255, 255, 255, 0.1);
-        }
-        .tab + .tab {
-          margin-left: 0.5rem;
-        }
-        .tab.active {
-          opacity: 1;
-          background-color: ${BACKGROUND};
-        }
-        .tab:hover:not(.active) {
-          background-color: rgba(255, 255, 255, 0.15);
-        }
-        .tab__link {
-          display: block;
-          color: ${TEXT};
-          font-size: ${SMALLER};
+          align-items: center;
+          padding: 0.5rem 1.25rem;
+          border: 1px solid ${MAIN};
+          color: ${MAIN};
+          font-weight: ${FW_NORMAL};
           text-decoration: none;
-          height: 66px;
-          line-height: 66px;
+          border-radius: 2rem;
         }
-        .tab__txt {
-          display: inline-block;
-          padding-left: 1.75rem;
-          background-repeat: no-repeat;
+        .historyButton:hover {
+          background: ${Main(0.05)};
         }
-        .home {
-          background-image: url('/tabbar-home.svg');
-          background-position: 0 50%;
+        .historyButton__img {
+          width: 14px;
+          margin-right: 0.25rem;
         }
-        .payment {
-          background-image: url('/tabbar-payment.svg');
-          background-position: 0 50%;
-        }
-        .exchange {
-          background-image: url('/tabbar-exchange.svg');
-          background-position: 0 50%;
-        }
-        .nft {
-          background-image: url('/tabbar-nft.svg');
-          background-position: 0 50%;
+        .historyButton__txt {
+          font-size: ${FZ_MEDIUM};
         }
       `}</style>
     </div>
