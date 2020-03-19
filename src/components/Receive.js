@@ -6,24 +6,12 @@ import { SectionTitle } from '../components/SectionTitle'
 
 import QRCode from 'qrcode.react'
 
-// clipboard
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import ReactTooltip from 'react-tooltip'
-
 const Receive = props => {
   return (
     <div className="receive-section" id="receive">
       <SectionTitle>Receive Token</SectionTitle>
       <div className="address-box-wrapper">
         <div className="address-title">Your Wakkanay Wallet Address</div>
-        <CopyToClipboard text={props.address}>
-          <div className="address-box" data-tip="React-tooltip">
-            {props.address}
-          </div>
-        </CopyToClipboard>
-        <ReactTooltip place="bottom" type="dark" effect="solid">
-          <span>Copy to Clipboard</span>
-        </ReactTooltip>
       </div>
       <div className="qr-code-box">
         <QRCode
