@@ -1,11 +1,8 @@
 import Link from 'next/link'
-// import { useRouter } from 'next/router'
 import { MAIN, Main } from '../colors'
 import { FW_NORMAL, FZ_MEDIUM } from '../fonts'
 
 const Header = () => {
-  // const router = useRouter()
-
   return (
     <div className="header">
       <h1 className="title">
@@ -21,39 +18,6 @@ const Header = () => {
           <span className="historyButton__txt">History</span>
         </a>
       </Link>
-      {/* <ul className="tabs">
-        <li className={`tab ${router.pathname === '/' && 'active'}`}>
-          <Link href="/" passHref>
-            <a className="tab__link">
-              <span className="tab__txt home">Home</span>
-            </a>
-          </Link>
-        </li>
-        <li className={`tab ${router.pathname === '/payment' && 'active'}`}>
-          <Link href="/payment" passHref>
-            <a className="tab__link">
-              <span className="tab__txt payment">Payment</span>
-            </a>
-          </Link>
-        </li>
-        <li className={`tab ${router.pathname === '/exchange' && 'active'}`}>
-          <Link href="/exchange" passHref>
-            <a className="tab__link">
-              <span className="tab__txt exchange">Exchange</span>
-            </a>
-          </Link>
-        </li>
-        <li
-          className={`tab ${router.pathname === '/nft_collectibles' &&
-            'active'}`}
-        >
-          <Link href="/nft_collectibles" passHref>
-            <a className="tab__link">
-              <span className="tab__txt nft">Collectibles</span>
-            </a>
-          </Link>
-        </li>
-      </ul> */}
       <style jsx>{`
         .header {
           display: flex;

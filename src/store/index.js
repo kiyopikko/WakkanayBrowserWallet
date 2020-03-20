@@ -11,6 +11,7 @@ import { depositReducer } from './deposit'
 import { transferReducer } from './transfer'
 import { withdrawReducer } from './withdraw'
 import { appStatusReducer } from './appStatus'
+import { appRouterReducer } from './appRouter'
 import { exchangeReducer } from './exchange'
 
 const reducer = combineReducers({
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   transferState: transferReducer,
   withdrawState: withdrawReducer,
   appStatus: appStatusReducer,
+  appRouter: appRouterReducer,
   exchangeState: exchangeReducer
 })
 
