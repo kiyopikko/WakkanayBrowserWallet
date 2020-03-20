@@ -5,7 +5,9 @@ export default props => {
   return (
     <button
       {...props}
-      className={`button ${props.isfull ? 'isFull' : ''} ${props.className}`}
+      className={`button ${props.isfull ? 'isFull' : ''} ${
+        props.small ? 'small' : ''
+      } ${props.className}`}
     >
       {props.children}
       <style jsx>{`
@@ -24,6 +26,10 @@ export default props => {
         }
         .isFull {
           width: 100%;
+        }
+        .small {
+          font-size: 0.75rem;
+          padding: 0.25rem 0.75rem;
         }
       `}</style>
     </button>

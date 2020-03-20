@@ -4,9 +4,10 @@ import Head from 'next/head'
 import { checkClientInitialized } from '../store/appStatus'
 import StartupModal from './StartupModal'
 import Header from './Header'
-import { TEXT, BACKGROUND, SUBTEXT, ERROR } from '../colors'
+import { TEXT, BACKGROUND, SUBTEXT, ERROR, MAIN, MAIN_DARK } from '../colors'
 import Box from './Base/Box'
 import { FW_BOLD, FZ_MEDIUM } from '../fonts'
+import Wallet from './Wallet'
 
 const Initial = ({ checkClientInitialized, appStatus, children }) => {
   useEffect(() => {
@@ -40,7 +41,12 @@ const Initial = ({ checkClientInitialized, appStatus, children }) => {
             {appStatus.status !== 'loaded' ? (
               <span className="wallet__txt">No Wallet</span>
             ) : (
-              <span className="wallet__txt">Connected wallet UI here</span>
+              <Wallet
+                l2={0}
+                mainchain={746.12}
+                address="0x81D5F852994b4235904F9AfA038f0647Ad269215"
+                onDeposit={() => console.log('open deposit modal')}
+              />
             )}
           </div>
         </Box>
@@ -70,6 +76,13 @@ const Initial = ({ checkClientInitialized, appStatus, children }) => {
         input {
           border: none;
         }
+        a {
+          color: ${MAIN};
+        }
+        a:hover {
+          color: ${MAIN_DARK};
+          text-decoration: none;
+        }
         button:focus {outline:0;}
         input:focus {outline:0;}
         body {
@@ -98,7 +111,7 @@ const Initial = ({ checkClientInitialized, appStatus, children }) => {
       `}</style>
       <style jsx>{`
         .container {
-          max-width: 32.5rem;
+          max-width: 37.5rem;
           margin: 0 auto;
         }
         .headline {

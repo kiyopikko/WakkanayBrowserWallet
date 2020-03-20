@@ -1,7 +1,7 @@
 export const shortenAddress = address => {
   if (!address) return ''
-  const former = address.slice(0, 7)
-  const latter = address.slice(address.length - 5, address.length)
+  const former = address.slice(0, 6)
+  const latter = address.slice(address.length - 4, address.length)
   return `${former}...${latter}`
 }
 

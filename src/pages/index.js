@@ -7,7 +7,7 @@ import Layout from '../components/Layout'
 import AddressListItem from '../components/AddressListItem'
 import { SectionTitle } from '../components/SectionTitle'
 import { PrimaryButton } from '../components/PrimaryButton'
-import { shortenAddress, roundBalance } from '../utils'
+import { roundBalance } from '../utils'
 import {
   BOLD,
   EXTRABOLD,
@@ -43,10 +43,6 @@ import {
 import { getAddress } from '../store/address'
 import { setTransferredToken } from '../store/transfer'
 
-// clipboard
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import ReactTooltip from 'react-tooltip'
-
 //react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -56,7 +52,6 @@ import {
   faTrash,
   faBookOpen
 } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faClipboard, faUserPlus, faPen, faTrash, faBookOpen)
 
 const Home = props => {
@@ -88,19 +83,6 @@ const Home = props => {
           <div className="user-address-info-box">
             <div className="user-info-bar">
               <span className="account-name">yuriko.eth</span>
-              <CopyToClipboard text={props.address}>
-                <div className="account-address-set" data-tip="React-tooltip">
-                  <div className="account-address">
-                    {shortenAddress(props.address)}
-                  </div>
-                  <button className="copy-button">
-                    <FontAwesomeIcon icon="clipboard" />
-                  </button>
-                </div>
-              </CopyToClipboard>
-              <ReactTooltip place="bottom" type="dark" effect="solid">
-                <span>Copy to Clipboard</span>
-              </ReactTooltip>
             </div>
           </div>
           <div className="total-balance-title">L1 Total </div>
