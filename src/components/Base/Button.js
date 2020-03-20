@@ -1,13 +1,17 @@
+import classnames from 'classnames'
 import { MAIN, White, MAIN_DARK } from '../../colors'
 import { FZ_MEDIUM, FW_BLACK } from '../../fonts'
 
 export default props => {
+  const { full, small, className } = props
   return (
     <button
       {...props}
-      className={`button ${props.isfull ? 'isFull' : ''} ${
-        props.small ? 'small' : ''
-      } ${props.className}`}
+      className={`${className || ''} ${classnames({
+        button: true,
+        full,
+        small
+      })}`}
     >
       {props.children}
       <style jsx>{`
@@ -24,7 +28,7 @@ export default props => {
         .button:hover {
           background: ${MAIN_DARK};
         }
-        .isFull {
+        .full {
           width: 100%;
         }
         .small {

@@ -22,18 +22,18 @@ const StartUpModal = props => {
       <div>
         <Input
           className="mbs"
-          isfull
+          full
           placeholder={'0x8fxkho7892dfsh4h2l9bhcn3bb4th3'}
           type="text"
           onChange={updatePrivateKey}
         />
-        <Button isfull onClick={() => props.initializeClient(privateKey)}>
+        <Button full onClick={() => props.initializeClient(privateKey)}>
           Create Wallet
         </Button>
         <div className="spacer">
           <div className="spacer__txt">or</div>
         </div>
-        <Button isfull onClick={() => props.initializeMetamaskWallet()}>
+        <Button full onClick={() => props.initializeMetamaskWallet()}>
           Create Wallet with MetaMask
         </Button>
       </div>
