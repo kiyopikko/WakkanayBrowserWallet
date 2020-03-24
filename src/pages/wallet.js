@@ -7,10 +7,6 @@ import Link from 'next/link'
 function Wallet({ appRouter }) {
   const router = useRouter()
 
-  const back = () => {
-    router.back()
-  }
-
   return (
     <Layout>
       {appRouter.routeHistory.length < 2 ? (
@@ -18,7 +14,7 @@ function Wallet({ appRouter }) {
           <a className="back">← Back</a>
         </Link>
       ) : (
-        <a className="back" href="javascript:void(0)" onClick={back}>
+        <a className="back" href="javascript:void(0)" onClick={router.back}>
           ← Back
         </a>
       )}

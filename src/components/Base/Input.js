@@ -8,7 +8,7 @@ export default props => {
     <React.Fragment>
       <input
         {...props}
-        className={`${className || ''} ${classnames({
+        className={`${classnames(className, {
           input: true,
           full
         })}`}

@@ -7,17 +7,13 @@ import { connect } from 'react-redux'
 const Header = ({ appRouter }) => {
   const router = useRouter()
 
-  const back = () => {
-    router.back()
-  }
-
   const LinkWrap = ({ children }) =>
     appRouter.routeHistory.length < 2 ? (
       <Link href="/payment" passHref>
         {children}
       </Link>
     ) : (
-      <span onClick={back}>{children}</span>
+      <span onClick={router.back}>{children}</span>
     )
 
   return (

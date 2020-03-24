@@ -7,7 +7,7 @@ export default props => {
   return (
     <button
       {...props}
-      className={`${className || ''} ${classnames({
+      className={`${classnames(className, {
         button: true,
         full,
         small
