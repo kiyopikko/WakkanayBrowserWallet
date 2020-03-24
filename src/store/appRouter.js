@@ -1,6 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
-export const addRouteHistory = createAction('ADD_ROUTE_HISTORY')
+export const pushRouteHistory = createAction('ADD_ROUTE_HISTORY')
 export const popRouteHistory = createAction('POP_ROUTE_HISTORY')
 
 export const appRouterReducer = createReducer(
@@ -8,7 +8,7 @@ export const appRouterReducer = createReducer(
     routeHistory: []
   },
   {
-    [addRouteHistory]: (state, action) => {
+    [pushRouteHistory]: (state, action) => {
       if (
         state.routeHistory.length > 0 &&
         state.routeHistory[state.routeHistory.length - 1] === action.payload

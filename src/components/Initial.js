@@ -9,11 +9,11 @@ import Box from './Base/Box'
 import { FW_BOLD, FZ_MEDIUM } from '../fonts'
 import Wallet from './Wallet'
 import Router, { useRouter } from 'next/router'
-import { addRouteHistory, popRouteHistory } from '../store/appRouter'
+import { pushRouteHistory, popRouteHistory } from '../store/appRouter'
 
 const Initial = ({
   checkClientInitialized,
-  addRouteHistory,
+  pushRouteHistory,
   popRouteHistory,
   appStatus,
   children
@@ -24,9 +24,9 @@ const Initial = ({
 
   useEffect(() => {
     checkClientInitialized()
-    addRouteHistory(router.pathname)
+    pushRouteHistory(router.pathname)
     Router.events.on('routeChangeComplete', url => {
-      addRouteHistory(url)
+      pushRouteHistory(url)
     })
     Router.beforePopState(() => {
       popRouteHistory()
@@ -170,7 +170,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   checkClientInitialized,
-  addRouteHistory,
+  pushRouteHistory,
   popRouteHistory
 }
 
