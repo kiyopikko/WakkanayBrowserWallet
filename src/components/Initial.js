@@ -8,10 +8,30 @@ import { TEXT, BACKGROUND, SUBTEXT, ERROR, MAIN, MAIN_DARK } from '../colors'
 import Box from './Base/Box'
 import { FW_BOLD, FZ_MEDIUM } from '../fonts'
 import Wallet from './Wallet'
+import Router, { useRouter } from 'next/router'
+import { pushRouteHistory, popRouteHistory } from '../store/appRouter'
 
-const Initial = ({ checkClientInitialized, appStatus, children }) => {
+const Initial = ({
+  checkClientInitialized,
+  pushRouteHistory,
+  popRouteHistory,
+  appStatus,
+  children
+}) => {
+  const router = useRouter()
+  const isWalletHidden =
+    router.pathname === '/wallet' || router.pathname === '/history'
+
   useEffect(() => {
     checkClientInitialized()
+    pushRouteHistory(router.pathname)
+    Router.events.on('routeChangeComplete', url => {
+      pushRouteHistory(url)
+    })
+    Router.beforePopState(() => {
+      popRouteHistory()
+      return true
+    })
   }, [])
 
   const content =
@@ -35,21 +55,27 @@ const Initial = ({ checkClientInitialized, appStatus, children }) => {
       </Head>
       <Header />
       <div className="container">
-        <h2 className="headline">Your Wallet</h2>
-        <Box>
-          <div className="wallet">
-            {appStatus.status !== 'loaded' ? (
-              <span className="wallet__txt">No Wallet</span>
-            ) : (
-              <Wallet
-                l2={0}
-                mainchain={746.12}
-                address="0x81D5F852994b4235904F9AfA038f0647Ad269215"
-                onDeposit={() => console.log('open deposit modal')}
-              />
-            )}
-          </div>
-        </Box>
+        <h2 className="headline">
+          {router.pathname !== '/history'
+            ? 'Your Wallet'
+            : 'Transaction History'}
+        </h2>
+        {!isWalletHidden && (
+          <Box>
+            <div className="wallet">
+              {appStatus.status !== 'loaded' ? (
+                <span className="wallet__txt">No Wallet</span>
+              ) : (
+                <Wallet
+                  l2={0}
+                  mainchain={746.12}
+                  address="0x81D5F852994b4235904F9AfA038f0647Ad269215"
+                  onDeposit={() => console.log('open deposit modal')}
+                />
+              )}
+            </div>
+          </Box>
+        )}
         <Box>
           {content}
           {appStatus.status === 'error' && (
@@ -138,11 +164,14 @@ const Initial = ({ checkClientInitialized, appStatus, children }) => {
 }
 
 const mapStateToProps = state => ({
-  appStatus: state.appStatus
+  appStatus: state.appStatus,
+  appRouter: state.appRouter
 })
 
 const mapDispatchToProps = {
-  checkClientInitialized
+  checkClientInitialized,
+  pushRouteHistory,
+  popRouteHistory
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Initial)

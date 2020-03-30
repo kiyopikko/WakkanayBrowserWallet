@@ -6,6 +6,7 @@ export default ({ children }) => {
       {children}
       <style jsx>{`
         .box {
+          position: relative;
           padding: 1.75rem;
           background: ${White()};
           box-shadow: 0px 2px 54px rgba(123, 116, 168, 0.1);

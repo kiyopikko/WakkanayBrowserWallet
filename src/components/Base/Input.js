@@ -1,12 +1,17 @@
+import classnames from 'classnames'
 import { BACKGROUND, Black } from '../../colors'
 import { FZ_MEDIUM, FW_BOLD } from '../../fonts'
 
 export default props => {
+  const { full, className } = props
   return (
     <React.Fragment>
       <input
         {...props}
-        className={`input ${props.isfull ? 'isFull' : ''} ${props.className}`}
+        className={`${classnames(className, {
+          input: true,
+          full
+        })}`}
       />
       <style jsx>{`
         .input {
@@ -17,7 +22,7 @@ export default props => {
           font-size: ${FZ_MEDIUM};
           font-weight: ${FW_BOLD};
         }
-        .isFull {
+        .full {
           width: 100%;
         }
         .input::placeholder {

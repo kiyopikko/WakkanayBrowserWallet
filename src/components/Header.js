@@ -1,59 +1,53 @@
 import Link from 'next/link'
-// import { useRouter } from 'next/router'
-import { MAIN, Main } from '../colors'
+import { MAIN, Main, MAIN_DARK, White } from '../colors'
 import { FW_NORMAL, FZ_MEDIUM } from '../fonts'
+import { useRouter } from 'next/router'
+import { connect } from 'react-redux'
 
-const Header = () => {
-  // const router = useRouter()
+const Header = ({ appRouter }) => {
+  const router = useRouter()
+
+  const LinkWrap = ({ children }) =>
+    appRouter.routeHistory.length < 2 ? (
+      <Link href="/payment" passHref>
+        {children}
+      </Link>
+    ) : (
+      <span onClick={router.back}>{children}</span>
+    )
 
   return (
     <div className="header">
-      <h1 className="title">
-        <img src="/logo.svg" width="116" />
-      </h1>
-      <Link href="/history" passHref>
-        <a className="historyButton">
-          <img
-            src="/icon-history.svg"
-            width="14"
-            className="historyButton__img"
-          />
-          <span className="historyButton__txt">History</span>
-        </a>
-      </Link>
-      {/* <ul className="tabs">
-        <li className={`tab ${router.pathname === '/' && 'active'}`}>
-          <Link href="/" passHref>
-            <a className="tab__link">
-              <span className="tab__txt home">Home</span>
-            </a>
-          </Link>
-        </li>
-        <li className={`tab ${router.pathname === '/payment' && 'active'}`}>
-          <Link href="/payment" passHref>
-            <a className="tab__link">
-              <span className="tab__txt payment">Payment</span>
-            </a>
-          </Link>
-        </li>
-        <li className={`tab ${router.pathname === '/exchange' && 'active'}`}>
-          <Link href="/exchange" passHref>
-            <a className="tab__link">
-              <span className="tab__txt exchange">Exchange</span>
-            </a>
-          </Link>
-        </li>
-        <li
-          className={`tab ${router.pathname === '/nft_collectibles' &&
-            'active'}`}
-        >
-          <Link href="/nft_collectibles" passHref>
-            <a className="tab__link">
-              <span className="tab__txt nft">Collectibles</span>
-            </a>
-          </Link>
-        </li>
-      </ul> */}
+      {router.pathname !== '/history' ? (
+        <h1 className="title">
+          <img src="/logo.svg" width="116" />
+        </h1>
+      ) : (
+        <div />
+      )}
+      {router.pathname !== '/history' ? (
+        <Link href="/history" passHref>
+          <a className="historyButton">
+            <img
+              src="/icon-history.svg"
+              width="14"
+              className="historyButton__img"
+            />
+            <span className="historyButton__txt">History</span>
+          </a>
+        </Link>
+      ) : (
+        <LinkWrap>
+          <a className="historyButton fill">
+            <img
+              src="/icon-close.svg"
+              width="10"
+              className="historyButton__img"
+            />
+            <span className="historyButton__txt">Close</span>
+          </a>
+        </LinkWrap>
+      )}
       <style jsx>{`
         .header {
           display: flex;
@@ -79,13 +73,22 @@ const Header = () => {
           font-weight: ${FW_NORMAL};
           text-decoration: none;
           border-radius: 2rem;
+          cursor: pointer;
         }
         .historyButton:hover {
           background: ${Main(0.05)};
         }
+        .fill {
+          background: ${MAIN};
+          border: 1px solid ${MAIN};
+          color: ${White()};
+        }
+        .fill:hover {
+          background: ${MAIN_DARK};
+          border: 1px solid ${MAIN_DARK};
+        }
         .historyButton__img {
-          width: 14px;
-          margin-right: 0.25rem;
+          margin-right: 0.375rem;
         }
         .historyButton__txt {
           font-size: ${FZ_MEDIUM};
@@ -95,4 +98,8 @@ const Header = () => {
   )
 }
 
-export default Header
+const mapStateToProps = state => ({
+  appRouter: state.appRouter
+})
+
+export default connect(mapStateToProps, undefined)(Header)
