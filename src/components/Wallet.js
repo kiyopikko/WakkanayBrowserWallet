@@ -21,7 +21,7 @@ export default function Wallet({ l2, mainchain, address, onDeposit }) {
         {l2 ? (
           <span className="wallet__ammount">${l2}</span>
         ) : (
-          <Button small onClick={onDeposit}>
+          <Button size="small" onClick={onDeposit}>
             Deposit from mainchain
           </Button>
         )}

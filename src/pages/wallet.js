@@ -4,9 +4,14 @@ import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import Link from 'next/link'
 import { BACKGROUND, SUBTEXT } from '../colors'
+import { WalletTokenItem } from '../components/WalletTokenItem'
 
 function Wallet({ appRouter }) {
   const router = useRouter()
+  const tokenMock = [
+    { unit: 'ETH', l2: 23.2, mainchain: 123.3 },
+    { unit: 'DAI', l2: 0, mainchain: 524.2 }
+  ]
 
   return (
     <Layout>
@@ -33,6 +38,11 @@ function Wallet({ appRouter }) {
               <div className="total__amount">435.23 USD</div>
             </div>
           </div>
+        </div>
+        <div className="mtl">
+          {tokenMock.map(({ unit, l2, mainchain }) => (
+            <WalletTokenItem unit={unit} l2={l2} mainchain={mainchain} />
+          ))}
         </div>
       </div>
       <style jsx>{`
