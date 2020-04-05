@@ -1,16 +1,17 @@
 import classnames from 'classnames'
-import { MAIN, White, MAIN_DARK } from '../../colors'
-import { FZ_MEDIUM, FW_BLACK } from '../../fonts'
+import { MAIN, White, MAIN_DARK, Main } from '../../colors'
+import { FZ_MEDIUM, FW_BLACK, FZ_SMALL } from '../../fonts'
 
 export default props => {
-  const { full, small, className } = props
+  const { full, size, className, border } = props
   return (
     <button
       {...props}
       className={`${classnames(className, {
         button: true,
         full,
-        small
+        [size]: true,
+        border
       })}`}
     >
       {props.children}
@@ -31,9 +32,21 @@ export default props => {
         .full {
           width: 100%;
         }
+        .medium {
+          font-size: ${FZ_SMALL};
+          padding: 0.5rem 1.25rem;
+        }
         .small {
-          font-size: 0.75rem;
+          font-size: ${FZ_SMALL};
           padding: 0.25rem 0.75rem;
+        }
+        .border {
+          background: transparent;
+          border: 1px solid ${MAIN};
+          color: ${MAIN};
+        }
+        .border:hover {
+          background: ${Main(0.05)};
         }
       `}</style>
     </button>

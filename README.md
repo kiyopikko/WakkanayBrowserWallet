@@ -6,27 +6,18 @@ Official Testnet release is planned in the first week of March 2020, and it will
 ## Running Wakkanay Browser Wallet locally
 
 ```
-1. run ganache-cli
-  $ npm i -g ganache-cli (or use npx -g ganache-cli)
-  $ ganache-cli --mnemonic 'candy maple cake sugar pudding cream honey rich smooth crumble sweet treat'
-
-2. deploy ovm-contract
-  $ git clone git@github.com:cryptoeconomicslab/ovm-contracts.git
-  $ npm i
-  $ npm run deploy:dev
-
-3. run aggregator
+1. run ganache-cli & deploy ovm-contract & run aggregator
   $ git clone git@github.com:cryptoeconomicslab/wakkanay-plasma-aggregator.git
   $ cp .sample.env .env
-  $ npm i
-  $ npm run build
-  $ npm start
+  $ docker-compose up
 
-4. run WakkanayBrowserWallet
+2. run WakkanayBrowserWallet
   $ git clone git@github.com:cryptoeconomicslab/WakkanayBrowserWallet.git
   $ cp .sample.env .env
   $ npm i
   $ npm run dev
+
+3. paste TEST_PRIVATE_KEY into input field from .env
 ```
 
 ## Community
