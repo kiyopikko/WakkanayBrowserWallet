@@ -55,7 +55,7 @@ export const finalizeExit = () => {
 export const sleep = msec => new Promise(resolve => setTimeout(resolve, msec))
 
 export const autoFinalizeExit = async dispatch => {
-  dispatch(finalizeExit())
   await sleep(20000)
+  dispatch(finalizeExit())
   return await autoFinalizeExit(dispatch)
 }
