@@ -115,7 +115,7 @@ export const initializeMetamaskWallet = () => {
   }
 }
 
-export const subscribeEvents = () => dispatch => {
+export const subscribeEvents = () => async dispatch => {
   console.log('🔥Subscribe light client events')
   const client = clientWrapper.getClient()
   if (!client) {
