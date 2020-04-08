@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
+import { utils } from 'ethers'
 
 // internal import
 import Layout from '../components/Layout'
@@ -52,6 +53,7 @@ import {
   faTrash,
   faBookOpen
 } from '@fortawesome/free-solid-svg-icons'
+import JSBI from 'jsbi'
 library.add(faClipboard, faUserPlus, faPen, faTrash, faBookOpen)
 
 const Home = props => {
@@ -103,7 +105,11 @@ const Home = props => {
       <div className="l2-token-box-wrapper" id="l2-tokens">
         <SectionTitle>L2 Tokens</SectionTitle>
         <div className="l2-token-box-list">
-          {props.tokenBalanceList.map(({ tokenAddress, amount }) => {
+          {props.tokenBalanceList.map(({ tokenAddress, amount, decimals }) => {
+            const formatAmount = utils.formatUnits(
+              utils.bigNumberify(amount.toString()),
+              decimals
+            )
             return (
               <div className="l2-token-box">
                 <div className="balance-board">
@@ -115,10 +121,10 @@ const Home = props => {
                     ></img>
                   </div>
                   <div className="token-balance-unit">ETH</div>
-                  <div className="token-balance-number">{amount}</div>
+                  <div className="token-balance-number">{formatAmount}</div>
                   <hr className="line"></hr>
                   <div className="balance-in-usd">
-                    {roundBalance(props.ETHtoUSD, amount)} USD
+                    {roundBalance(props.ETHtoUSD, Number(formatAmount))} USD
                   </div>
                 </div>
                 <div className="token-buttons-container">

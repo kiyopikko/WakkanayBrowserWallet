@@ -124,9 +124,7 @@ export const subscribeEvents = () => async dispatch => {
 
   client.subscribeCheckpointFinalized((checkpointId, checkpoint) => {
     console.info(
-      `new %ccheckpoint %cdetected: %c{ id: ${checkpointId.toHexString()}, range: (${
-        checkpoint[0].start.data
-      }, ${checkpoint[0].end.data}) }`,
+      `new %ccheckpoint %cdetected: %c{ id: ${checkpointId.toHexString()}, checkpoint: (${checkpoint}) }`,
       'color: pink; font-weight: bold;',
       '',
       'font-weight: bold;'
