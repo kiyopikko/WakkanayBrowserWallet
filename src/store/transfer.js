@@ -39,7 +39,6 @@ export const transferReducer = createReducer(
  * @param {*} recipientAddress the address of token recipient
  */
 export const transfer = (amount, depositContractAddress, recipientAddress) => {
-  console.log(amount)
   const amountWei = JSBI.BigInt(utils.parseEther(amount).toString())
   return async dispatch => {
     try {
