@@ -105,61 +105,63 @@ const Home = props => {
       <div className="l2-token-box-wrapper" id="l2-tokens">
         <SectionTitle>L2 Tokens</SectionTitle>
         <div className="l2-token-box-list">
-          {props.tokenBalanceList.map(({ tokenAddress, amount, decimals }) => {
-            const formatAmount = utils.formatUnits(
-              utils.bigNumberify(amount.toString()),
-              decimals
-            )
-            return (
-              <div className="l2-token-box">
-                <div className="balance-board">
-                  <div className="l2-token-img-bg">
-                    <img
-                      className="l2-token-img"
-                      src="../tokenIcons/ethereum-logo.png"
-                      alt="Ethereum Logo"
-                    ></img>
+          {props.tokenBalanceList.map(
+            ({ depositContractAddress, amount, decimals }) => {
+              const formatAmount = utils.formatUnits(
+                utils.bigNumberify(amount.toString()),
+                decimals
+              )
+              return (
+                <div className="l2-token-box">
+                  <div className="balance-board">
+                    <div className="l2-token-img-bg">
+                      <img
+                        className="l2-token-img"
+                        src="../tokenIcons/ethereum-logo.png"
+                        alt="Ethereum Logo"
+                      ></img>
+                    </div>
+                    <div className="token-balance-unit">ETH</div>
+                    <div className="token-balance-number">{formatAmount}</div>
+                    <hr className="line"></hr>
+                    <div className="balance-in-usd">
+                      {roundBalance(props.ETHtoUSD, Number(formatAmount))} USD
+                    </div>
                   </div>
-                  <div className="token-balance-unit">ETH</div>
-                  <div className="token-balance-number">{formatAmount}</div>
-                  <hr className="line"></hr>
-                  <div className="balance-in-usd">
-                    {roundBalance(props.ETHtoUSD, Number(formatAmount))} USD
+                  <div className="token-buttons-container">
+                    <button
+                      className="token-button"
+                      onClick={e => {
+                        e.preventDefault()
+                        const href = `${router.route}?withdraw`
+                        router.push(href, href, { shallow: true })
+                      }}
+                    >
+                      Withdraw
+                    </button>
+                    <div className="slash" />
+                    <button
+                      className={classNames('token-button', 'send-button')}
+                      onClick={() => {
+                        props.setTransferredToken(depositContractAddress)
+                        router.push('/payment')
+                      }}
+                    >
+                      Send
+                    </button>
+                    <button
+                      className={classNames('token-button', 'exchange-button')}
+                      onClick={() => {
+                        router.push('/exchange')
+                      }}
+                    >
+                      Exchange
+                    </button>
                   </div>
                 </div>
-                <div className="token-buttons-container">
-                  <button
-                    className="token-button"
-                    onClick={e => {
-                      e.preventDefault()
-                      const href = `${router.route}?withdraw`
-                      router.push(href, href, { shallow: true })
-                    }}
-                  >
-                    Withdraw
-                  </button>
-                  <div className="slash" />
-                  <button
-                    className={classNames('token-button', 'send-button')}
-                    onClick={() => {
-                      props.setTransferredToken(tokenAddress)
-                      router.push('/payment')
-                    }}
-                  >
-                    Send
-                  </button>
-                  <button
-                    className={classNames('token-button', 'exchange-button')}
-                    onClick={() => {
-                      router.push('/exchange')
-                    }}
-                  >
-                    Exchange
-                  </button>
-                </div>
-              </div>
-            )
-          })}
+              )
+            }
+          )}
         </div>
         <hr className="l2-token-total-balance-line"></hr>
         <div className="l2-token-total-balance-wrapper">

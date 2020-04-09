@@ -2,13 +2,14 @@ import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
 import { utils } from 'ethers'
 import JSBI from 'jsbi'
+import { config } from '../config'
 
 export const setDepositedToken = createAction('SET_DEPOSITED_TOKEN')
 export const setDepositPage = createAction('SET_DEPOSIT_PAGE')
 
 export const depositReducer = createReducer(
   {
-    depositedToken: process.env.DEPOSIT_CONTRACT_ADDRESS,
+    depositedToken: config.payoutContracts.DepositContract,
     depositPage: 'input-page'
   },
   {

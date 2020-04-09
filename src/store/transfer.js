@@ -1,5 +1,8 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
+import { utils } from 'ethers'
+import JSBI from 'jsbi'
+import { config } from '../config'
 
 export const setTransferredToken = createAction('SET_TRANSFERRED_TOKEN')
 export const setTransferredAmount = createAction('SET_TRANSFERRED_AMOUNT')
@@ -8,7 +11,7 @@ export const setTransferPage = createAction('SET_TRANSFER_PAGE')
 
 export const transferReducer = createReducer(
   {
-    transferredToken: process.env.DEPOSIT_CONTRACT_ADDRESS,
+    transferredToken: config.payoutContracts.DepositContract,
     transferredAmount: 0,
     recepientAddress: '0x00000000000',
     transferPage: 'confirmation-page'
@@ -36,6 +39,7 @@ export const transferReducer = createReducer(
  * @param {*} recipientAddress the address of token recipient
  */
 export const transfer = (amount, depositContractAddress, recipientAddress) => {
+  console.log(amount)
   const amountWei = JSBI.BigInt(utils.parseEther(amount).toString())
   return async dispatch => {
     try {

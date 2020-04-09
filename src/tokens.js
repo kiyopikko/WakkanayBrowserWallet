@@ -1,9 +1,11 @@
+import { config } from './config'
+
 export const TOKEN_LIST = [
   {
     name: 'Ethereum',
     unit: 'ETH',
-    tokenContractAddress: process.env.PETH_ADDRESS,
-    depositContractAddress: process.env.DEPOSIT_CONTRACT_ADDRESS,
+    tokenContractAddress: config.PlasmaETH,
+    depositContractAddress: config.payoutContracts.DepositContract,
     imgSrc: '../tokenIcons/ethereum-logo.png',
     imgAspect: 0.614
   },

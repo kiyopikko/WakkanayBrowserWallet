@@ -2,13 +2,14 @@ import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
 import { utils } from 'ethers'
 import JSBI from 'jsbi'
+import { config } from '../config'
 
 export const setWithdrawnToken = createAction('SET_WITHDRAWN_TOKEN')
 export const setWithdrawPage = createAction('SET_WITHDRAW_PAGE')
 
 export const withdrawReducer = createReducer(
   {
-    withdrawnToken: process.env.DEPOSIT_CONTRACT_ADDRESS,
+    withdrawnToken: config.payoutContracts.DepositContract,
     withdrawPage: 'input-page'
   },
   {
