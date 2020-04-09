@@ -46,7 +46,7 @@ export const finalizeExit = () => {
   return async dispatch => {
     const client = await clientWrapper.getClient()
     if (!client) return
-    const exitList = await client.getExitlist()
+    const exitList = await client.getExitList()
     exitList.map(async exit => {
       try {
         console.log(exit)
