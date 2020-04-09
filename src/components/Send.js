@@ -75,7 +75,7 @@ const Send = props => {
             type="number"
             ref={amountInput}
             onChange={e => {
-              setTokenAmount(Number(e.target.value))
+              setTokenAmount(e.target.value)
             }}
           />
           <span className="sent-amount-in-usd">

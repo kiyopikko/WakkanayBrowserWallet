@@ -1,12 +1,15 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
+import { utils } from 'ethers'
+import JSBI from 'jsbi'
+import { config } from '../config'
 
 export const setWithdrawnToken = createAction('SET_WITHDRAWN_TOKEN')
 export const setWithdrawPage = createAction('SET_WITHDRAW_PAGE')
 
 export const withdrawReducer = createReducer(
   {
-    withdrawnToken: process.env.DEPOSIT_CONTRACT_ADDRESS,
+    withdrawnToken: config.payoutContracts.DepositContract,
     withdrawPage: 'input-page'
   },
   {
@@ -19,12 +22,19 @@ export const withdrawReducer = createReducer(
   }
 )
 
+/**
+ * withdraw token
+ * @param {*} amount amount of wei to exit
+ * @param {*} depositContractAddress deposit contract address of token
+ */
 export const withdraw = (amount, depositContractAddress) => {
+  const amountWei = JSBI.BigInt(utils.parseEther(amount).toString())
+
   return async dispatch => {
     try {
       const client = await clientWrapper.getClient()
       if (!client) return
-      await client.exit(amount, depositContractAddress)
+      await client.exit(amountWei, depositContractAddress)
       dispatch(setWithdrawPage('completion-page'))
     } catch (error) {
       console.log(error)
@@ -36,7 +46,7 @@ export const finalizeExit = () => {
   return async dispatch => {
     const client = await clientWrapper.getClient()
     if (!client) return
-    const exitList = await client.getExitlist()
+    const exitList = await client.getExitList()
     exitList.map(async exit => {
       try {
         console.log(exit)

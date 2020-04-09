@@ -87,7 +87,7 @@ const DepositModal = props => {
                     type="number"
                     ref={amountInput}
                     onChange={e => {
-                      setTokenAmount(Number(e.target.value))
+                      setTokenAmount(e.target.value)
                     }}
                   />
                   <div className="deposited-token-unit">

@@ -1,4 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
+import { config } from '../config'
 
 export const setExchangedToken = createAction('SET_EXCHANGED_TOKEN')
 export const setMaxExchangedAmount = createAction('SET_MAX_EXCHANGED_AMOUNT')
@@ -19,11 +20,11 @@ export const setRequestedAmountToReceive = createAction(
 
 export const exchangeReducer = createReducer(
   {
-    exchangedToken: process.env.DEPOSIT_CONTRACT_ADDRESS,
+    exchangedToken: config.payoutContracts.DepositContract,
     maxExchangedAmount: 0,
     receivedToken: '0x6b175474e89094c44da98b954eedeac495271d0f',
     orderRequestPage: 'input-page',
-    requestedTokenToExchange: process.env.DEPOSIT_CONTRACT_ADDRESS,
+    requestedTokenToExchange: config.payoutContracts.DepositContract,
     requestedAmountToExchange: 0,
     requestedTokenToReceive: '0x6b175474e89094c44da98b954eedeac495271d0f',
     requestedAmountToReceive: 0

@@ -1,14 +1,8 @@
 import * as ethers from 'ethers'
-import LightClient, {
-  StateManager,
-  SyncManager,
-  CheckpointManager,
-  DepositedRangeManager
-} from '@cryptoeconomicslab/plasma-light-client'
+import LightClient from '@cryptoeconomicslab/plasma-light-client'
 import MetamaskWallet from './metamaskWallet'
 import { EthWallet } from '@cryptoeconomicslab/eth-wallet'
 import { Address, Bytes } from '@cryptoeconomicslab/primitives'
-import { RangeDb } from '@cryptoeconomicslab/db'
 import { IndexedDbKeyValueStore } from '@cryptoeconomicslab/indexeddb-kvs'
 import {
   DepositContract,
@@ -51,14 +45,17 @@ async function instantiate(privateKey) {
       new ethers.providers.Web3Provider(window.ethereum).getSigner()
   }
 
+  const mainChainEnv = process.env.MAIN_CHAIN_ENV || 'local'
+  const config = await import(`../config.${mainChainEnv}`)
+
   const adjudicationContract = new AdjudicationContract(
-    Address.from(process.env.UNIVERSAL_ADJUDICATION_CONTRACT_ADDRESS),
+    Address.from(config.adjudicationContract),
     eventDb,
     signer
   )
 
   const ownershipPayoutContract = new OwnershipPayoutContract(
-    Address.from(process.env.OWNERSHIP_PAYOUT_CONTRACT_ADDRESS),
+    Address.from(config.payoutContracts.OwnershipPayout),
     signer
   )
 
@@ -70,51 +67,28 @@ async function instantiate(privateKey) {
     return new ERC20Contract(address, signer)
   }
 
-  const stateDb = await kvs.bucket(Bytes.fromString('state'))
-  const stateManager = new StateManager(stateDb)
-
-  const syncDb = await kvs.bucket(Bytes.fromString('sync'))
-  const syncManager = new SyncManager(syncDb)
-
-  const checkpointDb = await kvs.bucket(Bytes.fromString('checkpoint'))
-  const checkpointManager = new CheckpointManager(checkpointDb)
-
-  const depositedRangeDb = await kvs.bucket(Bytes.fromString('depositedRange'))
-  const depositedRangeManager = new DepositedRangeManager(
-    new RangeDb(depositedRangeDb)
-  )
-
   const commitmentContract = new CommitmentContract(
-    Address.from(process.env.COMMITMENT_CONTRACT_ADDRESS),
+    Address.from(config.commitmentContract),
     eventDb,
     signer
   )
 
-  const mainChainEnv = process.env.MAIN_CHAIN_ENV || 'local'
-  const config = await import(`../config.${mainChainEnv}`)
-
-  const client = new LightClient(
+  const client = await LightClient.initilize({
     wallet,
-    kvs,
+    witnessDb: kvs,
     adjudicationContract,
     depositContractFactory,
     tokenContractFactory,
     commitmentContract,
     ownershipPayoutContract,
-    stateManager,
-    syncManager,
-    checkpointManager,
-    depositedRangeManager,
-    config,
-    {
-      aggregatorEndpoint: process.env.AGGREGATOR_HOST
-    }
-  )
+    deciderConfig: config,
+    aggregatorEndpoint: process.env.AGGREGATOR_HOST
+  })
 
   // register Peth
   client.registerCustomToken(
-    new PETHContract(Address.from(process.env.PETH_ADDRESS), signer),
-    depositContractFactory(Address.from(process.env.DEPOSIT_CONTRACT_ADDRESS))
+    new PETHContract(Address.from(config.PlasmaETH), signer),
+    depositContractFactory(Address.from(config.payoutContracts.DepositContract))
   )
 
   return client
