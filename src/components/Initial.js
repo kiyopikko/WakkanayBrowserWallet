@@ -8,8 +8,10 @@ import { TEXT, BACKGROUND, SUBTEXT, ERROR, MAIN, MAIN_DARK } from '../colors'
 import Box from './Base/Box'
 import { FW_BOLD, FZ_MEDIUM } from '../fonts'
 import Wallet from './Wallet'
+import { Tabs } from './Tabs'
 import Router, { useRouter } from 'next/router'
 import { pushRouteHistory, popRouteHistory } from '../store/appRouter'
+import { WALLET, HISTORY, PAYMENT, EXCHANGE, NFT_COLLECTIBLES } from '../routes'
 
 const Initial = ({
   checkClientInitialized,
@@ -20,7 +22,11 @@ const Initial = ({
 }) => {
   const router = useRouter()
   const isWalletHidden =
-    router.pathname === '/wallet' || router.pathname === '/history'
+    router.pathname === WALLET || router.pathname === HISTORY
+  const isTabShownHidden =
+    router.pathname === PAYMENT ||
+    router.pathname === EXCHANGE ||
+    router.pathname === NFT_COLLECTIBLES
 
   useEffect(() => {
     checkClientInitialized()
@@ -56,9 +62,7 @@ const Initial = ({
       <Header />
       <div className="container">
         <h2 className="headline">
-          {router.pathname !== '/history'
-            ? 'Your Wallet'
-            : 'Transaction History'}
+          {router.pathname !== HISTORY ? 'Your Wallet' : 'Transaction History'}
         </h2>
         {!isWalletHidden && (
           <Box>
@@ -77,6 +81,7 @@ const Initial = ({
           </Box>
         )}
         <Box>
+          {isTabShownHidden && <Tabs currentPath={router.pathname} />}
           {content}
           {appStatus.status === 'error' && (
             <div className="error">

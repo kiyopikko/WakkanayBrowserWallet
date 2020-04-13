@@ -54,6 +54,8 @@ import {
   faBookOpen
 } from '@fortawesome/free-solid-svg-icons'
 import JSBI from 'jsbi'
+import { EXCHANGE, PAYMENT } from '../routes'
+
 library.add(faClipboard, faUserPlus, faPen, faTrash, faBookOpen)
 
 const Home = props => {
@@ -144,7 +146,7 @@ const Home = props => {
                       className={classNames('token-button', 'send-button')}
                       onClick={() => {
                         props.setTransferredToken(depositContractAddress)
-                        router.push('/payment')
+                        router.push(PAYMENT)
                       }}
                     >
                       Send
@@ -152,7 +154,7 @@ const Home = props => {
                     <button
                       className={classNames('token-button', 'exchange-button')}
                       onClick={() => {
-                        router.push('/exchange')
+                        router.push(EXCHANGE)
                       }}
                     >
                       Exchange

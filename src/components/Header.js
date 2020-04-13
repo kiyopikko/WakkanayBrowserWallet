@@ -3,13 +3,14 @@ import { MAIN, Main, MAIN_DARK, White } from '../colors'
 import { FW_NORMAL, FZ_MEDIUM } from '../fonts'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
+import { HISTORY, PAYMENT } from '../routes'
 
 const Header = ({ appRouter }) => {
   const router = useRouter()
 
   const LinkWrap = ({ children }) =>
     appRouter.routeHistory.length < 2 ? (
-      <Link href="/payment" passHref>
+      <Link href={PAYMENT} passHref>
         {children}
       </Link>
     ) : (
@@ -18,15 +19,15 @@ const Header = ({ appRouter }) => {
 
   return (
     <div className="header">
-      {router.pathname !== '/history' ? (
+      {router.pathname !== HISTORY ? (
         <h1 className="title">
           <img src="/logo.svg" width="116" />
         </h1>
       ) : (
         <div />
       )}
-      {router.pathname !== '/history' ? (
-        <Link href="/history" passHref>
+      {router.pathname !== HISTORY ? (
+        <Link href={HISTORY} passHref>
           <a className="historyButton">
             <img
               src="/icon-history.svg"
