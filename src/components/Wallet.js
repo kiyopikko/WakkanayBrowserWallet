@@ -6,6 +6,7 @@ import { FW_BLACK, FZ_MEDIUM, FZ_TINY, FZ_SMALL } from '../fonts'
 import { useState } from 'react'
 import Link from 'next/link'
 import Button from './Base/Button'
+import { WALLET } from '../routes'
 
 export default function Wallet({ l2, mainchain, address, onDeposit }) {
   const [copied, setCopied] = useState(false)
@@ -40,7 +41,7 @@ export default function Wallet({ l2, mainchain, address, onDeposit }) {
           {copied ? 'Copied!' : 'Copy to Clipboard'}
         </span>
       </ReactTooltip>
-      <Link href="/wallet" passHref>
+      <Link href={WALLET} passHref>
         <a className="link">View Detail</a>
       </Link>
       <style jsx>

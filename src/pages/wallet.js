@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Link from 'next/link'
 import { BACKGROUND, SUBTEXT } from '../colors'
 import { WalletTokenItem } from '../components/WalletTokenItem'
+import { PAYMENT } from '../routes'
 
 function Wallet({ appRouter }) {
   const router = useRouter()
@@ -16,7 +17,7 @@ function Wallet({ appRouter }) {
   return (
     <Layout>
       {appRouter.routeHistory.length < 2 ? (
-        <Link className="back" href="/payment" passHref>
+        <Link className="back" href={PAYMENT} passHref>
           <a className="back">← Back</a>
         </Link>
       ) : (
