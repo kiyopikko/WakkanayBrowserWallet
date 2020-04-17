@@ -24,9 +24,11 @@ export default props => {
           display: block;
           font-size: ${FZ_MEDIUM};
           font-weight: ${FW_BLACK};
+        }
+        .button:not(:disabled) {
           cursor: pointer;
         }
-        .button:hover {
+        .button:not(:disabled):hover {
           background: ${MAIN_DARK};
         }
         .full {
@@ -45,8 +47,11 @@ export default props => {
           border: 1px solid ${MAIN};
           color: ${MAIN};
         }
-        .border:hover {
+        .border:not(:disabled):hover {
           background: ${Main(0.05)};
+        }
+        .button:disabled {
+          opacity: 0.3;
         }
       `}</style>
     </button>
