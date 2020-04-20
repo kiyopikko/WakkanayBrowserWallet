@@ -6,7 +6,14 @@ import StartupModal from './StartupModal'
 import Header from './Header'
 import { TEXT, BACKGROUND, SUBTEXT, ERROR, MAIN, MAIN_DARK } from '../colors'
 import Box from './Base/Box'
-import { FW_BOLD, FZ_MEDIUM } from '../fonts'
+import {
+  FW_BOLD,
+  FZ_MEDIUM,
+  FZ_SMALL,
+  FZ_DEFAULT,
+  FZ_LARGE,
+  FZ_HEADLINE
+} from '../fonts'
 import Wallet from './Wallet'
 import { Tabs } from './Tabs'
 import Router, { useRouter } from 'next/router'
@@ -24,9 +31,10 @@ const Initial = ({
   const isWalletHidden =
     router.pathname === WALLET || router.pathname === HISTORY
   const isTabShownHidden =
-    router.pathname === PAYMENT ||
-    router.pathname === EXCHANGE ||
-    router.pathname === NFT_COLLECTIBLES
+    appStatus.status === 'loaded' &&
+    (router.pathname === PAYMENT ||
+      router.pathname === EXCHANGE ||
+      router.pathname === NFT_COLLECTIBLES)
 
   useEffect(() => {
     checkClientInitialized()
@@ -126,6 +134,21 @@ const Initial = ({
         .sub {
           font-size: ${FZ_MEDIUM};
           color: ${SUBTEXT};
+        }
+        .fzs {
+          font-size: ${FZ_SMALL} !important;
+        }
+        .fzm {
+          font-size: ${FZ_MEDIUM} !important;
+        }
+        .fzd {
+          font-size: ${FZ_DEFAULT} !important;
+        }
+        .fzl {
+          font-size: ${FZ_LARGE} !important;
+        }
+        .fzh {
+          font-size: ${FZ_HEADLINE} !important;
         }
         .mbs {
           margin-bottom: 0.875rem

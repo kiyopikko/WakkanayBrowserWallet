@@ -1,7 +1,7 @@
 import ClickOutside from 'react-click-outside'
-import { TEXT, SUBTEXT, Black } from '../colors'
-import classNames from 'classnames'
-import React, { useState } from 'react'
+import { BACKGROUND } from '../colors'
+import React, { useState, Fragment } from 'react'
+import DropdownContent from './DropdownContent'
 const Dropdown = ({
   onselect,
   topButtonName,
@@ -12,40 +12,28 @@ const Dropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
+  const selectItem = item => {
+    onselect(item.depositContractAddress)
+    setIsOpen(false)
+  }
+
   return (
-    <div className="dropdown">
-      <button
-        className="dropdown-button"
-        onClick={() => {
-          setIsOpen(true)
-        }}
-      >
-        <div className="top-button-name">{topButtonName(selectedItem)}</div>
-      </button>
-      <ClickOutside
-        onClickOutside={() => {
-          setIsOpen(false)
-        }}
-      >
-        <div
-          className={classNames(
-            isOpen ? 'dropdown-open' : 'dropdown-closed',
-            'dropdown-content'
+    <Fragment>
+      <ClickOutside onClickOutside={() => setIsOpen(false)}>
+        <div className="dropdown">
+          <button
+            className="dropdown-button"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <div className="top-button-name">{topButtonName(selectedItem)}</div>
+          </button>
+          {isOpen && (
+            <DropdownContent
+              onSelect={selectItem}
+              renderItem={renderItem}
+              items={items}
+            />
           )}
-        >
-          {items.map(item => (
-            <div
-              key={item}
-              className="dropdown-item"
-              onClick={e => {
-                e.preventDefault()
-                onselect(item.depositContractAddress)
-                setIsOpen(false)
-              }}
-            >
-              {renderItem ? renderItem(item) : item.unit}
-            </div>
-          ))}
         </div>
       </ClickOutside>
       <style jsx>{`
@@ -59,10 +47,11 @@ const Dropdown = ({
           cursor: pointer;
         }
         .dropdown-button {
-          background: transparent;
-          background-image: url('/chevron-down.svg');
+          background: ${BACKGROUND};
+          background-image: url('/icon-chevron-down.svg');
           background-repeat: no-repeat;
-          background-position: calc(100% - 0.7rem) 50%;
+          background-position: calc(100% - 1.25rem) 50%;
+          border-radius: 1.75rem;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -76,28 +65,8 @@ const Dropdown = ({
         .top-button-name {
           width: 100%;
         }
-        .dropdown-closed {
-          display: none;
-        }
-        .dropdown-open {
-          display: block;
-        }
-        .dropdown-content {
-          color: ${SUBTEXT};
-          position: absolute;
-          border-bottom: none;
-          background: ${Black(0.9)};
-          border-radius: 3px;
-          left: -7px;
-          top: calc(100% - 0.5rem);
-          width: calc(100% + 1rem);
-        }
-        .dropdown-item:hover {
-          color: ${TEXT};
-          background: ${Black(1)};
-        }
       `}</style>
-    </div>
+    </Fragment>
   )
 }
 
