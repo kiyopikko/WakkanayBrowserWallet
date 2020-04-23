@@ -1,13 +1,10 @@
 import React, { useState, useRef } from 'react'
-import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
-import ClickOutside from 'react-click-outside'
 
 //react-font-awesome import
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(fab, faArrowLeft)
 
 import { setDepositedToken, setDepositPage, deposit } from '../store/deposit'
@@ -17,6 +14,7 @@ import { SectionTitle } from './SectionTitle'
 import { TokenSelectButton } from './TokenSelectButton'
 import { PrimaryButton } from './PrimaryButton'
 import { TOKEN_LIST } from '../tokens'
+import { BaseModal } from './Base/BaseModal'
 
 import {
   SMALL,
@@ -28,17 +26,9 @@ import {
   NORMAL,
   SMALLER
 } from '../fonts'
-import {
-  White,
-  MODAL_BACKGROUND,
-  MODAL_MAIN_BACKGROUND,
-  BORDER,
-  PRIMARY_BUTTON_TEXT,
-  SUBTEXT
-} from '../colors'
+import { White, BORDER, PRIMARY_BUTTON_TEXT, SUBTEXT } from '../colors'
 
 const DepositModal = props => {
-  const router = useRouter()
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
   const depositedTokenObj = TOKEN_LIST.find(
@@ -47,163 +37,125 @@ const DepositModal = props => {
   )
 
   return (
-    <div className="modal-bg">
-      <ClickOutside
-        className="modal-main"
-        onClickOutside={e => {
-          e.preventDefault()
-          const href = `${router.route}`
-          router.push(href)
-          props.setDepositPage('input-page')
-        }}
-      >
-        <div className="contents">
-          {props.depositPage === 'input-page' ? (
-            <div className="input-page">
-              <div className="mordal-page-title">
-                <SectionTitle>
-                  Deposit Funds from Mainchain Account
-                </SectionTitle>
-              </div>
-              <div className="input-contents-box">
-                <div className="token-select-box-wrapper">
-                  <Dropdown
-                    onselect={selectedTokenContractAddress => {
-                      props.setDepositedToken(selectedTokenContractAddress)
-                    }}
-                    topButtonName={item => (
-                      <TokenSelectButton item={item} padding="8px 16px" />
-                    )}
-                    items={TOKEN_LIST}
-                    renderItem={item => (
-                      <TokenSelectButton item={item} padding="8px 16px" />
-                    )}
-                    selectedItem={depositedTokenObj}
-                  />
-                </div>
-                <div className="amount-input-wrapper">
-                  <input
-                    className="amount-input"
-                    type="number"
-                    ref={amountInput}
-                    onChange={e => {
-                      setTokenAmount(e.target.value)
-                    }}
-                  />
-                  <div className="deposited-token-unit">
-                    {depositedTokenObj.unit}
-                  </div>
-                </div>
-                <div className="deposited-token-confirm">
-                  = {roundBalance(props.ETHtoUSD, tokenAmount)} USD / from{' '}
-                  {shortenAddress(props.address)}
-                </div>
-                <div className="cancel-deposit-buttons">
-                  <div
-                    className="cancel-button"
-                    onClick={() => {
-                      amountInput.current.value = ''
-                      setTokenAmount(0)
-                    }}
-                  >
-                    <a className="cancel">Cancel</a>
-                  </div>
-                  <div className="deposit-button">
-                    <PrimaryButton
-                      onClick={() => {
-                        props.setDepositPage('confirmation-page')
-                      }}
-                    >
-                      Deposit
-                    </PrimaryButton>
-                  </div>
-                </div>
+    <BaseModal
+      onClickOutside={e => {
+        props.setDepositPage('input-page')
+      }}
+    >
+      {props.depositPage === 'input-page' ? (
+        <div className="input-page">
+          <div className="mordal-page-title">
+            <SectionTitle>Deposit Funds from Mainchain Account</SectionTitle>
+          </div>
+          <div className="input-contents-box">
+            <div className="token-select-box-wrapper">
+              <Dropdown
+                onselect={selectedTokenContractAddress => {
+                  props.setDepositedToken(selectedTokenContractAddress)
+                }}
+                topButtonName={item => (
+                  <TokenSelectButton item={item} padding="8px 16px" />
+                )}
+                items={TOKEN_LIST}
+                renderItem={item => (
+                  <TokenSelectButton item={item} padding="8px 16px" />
+                )}
+                selectedItem={depositedTokenObj}
+              />
+            </div>
+            <div className="amount-input-wrapper">
+              <input
+                className="amount-input"
+                type="number"
+                ref={amountInput}
+                onChange={e => {
+                  setTokenAmount(e.target.value)
+                }}
+              />
+              <div className="deposited-token-unit">
+                {depositedTokenObj.unit}
               </div>
             </div>
-          ) : props.depositPage === 'confirmation-page' ? (
-            <div className="confirmation-page">
-              <div className="mordal-page-title">Transaction Summary</div>
-              <div className="amount-confirmation-section">
-                <div className="amount-confirmation-title">
-                  <a>You will deposit</a>
-                </div>
-                <div className="amount-confirmation-box">
-                  <img
-                    className="token-logo"
-                    src="../tokenIcons/ethereum-logo.png"
-                    alt="Ethereum Logo"
-                  ></img>
-                  <div className="total-balance-box">
-                    <span className="total-balance-number">{tokenAmount}</span>
-                    <span className="total-balance-unit">
-                      {depositedTokenObj.unit}
-                    </span>
-                    <div className="balance-in-usd">
-                      {roundBalance(props.ETHtoUSD, tokenAmount)} USD
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="account-confirmation-section">
-                <div className="from">
-                  from{' '}
-                  <a className="address">{shortenAddress(props.address)}</a>
-                </div>
-                <div className="to">to your Wakkanay Wallet</div>
-              </div>
-              <div className="cancel-next-buttons">
-                <div
-                  className="cancel-button"
-                  onClick={() => {
-                    props.setDepositPage('input-page')
-                  }}
-                >
-                  <a className="cancel">Cancel</a>
-                </div>
-                <div
-                  className="confirm-button"
-                  onClick={() => {
-                    props.deposit(tokenAmount, props.depositedToken)
-                  }}
-                >
-                  <PrimaryButton>Confirm</PrimaryButton>
-                </div>
-              </div>
-              <div>Click confirm to open Metamask</div>
+            <div className="deposited-token-confirm">
+              = {roundBalance(props.ETHtoUSD, tokenAmount)} USD / from{' '}
+              {shortenAddress(props.address)}
             </div>
-          ) : (
-            <div>Deposit completed</div>
-          )}
+            <div className="cancel-deposit-buttons">
+              <div
+                className="cancel-button"
+                onClick={() => {
+                  amountInput.current.value = ''
+                  setTokenAmount(0)
+                }}
+              >
+                <a className="cancel">Cancel</a>
+              </div>
+              <div className="deposit-button">
+                <PrimaryButton
+                  onClick={() => {
+                    props.setDepositPage('confirmation-page')
+                  }}
+                >
+                  Deposit
+                </PrimaryButton>
+              </div>
+            </div>
+          </div>
         </div>
-      </ClickOutside>
+      ) : props.depositPage === 'confirmation-page' ? (
+        <div className="confirmation-page">
+          <div className="mordal-page-title">Transaction Summary</div>
+          <div className="amount-confirmation-section">
+            <div className="amount-confirmation-title">
+              <a>You will deposit</a>
+            </div>
+            <div className="amount-confirmation-box">
+              <img
+                className="token-logo"
+                src="../tokenIcons/ethereum-logo.png"
+                alt="Ethereum Logo"
+              ></img>
+              <div className="total-balance-box">
+                <span className="total-balance-number">{tokenAmount}</span>
+                <span className="total-balance-unit">
+                  {depositedTokenObj.unit}
+                </span>
+                <div className="balance-in-usd">
+                  {roundBalance(props.ETHtoUSD, tokenAmount)} USD
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="account-confirmation-section">
+            <div className="from">
+              from <a className="address">{shortenAddress(props.address)}</a>
+            </div>
+            <div className="to">to your Wakkanay Wallet</div>
+          </div>
+          <div className="cancel-next-buttons">
+            <div
+              className="cancel-button"
+              onClick={() => {
+                props.setDepositPage('input-page')
+              }}
+            >
+              <a className="cancel">Cancel</a>
+            </div>
+            <div
+              className="confirm-button"
+              onClick={() => {
+                props.deposit(tokenAmount, props.depositedToken)
+              }}
+            >
+              <PrimaryButton>Confirm</PrimaryButton>
+            </div>
+          </div>
+          <div>Click confirm to open Metamask</div>
+        </div>
+      ) : (
+        <div>Deposit completed</div>
+      )}
       <style jsx>{`
-        .modal-bg {
-          position: fixed;
-          top: 0;
-          left: 0;
-          height: 100vh;
-          width: 100vw;
-          background: ${MODAL_BACKGROUND};
-          display: flex;
-          justify-content: center;
-        }
-        .modal-bg > :global(.modal-main) {
-          position: fixed;
-          top: calc(20% + 10px);
-          width: 50%;
-          min-width: 520px;
-          height: calc(50% - 20px);
-          background: ${MODAL_MAIN_BACKGROUND};
-          opacity: 1;
-          border-radius: 10px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          overflow: scroll;
-        }
-        .contents {
-          padding: 0px 32px 16px 32px;
-        }
         .input-page {
           display: flex;
           flex-direction: column;
@@ -369,7 +321,7 @@ const DepositModal = props => {
           font-weight: 650;
         }
       `}</style>
-    </div>
+    </BaseModal>
   )
 }
 

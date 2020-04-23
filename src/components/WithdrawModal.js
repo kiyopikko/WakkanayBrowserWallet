@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router'
-import ClickOutside from 'react-click-outside'
 import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
 
@@ -26,18 +24,11 @@ import {
   NORMAL,
   SMALLER
 } from '../fonts'
-import {
-  White,
-  MODAL_BACKGROUND,
-  MODAL_MAIN_BACKGROUND,
-  BORDER,
-  PRIMARY_BUTTON_TEXT,
-  SUBTEXT
-} from '../colors'
+import { White, BORDER, PRIMARY_BUTTON_TEXT, SUBTEXT } from '../colors'
 import { TOKEN_LIST } from '../tokens'
+import { BaseModal } from './Base/BaseModal'
 
 const WithdrawModal = props => {
-  const router = useRouter()
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
   const withdrawnTokenObj = TOKEN_LIST.find(
@@ -46,166 +37,128 @@ const WithdrawModal = props => {
   )
 
   return (
-    <div className="modal-bg">
-      <ClickOutside
-        className="modal-main"
-        onClickOutside={e => {
-          e.preventDefault()
-          const href = `${router.route}`
-          router.push(href)
-          props.setWithdrawPage('input-page')
-        }}
-      >
-        <div className="contents">
-          {props.withdrawPage === 'input-page' ? (
-            <div className="input-page">
-              <div className="mordal-page-title">
-                <SectionTitle>
-                  Withdraw Funds from Mainchain Account
-                </SectionTitle>
-              </div>
-              <div className="input-contents-box">
-                <div className="token-select-box-wrapper">
-                  <Dropdown
-                    onselect={selectedTokenContractAddress => {
-                      props.setWithdrawnToken(selectedTokenContractAddress)
-                    }}
-                    topButtonName={item => (
-                      <TokenSelectButton item={item} padding="8px 16px" />
-                    )}
-                    items={TOKEN_LIST}
-                    renderItem={item => (
-                      <TokenSelectButton item={item} padding="8px 16px" />
-                    )}
-                    selectedItem={withdrawnTokenObj}
-                  />
-                </div>
-                <div className="amount-input-wrapper">
-                  <input
-                    className="amount-input"
-                    type="number"
-                    ref={amountInput}
-                    onChange={e => {
-                      setTokenAmount(e.target.value)
-                    }}
-                  />
-                  <div className="deposited-token-unit">
-                    {withdrawnTokenObj.unit}
-                  </div>
-                </div>
-                <div className="deposited-token-confirm">
-                  = {roundBalance(props.ETHtoUSD, tokenAmount)} USD / from{' '}
-                  {shortenAddress(props.address)}
-                </div>
-                <div className="cancel-deposit-buttons">
-                  <div
-                    className="cancel-button"
-                    onClick={() => {
-                      amountInput.current.value = ''
-                      setTokenAmount(0)
-                    }}
-                  >
-                    <a className="cancel">Cancel</a>
-                  </div>
-                  <div className="deposit-button">
-                    <PrimaryButton
-                      onClick={() => {
-                        props.setWithdrawPage('confirmation-page')
-                      }}
-                    >
-                      Withdraw
-                    </PrimaryButton>
-                  </div>
-                </div>
+    <BaseModal
+      onClickOutside={e => {
+        props.setWithdrawPage('input-page')
+      }}
+    >
+      {props.withdrawPage === 'input-page' ? (
+        <div className="input-page">
+          <div className="mordal-page-title">
+            <SectionTitle>Withdraw Funds from Mainchain Account</SectionTitle>
+          </div>
+          <div className="input-contents-box">
+            <div className="token-select-box-wrapper">
+              <Dropdown
+                onselect={selectedTokenContractAddress => {
+                  props.setWithdrawnToken(selectedTokenContractAddress)
+                }}
+                topButtonName={item => (
+                  <TokenSelectButton item={item} padding="8px 16px" />
+                )}
+                items={TOKEN_LIST}
+                renderItem={item => (
+                  <TokenSelectButton item={item} padding="8px 16px" />
+                )}
+                selectedItem={withdrawnTokenObj}
+              />
+            </div>
+            <div className="amount-input-wrapper">
+              <input
+                className="amount-input"
+                type="number"
+                ref={amountInput}
+                onChange={e => {
+                  setTokenAmount(e.target.value)
+                }}
+              />
+              <div className="deposited-token-unit">
+                {withdrawnTokenObj.unit}
               </div>
             </div>
-          ) : props.withdrawPage === 'confirmation-page' ? (
-            <div className="confirmation-page">
-              <div className="mordal-page-title">Transaction Summary</div>
-              <div className="amount-confirmation-section">
-                <div className="amount-confirmation-title">
-                  <a>You will withdraw</a>
-                </div>
-                <div className="amount-confirmation-box">
-                  <img
-                    className="token-logo"
-                    src="../tokenIcons/ethereum-logo.png"
-                    alt="Ethereum Logo"
-                  ></img>
-                  <div className="total-balance-box">
-                    <span className="total-balance-number">{tokenAmount}</span>
-                    <span className="total-balance-unit">
-                      {withdrawnTokenObj.unit}
-                    </span>
-                    <div className="balance-in-usd">
-                      {roundBalance(props.ETHtoUSD, tokenAmount)} USD
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="account-confirmation-section">
-                <div className="from">
-                  from{' '}
-                  <a className="address">{shortenAddress(props.address)}</a>
-                </div>
-                <div className="to">to your Wakkanay Wallet</div>
-              </div>
-              <div className="cancel-next-buttons">
-                <div
-                  className="cancel-button"
-                  onClick={() => {
-                    props.setWithdrawPage('input-page')
-                  }}
-                >
-                  <a className="cancel">Cancel</a>
-                </div>
-                <div
-                  className="confirm-button"
-                  onClick={() => {
-                    props.withdraw(
-                      tokenAmount,
-                      withdrawnTokenObj.depositContractAddress
-                    )
-                  }}
-                >
-                  <PrimaryButton>Confirm</PrimaryButton>
-                </div>
-              </div>
-              <div>Click confirm to open Metamask</div>
+            <div className="deposited-token-confirm">
+              = {roundBalance(props.ETHtoUSD, tokenAmount)} USD / from{' '}
+              {shortenAddress(props.address)}
             </div>
-          ) : (
-            <div>Withdraw completed</div>
-          )}
+            <div className="cancel-deposit-buttons">
+              <div
+                className="cancel-button"
+                onClick={() => {
+                  amountInput.current.value = ''
+                  setTokenAmount(0)
+                }}
+              >
+                <a className="cancel">Cancel</a>
+              </div>
+              <div className="deposit-button">
+                <PrimaryButton
+                  onClick={() => {
+                    props.setWithdrawPage('confirmation-page')
+                  }}
+                >
+                  Withdraw
+                </PrimaryButton>
+              </div>
+            </div>
+          </div>
         </div>
-      </ClickOutside>
+      ) : props.withdrawPage === 'confirmation-page' ? (
+        <div className="confirmation-page">
+          <div className="mordal-page-title">Transaction Summary</div>
+          <div className="amount-confirmation-section">
+            <div className="amount-confirmation-title">
+              <a>You will withdraw</a>
+            </div>
+            <div className="amount-confirmation-box">
+              <img
+                className="token-logo"
+                src="../tokenIcons/ethereum-logo.png"
+                alt="Ethereum Logo"
+              ></img>
+              <div className="total-balance-box">
+                <span className="total-balance-number">{tokenAmount}</span>
+                <span className="total-balance-unit">
+                  {withdrawnTokenObj.unit}
+                </span>
+                <div className="balance-in-usd">
+                  {roundBalance(props.ETHtoUSD, tokenAmount)} USD
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="account-confirmation-section">
+            <div className="from">
+              from <a className="address">{shortenAddress(props.address)}</a>
+            </div>
+            <div className="to">to your Wakkanay Wallet</div>
+          </div>
+          <div className="cancel-next-buttons">
+            <div
+              className="cancel-button"
+              onClick={() => {
+                props.setWithdrawPage('input-page')
+              }}
+            >
+              <a className="cancel">Cancel</a>
+            </div>
+            <div
+              className="confirm-button"
+              onClick={() => {
+                props.withdraw(
+                  tokenAmount,
+                  withdrawnTokenObj.depositContractAddress
+                )
+              }}
+            >
+              <PrimaryButton>Confirm</PrimaryButton>
+            </div>
+          </div>
+          <div>Click confirm to open Metamask</div>
+        </div>
+      ) : (
+        <div>Withdraw completed</div>
+      )}
       <style jsx>{`
-        .modal-bg {
-          position: fixed;
-          top: 0;
-          left: 0;
-          height: 100vh;
-          width: 100vw;
-          background: ${MODAL_BACKGROUND};
-          display: flex;
-          justify-content: center;
-        }
-        .modal-bg > :global(.modal-main) {
-          position: fixed;
-          top: calc(20% + 10px);
-          width: 50%;
-          min-width: 520px;
-          height: calc(50% - 20px);
-          background: ${MODAL_MAIN_BACKGROUND};
-          opacity: 1;
-          border-radius: 10px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          overflow: scroll;
-        }
-        .contents {
-          padding: 0px 32px 16px 32px;
-        }
         .input-page {
           display: flex;
           flex-direction: column;
@@ -383,7 +336,7 @@ const WithdrawModal = props => {
           font-weight: 650;
         }
       `}</style>
-    </div>
+    </BaseModal>
   )
 }
 
