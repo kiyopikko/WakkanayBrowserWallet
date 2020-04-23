@@ -9,15 +9,12 @@ library.add(fab, faArrowLeft)
 
 import { setDepositedToken, setDepositPage, deposit } from '../store/deposit'
 import { shortenAddress, roundBalance } from '../utils'
-import Dropdown from './Dropdown'
-import { TokenSelectButton } from './TokenSelectButton'
+import { TokenSelector } from './TokenSelector'
 import { PrimaryButton } from './PrimaryButton'
 import { TOKEN_LIST } from '../tokens'
 import { BaseModal } from './Base/BaseModal'
-import Input from './Base/Input'
 
 import {
-  SMALL,
   SMALLPLUS,
   MEDIUM,
   LARGER,
@@ -46,21 +43,13 @@ const DepositModal = props => {
         <>
           {props.depositPage === 'input-page' ? (
             <div className="input-contents-box">
-              <div className="token-select-box-wrapper">
-                <Dropdown
-                  onselect={selectedTokenContractAddress => {
-                    props.setDepositedToken(selectedTokenContractAddress)
-                  }}
-                  topButtonName={item => (
-                    <TokenSelectButton item={item} padding="8px 16px" />
-                  )}
-                  items={TOKEN_LIST}
-                  renderItem={item => (
-                    <TokenSelectButton item={item} padding="8px 16px" />
-                  )}
-                  selectedItem={depositedTokenObj}
-                />
-              </div>
+              <TokenSelector
+                width={420}
+                onSelected={selectedTokenContractAddress =>
+                  props.setDepositedToken(selectedTokenContractAddress)
+                }
+                selectedToken={depositedTokenObj}
+              />
               <div className="amount-input-wrapper">
                 <input
                   className="amount-input"
@@ -153,30 +142,6 @@ const DepositModal = props => {
               display: flex;
               flex-direction: column;
               align-items: flex-end;
-            }
-            .token-select-box-wrapper {
-              width: 420px;
-              height: 48px;
-              background: ${BACKGROUND};
-              border-radius: 4px;
-              display: flex;
-            }
-            .button-name-inner {
-              width: 100%;
-              padding: 8px 8px 8px 22px;
-              display: flex;
-              align-items: center;
-              justify-content: flex-start;
-            }
-            .token-select-box-wrapper :global(.dropdown-button) {
-              font-size: ${SMALL};
-              font-weight: 400;
-            }
-            .token-select-box-wrapper :global(.dropdown-caret) {
-              font-size: ${MEDIUM};
-            }
-            .token-name {
-              margin-left: 8px;
             }
             .amount-input-wrapper {
               width: 420px;

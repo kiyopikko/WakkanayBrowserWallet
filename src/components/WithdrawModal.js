@@ -9,12 +9,10 @@ library.add(fab, faEthernet)
 
 import { setWithdrawnToken, setWithdrawPage, withdraw } from '../store/withdraw'
 import { shortenAddress, roundBalance } from '../utils'
-import Dropdown from './Dropdown'
-import { TokenSelectButton } from './TokenSelectButton'
+import { TokenSelector } from './TokenSelector'
 import { PrimaryButton } from './PrimaryButton'
 
 import {
-  SMALL,
   SMALLPLUS,
   MEDIUM,
   LARGER,
@@ -23,7 +21,7 @@ import {
   NORMAL,
   SMALLER
 } from '../fonts'
-import { White, BACKGROUND, SUBTEXT } from '../colors'
+import { BACKGROUND, SUBTEXT } from '../colors'
 import { TOKEN_LIST } from '../tokens'
 import { BaseModal } from './Base/BaseModal'
 
@@ -46,21 +44,13 @@ const WithdrawModal = props => {
           <>
             {props.withdrawPage === 'input-page' ? (
               <div className="input-contents-box">
-                <div className="token-select-box-wrapper">
-                  <Dropdown
-                    onselect={selectedTokenContractAddress => {
-                      props.setWithdrawnToken(selectedTokenContractAddress)
-                    }}
-                    topButtonName={item => (
-                      <TokenSelectButton item={item} padding="8px 16px" />
-                    )}
-                    items={TOKEN_LIST}
-                    renderItem={item => (
-                      <TokenSelectButton item={item} padding="8px 16px" />
-                    )}
-                    selectedItem={withdrawnTokenObj}
-                  />
-                </div>
+                <TokenSelector
+                  width={420}
+                  onSelected={selectedTokenContractAddress =>
+                    props.setWithdrawnToken(selectedTokenContractAddress)
+                  }
+                  selectedToken={withdrawnTokenObj}
+                />
                 <div className="amount-input-wrapper">
                   <input
                     className="amount-input"
@@ -159,42 +149,6 @@ const WithdrawModal = props => {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
-              }
-              .token-select-box-wrapper {
-                width: 420px;
-                height: 48px;
-                background: ${White(0.05)};
-                border-radius: 4px;
-                display: flex;
-              }
-              .button-name-inner {
-                width: 100%;
-                padding: 8px 8px 8px 22px;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-              }
-              .token-select-box-wrapper :global(.dropdown-button) {
-                font-size: ${SMALL};
-                font-weight: 400;
-              }
-              .token-select-box-wrapper :global(.dropdown-caret) {
-                font-size: ${MEDIUM};
-              }
-              .l2-token-img-bg {
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                background-color: #ffffff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              }
-              .l2-token-img {
-                height: 22px;
-              }
-              .token-name {
-                margin-left: 8px;
               }
               .amount-input-wrapper {
                 width: 420px;
