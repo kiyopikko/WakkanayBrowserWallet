@@ -90,7 +90,7 @@ const Initial = ({
                   mainchain={746.12}
                   address="0x81D5F852994b4235904F9AfA038f0647Ad269215"
                   onDeposit={() => {
-                    openModal(router, 'deposit')
+                    openModal('deposit')
                   }}
                 />
               )}

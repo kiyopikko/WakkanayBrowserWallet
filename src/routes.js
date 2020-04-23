@@ -1,3 +1,5 @@
+import Router from 'next/router'
+
 export const ROOT = '/'
 
 export const WALLET = '/wallet'
@@ -9,13 +11,12 @@ export const NFT_COLLECTIBLES = '/nft_collectibles'
 
 /**
  * @name openModal
- * @param {*} router
  * @param {*} modalName is "deposit" or "withdraw"
  */
-export function openModal(router, modalName) {
-  router.push(
+export function openModal(modalName) {
+  Router.push(
     {
-      pathname: router.pathname,
+      pathname: Router.pathname,
       query: { modal: modalName }
     },
     undefined,

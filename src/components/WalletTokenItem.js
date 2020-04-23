@@ -40,7 +40,7 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                     size="medium"
                     border
                     onClick={() => {
-                      openModal(router, 'withdraw')
+                      openModal('withdraw')
                     }}
                   >
                     <img src="/withdraw-arrow.svg" className="btn__icon" />{' '}
@@ -61,7 +61,7 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                   <Button
                     size="medium"
                     onClick={() => {
-                      openModal(router, 'orderRequest')
+                      openModal('orderRequest')
                     }}
                   >
                     Exchange
@@ -92,7 +92,7 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                 size="medium"
                 border
                 onClick={() => {
-                  openModal(router, 'deposit')
+                  openModal('deposit')
                 }}
               >
                 <img src="/deposit-arrow.svg" className="btn__icon" /> Deposit
