@@ -16,7 +16,7 @@ const Header = ({ appRouter }) => {
     ) : (
       <span
         onClick={() => {
-          router.push(PAYMENT)
+          router.back()
         }}
       >
         {children}

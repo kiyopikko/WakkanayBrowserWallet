@@ -58,7 +58,12 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                   </Button>
                 </div>
                 <div className="btn">
-                  <Button size="medium" onClick={() => {}}>
+                  <Button
+                    size="medium"
+                    onClick={() => {
+                      openModal(router, 'orderRequest')
+                    }}
+                  >
                     Exchange
                   </Button>
                 </div>
