@@ -22,6 +22,7 @@ import {
   BORDER,
   PRIMARY_BUTTON_TEXT
 } from '../colors'
+import { openModal } from '../routes'
 
 const OrderBook = props => {
   const router = useRouter()
@@ -98,9 +99,7 @@ const OrderBook = props => {
         <button
           className="create-new-request-button"
           onClick={e => {
-            e.preventDefault()
-            const href = `${router.route}?orderRequest`
-            router.push(href, href, { shallow: true })
+            openModal(router, 'orderRequest')
           }}
         >
           Create New Request

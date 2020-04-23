@@ -18,7 +18,14 @@ import Wallet from './Wallet'
 import { Tabs } from './Tabs'
 import Router, { useRouter } from 'next/router'
 import { pushRouteHistory, popRouteHistory } from '../store/appRouter'
-import { WALLET, HISTORY, PAYMENT, EXCHANGE, NFT_COLLECTIBLES } from '../routes'
+import {
+  WALLET,
+  HISTORY,
+  PAYMENT,
+  EXCHANGE,
+  NFT_COLLECTIBLES,
+  openModal
+} from '../routes'
 
 const Initial = ({
   checkClientInitialized,
@@ -82,7 +89,9 @@ const Initial = ({
                   l2={0}
                   mainchain={746.12}
                   address="0x81D5F852994b4235904F9AfA038f0647Ad269215"
-                  onDeposit={() => console.log('open deposit modal')}
+                  onDeposit={() => {
+                    openModal(router, 'deposit')
+                  }}
                 />
               )}
             </div>

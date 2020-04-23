@@ -70,7 +70,6 @@ const Send = props => {
         onClick={e => {
           props.setTransferredAmount(tokenAmount)
           props.setRecepientAddress(recepientAddressRef.current.value)
-          e.preventDefault()
           // const href = `${router.route}?transfer`
           // router.push(href, href, { shallow: true })
         }}

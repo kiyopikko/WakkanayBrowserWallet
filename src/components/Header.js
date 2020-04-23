@@ -14,7 +14,13 @@ const Header = ({ appRouter }) => {
         {children}
       </Link>
     ) : (
-      <span onClick={router.back}>{children}</span>
+      <span
+        onClick={() => {
+          router.push(PAYMENT)
+        }}
+      >
+        {children}
+      </span>
     )
 
   return (
