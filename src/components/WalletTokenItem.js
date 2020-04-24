@@ -11,8 +11,11 @@ import {
 import { SUBTEXT, BORDER } from '../colors'
 import Button from './Base/Button'
 import { Fragment } from 'react'
+import { useRouter } from 'next/router'
+import { openModal, PAYMENT } from '../routes'
 
 export const WalletTokenItem = ({ l2, mainchain, unit }) => {
+  const router = useRouter()
   const { imgSrc, imgAspect } = _.find(TOKEN_LIST, { unit })
   return (
     <div className="wrap">
@@ -33,18 +36,34 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
               </div>
               <div className="btns">
                 <div className="btn">
-                  <Button size="medium" border onClick={() => {}}>
+                  <Button
+                    size="medium"
+                    border
+                    onClick={() => {
+                      openModal('withdraw')
+                    }}
+                  >
                     <img src="/withdraw-arrow.svg" className="btn__icon" />{' '}
                     Withdraw
                   </Button>
                 </div>
                 <div className="btn">
-                  <Button size="medium" onClick={() => {}}>
+                  <Button
+                    size="medium"
+                    onClick={() => {
+                      router.push(PAYMENT)
+                    }}
+                  >
                     Send
                   </Button>
                 </div>
                 <div className="btn">
-                  <Button size="medium" onClick={() => {}}>
+                  <Button
+                    size="medium"
+                    onClick={() => {
+                      openModal('orderRequest')
+                    }}
+                  >
                     Exchange
                   </Button>
                 </div>
@@ -69,7 +88,13 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
           </div>
           <div className="btns">
             <div className="btn">
-              <Button size="medium" border onClick={() => {}}>
+              <Button
+                size="medium"
+                border
+                onClick={() => {
+                  openModal('deposit')
+                }}
+              >
                 <img src="/deposit-arrow.svg" className="btn__icon" /> Deposit
               </Button>
             </div>

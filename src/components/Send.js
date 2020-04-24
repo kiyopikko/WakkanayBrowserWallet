@@ -15,9 +15,8 @@ import {
 
 //internal import
 import { roundBalance } from '../utils'
-import Dropdown from './Dropdown'
 import { SectionTitle } from '../components/SectionTitle'
-import { TokenSelectButton } from './TokenSelectButton'
+import { TokenSelector } from './TokenSelector'
 import { SECTION_BACKGROUND } from '../colors'
 import { TOKEN_LIST } from '../tokens'
 import TokenInput from './TokenInput'
@@ -42,20 +41,14 @@ const Send = props => {
   return (
     <div className="send-section" id="send">
       <SectionTitle>Send Token</SectionTitle>
-      <Dropdown
-        onselect={selectedTokenContractAddress => {
-          props.setTransferredToken(selectedTokenContractAddress)
-        }}
-        width="100%"
-        topButtonName={item => (
-          <TokenSelectButton item={item} padding="0.5rem 0.5rem" />
-        )}
+      <TokenSelector
         items={tokensWithCurrentAmount}
-        renderItem={item => (
-          <TokenSelectButton item={item} padding="0.5rem 0.5rem" />
-        )}
-        selectedItem={transferredTokenObj}
+        onSelected={selectedTokenContractAddress =>
+          props.setTransferredToken(selectedTokenContractAddress)
+        }
+        selectedToken={transferredTokenObj}
       />
+
       <TokenInput
         className="mts mbs"
         unit={transferredTokenObj.unit}
@@ -70,7 +63,6 @@ const Send = props => {
         onClick={e => {
           props.setTransferredAmount(tokenAmount)
           props.setRecepientAddress(recepientAddressRef.current.value)
-          e.preventDefault()
           // const href = `${router.route}?transfer`
           // router.push(href, href, { shallow: true })
         }}
