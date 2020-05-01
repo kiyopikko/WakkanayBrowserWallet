@@ -86,6 +86,7 @@ export default function Wallet({ l2, mainchain, address, onDeposit }) {
           .link {
             margin-left: auto;
             font-size: ${FZ_MEDIUM};
+            display: block;
           }
         `}
       </style>

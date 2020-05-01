@@ -26,34 +26,37 @@ const Header = ({ appRouter }) => {
   return (
     <div className="header">
       {router.pathname !== HISTORY ? (
-        <h1 className="title">
-          <img src="/logo.svg" width="116" />
-        </h1>
+        <>
+          <h1 className="title">
+            <Link href={PAYMENT} passHref>
+              <img src="/logo.svg" width="116" />
+            </Link>
+          </h1>
+          <Link href={HISTORY} passHref>
+            <a className="historyButton">
+              <img
+                src="/icon-history.svg"
+                width="14"
+                className="historyButton__img"
+              />
+              <span className="historyButton__txt">History</span>
+            </a>
+          </Link>
+        </>
       ) : (
-        <div />
-      )}
-      {router.pathname !== HISTORY ? (
-        <Link href={HISTORY} passHref>
-          <a className="historyButton">
-            <img
-              src="/icon-history.svg"
-              width="14"
-              className="historyButton__img"
-            />
-            <span className="historyButton__txt">History</span>
-          </a>
-        </Link>
-      ) : (
-        <LinkWrap>
-          <a className="historyButton fill">
-            <img
-              src="/icon-close.svg"
-              width="10"
-              className="historyButton__img"
-            />
-            <span className="historyButton__txt">Close</span>
-          </a>
-        </LinkWrap>
+        <>
+          <div />
+          <LinkWrap>
+            <a className="historyButton fill">
+              <img
+                src="/icon-close.svg"
+                width="10"
+                className="historyButton__img"
+              />
+              <span className="historyButton__txt">Close</span>
+            </a>
+          </LinkWrap>
+        </>
       )}
       <style jsx>{`
         .header {
@@ -70,6 +73,9 @@ const Header = ({ appRouter }) => {
           height: 100%;
           padding-right: 4vw;
           flex: 1;
+        }
+        .title img {
+          cursor: pointer;
         }
         .historyButton {
           display: flex;
