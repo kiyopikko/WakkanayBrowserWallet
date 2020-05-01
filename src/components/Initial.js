@@ -98,7 +98,7 @@ const Initial = ({
           </Box>
         )}
         <Box>
-          {isTabShownHidden && <Tabs currentPath={router.pathname} />}
+          {/* {isTabShownHidden && <Tabs currentPath={router.pathname} />} */}
           {content}
           {appStatus.status === 'error' && (
             <div className="error">

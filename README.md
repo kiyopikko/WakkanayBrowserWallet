@@ -7,9 +7,11 @@ Official Testnet release is planned in the first week of March 2020, and it will
 
 ```
 1. run ganache-cli & deploy ovm-contract & run aggregator
-  $ git clone git@github.com:cryptoeconomicslab/wakkanay-plasma-aggregator.git
-  $ cp .sample.env .env
-  $ docker-compose up
+  $ git clone https://github.com/cryptoeconomicslab/wakkanay.git
+  $ cd wakkanay
+  $ npm run docker:build
+  $ npm run docker:cp
+  $ npm run docker:start
 
 2. run WakkanayBrowserWallet
   $ git clone git@github.com:cryptoeconomicslab/WakkanayBrowserWallet.git
