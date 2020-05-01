@@ -10,7 +10,6 @@ Official Testnet release is planned in the first week of March 2020, and it will
   $ git clone https://github.com/cryptoeconomicslab/wakkanay.git
   $ cd wakkanay
   $ npm run docker:build
-  $ npm run docker:cp
   $ npm run docker:start
 
 2. run WakkanayBrowserWallet
