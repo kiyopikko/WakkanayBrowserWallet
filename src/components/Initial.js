@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import Router, { useRouter } from 'next/router'
 import Head from 'next/head'
-import { checkClientInitialized } from '../store/appStatus'
-import StartupModal from './StartupModal'
-import Header from './Header'
-import { TEXT, BACKGROUND, SUBTEXT, ERROR, MAIN, MAIN_DARK } from '../colors'
+import { formatEther } from 'ethers/utils'
 import Box from './Base/Box'
+import Header from './Header'
+import StartupModal from './StartupModal'
+import { Tabs } from './Tabs'
+import Wallet from './Wallet'
+import { TEXT, BACKGROUND, SUBTEXT, ERROR, MAIN, MAIN_DARK } from '../colors'
 import {
   FW_BOLD,
   FZ_MEDIUM,
@@ -14,10 +17,6 @@ import {
   FZ_LARGE,
   FZ_HEADLINE
 } from '../fonts'
-import Wallet from './Wallet'
-import { Tabs } from './Tabs'
-import Router, { useRouter } from 'next/router'
-import { pushRouteHistory, popRouteHistory } from '../store/appRouter'
 import {
   WALLET,
   HISTORY,
@@ -26,12 +25,16 @@ import {
   NFT_COLLECTIBLES,
   openModal
 } from '../routes'
+import { pushRouteHistory, popRouteHistory } from '../store/appRouter'
+import { checkClientInitialized } from '../store/appStatus'
 
 const Initial = ({
   checkClientInitialized,
   pushRouteHistory,
   popRouteHistory,
   appStatus,
+  address,
+  tokenBalance,
   children
 }) => {
   const router = useRouter()
@@ -54,6 +57,14 @@ const Initial = ({
       return true
     })
   }, [])
+
+  // TODO: how to show the other token balances
+  const l2Balance = tokenBalance.tokenBalanceList[0]
+    ? formatEther(tokenBalance.tokenBalanceList[0].amount.toString()) *
+      tokenBalance.ETHtoUSD
+    : 0
+  const mainchainBalance =
+    formatEther(tokenBalance.L1Balance) * tokenBalance.ETHtoUSD
 
   const content =
     appStatus.status === 'unloaded' || appStatus.status === 'error' ? (
@@ -86,9 +97,9 @@ const Initial = ({
                 <span className="wallet__txt">No Wallet</span>
               ) : (
                 <Wallet
-                  l2={0}
-                  mainchain={746.12}
-                  address="0x81D5F852994b4235904F9AfA038f0647Ad269215"
+                  l2={l2Balance}
+                  mainchain={mainchainBalance}
+                  address={address}
                   onDeposit={() => {
                     openModal('deposit')
                   }}
@@ -203,9 +214,11 @@ const Initial = ({
   )
 }
 
-const mapStateToProps = state => ({
-  appStatus: state.appStatus,
-  appRouter: state.appRouter
+const mapStateToProps = ({ address, appRouter, appStatus, tokenBalance }) => ({
+  address,
+  appRouter,
+  appStatus,
+  tokenBalance
 })
 
 const mapDispatchToProps = {
