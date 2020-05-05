@@ -214,11 +214,11 @@ const Initial = ({
   )
 }
 
-const mapStateToProps = state => ({
-  appStatus: state.appStatus,
-  appRouter: state.appRouter,
-  address: state.address,
-  tokenBalance: state.tokenBalance
+const mapStateToProps = ({ address, appRouter, appStatus, tokenBalance }) => ({
+  address,
+  appRouter,
+  appStatus,
+  tokenBalance
 })
 
 const mapDispatchToProps = {
