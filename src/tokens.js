@@ -12,8 +12,9 @@ export const TOKEN_LIST = [
   {
     name: 'Dai Stablecoin',
     unit: 'DAI',
+    // TODO: change token addresses
     tokenContractAddress: '0x6b175474e89094c44da98b954eedeac495271d0f',
-    depositContractAddress: '',
+    depositContractAddress: '0x6b175474e89094c44da98b954eedeac495271d0f',
     imgSrc: '../tokenIcons/dai-logo.png',
     imgAspect: 1
   }

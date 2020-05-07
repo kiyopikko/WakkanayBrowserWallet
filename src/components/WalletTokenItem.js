@@ -14,7 +14,12 @@ import { Fragment } from 'react'
 import { useRouter } from 'next/router'
 import { openModal, PAYMENT } from '../routes'
 
-export const WalletTokenItem = ({ l2, mainchain, unit }) => {
+export const WalletTokenItem = ({
+  l2,
+  mainchain,
+  depositContractAddress,
+  unit
+}) => {
   const router = useRouter()
   const { imgSrc, imgAspect } = _.find(TOKEN_LIST, { unit })
   return (
@@ -40,7 +45,7 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                     size="medium"
                     border
                     onClick={() => {
-                      openModal('withdraw')
+                      openModal('withdraw', depositContractAddress)
                     }}
                   >
                     <img src="/withdraw-arrow.svg" className="btn__icon" />{' '}
@@ -57,7 +62,7 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                     Send
                   </Button>
                 </div>
-                <div className="btn">
+                {/* <div className="btn">
                   <Button
                     size="medium"
                     onClick={() => {
@@ -66,7 +71,7 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                   >
                     Exchange
                   </Button>
-                </div>
+                </div> */}
               </div>
             </Fragment>
           ) : (
@@ -92,7 +97,7 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                 size="medium"
                 border
                 onClick={() => {
-                  openModal('deposit')
+                  openModal('deposit', depositContractAddress)
                 }}
               >
                 <img src="/deposit-arrow.svg" className="btn__icon" /> Deposit

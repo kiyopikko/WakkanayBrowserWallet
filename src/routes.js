@@ -13,11 +13,11 @@ export const NFT_COLLECTIBLES = '/nft_collectibles'
  * @name openModal
  * @param {*} modalName is "deposit" or "withdraw"
  */
-export function openModal(modalName) {
+export function openModal(modalName, token) {
   Router.push(
     {
       pathname: Router.pathname,
-      query: { modal: modalName }
+      query: { modal: modalName, token: token }
     },
     undefined,
     { shallow: true }

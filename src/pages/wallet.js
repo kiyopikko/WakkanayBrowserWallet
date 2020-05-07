@@ -10,8 +10,18 @@ import { PAYMENT } from '../routes'
 function Wallet({ appRouter }) {
   const router = useRouter()
   const tokenMock = [
-    { unit: 'ETH', l2: 23.2, mainchain: 123.3 },
-    { unit: 'DAI', l2: 0, mainchain: 524.2 }
+    {
+      unit: 'ETH',
+      l2: 23.2,
+      mainchain: 123.3,
+      depositContractAddress: '0x2a504B5e7eC284ACa5b6f49716611237239F0b97'
+    },
+    {
+      unit: 'DAI',
+      l2: 0,
+      mainchain: 524.2,
+      depositContractAddress: '0x6b175474e89094c44da98b954eedeac495271d0f'
+    }
   ]
 
   return (
@@ -41,8 +51,13 @@ function Wallet({ appRouter }) {
           </div>
         </div>
         <div className="mtl">
-          {tokenMock.map(({ unit, l2, mainchain }) => (
-            <WalletTokenItem unit={unit} l2={l2} mainchain={mainchain} />
+          {tokenMock.map(({ unit, l2, mainchain, depositContractAddress }) => (
+            <WalletTokenItem
+              unit={unit}
+              l2={l2}
+              mainchain={mainchain}
+              depositContractAddress={depositContractAddress}
+            />
           ))}
         </div>
       </div>

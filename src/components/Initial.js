@@ -4,6 +4,7 @@ import Router, { useRouter } from 'next/router'
 import Head from 'next/head'
 import { formatEther } from 'ethers/utils'
 import Box from './Base/Box'
+import { config } from '../config'
 import Header from './Header'
 import StartupModal from './StartupModal'
 import { Tabs } from './Tabs'
@@ -101,7 +102,7 @@ const Initial = ({
                   mainchain={mainchainBalance}
                   address={address}
                   onDeposit={() => {
-                    openModal('deposit')
+                    openModal('deposit', config.payoutContracts.DepositContract)
                   }}
                 />
               )}
