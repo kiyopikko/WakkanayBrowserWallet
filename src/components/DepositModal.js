@@ -255,7 +255,7 @@ const DepositModal = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.tokenBalance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalance,
   depositedToken: state.depositState.depositedToken,
   depositPage: state.depositState.depositPage,
   ETHtoUSD: state.tokenBalance.ETHtoUSD,

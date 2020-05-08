@@ -86,7 +86,7 @@ const Send = props => {
 
 const mapStateToProps = state => ({
   address: state.address,
-  tokenBalanceList: state.tokenBalance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalance,
   ETHtoUSD: state.tokenBalance.ETHtoUSD,
   transferredToken: state.transferState.transferredToken,
   transferredAmount: state.transferState.transferredAmount,
