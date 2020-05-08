@@ -26,6 +26,10 @@ import {
 } from '../routes'
 import { pushRouteHistory, popRouteHistory } from '../store/appRouter'
 import { checkClientInitialized } from '../store/appStatus'
+import {
+  getL1TotalBalance,
+  getTokenTotalBalance
+} from '../store/tokenBalanceList'
 
 const Initial = ({
   checkClientInitialized,
@@ -33,7 +37,8 @@ const Initial = ({
   popRouteHistory,
   appStatus,
   address,
-  tokenBalance,
+  tokenTotalBalance,
+  l1TotalBalance,
   children
 }) => {
   const router = useRouter()
@@ -88,8 +93,8 @@ const Initial = ({
                 <span className="wallet__txt">No Wallet</span>
               ) : (
                 <Wallet
-                  l2={tokenBalance.tokenTotalBalance}
-                  mainchain={tokenBalance.l1TotalBalance}
+                  l2={tokenTotalBalance}
+                  mainchain={l1TotalBalance}
                   address={address}
                   onDeposit={() => {
                     openModal('deposit')
@@ -205,11 +210,12 @@ const Initial = ({
   )
 }
 
-const mapStateToProps = ({ address, appRouter, appStatus, tokenBalance }) => ({
-  address,
-  appRouter,
-  appStatus,
-  tokenBalance
+const mapStateToProps = state => ({
+  address: state.address,
+  appRouter: state.appRouter,
+  appStatus: state.appStatus,
+  l1TotalBalance: getL1TotalBalance(state),
+  tokenTotalBalance: getTokenTotalBalance(state)
 })
 
 const mapDispatchToProps = {

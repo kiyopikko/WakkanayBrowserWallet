@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -9,8 +9,18 @@ import { WalletTokenItem } from '../components/WalletTokenItem'
 import { FZ_MEDIUM, FW_NORMAL, FZ_SMALL, FW_BLACK, FZ_LARGE } from '../fonts'
 import { TOKEN_LIST } from '../tokens'
 import { PAYMENT } from '../routes'
+import {
+  getL1TotalBalance,
+  getTokenTotalBalance
+} from '../store/tokenBalanceList'
 
-function Wallet({ address, appRouter, tokenBalance }) {
+function Wallet({
+  address,
+  appRouter,
+  tokenBalance,
+  l1TotalBalance,
+  tokenTotalBalance
+}) {
   const router = useRouter()
   return (
     <Layout>
@@ -30,20 +40,17 @@ function Wallet({ address, appRouter, tokenBalance }) {
           <div className="total__list">
             <div className="total__item">
               <h3 className="total__head">L2</h3>
-              <div className="total__amount">
-                {tokenBalance.tokenTotalBalance} USD
-              </div>
+              <div className="total__amount">${tokenTotalBalance}</div>
             </div>
             <div className="total__item">
               <h3 className="total__head">Mainchain</h3>
-              <div className="total__amount">
-                {tokenBalance.l1TotalBalance} USD
-              </div>
+              <div className="total__amount">${l1TotalBalance}</div>
             </div>
           </div>
         </div>
         <div className="mtl">
           {TOKEN_LIST.map(({ unit }) => (
+            // TODO: will support for non-18 decimals
             <WalletTokenItem
               unit={unit}
               l2={
@@ -104,9 +111,11 @@ function Wallet({ address, appRouter, tokenBalance }) {
   )
 }
 
-const mapStateToProps = ({ address, appRouter, tokenBalance }) => ({
-  address,
-  appRouter,
-  tokenBalance
+const mapStateToProps = state => ({
+  address: state.address,
+  appRouter: state.appRouter,
+  tokenBalance: state.tokenBalance,
+  l1TotalBalance: getL1TotalBalance(state),
+  tokenTotalBalance: getTokenTotalBalance(state)
 })
 export default connect(mapStateToProps, undefined)(Wallet)
