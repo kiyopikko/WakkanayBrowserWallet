@@ -79,13 +79,6 @@ const DepositModal = props => {
                 >
                   Deposit
                 </Button>
-                {/* <PrimaryButton
-                  onClick={() => {
-                    props.setDepositPage('confirmation-page')
-                  }}
-                >
-                  Deposit
-                </PrimaryButton> */}
               </div>
             </div>
           ) : props.depositPage === 'confirmation-page' ? (
@@ -179,6 +172,7 @@ const DepositModal = props => {
               justify-content: center;
               background: ${BACKGROUND};
               padding-right: 14px;
+              border-radius: 8px;
             }
             .amount-input {
               height: 48px;
@@ -187,7 +181,6 @@ const DepositModal = props => {
               color: ${TEXT};
               border: none;
               background: transparent;
-              border-radius: 4px;
               padding: 8px;
             }
             .deposited-token-unit,

@@ -45,7 +45,10 @@ export const WalletTokenItem = ({
                     size="medium"
                     border
                     onClick={() => {
-                      openModal('withdraw', depositContractAddress)
+                      openModal({
+                        modal: 'withdraw',
+                        token: depositContractAddress
+                      })
                     }}
                   >
                     <img src="/withdraw-arrow.svg" className="btn__icon" />{' '}
@@ -66,7 +69,7 @@ export const WalletTokenItem = ({
                   <Button
                     size="medium"
                     onClick={() => {
-                      openModal('orderRequest')
+                      openModal({ modal: 'orderRequest', token: depositContractAddress })
                     }}
                   >
                     Exchange
@@ -97,7 +100,7 @@ export const WalletTokenItem = ({
                 size="medium"
                 border
                 onClick={() => {
-                  openModal('deposit', depositContractAddress)
+                  openModal({ modal: 'deposit', token: depositContractAddress })
                 }}
               >
                 <img src="/deposit-arrow.svg" className="btn__icon" /> Deposit

@@ -102,7 +102,10 @@ const Initial = ({
                   mainchain={mainchainBalance}
                   address={address}
                   onDeposit={() => {
-                    openModal('deposit', config.payoutContracts.DepositContract)
+                    openModal({
+                      modal: 'deposit',
+                      token: config.payoutContracts.DepositContract
+                    })
                   }}
                 />
               )}
