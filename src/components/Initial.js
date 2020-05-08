@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Router, { useRouter } from 'next/router'
 import Head from 'next/head'
-import { formatEther } from 'ethers/utils'
 import Box from './Base/Box'
 import Header from './Header'
 import StartupModal from './StartupModal'
@@ -58,14 +57,6 @@ const Initial = ({
     })
   }, [])
 
-  // TODO: how to show the other token balances
-  const l2Balance = tokenBalance.tokenBalanceList[0]
-    ? formatEther(tokenBalance.tokenBalanceList[0].amount.toString()) *
-      tokenBalance.ETHtoUSD
-    : 0
-  const mainchainBalance =
-    formatEther(tokenBalance.L1Balance) * tokenBalance.ETHtoUSD
-
   const content =
     appStatus.status === 'unloaded' || appStatus.status === 'error' ? (
       <div>
@@ -97,8 +88,8 @@ const Initial = ({
                 <span className="wallet__txt">No Wallet</span>
               ) : (
                 <Wallet
-                  l2={l2Balance}
-                  mainchain={mainchainBalance}
+                  l2={tokenBalance.tokenTotalBalance}
+                  mainchain={tokenBalance.l1TotalBalance}
                   address={address}
                   onDeposit={() => {
                     openModal('deposit')

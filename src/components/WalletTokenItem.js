@@ -30,9 +30,9 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
             <Fragment>
               <div className="layer__amount">
                 {l2.toFixed(2)}
-                <span className="layer__dollar">
+                {/* <span className="layer__dollar">
                   = {(l2 * 100).toFixed(2)} USD
-                </span>
+                </span> */}
               </div>
               <div className="btns">
                 <div className="btn">
@@ -43,7 +43,7 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                       openModal('withdraw')
                     }}
                   >
-                    <img src="/withdraw-arrow.svg" className="btn__icon" />{' '}
+                    <img src="/withdraw-arrow.svg" className="btn__icon" />
                     Withdraw
                   </Button>
                 </div>
@@ -82,9 +82,9 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
           <div className="layer__label">mainchain</div>
           <div className="layer__amount">
             {mainchain.toFixed(2)}
-            <span className="layer__dollar">
+            {/* <span className="layer__dollar">
               = {(mainchain * 100).toFixed(2)} USD
-            </span>
+            </span> */}
           </div>
           <div className="btns">
             <div className="btn">
@@ -95,7 +95,8 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                   openModal('deposit')
                 }}
               >
-                <img src="/deposit-arrow.svg" className="btn__icon" /> Deposit
+                <img src="/deposit-arrow.svg" className="btn__icon" />
+                Deposit
               </Button>
             </div>
           </div>

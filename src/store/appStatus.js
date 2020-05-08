@@ -2,7 +2,13 @@ import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
 import { EthCoder } from '@cryptoeconomicslab/eth-coder'
 import { setupContext } from '@cryptoeconomicslab/context'
-import { getL1Balance, getBalance, getETHtoUSD } from './tokenBalanceList'
+import {
+  getL1Balance,
+  getL1TotalBalance,
+  getBalance,
+  getTotalBalance,
+  getETHtoUSD
+} from './tokenBalanceList'
 import { getAddress } from './address'
 import { finalizeExit, autoFinalizeExit } from './withdraw'
 
@@ -32,7 +38,9 @@ export const checkClientInitialized = () => {
   return async dispatch => {
     const initialGetters = () => {
       dispatch(getL1Balance())
+      dispatch(getL1TotalBalance())
       dispatch(getBalance())
+      dispatch(getTotalBalance())
       dispatch(getAddress())
       dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
     }
@@ -73,7 +81,9 @@ export const initializeClient = privateKey => {
   return async dispatch => {
     const initialGetters = () => {
       dispatch(getL1Balance())
+      dispatch(getL1TotalBalance())
       dispatch(getBalance())
+      dispatch(getTotalBalance())
       dispatch(getAddress())
       dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
     }

@@ -107,7 +107,7 @@ const Home = props => {
       <div className="l2-token-box-wrapper" id="l2-tokens">
         <SectionTitle>L2 Tokens</SectionTitle>
         <div className="l2-token-box-list">
-          {props.tokenBalanceList.map(
+          {props.tokenBalance.map(
             ({ depositContractAddress, amount, decimals }) => {
               const formatAmount = utils.formatUnits(
                 utils.bigNumberify(amount.toString()),
@@ -529,7 +529,7 @@ const Home = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.tokenBalance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalance,
   ETHtoUSD: state.tokenBalance.ETHtoUSD,
   address: state.address,
   addressList: state.addressList,
