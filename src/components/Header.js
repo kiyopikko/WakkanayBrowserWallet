@@ -29,7 +29,7 @@ const Header = ({ appRouter }) => {
         <>
           <h1 className="title">
             <Link href={PAYMENT} passHref>
-              <img src="/logo.svg" width="116" />
+              <img src="/logo.svg" width="158" />
             </Link>
           </h1>
           <Link href={HISTORY} passHref>
@@ -63,8 +63,8 @@ const Header = ({ appRouter }) => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          height: 74px;
-          padding: 0 1rem;
+          height: 64px;
+          padding: 0 1.25rem;
         }
         .title {
           display: flex;
