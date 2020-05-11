@@ -1,16 +1,15 @@
+import React, { Fragment, useState } from 'react'
+import { connect } from 'react-redux'
 import classnames from 'classnames'
-import { BACKGROUND, MAIN } from '../colors'
-import { useState } from 'react'
 import Input from './Base/Input'
 import DropdownContent from './DropdownContent'
-import { shortenAddress } from '../utils'
 import { SelectItem } from './SelectItem'
+import { BACKGROUND, MAIN } from '../colors'
+import { shortenAddress } from '../utils'
 
-export default props => {
-  const { className, img } = props
+const AddressInput = props => {
+  const { className, handleAddress, img, recepientAddress } = props
   const [focused, setFocused] = useState(false)
-  const [value, setValue] = useState('')
-
   const dummyItems = [
     {
       img: 'https://ca.slack-edge.com/T9AFDRDSL-UEBGF5FRV-d960cb3bb255-512',
@@ -30,15 +29,17 @@ export default props => {
   ]
 
   const filteredItems = dummyItems.filter(item => {
-    const regexp = new RegExp(`^${value}`)
-    return item.address.match(regexp) && item.address !== value
+    const regexp = new RegExp(`^${recepientAddress}`)
+    return item.address.match(regexp) && item.address !== recepientAddress
   })
 
-  const matchedAddress = dummyItems.filter(item => item.address === value)[0]
+  const matchedAddress = dummyItems.filter(
+    item => item.address === recepientAddress
+  )[0]
   const currentImg = matchedAddress ? matchedAddress.img : '/icon-user.svg'
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div
         className={`${classnames(className, {
           inputWrap: true,
@@ -47,7 +48,7 @@ export default props => {
       >
         <Input
           full
-          value={value}
+          value={recepientAddress}
           placeholder="0x0000000000000000000000000000000000000000"
           onFocus={() => {
             setFocused(true)
@@ -58,11 +59,11 @@ export default props => {
             }, 200)
           }}
           onChange={e => {
-            setValue(e.target.value)
+            handleAddress(e.target.value)
           }}
         />
         <img src={currentImg} width={32} className="input__img" />
-        {focused && !!filteredItems.length && (
+        {/* {focused && !!filteredItems.length && (
           <DropdownContent
             items={filteredItems}
             renderItem={item => (
@@ -77,7 +78,7 @@ export default props => {
               setValue(item.address)
             }}
           />
-        )}
+        )} */}
       </div>
       <style jsx>{`
         .inputWrap {
@@ -94,6 +95,11 @@ export default props => {
           border-radius: 50%;
         }
       `}</style>
-    </React.Fragment>
+    </Fragment>
   )
 }
+
+const mapStateToProps = ({ transferState }) => ({
+  recepientAddress: transferState.recepientAddress
+})
+export default connect(mapStateToProps)(AddressInput)

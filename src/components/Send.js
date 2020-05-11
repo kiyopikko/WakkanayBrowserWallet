@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 //react-font-awesome import
@@ -10,23 +10,22 @@ library.add(faSignOutAlt)
 import {
   setTransferredToken,
   setTransferredAmount,
-  setRecepientAddress
+  setRecepientAddress,
+  transfer
 } from '../store/transfer'
 
 //internal import
-import { roundBalance } from '../utils'
-import { SectionTitle } from '../components/SectionTitle'
-import { TokenSelector } from './TokenSelector'
 import { SECTION_BACKGROUND } from '../colors'
+import { SectionTitle } from '../components/SectionTitle'
 import { TOKEN_LIST } from '../tokens'
-import TokenInput from './TokenInput'
+import { TokenSelector } from './TokenSelector'
+import { roundBalance } from '../utils'
 import AddressInput from './AddressInput'
 import Button from './Base/Button'
+import TokenInput from './TokenInput'
 
 const Send = props => {
-  const recepientAddressRef = useRef('')
-  const [tokenAmount, setTokenAmount] = useState(0)
-
+  const [isLoading, setIsLoading] = useState(false)
   const transferredTokenObj = TOKEN_LIST.find(
     ({ depositContractAddress }) =>
       depositContractAddress.toLowerCase() ===
@@ -35,7 +34,10 @@ const Send = props => {
 
   const tokensWithCurrentAmount = TOKEN_LIST.map(token => ({
     ...token,
-    amount: 123.45
+    amount: props.tokenBalance[token.unit]
+      ? props.tokenBalance[token.unit].amount /
+        10 ** props.tokenBalance[token.unit].decimals
+      : 0
   }))
 
   return (
@@ -52,21 +54,36 @@ const Send = props => {
       <TokenInput
         className="mts mbs"
         unit={transferredTokenObj.unit}
-        balance={roundBalance(props.ETHtoUSD, tokenAmount)}
-        onChange={e => {
-          setTokenAmount(e.target.value)
-        }}
+        balance={roundBalance(props.ETHtoUSD, props.transferredAmount)}
+        handleAmount={inputAmount => props.setTransferredAmount(inputAmount)}
       />
-      <AddressInput className="mbs" type="text" onChange={() => {}} />
+      <AddressInput
+        className="mbs"
+        type="text"
+        handleAddress={inputAddress => props.setRecepientAddress(inputAddress)}
+      />
       <Button
         full
-        onClick={e => {
-          props.setTransferredAmount(tokenAmount)
-          props.setRecepientAddress(recepientAddressRef.current.value)
-          // const href = `${router.route}?transfer`
-          // router.push(href, href, { shallow: true })
+        onClick={() => {
+          setIsLoading(true)
+          props
+            .transfer(
+              props.transferredAmount,
+              props.transferredToken,
+              props.recepientAddress
+            )
+            .then(() => {
+              setIsLoading(false)
+              props.setTransferredAmount('')
+              props.setRecepientAddress('')
+            })
         }}
-        disabled
+        disabled={
+          isLoading === true ||
+          !props.transferredAmount ||
+          !props.transferredToken ||
+          !props.recepientAddress
+        }
       >
         Send
       </Button>
@@ -86,7 +103,7 @@ const Send = props => {
 
 const mapStateToProps = state => ({
   address: state.address,
-  tokenBalanceList: state.tokenBalance.tokenBalance,
+  tokenBalance: state.tokenBalance.tokenBalance,
   ETHtoUSD: state.tokenBalance.ETHtoUSD,
   transferredToken: state.transferState.transferredToken,
   transferredAmount: state.transferState.transferredAmount,
@@ -96,6 +113,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   setTransferredToken,
   setTransferredAmount,
-  setRecepientAddress
+  setRecepientAddress,
+  transfer
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Send)

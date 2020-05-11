@@ -1,7 +1,7 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import clientWrapper from '../client'
 import { utils } from 'ethers'
 import JSBI from 'jsbi'
+import clientWrapper from '../client'
 import { config } from '../config'
 
 export const setTransferredToken = createAction('SET_TRANSFERRED_TOKEN')
@@ -12,8 +12,8 @@ export const setTransferPage = createAction('SET_TRANSFER_PAGE')
 export const transferReducer = createReducer(
   {
     transferredToken: config.payoutContracts.DepositContract,
-    transferredAmount: 0,
-    recepientAddress: '0x00000000000',
+    transferredAmount: '',
+    recepientAddress: '',
     transferPage: 'confirmation-page'
   },
   {
@@ -48,6 +48,7 @@ export const transfer = (amount, depositContractAddress, recipientAddress) => {
       dispatch(setTransferPage('completion-page'))
     } catch (error) {
       console.log(error)
+      alert(error)
     }
   }
 }
