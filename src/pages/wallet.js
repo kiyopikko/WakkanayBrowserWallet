@@ -49,7 +49,7 @@ function Wallet({
           </div>
         </div>
         <div className="mtl">
-          {TOKEN_LIST.map(({ unit }) => (
+          {TOKEN_LIST.map(({ unit, depositContractAddress }) => (
             // TODO: will support for non-18 decimals
             <WalletTokenItem
               unit={unit}
@@ -63,6 +63,7 @@ function Wallet({
                   ? Number(formatEther(tokenBalance.l1Balance[unit].amount))
                   : 0
               }
+              depositContractAddress={depositContractAddress}
             />
           ))}
         </div>

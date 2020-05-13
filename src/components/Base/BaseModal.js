@@ -73,7 +73,7 @@ export class BaseModal extends React.Component {
             height: calc(50% - 20px);
             background: ${MODAL_MAIN_BACKGROUND};
             opacity: 1;
-            border-radius: 10px;
+            border-radius: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
