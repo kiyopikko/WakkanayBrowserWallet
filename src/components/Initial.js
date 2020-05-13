@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Router, { useRouter } from 'next/router'
 import Head from 'next/head'
 import Box from './Base/Box'
+import { config } from '../config'
 import Header from './Header'
 import StartupModal from './StartupModal'
 import { Tabs } from './Tabs'
@@ -97,7 +98,10 @@ const Initial = ({
                   mainchain={l1TotalBalance}
                   address={address}
                   onDeposit={() => {
-                    openModal('deposit')
+                    openModal({
+                      modal: 'deposit',
+                      token: config.payoutContracts.DepositContract
+                    })
                   }}
                 />
               )}
