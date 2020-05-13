@@ -15,15 +15,7 @@ import { TOKEN_LIST } from '../tokens'
 import { BaseModal } from './Base/BaseModal'
 import Button from './Base/Button'
 
-import {
-  SMALLPLUS,
-  MEDIUM,
-  LARGER,
-  BOLD,
-  XLARGE,
-  NORMAL,
-  SMALLER
-} from '../fonts'
+import { SMALLPLUS, MEDIUM, LARGER, BOLD, NORMAL, SMALLER } from '../fonts'
 import { BACKGROUND, TEXT, SUBTEXT } from '../colors'
 
 const DepositModal = props => {
@@ -172,16 +164,17 @@ const DepositModal = props => {
               justify-content: center;
               background: ${BACKGROUND};
               padding-right: 14px;
-              border-radius: 8px;
+              border-radius: 20px;
             }
             .amount-input {
+              width: 100%;
               height: 48px;
-              font-size: ${XLARGE};
+              font-size: ${MEDIUM};
               font-weight: ${NORMAL};
               color: ${TEXT};
               border: none;
               background: transparent;
-              padding: 8px;
+              padding: 0 1rem;
             }
             .deposited-token-unit,
             .deposited-token-confirm {
