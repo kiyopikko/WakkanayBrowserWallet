@@ -1,31 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-//react-font-awesome import
+// react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 library.add(faSignOutAlt)
 
-//redux
+// redux
 import {
+  isAbleToSubmit,
   setTransferredToken,
   setTransferredAmount,
   setRecepientAddress,
   transfer
 } from '../store/transfer'
 
-//internal import
+// internal import
 import { SECTION_BACKGROUND } from '../colors'
-import { SectionTitle } from '../components/SectionTitle'
 import { TOKEN_LIST } from '../tokens'
 import { TokenSelector } from './TokenSelector'
 import { roundBalance } from '../utils'
 import AddressInput from './AddressInput'
 import Button from './Base/Button'
+import ErrorMessage from './Base/ErrorMessage'
+import { SectionTitle } from './SectionTitle'
 import TokenInput from './TokenInput'
 
 const Send = props => {
-  const [isLoading, setIsLoading] = useState(false)
   const transferredTokenObj = TOKEN_LIST.find(
     ({ depositContractAddress }) =>
       depositContractAddress.toLowerCase() ===
@@ -45,9 +46,7 @@ const Send = props => {
       <SectionTitle>Send Token</SectionTitle>
       <TokenSelector
         items={tokensWithCurrentAmount}
-        onSelected={selectedTokenContractAddress =>
-          props.setTransferredToken(selectedTokenContractAddress)
-        }
+        onSelected={props.setTransferredToken}
         selectedToken={transferredTokenObj}
       />
 
@@ -55,38 +54,29 @@ const Send = props => {
         className="mts mbs"
         unit={transferredTokenObj.unit}
         balance={roundBalance(props.ETHtoUSD, props.transferredAmount)}
-        handleAmount={inputAmount => props.setTransferredAmount(inputAmount)}
+        handleAmount={props.setTransferredAmount}
       />
       <AddressInput
         className="mbs"
         type="text"
-        handleAddress={inputAddress => props.setRecepientAddress(inputAddress)}
+        handleAddress={props.setRecepientAddress}
       />
       <Button
         full
         onClick={() => {
-          setIsLoading(true)
-          props
-            .transfer(
-              props.transferredAmount,
-              props.transferredToken,
-              props.recepientAddress
-            )
-            .then(() => {
-              setIsLoading(false)
-              props.setTransferredAmount('')
-              props.setRecepientAddress('')
-            })
+          props.transfer(
+            props.transferredAmount,
+            props.transferredToken,
+            props.recepientAddress
+          )
         }}
-        disabled={
-          isLoading === true ||
-          !props.transferredAmount ||
-          !props.transferredToken ||
-          !props.recepientAddress
-        }
+        disabled={props.isAbleToSubmit}
       >
         Send
       </Button>
+      {props.transferError && (
+        <ErrorMessage>{props.transferError}</ErrorMessage>
+      )}
 
       <style jsx>{`
         .send-section {
@@ -105,9 +95,11 @@ const mapStateToProps = state => ({
   address: state.address,
   tokenBalance: state.tokenBalance.tokenBalance,
   ETHtoUSD: state.tokenBalance.ETHtoUSD,
+  isAbleToSubmit: isAbleToSubmit(state),
   transferredToken: state.transferState.transferredToken,
   transferredAmount: state.transferState.transferredAmount,
-  recepientAddress: state.transferState.recepientAddress
+  recepientAddress: state.transferState.recepientAddress,
+  transferError: state.transferState.transferError
 })
 
 const mapDispatchToProps = {
