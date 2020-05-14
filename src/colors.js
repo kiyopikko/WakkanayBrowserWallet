@@ -11,6 +11,7 @@ export const MODAL_MAIN_BACKGROUND = White(1)
 export const BORDER_DARK = White(0.1)
 export const BORDER = '#ECE8EF'
 export const TEXT = '#584B5A'
+export const TEXT_ERROR = '#e6008d'
 export const SUBTEXT = '#AA9AAA'
 export const PRIMARY_BUTTON_TEXT = White(0.85)
 export const AREA = '#2D2A2C'
