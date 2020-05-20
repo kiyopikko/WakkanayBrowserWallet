@@ -4,17 +4,17 @@ import { utils } from 'ethers'
 import JSBI from 'jsbi'
 import { config } from '../config'
 
-export const setWithdrawnToken = createAction('SET_WITHDRAWN_TOKEN')
+export const setWithdrawToken = createAction('SET_WITHDRAW_TOKEN')
 export const setWithdrawPage = createAction('SET_WITHDRAW_PAGE')
 
 export const withdrawReducer = createReducer(
   {
-    withdrawnToken: config.payoutContracts.DepositContract,
+    withdrawToken: config.payoutContracts.DepositContract,
     withdrawPage: 'input-page'
   },
   {
-    [setWithdrawnToken]: (state, action) => {
-      state.withdrawnToken = action.payload
+    [setWithdrawToken]: (state, action) => {
+      state.withdrawToken = action.payload
     },
     [setWithdrawPage]: (state, action) => {
       state.withdrawPage = action.payload
@@ -29,7 +29,6 @@ export const withdrawReducer = createReducer(
  */
 export const withdraw = (amount, depositContractAddress) => {
   const amountWei = JSBI.BigInt(utils.parseEther(amount).toString())
-
   return async dispatch => {
     try {
       const client = await clientWrapper.getClient()
@@ -56,6 +55,8 @@ export const finalizeExit = () => {
           payload: exit.id.intoHexString()
         })
       } catch (e) {
+        // @NOTE: 'Exit property is not decidable' is fine
+        if (e.message === 'Exit property is not decidable') return
         console.error(e)
         return
       }

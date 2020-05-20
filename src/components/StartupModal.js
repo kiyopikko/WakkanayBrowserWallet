@@ -17,7 +17,7 @@ const StartUpModal = props => {
     <div className="container">
       <img src="/logo-gray.svg" width="82" />
       <p className="sub mtm mbs">
-        Create L2 wallet from your mainchain wallet to start wakkanay!
+        Create L2 wallet from your mainchain wallet to start gazelle!
       </p>
       <div>
         <Input
