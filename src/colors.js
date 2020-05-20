@@ -11,12 +11,13 @@ export const MODAL_MAIN_BACKGROUND = White(1)
 export const BORDER_DARK = White(0.1)
 export const BORDER = '#ECE8EF'
 export const TEXT = '#584B5A'
+export const TEXT_ERROR = '#e6008d'
 export const SUBTEXT = '#AA9AAA'
 export const PRIMARY_BUTTON_TEXT = White(0.85)
 export const AREA = '#2D2A2C'
 export const PLACEHOLDER = '#DBD6DF'
 export const ERROR = '#E93902'
 
-export const MAIN = '#C23088'
-export const MAIN_DARK = '#BB1A7B'
-export const Main = (opacity = 1) => `rgba(194, 48, 136, ${opacity})`
+export const MAIN = '#00E6CC'
+export const MAIN_DARK = '#06DBC3'
+export const Main = (opacity = 1) => `rgba(0, 230, 204, ${opacity})`

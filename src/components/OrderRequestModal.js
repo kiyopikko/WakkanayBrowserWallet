@@ -405,7 +405,7 @@ const OrderRequestModal = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.tokenBalance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalance,
   requestedTokenToExchange: state.exchangeState.requestedTokenToExchange,
   requestedTokenToReceive: state.exchangeState.requestedTokenToReceive,
   orderRequestPage: state.exchangeState.orderRequestPage,

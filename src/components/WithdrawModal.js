@@ -263,7 +263,7 @@ const WithdrawModal = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.tokenBalance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalance,
   withdrawnToken: state.withdrawState.withdrawnToken,
   withdrawPage: state.withdrawState.withdrawPage,
   ETHtoUSD: state.tokenBalance.ETHtoUSD,

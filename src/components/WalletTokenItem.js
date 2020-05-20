@@ -14,7 +14,12 @@ import { Fragment } from 'react'
 import { useRouter } from 'next/router'
 import { openModal, PAYMENT } from '../routes'
 
-export const WalletTokenItem = ({ l2, mainchain, unit }) => {
+export const WalletTokenItem = ({
+  l2,
+  mainchain,
+  depositContractAddress,
+  unit
+}) => {
   const router = useRouter()
   const { imgSrc, imgAspect } = _.find(TOKEN_LIST, { unit })
   return (
@@ -30,9 +35,9 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
             <Fragment>
               <div className="layer__amount">
                 {l2.toFixed(2)}
-                <span className="layer__dollar">
+                {/* <span className="layer__dollar">
                   = {(l2 * 100).toFixed(2)} USD
-                </span>
+                </span> */}
               </div>
               <div className="btns">
                 <div className="btn">
@@ -40,10 +45,13 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                     size="medium"
                     border
                     onClick={() => {
-                      openModal('withdraw')
+                      openModal({
+                        modal: 'withdraw',
+                        token: depositContractAddress
+                      })
                     }}
                   >
-                    <img src="/withdraw-arrow.svg" className="btn__icon" />{' '}
+                    <img src="/withdraw-arrow.svg" className="btn__icon" />
                     Withdraw
                   </Button>
                 </div>
@@ -57,16 +65,16 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                     Send
                   </Button>
                 </div>
-                <div className="btn">
+                {/* <div className="btn">
                   <Button
                     size="medium"
                     onClick={() => {
-                      openModal('orderRequest')
+                      openModal({ modal: 'orderRequest', token: depositContractAddress })
                     }}
                   >
                     Exchange
                   </Button>
-                </div>
+                </div> */}
               </div>
             </Fragment>
           ) : (
@@ -82,9 +90,9 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
           <div className="layer__label">mainchain</div>
           <div className="layer__amount">
             {mainchain.toFixed(2)}
-            <span className="layer__dollar">
+            {/* <span className="layer__dollar">
               = {(mainchain * 100).toFixed(2)} USD
-            </span>
+            </span> */}
           </div>
           <div className="btns">
             <div className="btn">
@@ -92,10 +100,11 @@ export const WalletTokenItem = ({ l2, mainchain, unit }) => {
                 size="medium"
                 border
                 onClick={() => {
-                  openModal('deposit')
+                  openModal({ modal: 'deposit', token: depositContractAddress })
                 }}
               >
-                <img src="/deposit-arrow.svg" className="btn__icon" /> Deposit
+                <img src="/deposit-arrow.svg" className="btn__icon" />
+                Deposit
               </Button>
             </div>
           </div>

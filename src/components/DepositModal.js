@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 
 //react-font-awesome import
@@ -10,27 +11,20 @@ library.add(fab, faArrowLeft)
 import { setDepositedToken, setDepositPage, deposit } from '../store/deposit'
 import { shortenAddress, roundBalance } from '../utils'
 import { TokenSelector } from './TokenSelector'
-import { PrimaryButton } from './PrimaryButton'
 import { TOKEN_LIST } from '../tokens'
 import { BaseModal } from './Base/BaseModal'
+import Button from './Base/Button'
 
-import {
-  SMALLPLUS,
-  MEDIUM,
-  LARGER,
-  BOLD,
-  XLARGE,
-  NORMAL,
-  SMALLER
-} from '../fonts'
+import { SMALLPLUS, MEDIUM, LARGER, BOLD, NORMAL, SMALLER } from '../fonts'
 import { BACKGROUND, TEXT, SUBTEXT } from '../colors'
 
 const DepositModal = props => {
   const [tokenAmount, setTokenAmount] = useState(0)
   const amountInput = useRef('')
+  const router = useRouter()
+  const depositedToken = router.query.token
   const depositedTokenObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) =>
-      depositContractAddress === props.depositedToken
+    ({ depositContractAddress }) => depositContractAddress === depositedToken
   )
 
   return (
@@ -54,6 +48,7 @@ const DepositModal = props => {
                 <input
                   className="amount-input"
                   type="number"
+                  placeholder="0.0"
                   ref={amountInput}
                   onChange={e => {
                     setTokenAmount(e.target.value)
@@ -67,14 +62,15 @@ const DepositModal = props => {
                 = {roundBalance(props.ETHtoUSD, tokenAmount)} USD / from{' '}
                 {shortenAddress(props.address)}
               </div>
-              <div className="deposit-button">
-                <PrimaryButton
+              <div className="deposit-button btn">
+                <Button
+                  size="full"
                   onClick={() => {
                     props.setDepositPage('confirmation-page')
                   }}
                 >
                   Deposit
-                </PrimaryButton>
+                </Button>
               </div>
             </div>
           ) : props.depositPage === 'confirmation-page' ? (
@@ -105,35 +101,52 @@ const DepositModal = props => {
                   from{' '}
                   <a className="address">{shortenAddress(props.address)}</a>
                 </div>
-                <div className="to">to your Wakkanay Wallet</div>
+                <div className="to">to your wallet</div>
               </div>
               <div className="cancel-next-buttons">
                 <div
-                  className="cancel-button"
+                  className="cancel-button btn"
                   onClick={() => {
                     props.setDepositPage('input-page')
                   }}
                 >
-                  <a className="cancel" onClick={() => modal.close()}>
+                  <Button
+                    size="medium"
+                    style={{ margin: '0 auto' }}
+                    border
+                    onClick={() => {
+                      modal.close()
+                    }}
+                  >
                     Cancel
-                  </a>
+                  </Button>
                 </div>
-                <div
-                  className="confirm-button"
-                  onClick={() => {
-                    props.deposit(tokenAmount, props.depositedToken)
-                  }}
-                >
-                  <PrimaryButton>Confirm</PrimaryButton>
+                <div className="confirm-button btn">
+                  <Button
+                    size="medium"
+                    onClick={() => {
+                      props.deposit(tokenAmount, props.depositedToken)
+                    }}
+                  >
+                    Confirm
+                  </Button>
                 </div>
               </div>
             </div>
           ) : (
             <div>
-              <div className="modal-page-title">Deposit Completed</div>
-              <a className="confirm-button" onClick={() => modal.close()}>
-                Close
-              </a>
+              <div className="deposit-complete-title amount-confirmation-title">
+                Deposit Completed
+              </div>
+              <div className="btn deposit-complete-btn">
+                <Button
+                  size="medium"
+                  onClick={() => modal.close()}
+                  style={{ margin: '0 auto' }}
+                >
+                  Close
+                </Button>
+              </div>
             </div>
           )}
           <style jsx>{`
@@ -151,16 +164,17 @@ const DepositModal = props => {
               justify-content: center;
               background: ${BACKGROUND};
               padding-right: 14px;
+              border-radius: 20px;
             }
             .amount-input {
+              width: 100%;
               height: 48px;
-              font-size: ${XLARGE};
+              font-size: ${MEDIUM};
               font-weight: ${NORMAL};
               color: ${TEXT};
               border: none;
               background: transparent;
-              border-radius: 4px;
-              padding: 8px;
+              padding: 0 1rem;
             }
             .deposited-token-unit,
             .deposited-token-confirm {
@@ -247,6 +261,9 @@ const DepositModal = props => {
               font-size: ${SMALLPLUS};
               font-weight: 650;
             }
+            .btn {
+              margin-top: 0.5rem;
+            }
           `}</style>
         </>
       )}
@@ -255,7 +272,7 @@ const DepositModal = props => {
 }
 
 const mapStateToProps = state => ({
-  tokenBalanceList: state.tokenBalance.tokenBalanceList,
+  tokenBalanceList: state.tokenBalance.tokenBalance,
   depositedToken: state.depositState.depositedToken,
   depositPage: state.depositState.depositPage,
   ETHtoUSD: state.tokenBalance.ETHtoUSD,

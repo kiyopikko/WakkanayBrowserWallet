@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Router, { useRouter } from 'next/router'
 import Head from 'next/head'
-import { formatEther } from 'ethers/utils'
 import Box from './Base/Box'
+import { config } from '../config'
 import Header from './Header'
 import StartupModal from './StartupModal'
 import { Tabs } from './Tabs'
@@ -27,6 +27,10 @@ import {
 } from '../routes'
 import { pushRouteHistory, popRouteHistory } from '../store/appRouter'
 import { checkClientInitialized } from '../store/appStatus'
+import {
+  getL1TotalBalance,
+  getTokenTotalBalance
+} from '../store/tokenBalanceList'
 
 const Initial = ({
   checkClientInitialized,
@@ -34,7 +38,8 @@ const Initial = ({
   popRouteHistory,
   appStatus,
   address,
-  tokenBalance,
+  tokenTotalBalance,
+  l1TotalBalance,
   children
 }) => {
   const router = useRouter()
@@ -57,14 +62,6 @@ const Initial = ({
       return true
     })
   }, [])
-
-  // TODO: how to show the other token balances
-  const l2Balance = tokenBalance.tokenBalanceList[0]
-    ? formatEther(tokenBalance.tokenBalanceList[0].amount.toString()) *
-      tokenBalance.ETHtoUSD
-    : 0
-  const mainchainBalance =
-    formatEther(tokenBalance.L1Balance) * tokenBalance.ETHtoUSD
 
   const content =
     appStatus.status === 'unloaded' || appStatus.status === 'error' ? (
@@ -97,11 +94,14 @@ const Initial = ({
                 <span className="wallet__txt">No Wallet</span>
               ) : (
                 <Wallet
-                  l2={l2Balance}
-                  mainchain={mainchainBalance}
+                  l2={tokenTotalBalance}
+                  mainchain={l1TotalBalance}
                   address={address}
                   onDeposit={() => {
-                    openModal('deposit')
+                    openModal({
+                      modal: 'deposit',
+                      token: config.payoutContracts.DepositContract
+                    })
                   }}
                 />
               )}
@@ -214,11 +214,12 @@ const Initial = ({
   )
 }
 
-const mapStateToProps = ({ address, appRouter, appStatus, tokenBalance }) => ({
-  address,
-  appRouter,
-  appStatus,
-  tokenBalance
+const mapStateToProps = state => ({
+  address: state.address,
+  appRouter: state.appRouter,
+  appStatus: state.appStatus,
+  l1TotalBalance: getL1TotalBalance(state),
+  tokenTotalBalance: getTokenTotalBalance(state)
 })
 
 const mapDispatchToProps = {

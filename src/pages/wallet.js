@@ -1,19 +1,27 @@
-import Layout from '../components/Layout'
-import { FZ_MEDIUM, FW_NORMAL, FZ_SMALL, FW_BLACK, FZ_LARGE } from '../fonts'
-import { useRouter } from 'next/router'
+import React from 'react'
 import { connect } from 'react-redux'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { formatEther } from 'ethers/utils'
 import { BACKGROUND, SUBTEXT } from '../colors'
+import Layout from '../components/Layout'
 import { WalletTokenItem } from '../components/WalletTokenItem'
+import { FZ_MEDIUM, FW_NORMAL, FZ_SMALL, FW_BLACK, FZ_LARGE } from '../fonts'
+import { TOKEN_LIST } from '../tokens'
 import { PAYMENT } from '../routes'
+import {
+  getL1TotalBalance,
+  getTokenTotalBalance
+} from '../store/tokenBalanceList'
 
-function Wallet({ appRouter }) {
+function Wallet({
+  address,
+  appRouter,
+  tokenBalance,
+  l1TotalBalance,
+  tokenTotalBalance
+}) {
   const router = useRouter()
-  const tokenMock = [
-    { unit: 'ETH', l2: 23.2, mainchain: 123.3 },
-    { unit: 'DAI', l2: 0, mainchain: 524.2 }
-  ]
-
   return (
     <Layout>
       {appRouter.routeHistory.length < 2 ? (
@@ -28,21 +36,35 @@ function Wallet({ appRouter }) {
 
       <div>
         <div className="total">
-          <div className="total__walletId">Wallet ID: 0x34A4...9A24</div>
+          <div className="total__walletId">Address: {address}</div>
           <div className="total__list">
             <div className="total__item">
               <h3 className="total__head">L2</h3>
-              <div className="total__amount">435.23 USD</div>
+              <div className="total__amount">${tokenTotalBalance}</div>
             </div>
             <div className="total__item">
               <h3 className="total__head">Mainchain</h3>
-              <div className="total__amount">435.23 USD</div>
+              <div className="total__amount">${l1TotalBalance}</div>
             </div>
           </div>
         </div>
         <div className="mtl">
-          {tokenMock.map(({ unit, l2, mainchain }) => (
-            <WalletTokenItem unit={unit} l2={l2} mainchain={mainchain} />
+          {TOKEN_LIST.map(({ unit, depositContractAddress }) => (
+            // TODO: will support for non-18 decimals
+            <WalletTokenItem
+              unit={unit}
+              l2={
+                tokenBalance.tokenBalance[unit]
+                  ? Number(formatEther(tokenBalance.tokenBalance[unit].amount))
+                  : 0
+              }
+              mainchain={
+                tokenBalance.l1Balance[unit]
+                  ? Number(formatEther(tokenBalance.l1Balance[unit].amount))
+                  : 0
+              }
+              depositContractAddress={depositContractAddress}
+            />
           ))}
         </div>
       </div>
@@ -91,6 +113,10 @@ function Wallet({ appRouter }) {
 }
 
 const mapStateToProps = state => ({
-  appRouter: state.appRouter
+  address: state.address,
+  appRouter: state.appRouter,
+  tokenBalance: state.tokenBalance,
+  l1TotalBalance: getL1TotalBalance(state),
+  tokenTotalBalance: getTokenTotalBalance(state)
 })
 export default connect(mapStateToProps, undefined)(Wallet)

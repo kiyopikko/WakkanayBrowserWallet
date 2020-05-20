@@ -6,7 +6,7 @@ export const TokenSelectButton = props => {
       img={props.item.imgSrc}
       name={props.item.unit}
       supplement={
-        props.item.amount
+        props.item.amount !== undefined && props.item.amount !== null
           ? `${props.item.amount} ${props.item.unit}`
           : undefined
       }
