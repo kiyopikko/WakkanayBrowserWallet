@@ -3,7 +3,7 @@ import clientWrapper from '../client'
 
 export const setHistoryList = createAction('SET_HISTORY_LIST')
 
-export const filterReducer = createReducer(
+export const historyReducer = createReducer(
   {
     historyList: []
   },

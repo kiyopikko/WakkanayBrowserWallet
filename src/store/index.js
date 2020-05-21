@@ -6,7 +6,7 @@ import { addressReducer } from './address'
 import { tokenBalanceReducer } from './tokenBalanceList'
 import { addressListReducer } from './address_list_item'
 import { editedAddressListItemReducer } from './edited_address_list_item.js'
-import { filterReducer } from './transaction_history'
+import { historyReducer } from './transaction_history'
 import { depositReducer } from './deposit'
 import { transferReducer } from './transfer'
 import { withdrawReducer } from './withdraw'
@@ -19,7 +19,7 @@ const reducer = combineReducers({
   tokenBalance: tokenBalanceReducer,
   addressList: addressListReducer,
   editedAddressListItem: editedAddressListItemReducer,
-  currentFilter: filterReducer,
+  history: historyReducer,
   depositState: depositReducer,
   transferState: transferReducer,
   withdrawState: withdrawReducer,
