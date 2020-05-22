@@ -1,7 +1,8 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import clientWrapper from '../client'
 import { utils } from 'ethers'
 import JSBI from 'jsbi'
+import { getBalance } from './tokenBalanceList'
+import clientWrapper from '../client'
 import { config } from '../config'
 
 export const setWithdrawToken = createAction('SET_WITHDRAW_TOKEN')
@@ -35,6 +36,7 @@ export const withdraw = (amount, depositContractAddress) => {
       if (!client) return
       await client.exit(amountWei, depositContractAddress)
       dispatch(setWithdrawPage('completion-page'))
+      dispatch(getBalance())
     } catch (error) {
       console.log(error)
     }
