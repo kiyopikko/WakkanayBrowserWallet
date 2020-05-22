@@ -4,7 +4,7 @@ import { EthCoder } from '@cryptoeconomicslab/eth-coder'
 import { setupContext } from '@cryptoeconomicslab/context'
 import { getL1Balance, getBalance, getETHtoUSD } from './tokenBalanceList'
 import { getAddress } from './address'
-import { finalizeExit, autoFinalizeExit } from './withdraw'
+import { autoFinalizeExit } from './withdraw'
 
 const APP_STATUS = {
   UNLOADED: 'unloaded',
