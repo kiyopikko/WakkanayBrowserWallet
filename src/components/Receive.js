@@ -11,7 +11,7 @@ const Receive = props => {
     <div className="receive-section" id="receive">
       <SectionTitle>Receive Token</SectionTitle>
       <div className="address-box-wrapper">
-        <div className="address-title">Your Wakkanay Wallet Address</div>
+        <div className="address-title">Your gazelle wallet address</div>
       </div>
       <div className="qr-code-box">
         <QRCode
