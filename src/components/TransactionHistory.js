@@ -4,46 +4,21 @@ import { FZ_SMALL, FW_BOLD, FZ_MEDIUM } from '../fonts'
 import { getTransactionHistories } from '../store/transaction_history'
 
 const TransactionHistory = props => {
-  console.log('his:', props.historyList)
-  const mockHistory = [
-    {
-      type: 'send',
-      amount: 0.2,
-      unit: 'ETH',
-      message: 'Sent',
-      created: new Date()
-    },
-    {
-      type: 'receive',
-      amount: 0.6,
-      unit: 'DAI',
-      message: 'Receive',
-      created: new Date()
-    },
-    {
-      type: 'exchange',
-      amount: 0.1,
-      unit: 'ETH',
-      message: 'Exchange with DAI',
-      created: new Date()
-    }
-  ]
-
   return (
     <ul>
-      {mockHistory.map(({ type, amount, message, created }) => (
+      {props.historyList.map(({ message, amount, unit, blockNumber }) => (
         <li className="transaction">
           <div className="transaction__item transaction__item--icon">
-            <img src={`/icon-${type}.svg`} />
+            <img src={`/icon-${message}.svg`} />
           </div>
           <div className="transaction__item transaction__item--amount">
-            {amount.toFixed(2)} ETH
+            {amount} {unit}
           </div>
           <div className="transaction__item transaction__item--type">
             {message}
           </div>
           <div className="transaction__item transaction__item--time">
-            {created.toLocaleString()}
+            at {blockNumber} block
           </div>
         </li>
       ))}
@@ -87,8 +62,8 @@ const TransactionHistory = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  historyList: state.historyList
+const mapStateToProps = ({ history }) => ({
+  historyList: history.historyList
 })
 
 const mapDispatchToProps = {

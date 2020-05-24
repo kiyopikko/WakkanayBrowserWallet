@@ -1,9 +1,10 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import clientWrapper from '../client'
 import { EthCoder } from '@cryptoeconomicslab/eth-coder'
 import { setupContext } from '@cryptoeconomicslab/context'
-import { getL1Balance, getBalance, getETHtoUSD } from './tokenBalanceList'
+import clientWrapper from '../client'
 import { getAddress } from './address'
+import { getTransactionHistories } from './transaction_history'
+import { getL1Balance, getBalance, getETHtoUSD } from './tokenBalanceList'
 import { autoFinalizeExit } from './withdraw'
 
 const APP_STATUS = {
@@ -35,6 +36,7 @@ export const checkClientInitialized = () => {
       dispatch(getBalance())
       dispatch(getAddress())
       dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
+      dispatch(getTransactionHistories())
     }
 
     if (!process.browser) {
@@ -76,6 +78,7 @@ export const initializeClient = privateKey => {
       dispatch(getBalance())
       dispatch(getAddress())
       dispatch(getETHtoUSD()) // get the latest ETH price, returned value's unit is USD/ETH
+      dispatch(getTransactionHistories())
     }
 
     dispatch(setAppError(null))
@@ -132,11 +135,13 @@ export const subscribeEvents = () => async dispatch => {
       'font-weight: bold;'
     )
     dispatch(getBalance())
+    dispatch(getTransactionHistories())
   })
 
   client.subscribeSyncFinished(blockNumber => {
     console.info(`sync new state: ${blockNumber.data}`)
     dispatch(getBalance())
+    dispatch(getTransactionHistories())
   })
 
   client.subscribeTransferComplete(stateUpdate => {
@@ -146,10 +151,13 @@ export const subscribeEvents = () => async dispatch => {
       'font-weight: bold;'
     )
     dispatch(getBalance())
+    dispatch(getTransactionHistories())
   })
 
   client.subscribeExitFinalized(exitId => {
     console.info(`exit finalized for exit: ${exitId.toHexString()}`)
+    dispatch(getBalance())
+    dispatch(getTransactionHistories())
   })
 
   autoFinalizeExit(dispatch)
