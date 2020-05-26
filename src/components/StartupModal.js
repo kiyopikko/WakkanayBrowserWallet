@@ -30,12 +30,12 @@ const StartUpModal = props => {
         <Button full onClick={() => props.initializeClient(privateKey)}>
           Create Wallet
         </Button>
-        <div className="spacer">
+        {/* <div className="spacer">
           <div className="spacer__txt">or</div>
         </div>
         <Button full onClick={() => props.initializeMetamaskWallet()}>
           Create Wallet with MetaMask
-        </Button>
+        </Button> */}
       </div>
       <style jsx>{`
         .container {
