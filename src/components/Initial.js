@@ -56,7 +56,7 @@ const Initial = ({
     checkClientInitialized()
     pushRouteHistory(router.pathname)
     Router.events.on('routeChangeComplete', url => {
-      pushRouteHistory(url)
+      pushRouteHistory(url.split('?')[0])
     })
     Router.beforePopState(() => {
       popRouteHistory()

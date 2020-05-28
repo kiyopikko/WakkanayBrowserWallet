@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { formatEther } from 'ethers/utils'
 import { BACKGROUND, SUBTEXT } from '../colors'
 import Layout from '../components/Layout'
@@ -14,25 +13,12 @@ import {
   getTokenTotalBalance
 } from '../store/tokenBalanceList'
 
-function Wallet({
-  address,
-  appRouter,
-  tokenBalance,
-  l1TotalBalance,
-  tokenTotalBalance
-}) {
-  const router = useRouter()
+function Wallet({ address, tokenBalance, l1TotalBalance, tokenTotalBalance }) {
   return (
     <Layout>
-      {appRouter.routeHistory.length < 2 ? (
-        <Link className="back" href={PAYMENT} passHref>
-          <a className="back">← Back</a>
-        </Link>
-      ) : (
-        <a className="back" href="javascript:void(0)" onClick={router.back}>
-          ← Back
-        </a>
-      )}
+      <Link className="back" href={PAYMENT} passHref>
+        <a className="back">← Back</a>
+      </Link>
 
       <div>
         <div className="total">
@@ -114,7 +100,6 @@ function Wallet({
 
 const mapStateToProps = state => ({
   address: state.address,
-  appRouter: state.appRouter,
   tokenBalance: state.tokenBalance,
   l1TotalBalance: getL1TotalBalance(state),
   tokenTotalBalance: getTokenTotalBalance(state)
