@@ -3,6 +3,8 @@ import clientWrapper from '../client'
 import { utils } from 'ethers'
 import JSBI from 'jsbi'
 import { config } from '../config'
+import { PETHContract } from '../contracts'
+import { TOKEN_LIST } from '../tokens'
 
 export const setDepositedToken = createAction('SET_DEPOSITED_TOKEN')
 export const setDepositPage = createAction('SET_DEPOSIT_PAGE')
@@ -34,6 +36,16 @@ export const deposit = (amount, addr) => {
     try {
       const client = await clientWrapper.getClient()
       if (!client) return
+      // TODO: after delete PETHContract in the packages/eth-contract
+      // const peth = TOKEN_LIST.find(token => token.unit === 'ETH')
+      // if (addr === peth.depositContractAddress) {
+      //   const contract = new PETHContract(
+      //     peth.tokenContractAddress,
+      //     client.wallet.getEthersWallet()
+      //   )
+      //   await contract.wrap(amount)
+      //   console.info(`wrapped PETH: ${amount}`)
+      // }
       await client.deposit(amountWei, addr)
       dispatch(setDepositPage('completion-page'))
     } catch (error) {
