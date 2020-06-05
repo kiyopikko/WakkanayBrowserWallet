@@ -38,7 +38,7 @@ export const deposit = (amount, addr) => {
       if (!client) return
       // TODO: after delete PETHContract in the packages/eth-contract
       // const peth = TOKEN_LIST.find(token => token.unit === 'ETH')
-      // if (addr === peth.depositContractAddress) {
+      // if (peth !== undefined && addr === peth.depositContractAddress) {
       //   const contract = new PETHContract(
       //     peth.tokenContractAddress,
       //     client.wallet.getEthersWallet()

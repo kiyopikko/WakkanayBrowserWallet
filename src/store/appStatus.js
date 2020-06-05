@@ -162,8 +162,10 @@ export const subscribeEvents = () => async dispatch => {
     const exit = exitList.find(exit => exit.id === exitId)
     const peth = TOKEN_LIST.find(token => token.unit === 'ETH')
     if (
+      peth !== undefined &&
+      exit !== undefined &&
       peth.depositContractAddress ===
-      exit.stateUpdate.depositContractAddress.data
+        exit.stateUpdate.depositContractAddress.data
     ) {
       const contract = new PETHContract(
         peth.tokenContractAddress,
