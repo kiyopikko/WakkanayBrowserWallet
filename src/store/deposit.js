@@ -3,8 +3,8 @@ import clientWrapper from '../client'
 import { utils } from 'ethers'
 import JSBI from 'jsbi'
 import { config } from '../config'
-import { PETHContract } from '../contracts'
-import { TOKEN_LIST } from '../tokens'
+// import { PETHContract } from '../contracts/PETHContract'
+// import { TOKEN_LIST } from '../tokens'
 
 export const setDepositedToken = createAction('SET_DEPOSITED_TOKEN')
 export const setDepositPage = createAction('SET_DEPOSIT_PAGE')

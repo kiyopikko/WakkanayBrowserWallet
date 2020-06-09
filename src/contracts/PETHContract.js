@@ -1,16 +1,15 @@
-import { Contract, Signer } from 'ethers'
+import { Contract } from 'ethers'
 import { BigNumber } from 'ethers/utils'
-import JSBI from 'jsbi'
 
 export class PETHContract {
-  public static abi = [
+  static abi = [
     'function wrap(uint256 _amount) payable',
     'function unwrap(uint256 _amount)'
   ]
 
-  private connection: Contract
+  connection
 
-  constructor(readonly address: string, signer: Signer) {
+  constructor(address, signer) {
     this.connection = new Contract(address, PETHContract.abi, signer)
   }
 
@@ -19,7 +18,7 @@ export class PETHContract {
    * @name wrap
    * @param amount amount of wei.
    */
-  public async wrap(amount: JSBI) {
+  async wrap(amount) {
     const bigNumberifiedAmount = new BigNumber(amount.toString())
     await this.connection.wrap(bigNumberifiedAmount)
   }
@@ -29,7 +28,7 @@ export class PETHContract {
    * @name unwrap
    * @param amount amount of wei.
    */
-  public async unwrap(amount: JSBI) {
+  async unwrap(amount) {
     const bigNumberifiedAmount = new BigNumber(amount.toString())
     await this.connection.unwrap(bigNumberifiedAmount)
   }
