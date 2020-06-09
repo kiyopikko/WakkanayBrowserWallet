@@ -5,7 +5,7 @@ export const FZ_MEDIUM = '0.875rem'
 export const FZ_SMALL = '0.75rem'
 export const FZ_TINY = '0.625rem'
 
-export const FW_NORMAL = '500'
+export const FW_NORMAL = '400'
 export const FW_BOLD = '700'
 export const FW_BLACK = '900'
 

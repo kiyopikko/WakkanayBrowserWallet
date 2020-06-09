@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import { HISTORY, PAYMENT } from '../routes'
 
-const Header = ({ appRouter }) => {
+const Header = ({ appRouter, appStatus }) => {
   const router = useRouter()
 
   const LinkWrap = ({ children }) =>
@@ -32,30 +32,34 @@ const Header = ({ appRouter }) => {
               <img src="/logo.svg" width="158" />
             </Link>
           </h1>
-          <Link href={HISTORY} passHref>
-            <a className="historyButton">
-              <img
-                src="/icon-history.svg"
-                width="14"
-                className="historyButton__img"
-              />
-              <span className="historyButton__txt">History</span>
-            </a>
-          </Link>
+          {appStatus.status === 'loaded' && (
+            <Link href={HISTORY} passHref>
+              <a className="historyButton">
+                <img
+                  src="/icon-history.svg"
+                  width="14"
+                  className="historyButton__img"
+                />
+                <span className="historyButton__txt">History</span>
+              </a>
+            </Link>
+          )}
         </>
       ) : (
         <>
           <div />
-          <LinkWrap>
-            <a className="historyButton fill">
-              <img
-                src="/icon-close.svg"
-                width="10"
-                className="historyButton__img"
-              />
-              <span className="historyButton__txt">Close</span>
-            </a>
-          </LinkWrap>
+          {appStatus.status === 'loaded' && (
+            <LinkWrap>
+              <a className="historyButton fill">
+                <img
+                  src="/icon-close.svg"
+                  width="10"
+                  className="historyButton__img"
+                />
+                <span className="historyButton__txt">Close</span>
+              </a>
+            </LinkWrap>
+          )}
         </>
       )}
       <style jsx>{`
@@ -112,7 +116,8 @@ const Header = ({ appRouter }) => {
 }
 
 const mapStateToProps = state => ({
-  appRouter: state.appRouter
+  appRouter: state.appRouter,
+  appStatus: state.appStatus
 })
 
 export default connect(mapStateToProps, undefined)(Header)
