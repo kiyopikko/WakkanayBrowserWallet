@@ -83,7 +83,7 @@ const OrderRequestModal = props => {
                       }}
                     />
                     <div className="amount-in-usd">
-                      {roundBalance(props.ETHtoUSD, requestedAmountToExchange)}{' '}
+                      {roundBalance(props.ETHtoUSD * requestedAmountToExchange)}{' '}
                       USD
                     </div>
                     <div className="insufficient-fund">Insufficient Fund</div>
@@ -120,7 +120,7 @@ const OrderRequestModal = props => {
                       }}
                     />
                     <div className="amount-in-usd">
-                      {roundBalance(props.ETHtoUSD, requestedAmountToReceive)}{' '}
+                      {roundBalance(props.ETHtoUSD * requestedAmountToReceive)}{' '}
                       USD
                     </div>
                     <div className="insufficient-fund">Insufficient Fund</div>

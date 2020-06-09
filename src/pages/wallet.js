@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { formatEther } from 'ethers/utils'
 import { BACKGROUND, SUBTEXT } from '../colors'
 import Layout from '../components/Layout'
 import { WalletTokenItem } from '../components/WalletTokenItem'
@@ -50,17 +49,16 @@ function Wallet({
         </div>
         <div className="mtl">
           {TOKEN_LIST.map(({ unit, depositContractAddress }) => (
-            // TODO: will support for non-18 decimals
             <WalletTokenItem
               unit={unit}
               l2={
                 tokenBalance.tokenBalance[unit]
-                  ? Number(formatEther(tokenBalance.tokenBalance[unit].amount))
+                  ? tokenBalance.tokenBalance[unit].amount
                   : 0
               }
               mainchain={
                 tokenBalance.l1Balance[unit]
-                  ? Number(formatEther(tokenBalance.l1Balance[unit].amount))
+                  ? tokenBalance.l1Balance[unit].amount
                   : 0
               }
               depositContractAddress={depositContractAddress}

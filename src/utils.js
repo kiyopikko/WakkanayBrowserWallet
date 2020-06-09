@@ -5,6 +5,10 @@ export const shortenAddress = address => {
   return `${former}...${latter}`
 }
 
-export const roundBalance = (rate, tokenAmount) => {
-  return Math.round(rate * tokenAmount * 100) / 100
+/**
+ * round off the number
+ * e.g. the second place after the decimal point: base = 100
+ */
+export const roundBalance = (value, base = 100) => {
+  return Math.round(value * base) / base
 }

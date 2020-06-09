@@ -1,10 +1,11 @@
 import { Address } from '@cryptoeconomicslab/primitives'
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { formatEther } from 'ethers/utils'
+import { formatUnits } from 'ethers/utils'
 import { createSelector } from 'reselect'
 import clientWrapper from '../client'
 import { TOKEN_LIST } from '../tokens'
+import { roundBalance } from '../utils'
 
 // selector
 const getL1BalanceState = state => state.tokenBalance.l1Balance
@@ -15,12 +16,12 @@ const calcTotalBalance = (balance, ethToUsd) => {
   let total = 0
   for (const [key, value] of Object.entries(balance)) {
     if (key === 'ETH') {
-      total += formatEther(value.amount.toString()) * ethToUsd
+      total += value.amount * ethToUsd
     } else {
-      total += Number(formatEther(value.amount.toString()))
+      total += value.amount
     }
   }
-  return total
+  return roundBalance(total)
 }
 
 export const getL1TotalBalance = createSelector(
@@ -46,20 +47,23 @@ export const getL1Balance = () => {
   return async dispatch => {
     const client = await clientWrapper.getClient()
     if (!client) return
-    const balance = await TOKEN_LIST.reduce(async (map, token) => {
-      // TODO: all tokens will be ERC20
-      const addr = token.tokenContractAddress
-        ? Address.from(token.tokenContractAddress)
-        : undefined
-      const balance = await client.wallet.getL1Balance(addr)
+    const balances = await TOKEN_LIST.reduce(async (map, token) => {
+      let balance = 0
+      if (token.unit === 'ETH') {
+        balance = await client.wallet.getL1Balance()
+      } else {
+        balance = await client.wallet.getL1Balance(
+          // TODO: don't use gazelle primitives
+          Address.from(token.tokenContractAddress)
+        )
+      }
       map[token.unit] = {
-        amount: balance.value.raw,
+        amount: roundBalance(formatUnits(balance.value.raw, balance.decimals)),
         decimals: balance.decimals
       }
       return map
     }, {})
-    console.log('BALANCE:', balance)
-    dispatch(setL1Balance(balance))
+    dispatch(setL1Balance(balances))
   }
 }
 
@@ -78,7 +82,9 @@ export const getBalance = () => {
           balance.depositContractAddress.toLowerCase()
       )
       map[token.unit] = {
-        amount: balance.amount.toString(),
+        amount: roundBalance(
+          formatUnits(balance.amount.toString(), balance.decimals)
+        ),
         decimals: balance.decimals
       }
       return map
