@@ -17,7 +17,7 @@ const Receive = ({ address }) => {
     <div className="receive-section" id="receive">
       <SectionTitle>Receive Token</SectionTitle>
       <div className="receive-txt">
-        Copy your wallet ID below and tell him/her.
+        Copy your wallet address below and tell him/her.
       </div>
       <div className="receive-row">
         <div className="receive-address">{address}</div>
