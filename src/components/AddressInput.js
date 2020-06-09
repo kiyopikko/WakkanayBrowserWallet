@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import Input from './Base/Input'
 import DropdownContent from './DropdownContent'
 import { SelectItem } from './SelectItem'
-import { BACKGROUND, MAIN } from '../colors'
+import { BACKGROUND, MAIN } from '../constants/colors'
 import { shortenAddress } from '../utils'
 
 const AddressInput = props => {

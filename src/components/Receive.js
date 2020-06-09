@@ -1,7 +1,12 @@
 import { connect } from 'react-redux'
 
-import { SUBTEXT, BACKGROUND, SECTION_BACKGROUND, BORDER_DARK } from '../colors'
-import { SMALLER, SMALL } from '../fonts'
+import {
+  SUBTEXT,
+  BACKGROUND,
+  SECTION_BACKGROUND,
+  BORDER_DARK
+} from '../constants/colors'
+import { SMALLER, SMALL } from '../constants/fonts'
 import { SectionTitle } from '../components/SectionTitle'
 
 import QRCode from 'qrcode.react'

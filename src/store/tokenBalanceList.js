@@ -4,7 +4,7 @@ import axios from 'axios'
 import { formatEther } from 'ethers/utils'
 import { createSelector } from 'reselect'
 import clientWrapper from '../client'
-import { TOKEN_LIST } from '../tokens'
+import { TOKEN_LIST } from '../constants/tokens'
 
 // selector
 const getL1BalanceState = state => state.tokenBalance.l1Balance

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { TOKEN_LIST } from '../tokens'
+import { TOKEN_LIST } from '../constants/tokens'
 import {
   FZ_MEDIUM,
   FW_BLACK,
@@ -7,8 +7,8 @@ import {
   FZ_SMALL,
   FW_BOLD,
   FW_NORMAL
-} from '../fonts'
-import { SUBTEXT, BORDER } from '../colors'
+} from '../constants/fonts'
+import { SUBTEXT, BORDER } from '../constants/colors'
 import Button from './Base/Button'
 import { Fragment } from 'react'
 import { useRouter } from 'next/router'

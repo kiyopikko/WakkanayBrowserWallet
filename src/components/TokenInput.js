@@ -2,8 +2,8 @@ import React, { Fragment, useState } from 'react'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
 import Input from './Base/Input'
-import { BACKGROUND, PLACEHOLDER, SUBTEXT, MAIN } from '../colors'
-import { FZ_MEDIUM, FW_BOLD, FZ_SMALL } from '../fonts'
+import { BACKGROUND, PLACEHOLDER, SUBTEXT, MAIN } from '../constants/colors'
+import { FZ_MEDIUM, FW_BOLD, FZ_SMALL } from '../constants/fonts'
 
 const TokenInput = props => {
   const { balance, className, handleAmount, transferredAmount, unit } = props

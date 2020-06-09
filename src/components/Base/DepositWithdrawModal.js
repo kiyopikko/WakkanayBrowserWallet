@@ -9,13 +9,20 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 library.add(fab, faArrowLeft)
 
 import { shortenAddress, roundBalance } from '../../utils'
-import { TokenSelector } from '../TokenSelector'
-import { TOKEN_LIST } from '../../tokens'
+import { TokenSelector } from '../constants/tokenselector'
+import { TOKEN_LIST } from '../../constants/tokens'
 import { BaseModal } from './BaseModal'
 import Button from './Button'
 
-import { SMALLPLUS, MEDIUM, LARGER, BOLD, NORMAL, SMALLER } from '../../fonts'
-import { BACKGROUND, TEXT, SUBTEXT } from '../../colors'
+import {
+  SMALLPLUS,
+  MEDIUM,
+  LARGER,
+  BOLD,
+  NORMAL,
+  SMALLER
+} from '../../constants/fonts'
+import { BACKGROUND, TEXT, SUBTEXT } from '../../constants/colors'
 
 const modalTexts = {
   deposit: {

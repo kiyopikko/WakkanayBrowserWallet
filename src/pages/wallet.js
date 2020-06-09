@@ -6,8 +6,14 @@ import { formatEther } from 'ethers/utils'
 import { BACKGROUND, SUBTEXT } from '../colors'
 import Layout from '../components/Layout'
 import { WalletTokenItem } from '../components/WalletTokenItem'
-import { FZ_MEDIUM, FW_NORMAL, FZ_SMALL, FW_BLACK, FZ_LARGE } from '../fonts'
-import { TOKEN_LIST } from '../tokens'
+import {
+  FZ_MEDIUM,
+  FW_NORMAL,
+  FZ_SMALL,
+  FW_BLACK,
+  FZ_LARGE
+} from '../constants/fonts'
+import { TOKEN_LIST } from '../constants/tokens'
 import { PAYMENT } from '../routes'
 import {
   getL1TotalBalance,

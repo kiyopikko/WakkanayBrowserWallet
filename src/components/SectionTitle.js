@@ -1,5 +1,5 @@
-import { FW_BLACK, FZ_MEDIUM } from '../fonts'
-import { SUBTEXT } from '../colors'
+import { FW_BLACK, FZ_MEDIUM } from '../constants/fonts'
+import { SUBTEXT } from '../constants/colors'
 
 export const SectionTitle = props => {
   return (

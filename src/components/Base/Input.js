@@ -1,6 +1,6 @@
 import classnames from 'classnames'
-import { BACKGROUND, Black } from '../../colors'
-import { FZ_MEDIUM, FW_BOLD } from '../../fonts'
+import { BACKGROUND, Black } from '../../constants/colors'
+import { FZ_MEDIUM, FW_BOLD } from '../../constants/fonts'
 
 export default props => {
   const { full, className } = props

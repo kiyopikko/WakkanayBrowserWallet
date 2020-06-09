@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import classNames from 'classnames'
-import { MAIN, White } from '../colors'
+import { MAIN, White } from '../constants/colors'
 import { PAYMENT, EXCHANGE, NFT_COLLECTIBLES } from '../routes'
-import { FZ_MEDIUM, FW_BLACK } from '../fonts'
+import { FZ_MEDIUM, FW_BLACK } from '../constants/fonts'
 
 export const Tabs = ({ currentPath }) => {
   return (

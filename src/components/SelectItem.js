@@ -1,5 +1,5 @@
-import { FZ_DEFAULT, FW_BOLD } from '../fonts'
-import { TEXT, PLACEHOLDER } from '../colors'
+import { FZ_DEFAULT, FW_BOLD } from '../constants/fonts'
+import { TEXT, PLACEHOLDER } from '../constants/colors'
 
 export const SelectItem = ({ img, name, supplement, padding }) => {
   return (

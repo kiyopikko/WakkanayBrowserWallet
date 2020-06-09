@@ -16,8 +16,8 @@ import {
 } from '../store/transfer'
 
 // internal import
-import { SECTION_BACKGROUND } from '../colors'
-import { TOKEN_LIST } from '../tokens'
+import { SECTION_BACKGROUND } from '../constants/colors'
+import { TOKEN_LIST } from '../constants/tokens'
 import { TokenSelector } from './TokenSelector'
 import { roundBalance } from '../utils'
 import AddressInput from './AddressInput'

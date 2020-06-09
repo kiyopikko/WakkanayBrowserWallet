@@ -1,5 +1,5 @@
-import { EXTRABOLD, SMALL } from '../fonts'
-import { MAIN, PRIMARY_BUTTON_TEXT } from '../colors'
+import { EXTRABOLD, SMALL } from '../constants/fonts'
+import { MAIN, PRIMARY_BUTTON_TEXT } from '../constants/colors'
 
 export const PrimaryButton = props => {
   return (

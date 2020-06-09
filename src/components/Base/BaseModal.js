@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import Router from 'next/router'
 import ClickOutside from 'react-click-outside'
 import { SectionTitle } from '../SectionTitle'
-import { MODAL_BACKGROUND, MODAL_MAIN_BACKGROUND, TEXT } from '../../colors'
+import {
+  MODAL_BACKGROUND,
+  MODAL_MAIN_BACKGROUND,
+  TEXT
+} from '../../constants/colors'
 
 /**
  * General Modal Component for Browser Plasma Wallet
