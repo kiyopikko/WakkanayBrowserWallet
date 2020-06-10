@@ -137,12 +137,14 @@ export const subscribeEvents = () => async dispatch => {
       'font-weight: bold;'
     )
     dispatch(getBalance())
+    dispatch(getL1Balance())
     dispatch(getTransactionHistories())
   })
 
   client.subscribeSyncFinished(blockNumber => {
     console.info(`sync new state: ${blockNumber.data}`)
     dispatch(getBalance())
+    dispatch(getL1Balance())
     dispatch(getTransactionHistories())
   })
 
@@ -153,6 +155,7 @@ export const subscribeEvents = () => async dispatch => {
       'font-weight: bold;'
     )
     dispatch(getBalance())
+    dispatch(getL1Balance())
     dispatch(getTransactionHistories())
   })
 
@@ -175,6 +178,7 @@ export const subscribeEvents = () => async dispatch => {
       console.info(`unwrapped PETH: ${exit.stateUpdate.amount}`)
     }
     dispatch(getBalance())
+    dispatch(getL1Balance())
     dispatch(getTransactionHistories())
   })
 

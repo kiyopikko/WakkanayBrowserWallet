@@ -75,7 +75,7 @@ const DepositWithdrawModal = props => {
                 </div>
               </div>
               <div className="deposited-token-confirm">
-                = {roundBalance(props.ETHtoUSD, tokenAmount)} USD / from
+                = {roundBalance(props.ETHtoUSD * tokenAmount)} USD / from
                 {shortenAddress(props.address)}
               </div>
               <div className="deposit-button btn">
@@ -107,7 +107,7 @@ const DepositWithdrawModal = props => {
                       {selectedTokenObj.unit}
                     </span>
                     <div className="balance-in-usd">
-                      {roundBalance(props.ETHtoUSD, tokenAmount)} USD
+                      {roundBalance(props.ETHtoUSD * tokenAmount)} USD
                     </div>
                   </div>
                 </div>

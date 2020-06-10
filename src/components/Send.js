@@ -53,7 +53,7 @@ const Send = props => {
       <TokenInput
         className="mts mbs"
         unit={transferredTokenObj.unit}
-        balance={roundBalance(props.ETHtoUSD, props.transferredAmount)}
+        balance={roundBalance(props.ETHtoUSD * props.transferredAmount)}
         handleAmount={props.setTransferredAmount}
       />
       <AddressInput
