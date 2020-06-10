@@ -82,7 +82,7 @@ const Send = props => {
         .send-section {
           display: flex;
           flex-direction: column;
-          margin: 20px 0px;
+          margin: 0.25rem 0;
           background-color: ${SECTION_BACKGROUND};
           position: relative;
         }

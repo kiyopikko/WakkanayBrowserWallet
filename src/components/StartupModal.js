@@ -27,7 +27,11 @@ const StartUpModal = props => {
           type="text"
           onChange={updatePrivateKey}
         />
-        <Button full onClick={() => props.initializeClient(privateKey)}>
+        <Button
+          full
+          disabled={!privateKey}
+          onClick={() => props.initializeClient(privateKey)}
+        >
           Create Wallet
         </Button>
         {/* <div className="spacer">
