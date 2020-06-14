@@ -4,9 +4,18 @@ import classnames from 'classnames'
 import Input from './Base/Input'
 import { BACKGROUND, PLACEHOLDER, SUBTEXT, MAIN } from '../colors'
 import { FZ_MEDIUM, FW_BOLD, FZ_SMALL } from '../fonts'
+import { roundBalance } from '../utils'
 
 const TokenInput = props => {
-  const { balance, className, handleAmount, transferredAmount, unit } = props
+  const {
+    /* component */
+    className,
+    value,
+    unit,
+    handleAmount,
+    /* redux */
+    ETHtoUSD
+  } = props
   const [focused, setFocused] = useState(false)
 
   return (
@@ -19,7 +28,7 @@ const TokenInput = props => {
       >
         <Input
           full
-          value={transferredAmount}
+          value={value}
           className="fzh"
           placeholder="0.0"
           onFocus={() => {
@@ -36,7 +45,9 @@ const TokenInput = props => {
           }}
         />
         <div className="input__unit">{unit}</div>
-        <div className="input__balance">= {balance} USD</div>
+        <div className="input__balance">
+          = {roundBalance(ETHtoUSD * (value || 0))} USD
+        </div>
       </div>
       <style jsx>{`
         .inputWrap {
@@ -66,7 +77,7 @@ const TokenInput = props => {
   )
 }
 
-const mapStateToProps = ({ transferState }) => ({
-  transferredAmount: transferState.transferredAmount
+const mapStateToProps = ({ tokenBalance }) => ({
+  ETHtoUSD: tokenBalance.ETHtoUSD
 })
 export default connect(mapStateToProps)(TokenInput)
