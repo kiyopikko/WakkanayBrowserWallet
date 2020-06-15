@@ -3,22 +3,22 @@ import { utils } from 'ethers'
 import JSBI from 'jsbi'
 import { getBalance } from './tokenBalanceList'
 import clientWrapper from '../client'
-import { config } from '../config'
 
-export const setWithdrawToken = createAction('SET_WITHDRAW_TOKEN')
-export const setWithdrawPage = createAction('SET_WITHDRAW_PAGE')
+export const WITHDRAW_PROGRESS = {
+  INPUT: 'INPUT',
+  CONFIRM: 'CONFIRM',
+  COMPLETE: 'COMPLETE'
+}
+
+export const setWithdrawProgress = createAction('SET_WITHDRAW_PROGRESS')
 
 export const withdrawReducer = createReducer(
   {
-    withdrawToken: config.PlasmaETH,
-    withdrawPage: 'input-page'
+    withdrawProgress: WITHDRAW_PROGRESS.INPUT
   },
   {
-    [setWithdrawToken]: (state, action) => {
-      state.withdrawToken = action.payload
-    },
-    [setWithdrawPage]: (state, action) => {
-      state.withdrawPage = action.payload
+    [setWithdrawProgress]: (state, action) => {
+      state.withdrawProgress = action.payload
     }
   }
 )
@@ -35,7 +35,7 @@ export const withdraw = (amount, tokenContractAddress) => {
       const client = await clientWrapper.getClient()
       if (!client) return
       await client.startWithdrawal(amountWei, tokenContractAddress)
-      dispatch(setWithdrawPage('completion-page'))
+      dispatch(setWithdrawProgress(WITHDRAW_PROGRESS.COMPLETE))
       dispatch(getBalance())
     } catch (error) {
       console.log(error)

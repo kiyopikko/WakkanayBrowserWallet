@@ -19,7 +19,6 @@ import {
 import { SECTION_BACKGROUND } from '../colors'
 import { getTokenByTokenContractAddress, TOKEN_LIST } from '../tokens'
 import { TokenSelector } from './TokenSelector'
-import { roundBalance } from '../utils'
 import AddressInput from './AddressInput'
 import Button from './Base/Button'
 import ErrorMessage from './Base/ErrorMessage'
@@ -46,11 +45,10 @@ const Send = props => {
         onSelected={props.setTransferredToken}
         selectedToken={transferredTokenObj}
       />
-
       <TokenInput
         className="mts mbs"
+        value={props.transferredAmount}
         unit={transferredTokenObj.unit}
-        balance={roundBalance(props.ETHtoUSD * props.transferredAmount)}
         handleAmount={props.setTransferredAmount}
       />
       <AddressInput

@@ -2,24 +2,24 @@ import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
 import { utils } from 'ethers'
 import JSBI from 'jsbi'
-import { config } from '../config'
 // import { PETHContract } from '../contracts/PETHContract'
 // import { TOKEN_LIST } from '../tokens'
 
-export const setDepositedToken = createAction('SET_DEPOSITED_TOKEN')
-export const setDepositPage = createAction('SET_DEPOSIT_PAGE')
+export const DEPOSIT_PROGRESS = {
+  INPUT: 'INPUT',
+  CONFIRM: 'CONFIRM',
+  COMPLETE: 'COMPLETE'
+}
+
+export const setDepositProgress = createAction('SET_DEPOSIT_PROGRESS')
 
 export const depositReducer = createReducer(
   {
-    depositedToken: config.PlasmaETH,
-    depositPage: 'input-page'
+    depositProgress: DEPOSIT_PROGRESS.INPUT
   },
   {
-    [setDepositedToken]: (state, action) => {
-      state.depositedToken = action.payload
-    },
-    [setDepositPage]: (state, action) => {
-      state.depositPage = action.payload
+    [setDepositProgress]: (state, action) => {
+      state.depositProgress = action.payload
     }
   }
 )
@@ -47,7 +47,7 @@ export const deposit = (amount, addr) => {
       //   console.info(`wrapped PETH: ${amount}`)
       // }
       await client.deposit(amountWei, addr)
-      dispatch(setDepositPage('completion-page'))
+      dispatch(setDepositProgress(DEPOSIT_PROGRESS.COMPLETE))
     } catch (error) {
       console.log(error)
     }
