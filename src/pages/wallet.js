@@ -34,7 +34,7 @@ function Wallet({ address, tokenBalance, l1TotalBalance, tokenTotalBalance }) {
           </div>
         </div>
         <div className="mtl">
-          {TOKEN_LIST.map(({ unit, depositContractAddress }) => (
+          {TOKEN_LIST.map(({ unit, tokenContractAddress }) => (
             <WalletTokenItem
               unit={unit}
               l2={
@@ -47,7 +47,7 @@ function Wallet({ address, tokenBalance, l1TotalBalance, tokenTotalBalance }) {
                   ? tokenBalance.l1Balance[unit].amount
                   : 0
               }
-              depositContractAddress={depositContractAddress}
+              tokenContractAddress={tokenContractAddress}
             />
           ))}
         </div>

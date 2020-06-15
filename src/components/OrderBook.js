@@ -6,7 +6,7 @@ import { TokenSelectButton } from './TokenSelectButton'
 import { setExchangedToken, setReceivedToken } from '../store/exchange'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
-import { TOKEN_LIST } from '../tokens'
+import { getTokenByTokenContractAddress } from '../tokens'
 import {
   EXTRABOLD,
   XSMALL,
@@ -27,14 +27,8 @@ import { openModal } from '../routes'
 const OrderBook = props => {
   const router = useRouter()
 
-  const exchangedTokenObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) =>
-      depositContractAddress === props.exchangedToken
-  )
-  const receivedTokenObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) =>
-      depositContractAddress === props.receivedToken
-  )
+  const exchangedTokenObj = getTokenByTokenContractAddress(props.exchangedToken)
+  const receivedTokenObj = getTokenByTokenContractAddress(props.receivedToken)
   return (
     <div className="orderbook-section" id="order-book">
       <SectionTitle>Exchange Order Book</SectionTitle>

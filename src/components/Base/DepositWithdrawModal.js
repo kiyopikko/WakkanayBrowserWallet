@@ -10,7 +10,7 @@ library.add(fab, faArrowLeft)
 
 import { shortenAddress, roundBalance } from '../../utils'
 import { TokenSelector } from '../TokenSelector'
-import { TOKEN_LIST } from '../../tokens'
+import { getTokenByTokenContractAddress } from '../../tokens'
 import { BaseModal } from './BaseModal'
 import Button from './Button'
 
@@ -29,7 +29,7 @@ const modalTexts = {
     title: 'Withdraw Funds from Mainchain Account',
     inputButton: 'Withdraw',
     confirmTitle: 'You will withdraw',
-    confirmText: 'Withdrawals need to go through an exit period (about a week)',
+    confirmText: 'Withdrawals need to go through a period (about a week)',
     completeTitle: 'Withdraw Completed'
   }
 }
@@ -39,9 +39,7 @@ const DepositWithdrawModal = props => {
   const amountInput = useRef('')
   const router = useRouter()
   const selectedToken = router.query.token
-  const selectedTokenObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) => depositContractAddress === selectedToken
-  )
+  const selectedTokenObj = getTokenByTokenContractAddress(selectedToken)
 
   return (
     <BaseModal
@@ -137,7 +135,6 @@ const DepositWithdrawModal = props => {
                   <Button
                     size="medium"
                     onClick={() => {
-                      console.log('submit:', props)
                       props.action(tokenAmount, props.token)
                     }}
                   >

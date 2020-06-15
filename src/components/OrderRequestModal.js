@@ -25,7 +25,7 @@ import {
   XXSMALL,
   NORMAL
 } from '../fonts'
-import { TOKEN_LIST } from '../tokens'
+import { getTokenByTokenContractAddress, TOKEN_LIST } from '../tokens'
 import { BaseModal } from './Base/BaseModal'
 
 const OrderRequestModal = props => {
@@ -34,13 +34,11 @@ const OrderRequestModal = props => {
   const [requestedAmountToExchange, setRequestedAmountToExchnage] = useState(0)
   const [requestedAmountToReceive, setRequestedAmountToReceive] = useState(0)
 
-  const requestedTokenToExchangeObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) =>
-      depositContractAddress === props.requestedTokenToExchange
+  const requestedTokenToExchangeObj = getTokenByTokenContractAddress(
+    props.requestedTokenToExchange
   )
-  const requestedTokenToReceiveObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) =>
-      depositContractAddress === props.requestedTokenToReceive
+  const requestedTokenToReceiveObj = getTokenByTokenContractAddress(
+    props.requestedTokenToReceive
   )
   return (
     <BaseModal

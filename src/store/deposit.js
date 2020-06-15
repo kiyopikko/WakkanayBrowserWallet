@@ -11,7 +11,7 @@ export const setDepositPage = createAction('SET_DEPOSIT_PAGE')
 
 export const depositReducer = createReducer(
   {
-    depositedToken: config.payoutContracts.DepositContract,
+    depositedToken: config.PlasmaETH,
     depositPage: 'input-page'
   },
   {

@@ -101,7 +101,7 @@ const Initial = ({
                   onDeposit={() => {
                     openModal({
                       modal: 'deposit',
-                      token: config.payoutContracts.DepositContract
+                      token: config.PlasmaETH
                     })
                   }}
                 />

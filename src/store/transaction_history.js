@@ -1,7 +1,7 @@
 import { formatEther } from 'ethers/utils'
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import { ActionType } from '@cryptoeconomicslab/plasma-light-client/lib/UserAction'
 import clientWrapper from '../client'
+import { getTokenByTokenContractAddress } from '../tokens'
 
 export const setHistoryList = createAction('SET_HISTORY_LIST')
 
@@ -23,12 +23,10 @@ export const getTransactionHistories = () => {
       if (!client) return
       const histories = (await client.getAllUserActions()).map(history => {
         return {
-          type: history.type,
-          message: ActionType[history.type],
+          message: history.type,
           amount: formatEther(history.amount.toString()),
-          // TODO: update client to get unit
-          unit: 'ETH',
-          blockNumber: history.blockNumber.raw
+          unit: getTokenByTokenContractAddress(history.tokenAddress).unit,
+          blockNumber: history.blockNumber.toString()
         }
       })
       dispatch(setHistoryList(histories))
