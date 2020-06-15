@@ -15,7 +15,7 @@ export const clearState = createAction('CLEAR_STATE')
 
 const initialState = {
   isSending: false,
-  transferredToken: config.payoutContracts.DepositContract,
+  transferredToken: config.PlasmaETH,
   transferredAmount: '',
   recepientAddress: '',
   transferPage: 'confirmation-page',
@@ -48,17 +48,17 @@ export const transferReducer = createReducer(initialState, {
 /**
  * transfer token
  * @param {*} amount amount of wei
- * @param {*} depositContractAddress deposit contract address of token
+ * @param {*} tokenContractAddress token contract address of token
  * @param {*} recipientAddress the address of token recipient
  */
-export const transfer = (amount, depositContractAddress, recipientAddress) => {
+export const transfer = (amount, tokenContractAddress, recipientAddress) => {
   const amountWei = JSBI.BigInt(utils.parseEther(amount).toString())
   return async dispatch => {
     dispatch(setTransferIsSending(true))
     try {
       const client = await clientWrapper.getClient()
       if (!client) return
-      await client.transfer(amountWei, depositContractAddress, recipientAddress)
+      await client.transfer(amountWei, tokenContractAddress, recipientAddress)
       dispatch(setTransferPage('completion-page'))
       dispatch(clearState())
     } catch (error) {

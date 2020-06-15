@@ -19,3 +19,14 @@ export const TOKEN_LIST = [
     imgAspect: 1
   }
 ]
+
+export function getTokenByTokenContractAddress(address) {
+  return TOKEN_LIST.find(
+    ({ tokenContractAddress }) =>
+      tokenContractAddress.toLowerCase() === address.toLowerCase()
+  )
+}
+
+export function getTokenByUnit(targetUnit) {
+  return TOKEN_LIST.find(({ unit }) => unit === targetUnit)
+}

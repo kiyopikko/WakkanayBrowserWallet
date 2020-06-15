@@ -13,7 +13,7 @@ const Dropdown = ({
   const [isOpen, setIsOpen] = useState(false)
 
   const selectItem = item => {
-    onselect(item.depositContractAddress)
+    onselect(item.tokenContractAddress)
     setIsOpen(false)
   }
 

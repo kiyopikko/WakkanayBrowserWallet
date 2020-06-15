@@ -4,7 +4,7 @@ import axios from 'axios'
 import { formatUnits } from 'ethers/utils'
 import { createSelector } from 'reselect'
 import clientWrapper from '../client'
-import { TOKEN_LIST } from '../tokens'
+import { TOKEN_LIST, getTokenByTokenContractAddress } from '../tokens'
 import { roundBalance } from '../utils'
 
 // selector
@@ -74,13 +74,7 @@ export const getBalance = () => {
     if (!client) return
     const balanceList = await client.getBalance()
     const balance = balanceList.reduce((map, balance) => {
-      // TODO: update after gazelle balance
-      // map[balance.symbol] = {
-      const token = TOKEN_LIST.find(
-        ({ depositContractAddress }) =>
-          depositContractAddress.toLowerCase() ===
-          balance.depositContractAddress.toLowerCase()
-      )
+      const token = getTokenByTokenContractAddress(balance.tokenContractAddress)
       map[token.unit] = {
         amount: roundBalance(
           formatUnits(balance.amount.toString(), balance.decimals)

@@ -86,7 +86,7 @@ async function instantiate(privateKey) {
   })
 
   // register Peth
-  client.registerCustomToken(
+  await client.registerCustomToken(
     new PETHContract(Address.from(config.PlasmaETH), signer),
     depositContractFactory(Address.from(config.payoutContracts.DepositContract))
   )

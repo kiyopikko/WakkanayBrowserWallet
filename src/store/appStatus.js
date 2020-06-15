@@ -3,11 +3,11 @@ import { EthCoder } from '@cryptoeconomicslab/eth-coder'
 import { setupContext } from '@cryptoeconomicslab/context'
 import clientWrapper from '../client'
 import { PETHContract } from '../contracts/PETHContract'
-import { TOKEN_LIST } from '../tokens'
+import { getTokenByUnit } from '../tokens'
 import { getAddress } from './address'
 import { getTransactionHistories } from './transaction_history'
 import { getL1Balance, getBalance, getETHtoUSD } from './tokenBalanceList'
-import { autoFinalizeExit } from './withdraw'
+import { autoCompleteWithdrawal } from './withdraw'
 
 const APP_STATUS = {
   UNLOADED: 'unloaded',
@@ -161,9 +161,9 @@ export const subscribeEvents = () => async dispatch => {
 
   client.subscribeExitFinalized(async exitId => {
     console.info(`exit finalized for exit: ${exitId.toHexString()}`)
-    const exitList = await client.getExitList()
+    const exitList = await client.getPendingWithdrawals()
     const exit = exitList.find(exit => exit.id === exitId)
-    const peth = TOKEN_LIST.find(token => token.unit === 'ETH')
+    const peth = getTokenByUnit('ETH')
     if (
       peth !== undefined &&
       exit !== undefined &&
@@ -182,5 +182,5 @@ export const subscribeEvents = () => async dispatch => {
     dispatch(getTransactionHistories())
   })
 
-  autoFinalizeExit(dispatch)
+  autoCompleteWithdrawal(dispatch)
 }

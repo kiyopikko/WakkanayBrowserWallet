@@ -26,15 +26,15 @@ export const withdrawReducer = createReducer(
 /**
  * withdraw token
  * @param {*} amount amount of wei to exit
- * @param {*} depositContractAddress deposit contract address of token
+ * @param {*} tokenContractAddress token contract address of token
  */
-export const withdraw = (amount, depositContractAddress) => {
+export const withdraw = (amount, tokenContractAddress) => {
   const amountWei = JSBI.BigInt(utils.parseEther(amount).toString())
   return async dispatch => {
     try {
       const client = await clientWrapper.getClient()
       if (!client) return
-      await client.exit(amountWei, depositContractAddress)
+      await client.startWithdrawal(amountWei, tokenContractAddress)
       dispatch(setWithdrawProgress(WITHDRAW_PROGRESS.COMPLETE))
       dispatch(getBalance())
     } catch (error) {
@@ -43,15 +43,15 @@ export const withdraw = (amount, depositContractAddress) => {
   }
 }
 
-export const finalizeExit = () => {
+export const completeWithdrawal = () => {
   return async dispatch => {
     const client = await clientWrapper.getClient()
     if (!client) return
-    const exitList = await client.getExitList()
+    const exitList = await client.getPendingWithdrawals()
     exitList.map(async exit => {
       try {
         console.log(exit)
-        await client.finalizeExit(exit)
+        await client.completeWithdrawal(exit)
         dispatch({
           type: `NOTIFY_FINALIZE_EXIT`,
           payload: exit.id.intoHexString()
@@ -67,8 +67,8 @@ export const finalizeExit = () => {
 }
 export const sleep = msec => new Promise(resolve => setTimeout(resolve, msec))
 
-export const autoFinalizeExit = async dispatch => {
+export const autoCompleteWithdrawal = async dispatch => {
   await sleep(20000)
-  dispatch(finalizeExit())
-  return await autoFinalizeExit(dispatch)
+  dispatch(completeWithdrawal())
+  return await autoCompleteWithdrawal(dispatch)
 }

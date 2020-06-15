@@ -7,7 +7,7 @@ import { TokenSelector } from '../TokenSelector'
 import Confirmation from '../Confirmation'
 import TokenInput from '../TokenInput'
 
-import { TOKEN_LIST } from '../../tokens'
+import { getTokenByTokenContractAddress } from '../../tokens'
 import { config } from '../../config'
 import { DEPOSIT_PROGRESS } from '../../store/deposit'
 import { FZ_MEDIUM, FW_BLACK } from '../../fonts'
@@ -25,18 +25,15 @@ const modalTexts = {
     title: 'Withdraw Funds from Mainchain Account',
     inputButton: 'Withdraw',
     confirmTitle: 'You will withdraw',
-    confirmText: 'Withdrawals need to go through an exit period (about a week)',
+    confirmText: 'Withdrawals need to go through a period (about a week)',
     completeTitle: 'Withdraw Completed!'
   }
 }
 
 const DepositWithdrawModal = ({ type, progress, setProgress, action }) => {
   const router = useRouter()
-
   const [tokenAmount, setTokenAmount] = useState(undefined)
-  const [token, setToken] = useState(
-    router.query.token || config.payoutContracts.DepositContract
-  )
+  const [token, setToken] = useState(router.query.token || config.PlasmaETH)
 
   const updateToken = selectedTokenContractAddress => {
     setToken(selectedTokenContractAddress)
@@ -46,9 +43,7 @@ const DepositWithdrawModal = ({ type, progress, setProgress, action }) => {
     setProgress(_progress)
   }
 
-  const selectedTokenObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) => depositContractAddress === token
-  )
+  const selectedTokenObj = getTokenByTokenContractAddress(token)
 
   return (
     <BaseModal

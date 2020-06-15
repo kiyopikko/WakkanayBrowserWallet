@@ -17,7 +17,7 @@ import {
 
 // internal import
 import { SECTION_BACKGROUND } from '../colors'
-import { TOKEN_LIST } from '../tokens'
+import { getTokenByTokenContractAddress, TOKEN_LIST } from '../tokens'
 import { TokenSelector } from './TokenSelector'
 import AddressInput from './AddressInput'
 import Button from './Base/Button'
@@ -26,12 +26,9 @@ import { SectionTitle } from './SectionTitle'
 import TokenInput from './TokenInput'
 
 const Send = props => {
-  const transferredTokenObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) =>
-      depositContractAddress.toLowerCase() ===
-      props.transferredToken.toLowerCase()
+  const transferredTokenObj = getTokenByTokenContractAddress(
+    props.transferredToken
   )
-
   const tokensWithCurrentAmount = TOKEN_LIST.map(token => ({
     ...token,
     amount: props.tokenBalance[token.unit]
