@@ -1,6 +1,6 @@
 import { Address, Bytes } from '@cryptoeconomicslab/primitives'
 
-export default class MetamaskWallet {
+export class MetamaskSnapWallet {
   getAddress() {
     return Address.default()
   }

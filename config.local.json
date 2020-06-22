@@ -12,9 +12,9 @@
     "IsLessThan": "0xdDA6327139485221633A1FcD65f4aC932E60A2e1",
     "Equal": "0x82D50AD3C1091866E258Fd0f1a7cC9674609D254",
     "VerifyInclusion": "0x0d8cc4b8d15D4c3eF1d70af0071376fb26B5669b",
-    "IsSameAmount": "0x0bad0507fbb3c1b5d49f7b8d0001a1d177c9ebe2",
-    "IsConcatenatedWith": "0x9cb0045f3ab5d00a7511282d129e304a9016bd71",
-    "IsValidHash": "0xc2961ea524b7c37b276fcaeca1f4001078bf1a66",
+    "IsSameAmount": "0xdf993d47946f0c7a2b1c7ff2d2368b1a84654129",
+    "IsConcatenatedWith": "0xa7c013a7c24ed06e32706f0f2ed26edc905cb5ad",
+    "IsValidHash": "0xbdeb56945e8ba13cdf0cfe7c9fccc3837b587732",
     "IsStored": "0xeec918d74c746167564401103096D45BbD494B74",
     "HasIntersection": "0xEcFcaB0A285d3380E488A39B4BB21e777f8A4EaC"
   },
