@@ -1,6 +1,10 @@
 import { Address, Bytes } from '@cryptoeconomicslab/primitives'
 
-export default class MetamaskWallet {
+/**
+ * MetamaskSnapWallet is wallet implementation for Metamask Snaps Beta
+ *     https://github.com/MetaMask/metamask-snaps-beta
+ */
+export class MetamaskSnapWallet {
   getAddress() {
     return Address.default()
   }
