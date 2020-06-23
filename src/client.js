@@ -18,6 +18,7 @@ class ClientWrapper {
 
   /**
    * initialize plasma light client with privateKey
+   * @param {*} kind kind is a way of creating wallet
    * @param {string} privateKey privateKey of user's account
    */
   async initializeClient(kind, privateKey) {
