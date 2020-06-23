@@ -8,9 +8,13 @@ const ERC20abi = [
   'function decimals() view returns (uint)'
 ]
 
+/**
+ * MetamaskWallet is wallet implementation for Metamask
+ */
 export class MetamaskWallet {
   /**
    * MetamaskWallet
+   * @param {*} address address string
    * @param {*} provider Web3Provider
    */
   constructor(address, provider) {
