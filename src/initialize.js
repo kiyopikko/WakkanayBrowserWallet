@@ -45,7 +45,9 @@ async function instantiate(kind, privateKey) {
     const address = await provider.getSigner().getAddress()
     const network = await provider.ready
     if (networkName !== 'local' && network.name !== networkName) {
-      throw new Error('Your wallet is connecting to different network.')
+      throw new Error(
+        `Your wallet is connecting to ${network.name} but ${networkName} is expected.`
+      )
     }
     wallet = new MetamaskWallet(address, provider)
     signer = provider.getSigner()
@@ -117,7 +119,7 @@ export default async function initialize(kind, privateKey) {
   await lightClient.start()
 
   // TODO: need more secure way to store private key.
-  if (privateKey !== undefined) {
+  if (typeof privateKey === 'string') {
     localStorage.setItem('privateKey', privateKey)
   }
 
