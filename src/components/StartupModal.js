@@ -30,14 +30,14 @@ const StartUpModal = props => {
         <Button
           full
           disabled={!privateKey}
-          onClick={props.initializeClient(privateKey)}
+          onClick={() => props.initializeClient(privateKey)}
         >
           Create Wallet
         </Button>
         <div className="spacer">
           <div className="spacer__txt">or</div>
         </div>
-        <Button full onClick={props.initializeMetamaskWallet()}>
+        <Button full onClick={props.initializeMetamaskWallet}>
           Connect to MetaMask
         </Button>
       </div>
