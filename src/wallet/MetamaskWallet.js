@@ -1,6 +1,7 @@
 import { Address, BigNumber, Bytes } from '@cryptoeconomicslab/primitives'
 import { Balance } from '@cryptoeconomicslab/wallet'
 import { ethers } from 'ethers'
+import { arrayify } from 'ethers/utils'
 
 const ERC20abi = [
   'function balanceOf(address tokenOwner) view returns (uint)',
@@ -50,6 +51,7 @@ export class MetamaskWallet {
 
   async signMessage(message) {
     const signer = this.provider.getSigner()
-    return Bytes.fromHexString(signer.signMessage(message.toHexString()))
+    const signature = await signer.signMessage(arrayify(message.toHexString()))
+    return Bytes.fromHexString(signature)
   }
 }
