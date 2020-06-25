@@ -1,10 +1,5 @@
 #######################################################
 ### TODO: Set your variables on Azure DevOps
-### webAppName: Name of Azure App Service
-### azureSubscription: Name of Subscription of Azure Resource Manager
-### resourceGroupName: Name of Azure Resource Group Name
-### deployToSlotOrASE: Deployment to a slot or not
-### slotName: Name of the slot
 ### ethNetworkName: Name of network of Ethereum
 #######################################################
 
@@ -55,16 +50,3 @@ steps:
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
-
-  - task: AzureRmWebAppDeployment@4
-    displayName: 'Azure App Service Deploy: gazelle-wallet'
-    inputs:
-      appType: webAppLinux
-      azureSubscription: $(azureSubscription)
-      ResourceGroupName: $(resourceGroupName)
-      WebAppName: $(webAppName)
-      deployToSlotOrASE: $(deployToSlotOrASE)
-      SlotName: $(slotName)
-      packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      RuntimeStack: 'NODE|10-lts'
-      StartupCommand: 'npm start'
