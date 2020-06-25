@@ -1,0 +1,70 @@
+#######################################################
+### TODO: set your variables on Azure DevOps
+### webAppName: Name of Azure App Service
+### azureSubscription: Name of Subscription of Azure Resource Manager
+### resourceGroupName: Name of Azure Resource Group Name
+### ethNetworkName: Name of network of Ethereum
+#######################################################
+
+trigger:
+  - master
+
+pool:
+  name: Hosted VS2017
+
+steps:
+  - task: NodeTool@0
+    displayName: 'Use Node version'
+    inputs:
+      versionSpec: '10.x'
+
+  - script: |
+      npm install -g npm@latest
+      rd /S /Q C:\npm\cache
+    displayName: 'Command Line Script'
+
+  - task: Npm@0
+    displayName: 'Install application dependencies'
+    inputs:
+      arguments: '--force'
+
+  - task: DownloadSecureFile@1
+    displayName: 'Download wallet.$(ethNetworkName).env'
+    inputs:
+      secureFile: wallet.$(ethNetworkName).env
+
+  - task: DownloadSecureFile@1
+    displayName: 'Download config.$(ethNetworkName).json'
+    inputs:
+      secureFile: config.$(ethNetworkName).json
+
+  - script: |
+      copy $(env.secureFilePath) .env
+      copy $(config.secureFilePath) config.$(ethNetworkName).json
+      set NODE_OPTIONS=--max_old_space_size=4096
+      npm run build
+    displayName: 'Npm run build'
+
+  - task: ArchiveFiles@1
+    displayName: 'Archive files'
+    inputs:
+      rootFolder: '$(System.DefaultWorkingDirectory)'
+      includeRootFolder: false
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+
+  - task: AzureRmWebAppDeployment@4
+    displayName: 'Azure App Service Deploy: gazelle-wallet'
+    inputs:
+      appType: webAppLinux
+      azureSubscription: $(azureSubscription)
+      ResourceGroupName: $(resourceGroupName)
+      WebAppName: $(webAppName)
+      # @NOTE: please add this rows if you want to use a staging slot
+      deployToSlotOrASE: true
+      SlotName: staging
+      ######################
+      packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      RuntimeStack: 'NODE|10-lts'
+      StartupCommand: 'npm start'
