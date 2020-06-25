@@ -1,8 +1,10 @@
 #######################################################
-### TODO: set your variables on Azure DevOps
+### TODO: Set your variables on Azure DevOps
 ### webAppName: Name of Azure App Service
 ### azureSubscription: Name of Subscription of Azure Resource Manager
 ### resourceGroupName: Name of Azure Resource Group Name
+### deployToSlotOrASE: Deployment to a slot or not
+### slotName: Name of the slot
 ### ethNetworkName: Name of network of Ethereum
 #######################################################
 
@@ -61,10 +63,8 @@ steps:
       azureSubscription: $(azureSubscription)
       ResourceGroupName: $(resourceGroupName)
       WebAppName: $(webAppName)
-      # @NOTE: please add this rows if you want to use a staging slot
-      deployToSlotOrASE: true
-      SlotName: staging
-      ######################
+      deployToSlotOrASE: $(deployToSlotOrASE)
+      SlotName: $(slotName)
       packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
       RuntimeStack: 'NODE|10-lts'
       StartupCommand: 'npm start'
