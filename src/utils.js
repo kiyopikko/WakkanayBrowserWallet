@@ -12,3 +12,9 @@ export const shortenAddress = address => {
 export const roundBalance = (value, base = 100) => {
   return Math.round(value * base) / base
 }
+
+/**
+ * await for a given milseconds
+ * @param msec miliseconds to sleep
+ */
+export const sleep = msec => new Promise(resolve => setTimeout(resolve, msec))

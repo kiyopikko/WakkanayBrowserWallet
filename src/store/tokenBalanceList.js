@@ -5,7 +5,7 @@ import { formatUnits } from 'ethers/utils'
 import { createSelector } from 'reselect'
 import clientWrapper from '../client'
 import { TOKEN_LIST, getTokenByTokenContractAddress } from '../tokens'
-import { roundBalance } from '../utils'
+import { roundBalance, sleep } from '../utils'
 
 // selector
 const getL1BalanceState = state => state.tokenBalance.l1Balance
@@ -93,8 +93,21 @@ const EtherLatestPriceURL =
 
 export const getETHtoUSD = () => {
   return async dispatch => {
-    const res = await axios.get(EtherLatestPriceURL)
-    dispatch(setETHtoUSD(res.data.result.ethusd))
+    axios
+      .get(EtherLatestPriceURL)
+      .then(async res => {
+        if (res.data && res.data.result && res.data.result.ethusd) {
+          dispatch(setETHtoUSD(res.data.result.ethusd))
+        } else {
+          await sleep(10 * 1000)
+          dispatch(getETHtoUSD())
+        }
+      })
+      .catch(async e => {
+        console.log(e)
+        await sleep(10 * 1000)
+        dispatch(getETHtoUSD())
+      })
   }
 }
 
