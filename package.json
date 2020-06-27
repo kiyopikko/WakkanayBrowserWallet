@@ -23,11 +23,14 @@
     "@fortawesome/react-fontawesome": "^0.1.7",
     "@reduxjs/toolkit": "^1.0.4",
     "@sentry/browser": "^5.12.0",
+    "@walletconnect/qrcode-modal": "^1.0.5",
+    "@walletconnect/web3-provider": "^1.0.5",
     "axios": "^0.19.0",
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
     "ethers": "^4.0.47",
     "jsbi": "^3.1.2",
+    "magic-sdk": "^2.1.0",
     "next": "^9.1.7",
     "next-redux-wrapper": "^4.0.1",
     "qrcode.react": "^1.0.0",
@@ -41,7 +44,8 @@
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "web3": "^1.2.9"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

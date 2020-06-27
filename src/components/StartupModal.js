@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { initializeClient, initializeMetamaskWallet } from '../store/appStatus'
+import {
+  initializeClient,
+  initializeMetamaskWallet,
+  initializeMagicLinkWallet
+} from '../store/appStatus'
 import { connect } from 'react-redux'
 import { FZ_MEDIUM } from '../fonts'
 import Input from './Base/Input'
@@ -40,6 +44,9 @@ const StartUpModal = props => {
         <Button full onClick={props.initializeMetamaskWallet}>
           Connect to MetaMask
         </Button>
+        <Button full onClick={props.initializeMagicLinkWallet}>
+          Connect to MagicLink
+        </Button>
       </div>
       <style jsx>{`
         .container {
@@ -70,6 +77,7 @@ const StartUpModal = props => {
 
 const mapDispatchToProps = {
   initializeClient,
-  initializeMetamaskWallet
+  initializeMetamaskWallet,
+  initializeMagicLinkWallet
 }
 export default connect(undefined, mapDispatchToProps)(StartUpModal)

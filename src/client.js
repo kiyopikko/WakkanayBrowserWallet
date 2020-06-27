@@ -18,14 +18,14 @@ class ClientWrapper {
 
   /**
    * initialize plasma light client with privateKey
-   * @param {*} kind kind is a way of creating wallet
-   * @param {string} privateKey privateKey of user's account
+   * @param {*} walletParams is object which to create wallet
+   *   walletParams must have "kind" property. It is a way of creating wallet.
    */
-  async initializeClient(kind, privateKey) {
+  async initializeClient(walletParams) {
     if (this.instance) return
 
     if (process.browser) {
-      const client = await initialize(kind, privateKey)
+      const client = await initialize(walletParams)
       this.instance = client
     }
   }

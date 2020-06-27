@@ -1,6 +1,11 @@
 import * as ethers from 'ethers'
 import LightClient from '@cryptoeconomicslab/plasma-light-client'
-import { MetamaskWallet, MetamaskSnapWallet } from './wallet'
+import {
+  MetamaskService,
+  MetamaskSnapWallet,
+  MagicLinkService,
+  WalletConnectService
+} from './wallet'
 import { EthWallet } from '@cryptoeconomicslab/eth-wallet'
 import { Address, Bytes } from '@cryptoeconomicslab/primitives'
 import { IndexedDbKeyValueStore } from '@cryptoeconomicslab/indexeddb-kvs'
@@ -28,29 +33,29 @@ function getProvider(network) {
   }
 }
 
-async function instantiate(kind, privateKey) {
+async function instantiate(walletParams) {
   const networkName = process.env.ETH_NETWORK
+  const kind = walletParams.kind
 
   let wallet, signer
-  if (
-    kind === WALLET_KIND.WALLET_PRIVATEKEY &&
-    typeof privateKey === 'string'
-  ) {
+  if (kind === WALLET_KIND.WALLET_PRIVATEKEY) {
     wallet = new EthWallet(
-      new ethers.Wallet(privateKey, getProvider(networkName))
+      new ethers.Wallet(walletParams.privateKey, getProvider(networkName))
     )
     signer = wallet.getEthersWallet()
   } else if (kind === WALLET_KIND.WALLET_METAMASK) {
-    const provider = new ethers.providers.Web3Provider(web3.currentProvider)
-    const address = await provider.getSigner().getAddress()
-    const network = await provider.ready
-    if (networkName !== 'local' && network.name !== networkName) {
-      throw new Error(
-        `Your wallet is connecting to ${network.name} but ${networkName} is expected.`
-      )
+    wallet = await MetamaskService.initialize(networkName)
+    signer = wallet.provider.getSigner()
+  } else if (kind === WALLET_KIND.WALLET_MAGIC_LINK) {
+    wallet = await MagicLinkService.initialize(walletParams.email)
+    if (!wallet) {
+      location.reload()
+      return
     }
-    wallet = new MetamaskWallet(address, provider)
-    signer = provider.getSigner()
+    signer = wallet.provider.getSigner()
+  } else if (kind === WALLET_KIND.WALLET_CONNECT) {
+    wallet = await WalletConnectService.initilize()
+    signer = wallet.provider.getSigner()
   } else if (kind === WALLET_KIND.WALLET_METAMASK_SNAP) {
     await window.ethereum.enable()
     wallet = new MetamaskSnapWallet()
@@ -114,13 +119,16 @@ async function instantiate(kind, privateKey) {
   return client
 }
 
-export default async function initialize(kind, privateKey) {
-  const lightClient = await instantiate(kind, privateKey)
+export default async function initialize(walletParams) {
+  const lightClient = await instantiate(walletParams)
   await lightClient.start()
 
   // TODO: need more secure way to store private key.
-  if (typeof privateKey === 'string') {
-    localStorage.setItem('privateKey', privateKey)
+  if (
+    walletParams.kind === WALLET_KIND.WALLET_PRIVATEKEY &&
+    typeof walletParams.privateKey === 'string'
+  ) {
+    localStorage.setItem('privateKey', walletParams.privateKey)
   }
 
   return lightClient
