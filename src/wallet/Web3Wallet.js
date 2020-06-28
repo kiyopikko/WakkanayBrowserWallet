@@ -1,7 +1,7 @@
 import { Address, BigNumber, Bytes } from '@cryptoeconomicslab/primitives'
 import { Balance } from '@cryptoeconomicslab/wallet'
 import { ethers } from 'ethers'
-import { arrayify, keccak256, AbiCoder } from 'ethers/utils'
+import { arrayify, AbiCoder } from 'ethers/utils'
 const abi = new AbiCoder()
 
 const ERC20abi = [
@@ -50,7 +50,7 @@ export class Web3Wallet {
     return new Balance(value, decimals, symbol)
   }
 
-  async signTypedDataV1(tokenAddress, range, owner, txBody) {
+  async signTypedDataV1(tokenAddress, range, stateObjectParams, txBody) {
     const msgParams = [
       {
         type: 'address',
@@ -61,28 +61,23 @@ export class Web3Wallet {
         type: 'uint256',
         name: 'amount',
         value: range[1].sub(range[0]).toString()
-      },
-      {
-        type: 'address',
-        name: 'to',
-        value: owner
-      },
-      {
-        type: 'bytes',
-        name: 'transaction',
-        value: txBody
       }
     ]
+    const txBodyParam = {
+      type: 'bytes',
+      name: 'transaction',
+      value: txBody
+    }
     return await this.provider.send('eth_signTypedData', [
-      msgParams,
+      msgParams.concat(stateObjectParams).concat([txBodyParam]),
       this.address
     ])
   }
 
-  async signMessage(message) {
+  decodeTransaction(transactionMessage) {
     const transactionProperty = abi.decode(
       ['tuple(address, bytes[])'],
-      arrayify(message.toHexString())
+      arrayify(transactionMessage.toHexString())
     )[0]
     const tokenAddress = abi.decode(
       ['address'],
@@ -96,11 +91,31 @@ export class Web3Wallet {
       ['tuple(address, bytes[])'],
       arrayify(transactionProperty[1][3])
     )[0]
-    const owner = abi.decode(['address'], arrayify(stateObject[1][0]))[0]
-    const signature = await this.signTypedDataV1(
+    return {
       tokenAddress,
       range,
-      owner,
+      stateObject
+    }
+  }
+
+  decodeStateObject(stateObject) {
+    const owner = abi.decode(['address'], arrayify(stateObject[1][0]))[0]
+    return [
+      {
+        type: 'address',
+        name: 'owner',
+        value: owner
+      }
+    ]
+  }
+
+  async signMessage(message) {
+    const transaction = this.decodeTransaction(message)
+    const stateObjectParams = this.decodeStateObject(transaction.stateObject)
+    const signature = await this.signTypedDataV1(
+      transaction.tokenAddress,
+      transaction.range,
+      stateObjectParams,
       message.toHexString()
     )
     return Bytes.fromHexString(signature)

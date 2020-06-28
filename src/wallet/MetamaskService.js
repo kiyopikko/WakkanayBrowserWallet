@@ -1,4 +1,4 @@
-import { Web3ProviderWallet } from './Web3Wallet'
+import { Web3Wallet } from './Web3Wallet'
 import { ethers } from 'ethers'
 
 /**
