@@ -14,9 +14,9 @@ import {
   ERC20Contract,
   CommitmentContract,
   AdjudicationContract,
-  OwnershipPayoutContract,
-  PETHContract
+  OwnershipPayoutContract
 } from '@cryptoeconomicslab/eth-contract'
+import { PETHContract } from './contracts/PETHContract'
 import { WALLET_KIND } from './wallet'
 import * as Sentry from '@sentry/browser'
 if (process.env.SENTRY_ENDPOINT) {
