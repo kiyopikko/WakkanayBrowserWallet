@@ -2,7 +2,8 @@ import { useState } from 'react'
 import {
   initializeClient,
   initializeMetamaskWallet,
-  initializeMagicLinkWallet
+  initializeMagicLinkWallet,
+  initializeWalletConnect
 } from '../store/appStatus'
 import { connect } from 'react-redux'
 import { FZ_MEDIUM } from '../fonts'
@@ -44,6 +45,9 @@ const StartUpModal = props => {
         <Button full onClick={props.initializeMetamaskWallet}>
           Connect to MetaMask
         </Button>
+        <Button full onClick={props.initializeWalletConnect}>
+          Connect to WalletConnect compatible wallet
+        </Button>
       </div>
       <style jsx>{`
         .container {
@@ -75,6 +79,7 @@ const StartUpModal = props => {
 const mapDispatchToProps = {
   initializeClient,
   initializeMetamaskWallet,
-  initializeMagicLinkWallet
+  initializeMagicLinkWallet,
+  initializeWalletConnect
 }
 export default connect(undefined, mapDispatchToProps)(StartUpModal)

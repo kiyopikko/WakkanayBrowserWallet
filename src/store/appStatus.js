@@ -139,6 +139,22 @@ export const initializeMetamaskSnapWallet = () => {
   }
 }
 
+export const initializeWalletConnect = () => {
+  return async dispatch => {
+    dispatch(setAppError(null))
+    try {
+      await clientWrapper.initializeClient({
+        kind: WALLET_KIND.WALLET_CONNECT
+      })
+      dispatch(setAppStatus(APP_STATUS.LOADED))
+      initialGetters(dispatch)
+    } catch (error) {
+      console.error(error)
+      dispatch(setAppError(error))
+    }
+  }
+}
+
 export const initializeMagicLinkWallet = email => {
   return async dispatch => {
     dispatch(setAppError(null))
