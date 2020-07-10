@@ -1,12 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
-// react-font-awesome import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 library.add(faSignOutAlt)
-
-// redux
 import {
   isAbleToSubmit,
   setTransferredToken,
@@ -14,14 +10,12 @@ import {
   setRecepientAddress,
   transfer
 } from '../store/transfer'
-
-// internal import
-import { SECTION_BACKGROUND } from '../constants/colors'
+import { MAIN, SECTION_BACKGROUND, TEXT_ERROR } from '../constants/colors'
 import { getTokenByTokenContractAddress, TOKEN_LIST } from '../constants/tokens'
 import { TokenSelector } from './TokenSelector'
 import AddressInput from './AddressInput'
 import Button from './Base/Button'
-import ErrorMessage from './Base/ErrorMessage'
+import Message from './Base/Message'
 import { SectionTitle } from './SectionTitle'
 import TokenInput from './TokenInput'
 
@@ -70,7 +64,10 @@ const Send = props => {
         Send
       </Button>
       {props.transferError && (
-        <ErrorMessage>{props.transferError}</ErrorMessage>
+        <Message color={TEXT_ERROR}>{props.transferError}</Message>
+      )}
+      {props.transferPage === 'completion-page' && (
+        <Message color={MAIN}>Transfer Success!</Message>
       )}
 
       <style jsx>{`
@@ -94,6 +91,7 @@ const mapStateToProps = state => ({
   transferredToken: state.transferState.transferredToken,
   transferredAmount: state.transferState.transferredAmount,
   recepientAddress: state.transferState.recepientAddress,
+  transferPage: state.transferState.transferPage,
   transferError: state.transferState.transferError
 })
 
