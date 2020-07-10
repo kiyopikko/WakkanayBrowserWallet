@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Router, { useRouter } from 'next/router'
 import Head from 'next/head'
 import Box from './Base/Box'
+import ErrorAlert from './Base/ErrorAlert'
 import { config } from '../config'
 import Header from './Header'
 import StartupModal from './StartupModal'
@@ -39,6 +40,7 @@ const Initial = ({
   popRouteHistory,
   appStatus,
   address,
+  tokenBalance,
   tokenTotalBalance,
   l1TotalBalance,
   children
@@ -85,6 +87,9 @@ const Initial = ({
       </Head>
       <Header />
       <div className="container">
+        <ErrorAlert>
+          {tokenBalance.errorEthToUSD && 'can not get USD balance now'}
+        </ErrorAlert>
         <h2 className="headline">
           {router.pathname !== HISTORY ? 'Your Wallet' : 'Transaction History'}
         </h2>
@@ -219,6 +224,7 @@ const mapStateToProps = state => ({
   address: state.address,
   appRouter: state.appRouter,
   appStatus: state.appStatus,
+  tokenBalance: state.tokenBalance,
   l1TotalBalance: getL1TotalBalance(state),
   tokenTotalBalance: getTokenTotalBalance(state)
 })
