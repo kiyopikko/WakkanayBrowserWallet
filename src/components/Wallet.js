@@ -32,11 +32,20 @@ export default function Wallet({ l2, mainchain, address, onDeposit }) {
         <span className="wallet__ammount">${mainchain}</span>
       </div>
       <CopyToClipboard text={address} onCopy={updateCopy(true)}>
-        <div data-tip="React-tooltip" onMouseLeave={updateCopy(false)}>
+        <div
+          data-tip="React-tooltip"
+          data-for="wallet-address-tooltip"
+          onMouseLeave={updateCopy(false)}
+        >
           <button className="copy">{shortenAddress(address)}</button>
         </div>
       </CopyToClipboard>
-      <ReactTooltip place="bottom" type="dark" effect="solid">
+      <ReactTooltip
+        id="wallet-address-tooltip"
+        place="bottom"
+        type="dark"
+        effect="solid"
+      >
         <span className="tooltip">
           {copied ? 'Copied!' : 'Copy to Clipboard'}
         </span>

@@ -1,28 +1,15 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { connect } from 'react-redux'
-
-// react-font-awesome import
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-library.add(fab, faArrowLeft)
-
-import { shortenAddress, roundBalance } from '../../utils'
-import { TokenSelector } from '../constants/tokenselector'
-import { TOKEN_LIST } from '../../constants/tokens'
 import { BaseModal } from './BaseModal'
 import Button from './Button'
-
-import {
-  SMALLPLUS,
-  MEDIUM,
-  LARGER,
-  BOLD,
-  NORMAL,
-  SMALLER
-} from '../../constants/fonts'
-import { BACKGROUND, TEXT, SUBTEXT } from '../../constants/colors'
+import { TokenSelector } from '../TokenSelector'
+import Confirmation from '../Confirmation'
+import TokenInput from '../TokenInput'
+import { config } from '../../config'
+import { DEPOSIT_PROGRESS } from '../../store/deposit'
+import { SUBTEXT } from '../../constants/colors'
+import { FZ_MEDIUM, FW_BLACK } from '../../constants/fonts'
+import { getTokenByTokenContractAddress } from '../../constants/tokens'
 
 const modalTexts = {
   deposit: {
@@ -30,265 +17,93 @@ const modalTexts = {
     inputButton: 'Deposit',
     confirmTitle: 'You will deposit',
     confirmText: '',
-    completeTitle: 'Deposit Completed'
+    completeTitle: 'Deposit Completed!'
   },
   withdraw: {
     title: 'Withdraw Funds from Mainchain Account',
     inputButton: 'Withdraw',
     confirmTitle: 'You will withdraw',
-    confirmText: 'Withdrawals need to go through an exit period (about a week)',
-    completeTitle: 'Withdraw Completed'
+    confirmText: 'Withdrawals need to go through a period (about a week)',
+    completeTitle: 'Withdraw Completed!'
   }
 }
 
-const DepositWithdrawModal = props => {
-  const [tokenAmount, setTokenAmount] = useState(0)
-  const amountInput = useRef('')
+const DepositWithdrawModal = ({ type, progress, setProgress, action }) => {
   const router = useRouter()
-  const selectedToken = router.query.token
-  const selectedTokenObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) => depositContractAddress === selectedToken
-  )
+  const [tokenAmount, setTokenAmount] = useState(undefined)
+  const [token, setToken] = useState(router.query.token || config.PlasmaETH)
+
+  const updateToken = selectedTokenContractAddress => {
+    setToken(selectedTokenContractAddress)
+  }
+
+  const updateProgress = _progress => () => {
+    setProgress(_progress)
+  }
+
+  const selectedTokenObj = getTokenByTokenContractAddress(token)
 
   return (
     <BaseModal
-      title={modalTexts[props.type].title}
-      onClose={() => {
-        props.setPage('input-page')
-      }}
-      render={modal => (
+      title={modalTexts[type].title}
+      onClose={updateProgress(DEPOSIT_PROGRESS.INPUT)}
+      render={({ close }) => (
         <>
-          {props.page === 'input-page' ? (
-            <div className="input-contents-box">
-              <TokenSelector
-                width={420}
-                onSelected={selectedTokenContractAddress =>
-                  props.setToken(selectedTokenContractAddress)
-                }
-                selectedToken={selectedTokenObj}
-              />
-              <div className="amount-input-wrapper">
-                <input
-                  className="amount-input"
-                  type="number"
-                  placeholder="0.0"
-                  ref={amountInput}
-                  onChange={e => {
-                    setTokenAmount(e.target.value)
-                  }}
+          <div className="depositWithdrawModal">
+            {progress === DEPOSIT_PROGRESS.INPUT ? (
+              <>
+                <TokenSelector
+                  onSelected={updateToken}
+                  selectedToken={selectedTokenObj}
                 />
-                <div className="deposited-token-unit">
-                  {selectedTokenObj.unit}
-                </div>
-              </div>
-              <div className="deposited-token-confirm">
-                = {roundBalance(props.ETHtoUSD, tokenAmount)} USD / from
-                {shortenAddress(props.address)}
-              </div>
-              <div className="deposit-button btn">
+                <TokenInput
+                  className="mts mbs"
+                  value={tokenAmount}
+                  unit={selectedTokenObj.unit}
+                  handleAmount={setTokenAmount}
+                />
                 <Button
                   size="full"
-                  onClick={() => {
-                    props.setPage('confirmation-page')
-                  }}
+                  disabled={!tokenAmount}
+                  onClick={updateProgress(DEPOSIT_PROGRESS.CONFIRM)}
                 >
-                  {modalTexts[props.type].inputButton}
+                  {modalTexts[type].inputButton}
                 </Button>
-              </div>
-            </div>
-          ) : props.page === 'confirmation-page' ? (
-            <div className="confirmation-page">
-              <div className="amount-confirmation-section">
-                <div className="amount-confirmation-title">
-                  <a>{modalTexts[props.type].confirmTitle}</a>
+              </>
+            ) : progress === DEPOSIT_PROGRESS.CONFIRM ? (
+              <Confirmation
+                type={type}
+                tokenAmount={tokenAmount}
+                unit={selectedTokenObj.unit}
+                imgSrc={selectedTokenObj.imgSrc}
+                supplement={modalTexts[type].confirmText}
+                onCancel={close}
+                onConfirm={() => action(tokenAmount, token)}
+              />
+            ) : (
+              <div className="complete">
+                <img src="popper.svg" className="complete__img" />
+                <div className="complete__txt">
+                  {modalTexts[type].completeTitle}
                 </div>
-                <div className="amount-confirmation-box">
-                  <img
-                    className="token-logo"
-                    src="../tokenIcons/ethereum-logo.png"
-                    alt="Ethereum Logo"
-                  ></img>
-                  <div className="total-balance-box">
-                    <span className="total-balance-number">{tokenAmount}</span>
-                    <span className="total-balance-unit">
-                      {selectedTokenObj.unit}
-                    </span>
-                    <div className="balance-in-usd">
-                      {roundBalance(props.ETHtoUSD, tokenAmount)} USD
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="account-confirmation-section">
-                <div className="from">
-                  from
-                  <a className="address">{shortenAddress(props.address)}</a>
-                </div>
-                <div className="to">to your wallet</div>
-              </div>
-              <div className="cancel-next-buttons">
-                <div className="cancel-button btn">
-                  <Button
-                    size="medium"
-                    style={{ margin: '0 auto' }}
-                    border
-                    onClick={() => {
-                      props.setPage('input-page')
-                      modal.close()
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                </div>
-                <div className="confirm-button btn">
-                  <Button
-                    size="medium"
-                    onClick={() => {
-                      console.log('submit:', props)
-                      props.action(tokenAmount, props.token)
-                    }}
-                  >
-                    Confirm
-                  </Button>
-                </div>
-              </div>
-              <p className="confirm-text">
-                {modalTexts[props.type].confirmText}
-              </p>
-            </div>
-          ) : (
-            <div>
-              <div className="deposit-complete-title amount-confirmation-title">
-                {modalTexts[props.type].completeTitle}
-              </div>
-              <div className="btn deposit-complete-btn">
-                <Button
-                  size="medium"
-                  onClick={() => modal.close()}
-                  style={{ margin: '0 auto' }}
-                >
+                <Button full border onClick={close}>
                   Close
                 </Button>
               </div>
-            </div>
-          )}
+            )}
+          </div>
           <style jsx>{`
-            .input-contents-box {
-              margin-top: 30px;
-              display: flex;
-              flex-direction: column;
-              align-items: flex-end;
+            .depositWithdrawModal {
+              min-width: 18.75rem;
             }
-            .amount-input-wrapper {
-              width: 420px;
-              display: flex;
-              margin-top: 16px;
-              align-items: center;
-              justify-content: center;
-              background: ${BACKGROUND};
-              padding-right: 14px;
-              border-radius: 20px;
+            .complete {
+              text-align: center;
             }
-            .amount-input {
-              width: 100%;
-              height: 48px;
-              font-size: ${MEDIUM};
-              font-weight: ${NORMAL};
-              color: ${TEXT};
-              border: none;
-              background: transparent;
-              padding: 0 1rem;
-            }
-            .deposited-token-unit,
-            .deposited-token-confirm {
-              font-weight: ${BOLD};
-              font-size: ${SMALLER};
+            .complete__txt {
+              margin: 0.5rem 0 1rem;
+              font-size: ${FZ_MEDIUM};
+              font-weight: ${FW_BLACK};
               color: ${SUBTEXT};
-            }
-            .deposited-token-confirm {
-              margin-top: 8px;
-              margin-right: 4px;
-            }
-            .token-amount-confirm-section {
-              margin-top: 40px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            }
-            .token-amount {
-              margin: -3px 14px;
-              margin-left: 10px;
-              font-size: ${LARGER};
-              font-weight: 600;
-            }
-            .deposit-button {
-              width: 100%;
-            }
-            .confirmation-page {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-            }
-            .from,
-            .to {
-              font-size: ${MEDIUM};
-              font-weight: 500;
-            }
-            .address {
-              font-size: ${MEDIUM};
-              font-weight: 500;
-              color: lightslategray;
-            }
-            .account-confirmation-section {
-              margin-bottom: 20px;
-            }
-            .amount-confirmation-section {
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-            }
-            .amount-confirmation-title {
-              font-size: 28px;
-              font-weight: 500;
-              margin-bottom: 8px;
-            }
-            .confirm-text {
-              margin-top: 8px;
-            }
-            .back-button {
-              margin-right: 8px;
-              font-size: 28px;
-              width: 100%;
-              margin-left: 116px;
-              cursor: pointer;
-            }
-            .token-logo {
-              width: 48px;
-              margin-right: 16px;
-            }
-            .amount-confirmation-box {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              margin-bottom: 16px;
-            }
-            .total-balance-number {
-              font-size: 52px;
-              font-weight: 650;
-            }
-            .total-balance-unit {
-              font-size: 30px;
-              font-weight: 650;
-              margin-left: 8px;
-            }
-            .balance-in-usd {
-              color: darkgray;
-              font-size: ${SMALLPLUS};
-              font-weight: 650;
-            }
-            .btn {
-              margin-top: 0.5rem;
             }
           `}</style>
         </>
@@ -297,10 +112,4 @@ const DepositWithdrawModal = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  tokenBalanceList: state.tokenBalance.tokenBalance,
-  ETHtoUSD: state.tokenBalance.ETHtoUSD,
-  address: state.address
-})
-
-export default connect(mapStateToProps)(DepositWithdrawModal)
+export default DepositWithdrawModal

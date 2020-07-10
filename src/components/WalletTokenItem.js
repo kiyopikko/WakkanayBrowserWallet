@@ -17,7 +17,7 @@ import { openModal, PAYMENT } from '../routes'
 export const WalletTokenItem = ({
   l2,
   mainchain,
-  depositContractAddress,
+  tokenContractAddress,
   unit
 }) => {
   const router = useRouter()
@@ -47,7 +47,7 @@ export const WalletTokenItem = ({
                     onClick={() => {
                       openModal({
                         modal: 'withdraw',
-                        token: depositContractAddress
+                        token: tokenContractAddress
                       })
                     }}
                   >
@@ -69,7 +69,7 @@ export const WalletTokenItem = ({
                   <Button
                     size="medium"
                     onClick={() => {
-                      openModal({ modal: 'orderRequest', token: depositContractAddress })
+                      openModal({ modal: 'orderRequest', token: tokenContractAddress })
                     }}
                   >
                     Exchange
@@ -100,7 +100,7 @@ export const WalletTokenItem = ({
                 size="medium"
                 border
                 onClick={() => {
-                  openModal({ modal: 'deposit', token: depositContractAddress })
+                  openModal({ modal: 'deposit', token: tokenContractAddress })
                 }}
               >
                 <img src="/deposit-arrow.svg" className="btn__icon" />

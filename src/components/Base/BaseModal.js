@@ -1,8 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Router from 'next/router'
 import ClickOutside from 'react-click-outside'
-import { SectionTitle } from '../SectionTitle'
 import {
   MODAL_BACKGROUND,
   MODAL_MAIN_BACKGROUND,
@@ -12,98 +10,54 @@ import {
 /**
  * General Modal Component for Browser Plasma Wallet
  */
-export class BaseModal extends React.Component {
-  static propTypes = {
-    /**
-     * The title of modal
-     */
-    title: PropTypes.string,
-    /**
-     * called when modal closed
-     */
-    onClose: PropTypes.func,
-    /**
-     * React element for modal content
-     */
-    render: PropTypes.func
-  }
-  static defaultProps = {
-    title: 'Default Title',
-    onClose: () => {},
-    render: () => <div />
-  }
 
-  close() {
-    const { onClose } = this.props
+const BaseModal = ({ title, render, onClose }) => {
+  const close = () => {
     Router.push(Router.route)
     if (onClose) onClose()
   }
 
-  render() {
-    const props = this.props
-    return (
-      <div className="modal-bg">
-        <ClickOutside
-          className="modal-main"
-          onClickOutside={e => {
-            this.close()
-          }}
-        >
-          <div className="contents">
-            <div className="modal-wrapper">
-              <div className="modal-page-title">
-                <SectionTitle>{props.title}</SectionTitle>
-              </div>
-              <div className="modal-body">{props.render(this)}</div>
-            </div>
-          </div>
-        </ClickOutside>
-        <style jsx>{`
-          .modal-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100vw;
-            background: ${MODAL_BACKGROUND};
-            display: flex;
-            justify-content: center;
-          }
-          .modal-bg > :global(.modal-main) {
-            position: fixed;
-            top: calc(20% + 10px);
-            width: 50%;
-            min-width: 520px;
-            height: calc(50% - 20px);
-            background: ${MODAL_MAIN_BACKGROUND};
-            opacity: 1;
-            border-radius: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow: scroll;
-          }
-          .contents {
-            padding: 0px 32px 16px 32px;
-          }
-          .modal-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-          .modal-page-title {
-            color: ${TEXT};
-            margin: 60px 40px 0px 40px;
-            margin-right: 40px;
-          }
-          .modal-body {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-          }
-        `}</style>
-      </div>
-    )
-  }
+  return (
+    <div className="modalBackground">
+      <ClickOutside className="modal" onClickOutside={close}>
+        <div className="modal__contents">
+          <h2 className="modal__title">{title}</h2>
+          <div className="modal__body">{render({ close })}</div>
+        </div>
+      </ClickOutside>
+      <style jsx>{`
+        .modalBackground {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          background: ${MODAL_BACKGROUND};
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        :global(.modal) {
+          max-width: 30rem;
+          background: ${MODAL_MAIN_BACKGROUND};
+          opacity: 1;
+          border-radius: 1.875rem;
+          display: flex;
+        }
+        .modal__contents {
+          padding: 2rem;
+        }
+        .modal__title {
+          color: ${TEXT};
+          text-align: center;
+          margin-top: 0.5rem;
+          margin-bottom: 1.25rem;
+        }
+        .modal__body {
+        }
+      `}</style>
+    </div>
+  )
 }
+
+export { BaseModal }

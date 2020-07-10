@@ -3,22 +3,22 @@ import { utils } from 'ethers'
 import JSBI from 'jsbi'
 import { getBalance } from './tokenBalanceList'
 import clientWrapper from '../client'
-import { config } from '../config'
 
-export const setWithdrawToken = createAction('SET_WITHDRAW_TOKEN')
-export const setWithdrawPage = createAction('SET_WITHDRAW_PAGE')
+export const WITHDRAW_PROGRESS = {
+  INPUT: 'INPUT',
+  CONFIRM: 'CONFIRM',
+  COMPLETE: 'COMPLETE'
+}
+
+export const setWithdrawProgress = createAction('SET_WITHDRAW_PROGRESS')
 
 export const withdrawReducer = createReducer(
   {
-    withdrawToken: config.payoutContracts.DepositContract,
-    withdrawPage: 'input-page'
+    withdrawProgress: WITHDRAW_PROGRESS.INPUT
   },
   {
-    [setWithdrawToken]: (state, action) => {
-      state.withdrawToken = action.payload
-    },
-    [setWithdrawPage]: (state, action) => {
-      state.withdrawPage = action.payload
+    [setWithdrawProgress]: (state, action) => {
+      state.withdrawProgress = action.payload
     }
   }
 )
@@ -26,16 +26,16 @@ export const withdrawReducer = createReducer(
 /**
  * withdraw token
  * @param {*} amount amount of wei to exit
- * @param {*} depositContractAddress deposit contract address of token
+ * @param {*} tokenContractAddress token contract address of token
  */
-export const withdraw = (amount, depositContractAddress) => {
+export const withdraw = (amount, tokenContractAddress) => {
   const amountWei = JSBI.BigInt(utils.parseEther(amount).toString())
   return async dispatch => {
     try {
       const client = await clientWrapper.getClient()
       if (!client) return
-      await client.exit(amountWei, depositContractAddress)
-      dispatch(setWithdrawPage('completion-page'))
+      await client.startWithdrawal(amountWei, tokenContractAddress)
+      dispatch(setWithdrawProgress(WITHDRAW_PROGRESS.COMPLETE))
       dispatch(getBalance())
     } catch (error) {
       console.log(error)
@@ -43,15 +43,15 @@ export const withdraw = (amount, depositContractAddress) => {
   }
 }
 
-export const finalizeExit = () => {
+export const completeWithdrawal = () => {
   return async dispatch => {
     const client = await clientWrapper.getClient()
     if (!client) return
-    const exitList = await client.getExitList()
+    const exitList = await client.getPendingWithdrawals()
     exitList.map(async exit => {
       try {
         console.log(exit)
-        await client.finalizeExit(exit)
+        await client.completeWithdrawal(exit)
         dispatch({
           type: `NOTIFY_FINALIZE_EXIT`,
           payload: exit.id.intoHexString()
@@ -67,8 +67,8 @@ export const finalizeExit = () => {
 }
 export const sleep = msec => new Promise(resolve => setTimeout(resolve, msec))
 
-export const autoFinalizeExit = async dispatch => {
+export const autoCompleteWithdrawal = async dispatch => {
   await sleep(20000)
-  dispatch(finalizeExit())
-  return await autoFinalizeExit(dispatch)
+  dispatch(completeWithdrawal())
+  return await autoCompleteWithdrawal(dispatch)
 }

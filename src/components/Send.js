@@ -17,9 +17,8 @@ import {
 
 // internal import
 import { SECTION_BACKGROUND } from '../constants/colors'
-import { TOKEN_LIST } from '../constants/tokens'
+import { getTokenByTokenContractAddress, TOKEN_LIST } from '../constants/tokens'
 import { TokenSelector } from './TokenSelector'
-import { roundBalance } from '../utils'
 import AddressInput from './AddressInput'
 import Button from './Base/Button'
 import ErrorMessage from './Base/ErrorMessage'
@@ -27,12 +26,9 @@ import { SectionTitle } from './SectionTitle'
 import TokenInput from './TokenInput'
 
 const Send = props => {
-  const transferredTokenObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) =>
-      depositContractAddress.toLowerCase() ===
-      props.transferredToken.toLowerCase()
+  const transferredTokenObj = getTokenByTokenContractAddress(
+    props.transferredToken
   )
-
   const tokensWithCurrentAmount = TOKEN_LIST.map(token => ({
     ...token,
     amount: props.tokenBalance[token.unit]
@@ -49,11 +45,10 @@ const Send = props => {
         onSelected={props.setTransferredToken}
         selectedToken={transferredTokenObj}
       />
-
       <TokenInput
         className="mts mbs"
+        value={props.transferredAmount}
         unit={transferredTokenObj.unit}
-        balance={roundBalance(props.ETHtoUSD, props.transferredAmount)}
         handleAmount={props.setTransferredAmount}
       />
       <AddressInput
@@ -82,7 +77,7 @@ const Send = props => {
         .send-section {
           display: flex;
           flex-direction: column;
-          margin: 20px 0px;
+          margin: 0.25rem 0;
           background-color: ${SECTION_BACKGROUND};
           position: relative;
         }

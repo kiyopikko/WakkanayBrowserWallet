@@ -31,7 +31,7 @@ import {
   XXSMALL,
   NORMAL
 } from '../constants/fonts'
-import { TOKEN_LIST } from '../constants/tokens'
+import { getTokenByTokenContractAddress, TOKEN_LIST } from '../constants/tokens'
 import { BaseModal } from './Base/BaseModal'
 
 const OrderRequestModal = props => {
@@ -40,13 +40,11 @@ const OrderRequestModal = props => {
   const [requestedAmountToExchange, setRequestedAmountToExchnage] = useState(0)
   const [requestedAmountToReceive, setRequestedAmountToReceive] = useState(0)
 
-  const requestedTokenToExchangeObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) =>
-      depositContractAddress === props.requestedTokenToExchange
+  const requestedTokenToExchangeObj = getTokenByTokenContractAddress(
+    props.requestedTokenToExchange
   )
-  const requestedTokenToReceiveObj = TOKEN_LIST.find(
-    ({ depositContractAddress }) =>
-      depositContractAddress === props.requestedTokenToReceive
+  const requestedTokenToReceiveObj = getTokenByTokenContractAddress(
+    props.requestedTokenToReceive
   )
   return (
     <BaseModal
@@ -89,7 +87,7 @@ const OrderRequestModal = props => {
                       }}
                     />
                     <div className="amount-in-usd">
-                      {roundBalance(props.ETHtoUSD, requestedAmountToExchange)}{' '}
+                      {roundBalance(props.ETHtoUSD * requestedAmountToExchange)}{' '}
                       USD
                     </div>
                     <div className="insufficient-fund">Insufficient Fund</div>
@@ -126,7 +124,7 @@ const OrderRequestModal = props => {
                       }}
                     />
                     <div className="amount-in-usd">
-                      {roundBalance(props.ETHtoUSD, requestedAmountToReceive)}{' '}
+                      {roundBalance(props.ETHtoUSD * requestedAmountToReceive)}{' '}
                       USD
                     </div>
                     <div className="insufficient-fund">Insufficient Fund</div>

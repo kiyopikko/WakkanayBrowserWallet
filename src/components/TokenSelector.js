@@ -9,33 +9,31 @@ import Dropdown from './Dropdown'
  */
 export const TokenSelector = props => {
   return (
-    <div>
-      <div className="token-select-box-wrapper">
-        <Dropdown
-          onselect={selectedTokenContractAddress => {
-            props.onSelected(selectedTokenContractAddress)
-          }}
-          width="100%"
-          topButtonName={item => (
-            <TokenSelectButton item={item} padding="0.5rem 0.5rem" />
-          )}
-          items={props.items || TOKEN_LIST}
-          renderItem={item => (
-            <TokenSelectButton item={item} padding="0.5rem 0.5rem" />
-          )}
-          selectedItem={props.selectedToken}
-        />
-      </div>
+    <div className="tokenSelector">
+      <Dropdown
+        onselect={selectedTokenContractAddress => {
+          props.onSelected(selectedTokenContractAddress)
+        }}
+        width="100%"
+        topButtonName={item => (
+          <TokenSelectButton item={item} padding="0.5rem 0.5rem" />
+        )}
+        items={props.items || TOKEN_LIST}
+        renderItem={item => (
+          <TokenSelectButton item={item} padding="0.5rem 0.5rem" />
+        )}
+        selectedItem={props.selectedToken}
+      />
 
       <style jsx>{`
-        .token-select-box-wrapper {
+        .tokenSelector {
           ${props.width ? `width: ${props.width}px;` : ''}
         }
-        .token-select-box-wrapper :global(.dropdown-button) {
+        .tokenSelector :global(.dropdown-button) {
           font-size: ${SMALL};
           font-weight: 400;
         }
-        .token-select-box-wrapper :global(.dropdown-caret) {
+        .tokenSelector :global(.dropdown-caret) {
           font-size: ${MEDIUM};
         }
       `}</style>

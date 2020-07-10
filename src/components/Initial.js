@@ -6,7 +6,7 @@ import Box from './Base/Box'
 import { config } from '../config'
 import Header from './Header'
 import StartupModal from './StartupModal'
-import { Tabs } from './Tabs'
+// import { Tabs } from './Tabs'
 import Wallet from './Wallet'
 import {
   TEXT,
@@ -22,14 +22,15 @@ import {
   FZ_SMALL,
   FZ_DEFAULT,
   FZ_LARGE,
-  FZ_HEADLINE
+  FZ_HEADLINE,
+  FW_NORMAL
 } from '../constants/fonts'
 import {
   WALLET,
   HISTORY,
-  PAYMENT,
-  EXCHANGE,
-  NFT_COLLECTIBLES,
+  // PAYMENT,
+  // EXCHANGE,
+  // NFT_COLLECTIBLES,
   openModal
 } from '../routes'
 import { pushRouteHistory, popRouteHistory } from '../store/appRouter'
@@ -52,17 +53,17 @@ const Initial = ({
   const router = useRouter()
   const isWalletHidden =
     router.pathname === WALLET || router.pathname === HISTORY
-  const isTabShownHidden =
-    appStatus.status === 'loaded' &&
-    (router.pathname === PAYMENT ||
-      router.pathname === EXCHANGE ||
-      router.pathname === NFT_COLLECTIBLES)
+  // const isTabShownHidden =
+  //   appStatus.status === 'loaded' &&
+  //   (router.pathname === PAYMENT ||
+  //     router.pathname === EXCHANGE ||
+  //     router.pathname === NFT_COLLECTIBLES)
 
   useEffect(() => {
     checkClientInitialized()
     pushRouteHistory(router.pathname)
     Router.events.on('routeChangeComplete', url => {
-      pushRouteHistory(url)
+      pushRouteHistory(url.split('?')[0])
     })
     Router.beforePopState(() => {
       popRouteHistory()
@@ -86,7 +87,7 @@ const Initial = ({
       <Head>
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:500,700,900&display=swap"
+          href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap"
         />
       </Head>
       <Header />
@@ -107,7 +108,7 @@ const Initial = ({
                   onDeposit={() => {
                     openModal({
                       modal: 'deposit',
-                      token: config.payoutContracts.DepositContract
+                      token: config.PlasmaETH
                     })
                   }}
                 />
@@ -154,7 +155,7 @@ const Initial = ({
         body {
           box-sizing: border-box;
           font-family: Roboto, sans-serif;
-          font-weight: 500;
+          font-weight: ${FW_NORMAL};
           background: ${BACKGROUND};
           color: ${TEXT};
         }
