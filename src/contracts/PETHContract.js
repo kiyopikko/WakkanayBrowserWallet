@@ -9,6 +9,11 @@ export class PETHContract {
 
   connection
 
+  /**
+   *
+   * @param {*} address is hex string of contract address
+   * @param {*} signer signer object of ethers.js
+   */
   constructor(address, signer) {
     this.connection = new Contract(address, PETHContract.abi, signer)
   }

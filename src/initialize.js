@@ -112,7 +112,7 @@ async function instantiate(walletParams) {
 
   // register Peth
   await client.registerCustomToken(
-    new PETHContract(Address.from(config.PlasmaETH), signer),
+    new PETHContract(config.PlasmaETH, signer),
     depositContractFactory(Address.from(config.payoutContracts.DepositContract))
   )
 
