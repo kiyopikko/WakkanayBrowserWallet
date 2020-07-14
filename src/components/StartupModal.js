@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { initializeClient, initializeMetamaskWallet } from '../store/appStatus'
+import {
+  initializeClient,
+  initializeMetamaskWallet,
+  initializeMagicLinkWallet,
+  initializeWalletConnect
+} from '../store/appStatus'
 import { connect } from 'react-redux'
 import { FZ_MEDIUM } from '../constants/fonts'
 import Input from './Base/Input'
@@ -7,10 +12,10 @@ import Button from './Base/Button'
 import { BORDER, White, PLACEHOLDER } from '../constants/colors'
 
 const StartUpModal = props => {
-  const [privateKey, setPrivateKey] = useState('')
+  const [email, setEmail] = useState('')
 
-  const updatePrivateKey = e => {
-    setPrivateKey(e.target.value.trim())
+  const updateEmail = e => {
+    setEmail(e.target.value.trim())
   }
 
   return (
@@ -23,14 +28,14 @@ const StartUpModal = props => {
         <Input
           className="mbs"
           full
-          placeholder={'0x8fxkho7892dfsh4h2l9bhcn3bb4th3'}
-          type="text"
-          onChange={updatePrivateKey}
+          placeholder={'example@gzle.io'}
+          type="email"
+          onChange={updateEmail}
         />
         <Button
           full
-          disabled={!privateKey}
-          onClick={() => props.initializeClient(privateKey)}
+          disabled={!email}
+          onClick={() => props.initializeMagicLinkWallet(email)}
         >
           Create Wallet
         </Button>
@@ -39,6 +44,9 @@ const StartUpModal = props => {
         </div>
         <Button full onClick={props.initializeMetamaskWallet}>
           Connect to MetaMask
+        </Button>
+        <Button full onClick={props.initializeWalletConnect}>
+          Connect to WalletConnect compatible wallet
         </Button>
       </div>
       <style jsx>{`
@@ -70,6 +78,8 @@ const StartUpModal = props => {
 
 const mapDispatchToProps = {
   initializeClient,
-  initializeMetamaskWallet
+  initializeMetamaskWallet,
+  initializeMagicLinkWallet,
+  initializeWalletConnect
 }
 export default connect(undefined, mapDispatchToProps)(StartUpModal)

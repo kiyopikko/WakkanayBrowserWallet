@@ -59,10 +59,10 @@ export const checkClientInitialized = () => {
     const localKey = localStorage.getItem('privateKey')
     if (localKey) {
       try {
-        await clientWrapper.initializeClient(
-          WALLET_KIND.WALLET_PRIVATEKEY,
-          localKey
-        )
+        await clientWrapper.initializeClient({
+          kind: WALLET_KIND.WALLET_PRIVATEKEY,
+          privateKey: localKey
+        })
         dispatch(setAppStatus(APP_STATUS.LOADED))
         dispatch(subscribeEvents())
         initialGetters(dispatch)
@@ -81,10 +81,10 @@ export const initializeClient = privateKey => {
   return async dispatch => {
     dispatch(setAppError(null))
     try {
-      await clientWrapper.initializeClient(
-        WALLET_KIND.WALLET_PRIVATEKEY,
+      await clientWrapper.initializeClient({
+        kind: WALLET_KIND.WALLET_PRIVATEKEY,
         privateKey
-      )
+      })
       dispatch(setAppStatus(APP_STATUS.LOADED))
       dispatch(subscribeEvents())
       initialGetters(dispatch)
@@ -100,7 +100,9 @@ export const initializeMetamaskWallet = () => {
   return async dispatch => {
     dispatch(setAppError(null))
     try {
-      await clientWrapper.initializeClient(WALLET_KIND.WALLET_METAMASK)
+      await clientWrapper.initializeClient({
+        kind: WALLET_KIND.WALLET_METAMASK
+      })
       dispatch(setAppStatus(APP_STATUS.LOADED))
       initialGetters(dispatch)
     } catch (error) {
@@ -116,7 +118,9 @@ export const initializeMetamaskSnapWallet = () => {
     try {
       // identify the Snap by the location of its package.json file
       const snapId = new URL('package.json', window.location.href).toString()
-      await clientWrapper.initializeClient(WALLET_KIND.WALLET_METAMASK_SNAP)
+      await clientWrapper.initializeClient({
+        kind: WALLET_KIND.WALLET_METAMASK_SNAP
+      })
 
       // get permissions to interact with and install the plugin
       await window.ethereum.send({
@@ -128,6 +132,39 @@ export const initializeMetamaskSnapWallet = () => {
         ]
       })
       dispatch(setAppStatus(APP_STATUS.LOADED))
+    } catch (error) {
+      console.error(error)
+      dispatch(setAppError(error))
+    }
+  }
+}
+
+export const initializeWalletConnect = () => {
+  return async dispatch => {
+    dispatch(setAppError(null))
+    try {
+      await clientWrapper.initializeClient({
+        kind: WALLET_KIND.WALLET_CONNECT
+      })
+      dispatch(setAppStatus(APP_STATUS.LOADED))
+      initialGetters(dispatch)
+    } catch (error) {
+      console.error(error)
+      dispatch(setAppError(error))
+    }
+  }
+}
+
+export const initializeMagicLinkWallet = email => {
+  return async dispatch => {
+    dispatch(setAppError(null))
+    try {
+      await clientWrapper.initializeClient({
+        kind: WALLET_KIND.WALLET_MAGIC_LINK,
+        email
+      })
+      dispatch(setAppStatus(APP_STATUS.LOADED))
+      initialGetters(dispatch)
     } catch (error) {
       console.error(error)
       dispatch(setAppError(error))

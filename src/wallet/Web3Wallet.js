@@ -1,7 +1,10 @@
 import { Address, BigNumber, Bytes } from '@cryptoeconomicslab/primitives'
 import { Balance } from '@cryptoeconomicslab/wallet'
+import { createTypedParams } from '@cryptoeconomicslab/ovm'
+import { config } from '../config'
 import { ethers } from 'ethers'
-import { arrayify } from 'ethers/utils'
+import { arrayify, AbiCoder } from 'ethers/utils'
+const abi = new AbiCoder()
 
 const ERC20abi = [
   'function balanceOf(address tokenOwner) view returns (uint)',
@@ -10,11 +13,11 @@ const ERC20abi = [
 ]
 
 /**
- * MetamaskWallet is wallet implementation for Metamask
+ * Web3Wallet is wallet implementation for Web3Provider
  */
-export class MetamaskWallet {
+export class Web3Wallet {
   /**
-   * MetamaskWallet
+   * Web3Wallet
    * @param {*} address address string
    * @param {*} provider Web3Provider
    */
@@ -50,8 +53,10 @@ export class MetamaskWallet {
   }
 
   async signMessage(message) {
-    const signer = this.provider.getSigner()
-    const signature = await signer.signMessage(arrayify(message.toHexString()))
+    const signature = await this.provider.send('eth_signTypedData', [
+      createTypedParams(config, message),
+      this.address
+    ])
     return Bytes.fromHexString(signature)
   }
 }
