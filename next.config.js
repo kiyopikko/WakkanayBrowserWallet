@@ -17,7 +17,8 @@ module.exports = {
     IS_VALID_SIG_ADDRESS: process.env.IS_VALID_SIG_ADDRESS,
     TEST_PRIVATE_KEY: process.env.TEST_PRIVATE_KEY,
     ETH_NETWORK: process.env.ETH_NETWORK,
-    SENTRY_ENDPOINT: process.env.SENTRY_ENDPOINT
+    SENTRY_ENDPOINT: process.env.SENTRY_ENDPOINT,
+    MAGIC_LOGIN_PUBLISHABLE_KEY: process.env.MAGIC_LOGIN_PUBLISHABLE_KEY
   },
   webpack: config => {
     config.node = {

@@ -47,7 +47,7 @@ async function instantiate(walletParams) {
     wallet = await MetamaskService.initialize(networkName)
     signer = wallet.provider.getSigner()
   } else if (kind === WALLET_KIND.WALLET_MAGIC_LINK) {
-    wallet = await MagicLinkService.initialize(walletParams.email)
+    wallet = await MagicLinkService.initialize(walletParams.email, networkName)
     if (!wallet) {
       location.reload()
       return

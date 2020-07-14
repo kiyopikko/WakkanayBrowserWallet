@@ -2,25 +2,30 @@ import { Web3Wallet } from './Web3Wallet'
 import { ethers } from 'ethers'
 import { Magic } from 'magic-sdk'
 
-let magic
-if (process.browser) {
-  magic = new Magic('pk_test_DDFC92FA5147E263', {
-    network: {
-      rpcUrl: 'http://localhost:8545'
-    }
-  })
+function getNetworkObject(network) {
+  const rpcUrl = process.env.MAIN_CHAIN_HOST || 'http://localhost:8545'
+  return network === 'local'
+    ? {
+        rpcUrl
+      }
+    : network
 }
 
 /**
  * MagicLinkWallet is wallet implementation for MagicLink
  */
 export class MagicLinkService {
-  static async initialize(email) {
+  static async initialize(email, network) {
+    if (!process.browser) return
+    const publishableKey = process.env.MAGIC_LOGIN_PUBLISHABLE_KEY
+    const magic = new Magic(publishableKey, {
+      network: getNetworkObject(network)
+    })
     const isLoggedIn = await magic.user.isLoggedIn()
     if (isLoggedIn) {
       const provider = new ethers.providers.Web3Provider(magic.rpcProvider)
       const address = await provider.getSigner().getAddress()
-      const network = await provider.getNetwork()
+      await provider.ready
       return new Web3Wallet(address, provider)
     } else {
       await magic.auth.loginWithMagicLink({ email })
