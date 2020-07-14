@@ -9,6 +9,11 @@ export class PETHContract {
 
   connection
 
+  /**
+   * constructor
+   * @param {*} address hex string of contract address
+   * @param {*} signer signer object of ethers.js
+   */
   constructor(address, signer) {
     this.connection = new Contract(address, PETHContract.abi, signer)
   }
@@ -20,7 +25,9 @@ export class PETHContract {
    */
   async wrap(amount) {
     const bigNumberifiedAmount = new BigNumber(amount.toString())
-    await this.connection.wrap(bigNumberifiedAmount)
+    await this.connection.wrap(bigNumberifiedAmount, {
+      value: bigNumberifiedAmount
+    })
   }
 
   /**
