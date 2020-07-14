@@ -25,7 +25,9 @@ export class PETHContract {
    */
   async wrap(amount) {
     const bigNumberifiedAmount = new BigNumber(amount.toString())
-    await this.connection.wrap(bigNumberifiedAmount)
+    await this.connection.wrap(bigNumberifiedAmount, {
+      value: bigNumberifiedAmount
+    })
   }
 
   /**
