@@ -6,8 +6,17 @@ import { ethers } from 'ethers'
  */
 export class MetamaskService {
   static async initialize(networkName) {
-    const provider = new ethers.providers.Web3Provider(web3.currentProvider)
+    if (typeof window.ethereum === undefined) {
+      throw new Error('cannot find ethereum object.')
+    }
+    // to support privacy mode of MetaMask
+    await window.ethereum.enable()
+    window.web3 = new Web3(window.ethereum)
+    const provider = new ethers.providers.Web3Provider(
+      window.web3.currentProvider
+    )
     const address = await provider.getSigner().getAddress()
+    // wait the network is ready
     const network = await provider.ready
     if (networkName !== 'local' && network.name !== networkName) {
       throw new Error(
