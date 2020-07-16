@@ -6,7 +6,7 @@ import { TokenSelectButton } from './TokenSelectButton'
 import { setExchangedToken, setReceivedToken } from '../store/exchange'
 import { PrimaryButton } from './PrimaryButton'
 import { SectionTitle } from '../components/SectionTitle'
-import { getTokenByTokenContractAddress } from '../tokens'
+import { getTokenByTokenContractAddress, TOKEN_LIST } from '../constants/tokens'
 import {
   EXTRABOLD,
   XSMALL,
@@ -15,13 +15,13 @@ import {
   MEDIUM,
   LARGER,
   LARGERPLUS
-} from '../fonts'
+} from '../constants/fonts'
 import {
   SUBTEXT,
   SECTION_BACKGROUND,
   BORDER,
   PRIMARY_BUTTON_TEXT
-} from '../colors'
+} from '../constants/colors'
 import { openModal } from '../routes'
 
 const OrderBook = props => {

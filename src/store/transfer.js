@@ -59,8 +59,8 @@ export const transfer = (amount, tokenContractAddress, recipientAddress) => {
       const client = await clientWrapper.getClient()
       if (!client) return
       await client.transfer(amountWei, tokenContractAddress, recipientAddress)
-      dispatch(setTransferPage('completion-page'))
       dispatch(clearState())
+      dispatch(setTransferPage('completion-page'))
     } catch (error) {
       console.log(error)
       dispatch(setTransferError(error.message))

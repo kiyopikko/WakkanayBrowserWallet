@@ -1,6 +1,6 @@
-import { SMALL, MEDIUM } from '../fonts'
+import { SMALL, MEDIUM } from '../constants/fonts'
 import { TokenSelectButton } from './TokenSelectButton'
-import { TOKEN_LIST } from '../tokens'
+import { TOKEN_LIST } from '../constants/tokens'
 import Dropdown from './Dropdown'
 
 /**

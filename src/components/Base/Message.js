@@ -1,14 +1,14 @@
 import React from 'react'
-import { TEXT_ERROR } from '../../colors'
+import { MAIN } from '../../constants/colors'
 
-export default props => {
+export default ({ children, color }) => {
   return (
     <p>
-      {props.children}
+      {children}
       <style jsx>{`
         p {
           margin: 1rem;
-          color: ${TEXT_ERROR};
+          color: ${color || MAIN};
         }
       `}</style>
     </p>

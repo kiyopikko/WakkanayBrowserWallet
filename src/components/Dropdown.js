@@ -1,5 +1,5 @@
 import ClickOutside from 'react-click-outside'
-import { BACKGROUND } from '../colors'
+import { BACKGROUND } from '../constants/colors'
 import React, { useState, Fragment } from 'react'
 import DropdownContent from './DropdownContent'
 const Dropdown = ({

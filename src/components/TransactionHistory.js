@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import { SUBTEXT } from '../colors'
-import { FZ_SMALL, FW_BOLD, FZ_MEDIUM } from '../fonts'
+import { SUBTEXT } from '../constants/colors'
+import { FZ_SMALL, FW_BOLD, FZ_MEDIUM } from '../constants/fonts'
 import { getTransactionHistories } from '../store/transaction_history'
 
 const TransactionHistory = props => {

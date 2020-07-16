@@ -3,8 +3,14 @@ import { connect } from 'react-redux'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import classnames from 'classnames'
 import { SectionTitle } from '../components/SectionTitle'
-import { SUBTEXT, BACKGROUND, MAIN, White, MAIN_DARK } from '../colors'
-import { FW_NORMAL, FW_BLACK, FZ_MEDIUM, FW_BOLD } from '../fonts'
+import {
+  SUBTEXT,
+  BACKGROUND,
+  MAIN,
+  White,
+  MAIN_DARK
+} from '../constants/colors'
+import { FW_NORMAL, FW_BLACK, FZ_MEDIUM, FW_BOLD } from '../constants/fonts'
 
 const Receive = ({ address }) => {
   const [copied, setCopied] = useState(false)

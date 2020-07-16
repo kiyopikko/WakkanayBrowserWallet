@@ -20,7 +20,7 @@ import {
   XXSMALL,
   MEDIUM,
   SMALLPLUS
-} from '../fonts'
+} from '../constants/fonts'
 import {
   SUBTEXT,
   BORDER,
@@ -28,7 +28,7 @@ import {
   BORDER_DARK,
   PRIMARY_BUTTON_TEXT,
   White
-} from '../colors'
+} from '../constants/colors'
 
 //redux
 import { connect } from 'react-redux'

@@ -1,11 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import Button from './Base/Button'
-
 import { shortenAddress, roundBalance } from '../utils'
-import { SUBTEXT, BACKGROUND, TEXT } from '../colors'
-import { FZ_HEADLINE, FW_BLACK, FZ_MEDIUM, FW_BOLD, FZ_SMALL } from '../fonts'
+import { SUBTEXT, BACKGROUND, TEXT } from '../constants/colors'
+import {
+  FZ_HEADLINE,
+  FW_BLACK,
+  FZ_MEDIUM,
+  FW_BOLD,
+  FZ_SMALL
+} from '../constants/fonts'
 
 const Confirmation = ({
   /* Component */

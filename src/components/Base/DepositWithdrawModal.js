@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-
 import { BaseModal } from './BaseModal'
 import Button from './Button'
 import { TokenSelector } from '../TokenSelector'
 import Confirmation from '../Confirmation'
 import TokenInput from '../TokenInput'
-
-import { getTokenByTokenContractAddress } from '../../tokens'
 import { config } from '../../config'
 import { DEPOSIT_PROGRESS } from '../../store/deposit'
-import { FZ_MEDIUM, FW_BLACK } from '../../fonts'
-import { SUBTEXT } from '../../colors'
+import { SUBTEXT } from '../../constants/colors'
+import { FZ_MEDIUM, FW_BLACK } from '../../constants/fonts'
+import { getTokenByTokenContractAddress } from '../../constants/tokens'
 
 const modalTexts = {
   deposit: {

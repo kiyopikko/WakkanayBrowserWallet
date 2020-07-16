@@ -1,7 +1,7 @@
 import { formatEther } from 'ethers/utils'
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import clientWrapper from '../client'
-import { getTokenByTokenContractAddress } from '../tokens'
+import { getTokenByTokenContractAddress } from '../constants/tokens'
 
 export const setHistoryList = createAction('SET_HISTORY_LIST')
 

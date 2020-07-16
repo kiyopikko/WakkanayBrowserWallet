@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { MAIN, Main, MAIN_DARK, White } from '../colors'
-import { FW_NORMAL, FZ_MEDIUM } from '../fonts'
+import { MAIN, Main, MAIN_DARK, White } from '../constants/colors'
+import { FW_NORMAL, FZ_MEDIUM } from '../constants/fonts'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import { HISTORY, PAYMENT } from '../routes'

@@ -6,10 +6,10 @@ import {
   initializeWalletConnect
 } from '../store/appStatus'
 import { connect } from 'react-redux'
-import { FZ_MEDIUM } from '../fonts'
+import { FZ_MEDIUM } from '../constants/fonts'
 import Input from './Base/Input'
 import Button from './Base/Button'
-import { BORDER, White, PLACEHOLDER } from '../colors'
+import { BORDER, White, PLACEHOLDER } from '../constants/colors'
 
 const StartUpModal = props => {
   const [email, setEmail] = useState('')

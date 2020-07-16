@@ -1,4 +1,4 @@
-import { White } from '../../colors'
+import { White } from '../../constants/colors'
 
 export default ({ children }) => {
   return (

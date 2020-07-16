@@ -15,7 +15,13 @@ import { roundBalance } from '../utils'
 import Dropdown from './Dropdown'
 import { PrimaryButton } from './PrimaryButton'
 import { TokenSelectButton } from './TokenSelectButton'
-import { SUBTEXT, BORDER, PRIMARY_BUTTON_TEXT, White, Black } from '../colors'
+import {
+  SUBTEXT,
+  BORDER,
+  PRIMARY_BUTTON_TEXT,
+  White,
+  Black
+} from '../constants/colors'
 import {
   XSMALL,
   SMALLER,
@@ -24,8 +30,8 @@ import {
   XLARGE,
   XXSMALL,
   NORMAL
-} from '../fonts'
-import { getTokenByTokenContractAddress, TOKEN_LIST } from '../tokens'
+} from '../constants/fonts'
+import { getTokenByTokenContractAddress, TOKEN_LIST } from '../constants/tokens'
 import { BaseModal } from './Base/BaseModal'
 
 const OrderRequestModal = props => {

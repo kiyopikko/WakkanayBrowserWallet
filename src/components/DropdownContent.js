@@ -1,6 +1,6 @@
-import { TEXT, SUBTEXT, BACKGROUND, White } from '../colors'
+import { TEXT, SUBTEXT, BACKGROUND, White } from '../constants/colors'
 import React, { Fragment } from 'react'
-import { Z_DROPDOWN } from '../zindex'
+import { Z_DROPDOWN } from '../constants/zindex'
 
 const DropdownContent = ({ onSelect, items, renderItem }) => {
   const selectItem = (e, item) => {

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { formatUnits } from 'ethers/utils'
 import { createSelector } from 'reselect'
 import clientWrapper from '../client'
-import { TOKEN_LIST, getTokenByTokenContractAddress } from '../tokens'
+import { TOKEN_LIST, getTokenByTokenContractAddress } from '../constants/tokens'
 import { roundBalance } from '../utils'
 
 // selector

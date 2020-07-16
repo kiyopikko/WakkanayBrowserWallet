@@ -1,7 +1,11 @@
 import React from 'react'
 import Router from 'next/router'
 import ClickOutside from 'react-click-outside'
-import { MODAL_BACKGROUND, MODAL_MAIN_BACKGROUND, TEXT } from '../../colors'
+import {
+  MODAL_BACKGROUND,
+  MODAL_MAIN_BACKGROUND,
+  TEXT
+} from '../../constants/colors'
 
 /**
  * General Modal Component for Browser Plasma Wallet
