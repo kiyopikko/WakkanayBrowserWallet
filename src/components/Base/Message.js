@@ -1,15 +1,21 @@
 import React from 'react'
+import { MAIN } from '../../constants/colors'
 
-export default props => {
+const Message = ({ children, color }) => {
   return (
     <p>
-      {props.children}
+      {children}
       <style jsx>{`
         p {
           margin: 1rem;
-          color: ${props.color};
+          color: ${color};
         }
       `}</style>
     </p>
   )
 }
+Message.defaultProps = {
+  color: MAIN
+}
+
+export default Message
