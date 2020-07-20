@@ -25,6 +25,9 @@ export default props => {
           font-size: ${FZ_MEDIUM};
           font-weight: ${FW_BLACK};
         }
+        .button.full + .button.full {
+          margin-top: 0.875rem;
+        }
         .button:not(:disabled) {
           cursor: pointer;
         }
